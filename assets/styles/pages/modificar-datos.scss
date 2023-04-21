@@ -1,0 +1,324 @@
+.section1-modificar{
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+  margin-right: 0px!important;
+  margin-left: 0px;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 10px 10px;
+
+  .modificar-container{
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 20px;
+    overflow-x: hidden;
+    box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
+
+    .title-modificar{
+      --c: var(--primary);
+      --fw: 500;
+      font-size: 22px;
+    }
+
+    hr{
+      border: solid 1px rgba(#000000,0.1);
+      width: 130%;
+      margin-left: -20px;
+    }
+
+    .textfield-search-container{
+      max-width: 70%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+
+      .autocomplete-field{
+        padding-left: 10px;
+        max-width: 100px;
+        max-height: 66px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+
+        @include media(max, 669px){
+          min-width: 250px;
+        }
+      }
+
+      .inputs-consulta{
+        border-radius: 10px;
+        padding-inline: 10px;
+        max-height: 66px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        max-width: 300px;
+
+        @include media(max, 669px){
+          min-width: 250px;
+        }
+      }
+
+      .inputs-consulta:active, .inputs-consulta:focus-within{
+        border: 1px solid var(--primary)!important;
+      }
+
+      .btn-buscar{
+        background-color: var(--primary);
+        min-height: 55px;
+        height: 55px;
+        border-radius: 0.5em;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)!important;
+        width: 250px;
+        border-radius: 50px;
+
+        @include media(max, 669px){
+          min-width: 250px;
+        }
+
+        span{
+          --c: #fff;
+          font-weight: 700!important;
+        }
+      }
+    }
+  }
+}
+
+
+.section2-modificar{
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+  margin-right: 0px!important;
+  margin-left: 0px;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 10px 10px;
+
+  .datos-contribuyente-div{
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 20px;
+    overflow-x: hidden;
+    box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+
+    .col-mobile{
+      @include media(max, 430px){
+        flex-direction: column;
+      }
+    }
+
+    .title-modificar{
+      --c: var(--primary);
+      --fw: 500;
+      font-size: 22px;
+    }
+
+    hr{
+      border: solid 1px rgba(#000000,0.1);
+      width: 130%;
+      margin-left: -20px;
+    }
+
+    .inputs-datos-container{
+      width: 100%;
+      padding-inline: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      flex-direction: row;
+      gap: 10px;
+
+      .radio-container{
+        max-width: 280px;
+        min-width: 280px;
+        border: 1px solid var(--primary);
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 5px;
+        position: relative;
+        max-height: 70px;
+        margin-top: 7px;
+
+        span{
+          position: absolute;
+          font-size: 13px;
+          top: 0px;
+          left: 5px;
+        }
+
+        .v-label{
+          font-size:13px;
+        }
+      }
+
+      .autocomplete-field{
+        padding-left: 10px;
+        max-width: 100px;
+        max-height: 66px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+      }
+
+      .input-big{
+        padding-left: 10px;
+        max-height: 66px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        max-width: 500px;
+        min-width: 250px;
+      }
+
+      .input-big:active, .input-big:focus-within, .input-medium:active, .input-medium:focus-within, .input-correo:active, .input-correo:focus-within{
+        border: 1px solid var(--primary)!important;
+      }
+
+      .input-medium{
+        padding-left: 10px;
+        max-height: 66px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        max-width: 430px;
+        min-width: 400px;
+
+        @include media(max, 600px){
+          max-width: 250px;
+          min-width: 250px;
+        }
+      }
+
+      .input-correo{
+        padding-left: 10px;
+        max-height: 66px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        max-width: 650px;
+        min-width: 400px;
+
+        @include media(max, 600px){
+          max-width: 250px;
+          min-width: 250px;
+        }
+      }
+
+
+      .input-textarea{
+        padding-left: 10px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        width: 96%;
+        max-width: 96%;
+      }
+
+      .input-textarea:active, .input-textarea:focus-within{
+        border: 1px solid var(--primary)!important;
+      }
+    }
+  }
+
+  .div-btns{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .v-btn{
+      background-color: var(--primary);
+      margin-bottom: 10px;
+      min-height: 55px;
+      height: 55px;
+      border-radius: 0.5em;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)!important;
+      width: 450px;
+      border-radius: 50px;
+
+      @include media(max, 500px){
+        max-width: 250px;
+      }
+
+      span{
+        --c: #fff;
+        font-weight: 700!important;
+      }
+    }
+  }
+}
+
+//////////////////////////dialogsss///////////////////////////
+/// 
+
+
+.v-dialog{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+
+  .card-dialog-exito{
+    background-color: #fff;
+    max-width: 600px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .v-icon{
+      --c:var(--primary);
+      font-size: 30px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .p-dialog{
+      --c:var(--primary);
+      font-size: 22px;
+      font-weight: 700px!important;
+      text-align: center;
+    }
+  }
+}
+
+////////Barrita transversal del input/////////
+//////////////////////////////////////////////
+
+
+.v-input__slot:before{
+  border-color: #fff!important;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before, 
+.v-text-field > .v-input__control > .v-input__slot:after {
+  width: 0%;
+}

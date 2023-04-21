@@ -1,0 +1,302 @@
+
+.section1-dashboard{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 1440px;
+  width: 100%;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+  margin-right: 0px!important;
+  margin-left: 0px;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 10px 10px;
+
+  .cards-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 0px 0px 40px 0px;
+
+    .dashboard-cards-small{
+      background-color: #fff;
+      width: 230px;
+      height: 300px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+
+      .title{
+        --c:#000;
+        --fw: 400;
+        font-family: var(--font1);
+        font-size: 16px!important;
+        line-height: 18px;
+      }
+
+      .number{
+        --c:#000;
+        --fw: 500;
+        font-size: 28px;
+      }
+
+      p{
+        margin-bottom: 0px;
+        --c:rgba(0,0,0,0.5);
+        .green-number{
+          --c: #25ac60;
+          --fw: 500;
+        }
+      }
+    }
+
+    .total-inmuebles-card{
+      background-color: var(--primary);
+      width: 380px;
+      height: 300px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+
+      .title{
+        --c:#fff;
+        --fw: 400;
+        font-family: var(--font1);
+        font-size: 16px!important;
+        line-height: 18px;
+      }
+
+      .number{
+        --c:#fff;
+        --fw: 500;
+        font-size: 28px;
+      }
+
+      p{
+        margin-bottom: 0px;
+        --c:rgba(255, 255, 255, 0.5);
+        .green-number{
+          --c: #25ac60;
+          --fw: 500;
+        }
+      }
+    }
+  }
+
+  .consultar-card-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+
+    @include media(max, 1200px){
+      flex-wrap: wrap;
+    }
+
+    .consulta-inputs-container{
+      background-color: #fff;
+      max-width: 990px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border-radius: 10px;
+      gap: 20px;
+      overflow-x: hidden;
+
+      .title-consultar{
+        --c: var(--primary);
+        --fw: 500;
+        font-size: 22px;
+      }
+
+      hr{
+        border: solid 1px rgba(#000000,0.1);
+        width: 130%;
+        margin-left: -20px;
+      }
+
+      .inputs-btn-container{
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        @include media(max, 650px){
+          flex-direction: column;
+        }
+
+        .autocomplete-field{
+          padding-left: 10px;
+          max-width: 100px;
+          max-height: 66px;
+          border-radius: 10px;
+          box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+
+          @include media(max, 650px){
+            width: 100%;
+            max-width: 274px;
+          }
+        }
+
+        .inputs-consulta{
+          border-radius: 10px;
+          padding-inline: 10px;
+          max-height: 66px;
+          box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        }
+
+        .inputs-consulta:active, .inputs-consulta:focus-within{
+          border: 1px solid var(--primary)!important;
+        }
+
+        .search-btn{
+          height: 66px;
+          max-height: 66px;
+          border-radius: 10px;
+          background-color: #fff;
+
+          @include media(max, 650px){
+            width: 100%;
+            max-width: 274px;
+          }
+        }
+      }
+    }
+
+    .solicitudes-procesadas-card{
+      background-color: var(--primary);
+      width: 380px;
+      height: 300px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+
+      .title{
+        --c:#fff;
+        --fw: 400;
+        font-family: var(--font1);
+        font-size: 16px!important;
+        line-height: 18px;
+      }
+
+      .number{
+        --c:#fff;
+        --fw: 500;
+        font-size: 28px;
+      }
+
+      p{
+        margin-bottom: 0px;
+        --c:rgba(255, 255, 255, 0.5);
+        .green-number{
+          --c: #25ac60;
+          --fw: 500;
+        }
+      }
+    }
+  }
+
+  .accesos-rapidos-container{
+    background-color: #fff;
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 20px;
+    overflow-x: hidden;
+    margin-left: 10px;
+
+    .title-acceso{
+      --c: var(--primary);
+      --fw: 500;
+      font-size: 22px;
+    }
+
+    hr{
+      border: solid 1px rgba(#000000,0.1);
+      width: 130%;
+      margin-left: -20px;
+    }
+
+    .btn-add{
+      box-shadow: none;
+      --c: var(--primary)!important;
+      font-size: 40px!important;
+      background-color: #fff;
+    }
+
+    .cards-add-menu-container{
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 20px;
+      flex-direction: row;
+      display: flex;
+      justify-content: center;
+
+      .cards-acceso-rapido{
+        background-color: #fff;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        width: 205px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+
+        .title-card{
+          text-align: center;
+          --fw:400;
+        }
+
+        .icon-card{
+          color: var(--primary);
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////Barrita transversal del input/////////
+//////////////////////////////////////////////
+
+
+.v-input__slot:before{
+  border-color: #fff!important;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before, 
+.v-text-field > .v-input__control > .v-input__slot:after {
+  width: 0%;
+}

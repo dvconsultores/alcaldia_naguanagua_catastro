@@ -1,0 +1,216 @@
+.section-login{
+  padding-top: 20px;
+  padding-bottom: 100px;
+
+  img[alt="Escudo-Naguanagua"]{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+
+  img[alt="morado"]{
+    position: absolute;
+    bottom: 0px;
+    width: 100vw;
+  }
+
+  .container-login{
+    max-width: 450px;
+    padding-bottom: 100px;
+
+    @include media(max, 500px){
+      max-width: 300px;
+      margin: 20px;
+    }
+
+    img[alt="AlcaldiaLogo"]{
+      width: 250px;
+
+      @include media(max, 600px){
+        width: 200px;
+      }
+    }
+
+    h2{
+      --c: var(--primary);
+      font-weight: 700!important;
+      margin: 40px 0;
+      text-align: center;
+      font-size: 40px;
+    }
+
+    .inputs-btns{
+      display: flex;
+      flex-direction: column;
+      width: 450px;
+      align-items: center;
+
+      @include media(max, 500px){
+        max-width: 300px;
+      }
+
+      .inputs{
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3)!important;
+        background-color: #fff;
+        border-radius: 1em;
+        margin-bottom: 30px;
+        padding: 15px 15px;
+        height: 65px;
+        display: grid;
+        place-items: center;
+        width: 450px;
+
+        @include media(max, 500px){
+          width: 300px;
+        }
+
+        ::after{
+          display: none;
+        }
+
+        ::placeholder{
+          color:#7d7d7d;
+        }
+      }
+
+      .inputs:nth-child(1){
+        ::before{
+          display: none;
+        }
+      }
+
+      .checkbox-span{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        width: 450px;
+
+        @include media(max, 500px){
+          max-width: 300px;
+        }
+
+        .v-input__slot{
+
+          .v-label{
+            font-weight: 500!important;
+          }
+        }
+        
+        span{
+          font-weight: 500!important;
+          text-align: right;
+        }
+      }
+
+      .v-btn{
+        background-color: var(--primary);
+        margin-bottom: 30px;
+        min-height: 55px;
+        height: 55px;
+        border-radius: 0.5em;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)!important;
+        width: 450px;
+        border-radius: 50px;
+
+        @include media(max, 500px){
+          max-width: 300px;
+        }
+
+        span{
+          --c: #fff;
+          font-weight: 700!important;
+        }
+      }
+
+      .last-span{
+        --c:var(--primary);
+        text-align: center;
+        font-weight: 500!important;
+        margin-top: 40px;
+
+        a{
+          font-weight: 700!important;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+.dialogo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  max-width: 380px;
+  overflow: visible;
+
+  .card-recuperar{
+    background-color: #fff;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3)!important;
+    max-width: 380px;
+    width: 100%;
+    height: 250px;
+    border-radius: 1em;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    .icon{
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background-color: var(--secondary);
+      border-radius: 50%;
+      --c:#fff;
+      width: 30px;
+      height: 30px;
+    }
+
+    img{
+      width: 100px;
+    }
+
+    p{
+      --c:var(--primary);
+      --fw:700;
+      margin-bottom: 0px;
+    }
+
+    .text-field-password{
+      border-radius: 0.5em;
+      box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3)!important;
+      max-width: 360px;
+      width: 100%;
+      height: 55px;
+      max-height: 55px;
+      padding: 10px 10px;
+    }
+
+    .v-btn{
+      background-color: var(--primary);
+      --c:#fff!important;
+      --fw:500;
+      width: 100px;
+    }
+  }
+}
+
+////////Barrita transversal del input/////////
+//////////////////////////////////////////////
+
+
+.v-input__slot:before{
+  border-color: #fff!important;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before, 
+.v-text-field > .v-input__control > .v-input__slot:after {
+  width: 0%;
+}

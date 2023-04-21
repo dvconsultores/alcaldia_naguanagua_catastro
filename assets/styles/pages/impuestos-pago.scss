@@ -1,0 +1,538 @@
+.section1-impuestos-pagos{
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
+  overflow-x: hidden;
+  margin-right: 0px!important;
+  margin-left: 0px;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 10px 10px;
+
+  .propietario-container{
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    padding: 90px 0px 20px 0px;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    border: 1px solid var(--primary);
+    margin-bottom: 30px;
+
+    .absolute-line{
+      width: 1px;
+      height: 90px;
+      background-color: var(--primary);
+      position: absolute;
+      top: 70px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+
+      @include media(max, 541px){
+        height: 1px;
+        width: 190px;
+      }
+    }
+
+    .container-blanco{
+      background-color: #fff;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      span{
+        --c: var(--primary);
+        --fw: 700;
+        margin-bottom: 0px;
+        font-size: 22px;
+      }
+
+      .icon-chevron{
+        --c:#fff;
+        font-size: 45px;
+      }
+    }
+
+    .container-datos-contribuyente{
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-around;
+      gap: 10px;
+
+      .title-description-div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        gap: 20px;
+        height: 120px;
+        min-width: 300px;
+
+        @include media(max, 960px){
+          min-width: 200px;
+        }
+
+        @include media(max, 780px){
+          width: 250px;
+        }
+
+        .nombre-razon{
+          --c:#707070;
+          text-align: center;
+          margin-bottom: 0px;
+        }
+
+        .nombre-desc{
+          --c:var(--primary);
+          --fw: 700;
+          font-size: 22px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .observaciones-container{
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
+    overflow-x: hidden;
+    margin-bottom: 30px;
+
+    .title-observaciones{
+      --c: var(--primary);
+      --fw: 700;
+      font-size: 22px;
+      margin-bottom: 0px;
+    }
+
+    .btn-mas{
+      background-color: #fff;
+      box-shadow: none!important;
+      font-size: 40px!important;
+      --c:var(--primary)!important;
+    }
+
+    hr{
+      border: solid 1px rgba(#000000,0.1);
+      width: 130%;
+      margin-left: -20px;
+    }
+
+    .textarea{
+      border-radius: 10px;
+      padding-inline: 10px;
+      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+      max-width: 90%;
+    }
+
+    .textarea:active, .textarea:focus-within{
+      border: 1px solid var(--primary)!important;
+    }
+  }
+
+  .descripcion-impuestos{
+    position: relative;
+    width: 100%;
+    padding-top: 120px;
+    border-radius: 10px;
+    padding: 120px 20px 20px 0px;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    display: grid;
+    justify-items: center;
+    overflow-x: hidden;
+    margin-bottom: 30px;
+
+    .title-morado{
+      background-color: var(--primary);
+      position: absolute;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .impuestos-title{
+        --c: #fff;
+        --fw: 700;
+        margin-bottom: 0px;
+        font-size: 22px;
+      }
+    }
+
+    .solicitud-inputs-container{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-inline: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .small-input{
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 65px;
+        max-width: 200px;
+        min-width: 150px;
+
+        @include media(max, 650px){
+          max-width: 250px;
+          min-width: 250px;
+        }
+      }
+
+      .big-input{
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 65px;
+        max-width: 350px;
+        min-width: 150px;
+
+        @include media(max, 650px){
+          max-width: 250px;
+          min-width: 250px;
+        }
+      }
+    }
+  }
+}
+
+
+.section2-impuestos-pagos{
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
+  overflow-x: hidden;
+  margin-right: 0px!important;
+  margin-left: 0px;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 10px 10px;
+  justify-content: center;
+  align-items: center;
+
+  .tipo-pago-container{
+    position: relative;
+    width: 100%;
+    padding-top: 120px;
+    border-radius: 10px;
+    padding: 120px 20px 20px 0px;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    display: grid;
+    justify-items: center;
+    overflow-x: hidden;
+    margin-bottom: 30px;
+
+    .title-morado{
+      background-color: var(--primary);
+      position: absolute;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .tipo-pago-title{
+        --c: #fff;
+        --fw: 700;
+        margin-bottom: 0px;
+        font-size: 22px;
+      }
+    }
+
+    .btns-add-remove{
+      background-color: #fff;
+      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+      min-height: 65px;
+      height: 65px;
+      border-radius: 10px;
+      --c:var(--primary)!important;
+      font-size: 40px!important;
+
+      @include media(max, 595px){
+        width: 250px;
+      }
+    }
+
+    .no-shadow{
+      box-shadow: none!important;
+      height: 30px;
+      min-height: 30px;
+      margin-top: -15px;
+      margin-right: -20px;
+      margin-bottom: 30px;
+      justify-self:flex-end;
+    }
+
+    .solicitud-inputs-container{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-inline: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+
+      @include media(max, 650px){
+        justify-content: center;
+      }
+
+      .big-autocomplete{
+        max-width: 500px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 65px;
+
+        @include media(max, 1260px){
+          min-width: 300px;
+        }
+      }
+
+      .small-input{
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 65px;
+        max-width: 255px;
+        min-width: 150px;
+      }
+    }
+  }
+
+  .div-btns{
+    max-width: 650px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .size-btn{
+      width: 300px!important;
+    }
+  }
+}
+
+
+//////////////////////////dialogsss///////////////////////////
+/// 
+
+//////////////////////////dialogsss///////////////////////////
+/// 
+
+
+.v-dialog{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+
+  .card-dialog-exito{
+    background-color: #fff;
+    max-width: 600px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .v-icon{
+      --c:var(--primary);
+      font-size: 30px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .p-dialog{
+      --c:var(--primary);
+      font-size: 22px;
+      font-weight: 700px!important;
+      text-align: center;
+    }
+  }
+}
+
+
+.v-dialog{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+
+  .card-dialog-guardar{
+    background-color: #fff;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-block: 20px;
+    overflow-x: hidden;
+    padding-inline: 10px;
+
+    .close-icon{
+      --c:var(--primary);
+      font-size: 30px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .p-dialog{
+      --c:var(--primary);
+      font-size: 22px;
+      font-weight: 700px!important;
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    hr{
+      border: solid 1px var(--primary);
+      width: 130%;
+      margin-left: -20px;
+    }
+
+    .inputs-dialog-container{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      max-width: 500px;
+      margin-block: 20px;
+      gap: 10px;
+
+      .input-dialog{
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 65px;
+        max-width: 450px;
+        min-width: 250px;
+
+        @include media(max, 650px){
+          max-width: 250px;
+          min-width: 250px;
+        }
+      }
+
+      .input-dialog-small{
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 65px;
+        max-width: 220px;
+
+        @include media(max, 650px){
+          max-width: 250px;
+          min-width: 250px;
+        }
+      }
+
+      .radio-container{
+        max-width: 450px;
+        min-width: 280px;
+        width: 100%;
+        border: 1px solid var(--primary);
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 5px;
+        position: relative;
+        max-height: 70px;
+
+        span{
+          position: absolute;
+          font-size: 13px;
+          top: 0px;
+          left: 5px;
+        }
+
+        .v-label{
+          font-size:14px;
+        }
+      }
+    }
+
+    .btn-dialog{
+      max-width: 200px!important;
+      min-width: 200px!important;
+    }
+
+    .flex-column{
+      @include media(max,450px){
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+
+////////Barrita transversal del input/////////
+//////////////////////////////////////////////
+
+
+.v-input__slot:before{
+  border-color: #fff!important;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before, 
+.v-text-field > .v-input__control > .v-input__slot:after {
+  width: 0%;
+}

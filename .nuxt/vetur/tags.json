@@ -1,0 +1,32 @@
+{
+  "Alerts": {
+    "description": "Auto imported from components/alerts.vue"
+  },
+  "CustomeDrawer": {
+    "description": "Auto imported from components/custome-drawer.vue"
+  },
+  "Drawer": {
+    "description": "Auto imported from components/drawer.vue"
+  },
+  "Filters": {
+    "description": "Auto imported from components/filters.vue"
+  },
+  "Footer": {
+    "description": "Auto imported from components/footer.vue"
+  },
+  "MenuNavbar": {
+    "description": "Auto imported from components/menu-navbar.vue"
+  },
+  "Navbar": {
+    "description": "Auto imported from components/navbar.vue"
+  },
+  "Pagination": {
+    "description": "Auto imported from components/pagination.vue"
+  },
+  "ModalsConfirmMsg": {
+    "description": "Auto imported from components/modals/confirmMsg.vue"
+  },
+  "ModalsConnect": {
+    "description": "Auto imported from components/modals/connect.vue"
+  }
+}

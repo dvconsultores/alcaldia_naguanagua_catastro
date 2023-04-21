@@ -1,0 +1,390 @@
+.section1-consultar-propietario{
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+  margin-right: 0px!important;
+  margin-left: 0px;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 10px 10px;
+
+  .consulta-propietario-container{
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 20px;
+    overflow-x: hidden;
+    box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
+
+    .title-propietario{
+      --c: var(--primary);
+      --fw: 500;
+      font-size: 22px;
+    }
+
+    hr{
+      border: solid 1px rgba(#000000,0.1);
+      width: 130%;
+      margin-left: -20px;
+    }
+
+    .textfield-search-container{
+      max-width: 70%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+
+      .autocomplete-field{
+        padding-left: 10px;
+        max-width: 100px;
+        max-height: 66px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+
+        @include media(max, 669px){
+          min-width: 250px;
+        }
+      }
+
+      .inputs-consulta{
+        border-radius: 10px;
+        padding-inline: 10px;
+        max-height: 66px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        max-width: 300px;
+
+        @include media(max, 669px){
+          min-width: 250px;
+        }
+      }
+
+      .inputs-consulta:active, .inputs-consulta:focus-within{
+        border: 1px solid var(--primary)!important;
+      }
+
+      .btn-buscar{
+        background-color: var(--primary);
+        min-height: 55px;
+        height: 55px;
+        border-radius: 0.5em;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)!important;
+        width: 250px;
+        border-radius: 50px;
+
+        @include media(max, 669px){
+          min-width: 250px;
+        }
+
+        span{
+          --c: #fff;
+          font-weight: 700!important;
+        }
+      }
+    }
+  }
+}
+
+
+.section2-consultar-propietario{
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+  margin-right: 0px!important;
+  margin-left: 0px;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 10px 10px;
+
+  .datos-propietario-container{
+    position: relative;
+    width: 100%;
+    padding-top: 120px;
+    border-radius: 10px;
+    padding: 120px 0px 20px 0px;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    border: 1px solid var(--primary);
+    margin-bottom: 30px;
+
+    .container-morado{
+      background-color: var(--primary);
+      position: absolute;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      span{
+        --c: #fff;
+        --fw: 700;
+        margin-bottom: 0px;
+        font-size: 22px;
+      }
+
+      .icon-chevron{
+        --c:#fff;
+        font-size: 45px;
+      }
+    }
+
+    .container-datos-propietario{
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+      gap: 10px;
+
+      .title-description-div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        gap: 20px;
+        height: 120px;
+        min-width: 300px;
+        border-right: 1px solid var(--primary);
+
+        @include media(max, 960px){
+          min-width: 200px;
+        }
+
+        @include media(max, 780px){
+          width: 250px;
+        }
+
+        .nombre-razon{
+          --c:#707070;
+          text-align: center;
+          margin-bottom: 0px;
+        }
+
+        .nombre-desc{
+          --c:var(--primary);
+          --fw: 700;
+          font-size: 22px;
+          text-align: center;
+        }
+      }
+    }
+
+    .container-detalles-inmueble{
+      width: 100%;
+      margin-top: 30px;
+
+      .titles-grid{
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(1, 100%);
+        padding-inline: 10px;
+
+        .big-title{
+          --c:var(--primary);
+          --fw:700;
+          font-size: 20px;
+          grid-column: 1 / 7;
+          align-self: center;
+          margin-bottom: 0px;
+
+          @include media(max, 1400px){
+            font-size: 16px;
+          }
+        }
+
+        .ubicacion{
+          --c:var(--primary);
+          --fw:700;
+          font-size: 20px;
+          grid-column: 7 / 8;
+          align-self: center;
+          margin-bottom: 0px;
+          justify-self: center;
+          padding-inline: 5px;
+
+
+          @include media(max, 1400px){
+            font-size: 16px;
+          }
+        }
+
+        .condicion{
+          --c:var(--primary);
+          --fw:700;
+          font-size: 20px;
+          grid-column: 8 / 9;
+          align-self: center;
+          margin-bottom: 0px;
+          justify-self: center;
+          padding-inline: 5px;
+
+
+          @include media(max, 1400px){
+            font-size: 16px;
+          }
+        }
+
+        .status{
+          --c:var(--primary);
+          --fw:700;
+          font-size: 20px;
+          grid-column: 9 / 10;
+          align-self: center;
+          margin-bottom: 0px;
+          justify-self: center;
+          padding-inline: 5px;
+
+
+          @include media(max, 1400px){
+            font-size: 16px;
+          }
+        }
+      }
+
+      .detalles-grid{
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(1, 100%);
+        padding-inline: 10px;
+        margin-top: 30px;
+
+        .inputs-container{
+          grid-column: 1 / 7;
+          gap: 10px;
+          display: flex;
+          flex-wrap: wrap;
+
+          .small-input{
+            border-radius: 10px;
+            padding-inline: 10px;
+            max-height: 65px;
+            max-width: 130px;
+            min-width: 130px;
+            box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+            border: 1px solid var(--primary);
+          }
+
+          .big-input{
+            border-radius: 10px;
+            padding-inline: 10px;
+            max-height: 65px;
+            max-width: 270px;
+            min-width: 270px;
+            box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+            border: 1px solid var(--primary);
+          }
+        }
+
+        .ubicacion-desc{
+          --c:#000;
+          --fw:700;
+          font-size: 16px;
+          grid-column: 7 / 8;
+          align-self: center;
+          margin-bottom: 0px;
+          justify-self: center;
+          text-align: center;
+          padding-inline: 5px;
+
+          @include media(max, 1400px){
+            font-size: 12px;
+          }
+        }
+
+        .condicion-desc{
+          --c:red;
+          --fw:700;
+          font-size: 16px;
+          grid-column: 8 / 9;
+          align-self: center;
+          margin-bottom: 0px;
+          justify-self: center;
+          text-align: center;
+          padding-inline: 5px;
+
+
+          @include media(max, 1400px){
+            font-size: 12px;
+          }
+        }
+
+        .status-desc{
+          --c:#000;
+          --fw:700;
+          font-size: 16px;
+          grid-column: 9 / 10;
+          align-self: center;
+          margin-bottom: 0px;
+          justify-self: center;
+          text-align: center;
+          padding-inline: 5px;
+
+
+          @include media(max, 1400px){
+            font-size: 12px;
+          }
+        }
+
+        .btns-container-detalles{
+          grid-column: 10 / 11;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+
+          .v-btn{
+            background-color: var(--primary);
+            --c:#fff;
+            --fw:700;
+            font-size: 34px;
+            max-width: 50px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+////////Barrita transversal del input/////////
+//////////////////////////////////////////////
+
+
+.v-input__slot:before{
+  border-color: #fff!important;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before, 
+.v-text-field > .v-input__control > .v-input__slot:after {
+  width: 0%;
+}

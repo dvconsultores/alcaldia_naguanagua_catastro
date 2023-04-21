@@ -1,0 +1,25 @@
+#footer{
+  background-color: #f9fafa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 256px;
+  padding-right: var(--margin-global);
+  // max-width: 1440px;
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  @include media(max, 959px){
+    margin-left: 0px;
+  }
+
+  span{
+    --c:var(--primary);
+    --fw:500;
+    text-align: center;
+    // margin-left: 220px;
+
+    // @include media(max,1750px){margin-left: 260px;}
+  }
+}
