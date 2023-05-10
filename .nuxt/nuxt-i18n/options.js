@@ -20,7 +20,7 @@ export const options = {
   sortRoutes: true,
   strategy: "prefix_except_default",
   lazy: true,
-  langDir: "/home/andres/vsCodeProjects/AlcaldiaNaguanagua/front-end/alcaldia_naguanagua_catastro/i18n",
+  langDir: "/home/maria/Documentos/alcaldia_naguanagua_catastro/i18n",
   rootRedirect: null,
   detectBrowserLanguage: false,
   differentDomains: false,
