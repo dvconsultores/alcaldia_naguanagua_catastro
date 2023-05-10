@@ -14,7 +14,7 @@
         </p>
 
         <div class="center">
-          <apexchart type="area" :options="chartOptions" :series="chartSeries" height="130"/>
+          <apexchart type="area" :options="chartOptions" :series="chartSeries" height="130" width="280"/>
         </div>
       </v-card>
 
@@ -30,7 +30,7 @@
         </p>
 
         <div class="center">
-          <apexchart type="area" :options="chartOptions2" :series="chartSeries2" height="160"/>
+          <apexchart type="area" :options="chartOptions2" :series="chartSeries2" height="160" width="380"/>
         </div>
       </v-card>
     </div>
@@ -76,7 +76,7 @@
           <span class="green-number">{{ item.percent }}</span> <v-icon color="#25ac60">mdi-arrow-up</v-icon> mes pasado
         </p>
 
-        <apexchart type="area" :options="chartOptions3" :series="chartSeries3" height="160"/>
+        <apexchart type="area" :options="chartOptions3" :series="chartSeries3" height="160" width="350"/>
       </v-card>
     </div>
 

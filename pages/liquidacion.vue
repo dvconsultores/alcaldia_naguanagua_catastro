@@ -55,7 +55,7 @@
             </p>
           </div>
 
-          <v-card class="cards-liquidacion" @click="$router.push('descripcion-inmbueble')">
+          <v-card class="cards-liquidacion" @click="$router.push('inscripcion-inmueble')">
             <v-icon class="icon-card">
               mdi-transfer-down
             </v-icon>

@@ -12,7 +12,7 @@
           <v-menu
           v-model="menu"
           :close-on-content-click="false"
-          :nudge-right="40"
+          :nudge-right="5"
           transition="scale-transition"
           offset-y
           min-width="auto"
@@ -31,13 +31,16 @@
           <v-date-picker
             v-model="date"
             @input="menu = false"
+            color="blue"
+            header-color="#810880"
+            class="custom-date-picker"
           ></v-date-picker>
         </v-menu>
 
         <v-menu
           v-model="menu2"
           :close-on-content-click="false"
-          :nudge-right="40"
+          :nudge-right="5"
           transition="scale-transition"
           offset-y
           min-width="auto"
@@ -56,6 +59,9 @@
           <v-date-picker
             v-model="date"
             @input="menu2 = false"
+            color="blue"
+            header-color="#810880"
+            class="custom-date-picker"
           ></v-date-picker>
         </v-menu>
 

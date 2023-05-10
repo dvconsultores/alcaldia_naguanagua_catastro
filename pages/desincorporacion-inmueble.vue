@@ -33,8 +33,12 @@
             Observaciones
           </p>
 
-          <v-btn class="btn-mas" @click="show_observaciones = true">
+          <v-btn class="btn-mas" v-if="show_observaciones != true" @click="show_observaciones = true">
             +
+          </v-btn>
+
+          <v-btn class="btn-mas" v-if="show_observaciones === true " @click="show_observaciones = false">
+            -
           </v-btn>
         </div>
 

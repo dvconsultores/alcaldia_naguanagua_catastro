@@ -92,7 +92,7 @@ body {background: var(--bg-ap)}
 
 * {caret-color: var(--caret, var(--primary)) !important}
 ::selection {
-  background-color: #ff4081;
+  background-color: var(--primary);
   color: var(--bg-ap);
 }
 :-webkit-autofill {

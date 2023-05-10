@@ -38,7 +38,7 @@
             Datos del Propietario
           </span>
 
-          <v-icon class="icon-chevron" @click="show_detalles = true">mdi-chevron-down</v-icon>
+          <v-icon class="icon-chevron" @click="selectItem(item)">mdi-chevron-down</v-icon>
         </div>
 
         <div class="container-datos-propietario">
@@ -83,7 +83,7 @@
           </div>
         </div>
 
-        <div v-if=" show_detalles === true">
+        <div v-if="selectedItem === item">
           <div 
           v-for="(item2,index2) in detallesInmuebles" 
           :key="index2" 
@@ -217,6 +217,8 @@ export default{
   mixins:[computeds],
   data(){
     return{
+      counter_chevron: null,
+      selectedItem: null,
       show_detalles: false,
       items: ['V', 'J', 'G', 'E'],
       propietarioDatos:[
@@ -261,7 +263,9 @@ export default{
   },
 
   methods: {
-   
+    selectItem(item) {
+      this.selectedItem = item;
+    },
   }
 }
 </script>

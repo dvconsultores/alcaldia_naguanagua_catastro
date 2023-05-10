@@ -6,10 +6,10 @@
     fixed
     >
 
-      <img src="~/assets/sources/logos/logo.png" alt="Logo" style="width:100px; margin: 30px 0 20px 50px;">
+      <img src="~/assets/sources/logos/logo.png" alt="Logo" style="width:100px; margin: 30px auto 20px auto;">
 
       <v-list dense>
-        <v-list-item link @click="$router.push('dashboard')">
+        <v-list-item @click="$router.push('dashboard')">
           <v-list-item-icon>
             <v-icon color="#707070">mdi-home</v-icon>
           </v-list-item-icon>
@@ -18,115 +18,77 @@
             <v-list-item-title class="vistas-drawer">Inicio</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+      </v-list>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-store</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Taquilla</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+      <v-expansion-panels accordion>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-store</v-icon>Taquilla
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
-              <v-list-item @click="$router.push('liquidacion')">Liquidación</v-list-item>
+              <v-list-item to="/liquidacion" active-class="active">Liquidación</v-list-item>
               <v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
               <v-list-item @click="$router.push('consultar-propietario')">Consulta por propietario</v-list-item>
               <v-list-item>Consulta por parámetros</v-list-item>
               <v-list-item @click="$router.push('reporte-taquilla')">Reportes taquilla</v-list-item>
-            </v-list>
-          </v-menu>
+          </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-bank</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Hacienda</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-bank</v-icon>Hacienda
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('recaudacion')">Recaudación</v-list-item>
               <v-list-item @click="$router.push('consultar-propietario')">Consulta por propietario</v-list-item>
-            </v-list>
-          </v-menu>
-              
+          </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-file-document</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Reporte</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-file-document</v-icon>Reporte
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('cedula-catastral')">Cédula Catastral</v-list-item>
-            </v-list>
-          </v-menu>
+          </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-city</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Inmuebles</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-city</v-icon>Inmuebles
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('inscripcion-inmueble')">Incorporación del inmueble</v-list-item>
               <v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
               <v-list-item @click="$router.push('actualizacion-inmueble')">Actualización de los datos</v-list-item>
               <v-list-item>Consulta por parámetros</v-list-item>
-              <v-list-item @click="$router.push('consultar-propietario')">Consultas por propietarios</v-list-item>
-            </v-list>
-          </v-menu>
+              <v-list-item @click="$router.push('consultar-propietario')">Consultas por propietarios</v-list-item>          </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-account-multiple</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Contribuyente</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-account-multiple</v-icon>Contribuyente
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('crear-contribuyente')">Nuevo Contribuyente</v-list-item>
-              <v-list-item @click="$router.push('modificar-datos')">Modificar Datos del Contribuyente</v-list-item>
-            </v-list>
-          </v-menu>
+              <v-list-item @click="$router.push('modificar-datos')">Modificar Datos del Contribuyente</v-list-item>            </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-dns</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Archivo</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-dns</v-icon>Archivo
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('sector')">Sector</v-list-item>
               <v-list-item @click="$router.push('manzana')">Manzana</v-list-item>
@@ -138,20 +100,17 @@
               <v-list-item @click="$router.push('conjuntos-residenciales')">Conjunto Residencial</v-list-item>
               <v-list-item @click="$router.push('edificios')">Edificio / Centro Comercial</v-list-item>
               <v-list-item @click="$router.push('torres')">Torre</v-list-item>
-              <v-list-item>Lorem ipsum</v-list-item>
+              <v-list-item>Lorem ipsum</v-list-item> 
             </v-list>
-          </v-menu>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-        <v-list-item link>
-          <v-list-item-icon>
-            <v-icon color="#707070">mdi-cog</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title class="vistas-drawer">Configuración</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-cog</v-icon>Configuración
+          </v-expansion-panel-header>
+        </v-expansion-panel>
+      </v-expansion-panels>
 
       <hr>
 
@@ -168,7 +127,7 @@
     temporary
     height="100%"
     >
-    <img src="~/assets/sources/logos/logo.png" alt="Logo" style="width:100px; margin: 30px 0 20px 0px;">
+    <img src="~/assets/sources/logos/logo.png" alt="Logo" style="width:100px; margin: 30px auto 20px auto;">
 
     <v-list dense>
         <v-list-item link @click="$router.push('dashboard')">
@@ -180,115 +139,77 @@
             <v-list-item-title class="vistas-drawer">Inicio</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+      </v-list>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-store</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Taquilla</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+      <v-expansion-panels accordion>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-store</v-icon>Taquilla
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('liquidacion')">Liquidación</v-list-item>
               <v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
               <v-list-item @click="$router.push('consultar-propietario')">Consulta por propietario</v-list-item>
               <v-list-item>Consulta por parámetros</v-list-item>
               <v-list-item @click="$router.push('reporte-taquilla')">Reportes taquilla</v-list-item>
-            </v-list>
-          </v-menu>
+          </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-bank</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Hacienda</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-bank</v-icon>Hacienda
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('recaudacion')">Recaudación</v-list-item>
               <v-list-item @click="$router.push('consultar-propietario')">Consulta por propietario</v-list-item>
-            </v-list>
-          </v-menu>
-              
+          </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-file-document</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Reporte</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-file-document</v-icon>Reporte
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('cedula-catastral')">Cédula Catastral</v-list-item>
-            </v-list>
-          </v-menu>
+          </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-city</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Inmuebles</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-city</v-icon>Inmuebles
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('inscripcion-inmueble')">Incorporación del inmueble</v-list-item>
               <v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
               <v-list-item @click="$router.push('actualizacion-inmueble')">Actualización de los datos</v-list-item>
               <v-list-item>Consulta por parámetros</v-list-item>
-              <v-list-item @click="$router.push('consultar-propietario')">Consultas por propietarios</v-list-item>
-            </v-list>
-          </v-menu>
+              <v-list-item @click="$router.push('consultar-propietario')">Consultas por propietarios</v-list-item>          </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-account-multiple</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Contribuyente</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-account-multiple</v-icon>Contribuyente
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('crear-contribuyente')">Nuevo Contribuyente</v-list-item>
-              <v-list-item @click="$router.push('modificar-datos')">Modificar Datos del Contribuyente</v-list-item>
-            </v-list>
-          </v-menu>
+              <v-list-item @click="$router.push('modificar-datos')">Modificar Datos del Contribuyente</v-list-item>            </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-          <v-menu open-on-hover tile right offset-x content-class="menu-drawer">
-            <template #activator="{on}">
-              <v-list-item class="hover" link v-on="on">
-                <v-list-item-icon>
-                  <v-icon color="#707070">mdi-dns</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="vistas-drawer">Archivo</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-dns</v-icon>Archivo
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item @click="$router.push('sector')">Sector</v-list-item>
               <v-list-item @click="$router.push('manzana')">Manzana</v-list-item>
@@ -300,20 +221,17 @@
               <v-list-item @click="$router.push('conjuntos-residenciales')">Conjunto Residencial</v-list-item>
               <v-list-item @click="$router.push('edificios')">Edificio / Centro Comercial</v-list-item>
               <v-list-item @click="$router.push('torres')">Torre</v-list-item>
-              <v-list-item>Lorem ipsum</v-list-item>
+              <v-list-item>Lorem ipsum</v-list-item> 
             </v-list>
-          </v-menu>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-        <v-list-item link>
-          <v-list-item-icon>
-            <v-icon color="#707070">mdi-cog</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title class="vistas-drawer">Configuración</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+        <v-expansion-panel style="background-color:var(--bg-ap);">
+          <v-expansion-panel-header>
+            <v-icon>mdi-cog</v-icon>Configuración
+          </v-expansion-panel-header>
+        </v-expansion-panel>
+      </v-expansion-panels>
 
       <hr>
 
