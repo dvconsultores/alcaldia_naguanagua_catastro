@@ -149,7 +149,7 @@ export default {
 
   // Router property -  https://nuxtjs.org/docs/2.x/features/file-system-routing#the-router-property
   router: {
-    base: development ? '/catastro' : '/',
+    base: development ? '/alcaldia' : '/',
     // middleware: ['route-validator'],
   },
 
@@ -160,7 +160,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    publicPath: development ? '/catastro' : '/',
+    publicPath: development ? '/alcaldia' : '/',
     plugins: [
       new webpack.ProvidePlugin({
         // global modules
