@@ -5,6 +5,7 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _36c8b099 = () => interopDefault(import('../pages/actualizacion-inmueble.vue' /* webpackChunkName: "pages/actualizacion-inmueble" */))
+const _7195851e = () => interopDefault(import('../pages/ambito.vue' /* webpackChunkName: "pages/ambito" */))
 const _3c19b03c = () => interopDefault(import('../pages/cedula-catastral.vue' /* webpackChunkName: "pages/cedula-catastral" */))
 const _6a0240e6 = () => interopDefault(import('../pages/conjuntos-residenciales.vue' /* webpackChunkName: "pages/conjuntos-residenciales" */))
 const _be5f4c88 = () => interopDefault(import('../pages/consultar-propietario.vue' /* webpackChunkName: "pages/consultar-propietario" */))
@@ -45,6 +46,10 @@ export const routerOptions = {
     path: "/actualizacion-inmueble",
     component: _36c8b099,
     name: "actualizacion-inmueble___en"
+  }, {
+    path: "/ambito",
+    component: _7195851e,
+    name: "ambito___en"
   }, {
     path: "/cedula-catastral",
     component: _3c19b03c,
@@ -141,6 +146,10 @@ export const routerOptions = {
     path: "/es/actualizacion-inmueble",
     component: _36c8b099,
     name: "actualizacion-inmueble___es"
+  }, {
+    path: "/es/ambito",
+    component: _7195851e,
+    name: "ambito___es"
   }, {
     path: "/es/cedula-catastral",
     component: _3c19b03c,

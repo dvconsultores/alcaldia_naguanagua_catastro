@@ -7,6 +7,13 @@
     "_name": "_36c8b099"
   },
   {
+    "name": "ambito___en",
+    "path": "/ambito",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
+    "chunkName": "pages/ambito",
+    "_name": "_7195851e"
+  },
+  {
     "name": "cedula-catastral___en",
     "path": "/cedula-catastral",
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/cedula-catastral.vue",
@@ -173,6 +180,13 @@
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-inmueble.vue",
     "chunkName": "pages/actualizacion-inmueble",
     "_name": "_36c8b099"
+  },
+  {
+    "name": "ambito___es",
+    "path": "/es/ambito",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
+    "chunkName": "pages/ambito",
+    "_name": "_7195851e"
   },
   {
     "name": "cedula-catastral___es",

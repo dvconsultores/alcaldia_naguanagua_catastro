@@ -31,7 +31,7 @@
           </span>
         </div>
 
-        <v-btn @click="$router.push('dashboard')">
+        <v-btn @click="login()">
           <span>Iniciar Sesión</span>
         </v-btn>
 
@@ -52,6 +52,9 @@ export default {
   layout:'empty-layout',
   data() {
     return {
+      show1:false,
+      email:null,
+      password:null,
     }
   },
   head() {
@@ -61,6 +64,25 @@ export default {
     }
   },
   methods: {
+    login () {
+      this.$axios.$post('signin/', {
+        username: this.email,
+        password: this.password,
+        // ip:'1900',
+      }).then((res)=>{
+        console.log(res.status)
+          // this.$toast.success('Autentificación exitosa') // instalar libreria para que funcione
+          this.$axios.setToken(res.token, 'Token')
+          this.$store.dispatch('storeUser', res)
+          this.$router.push('dashboard')
+
+          // this.$axios.$get('ambito/')
+        
+      }).catch((err)=>{
+        // this.$toast.error('Error de autentificación')
+        console.error(err)
+      })
+    },
   }
 };
 </script>

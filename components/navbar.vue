@@ -135,6 +135,12 @@
             Torres
           </span>
         </div>
+
+        <div v-if="$route.path == '/ambito'" class="divcol">
+          <span class="index-text">
+            Ambito
+          </span>
+        </div>
       </div>
 
       <div class="divrow" style="gap:20px;">

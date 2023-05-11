@@ -90,6 +90,7 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-list class="lista">
+              <v-list-item @click="$router.push('ambito')">Ambito</v-list-item>
               <v-list-item @click="$router.push('sector')">Sector</v-list-item>
               <v-list-item @click="$router.push('manzana')">Manzana</v-list-item>
               <v-list-item @click="$router.push('parcela')">Parcela</v-list-item>
@@ -211,6 +212,7 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-list class="lista">
+              <v-list-item @click="$router.push('ambito')">Ambito</v-list-item>
               <v-list-item @click="$router.push('sector')">Sector</v-list-item>
               <v-list-item @click="$router.push('manzana')">Manzana</v-list-item>
               <v-list-item @click="$router.push('parcela')">Parcela</v-list-item>
