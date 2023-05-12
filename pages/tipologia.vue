@@ -1,10 +1,10 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-ambito">
-      <div class="datos-ambito-container">
+    <section class="section1-tipologia">
+      <div class="datos-tipologia-container">
         <div class="title-morado">
-          <p class="datos-ambito-title">
-            Ambito
+          <p class="datos-tipologia-title">
+            Tipología
           </p>
 
           <v-dialog
@@ -22,7 +22,7 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Crear Ambito</span>
+                <span class="title">Crear nueva tipología</span>
               </v-card-title>
 
               <hr>
@@ -37,10 +37,11 @@
                     >
                       <v-text-field
                         v-model="codigo"
-                        label="Ambito"
+                        label="Código"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
+
                     <v-col
                       cols="12"
                       sm="6"
@@ -66,7 +67,7 @@
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="createAmbito()"
+                  @click="createData()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -81,7 +82,7 @@
           >
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar Ambito</span>
+                <span class="title">Editar tipología</span>
               </v-card-title>
 
               <hr>
@@ -96,11 +97,11 @@
                     >
                       <v-text-field
                         v-model="defaultItem.codigo"
-                        label="Ambito"
+                        label="Código"
                         class="input-dialog"
-                        disabled
                       ></v-text-field>
                     </v-col>
+
                     <v-col
                       cols="12"
                       sm="6"
@@ -148,7 +149,7 @@
 
           <v-data-table
             :headers="headers"
-            :items="ambitoData"
+            :items="tipologiaData"
             :items-per-page="10"
             :search="search"
             :footer-props="{
@@ -204,7 +205,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "AmbitoPage",
+  name: "TipologiaPage",
   mixins: [computeds],
   data() {
     return {  
@@ -214,10 +215,10 @@ export default {
       dialogDelete: false,
       headers: [
         { text: 'Código', align: 'center', value: 'codigo',},
-        { text: 'Descripción', value: 'descripcion', align:'center' },
+        { text: 'Descripción', align: 'center', value: 'descripcion',},
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
-      ambitoData: [],
+      tipologiaData: [],
 
       defaultItem: {
         codigo: '',
@@ -227,35 +228,35 @@ export default {
     }
   },
   head() {
-    const title = 'Ambito';
+    const title = 'Tipologia';
     return {
       title,
     }
   },
 
   mounted(){
-    this.getAmbito()
+    this.getData()
   },
 
   methods: {
-    getAmbito() {
-      this.$axios.$get('ambito').then(response => {
-          this.ambitoData = response
+    getData() {
+      this.$axios.$get('tipologia').then(response => {
+          this.tipologiaData = response
         }).catch(err => {
           console.log(err)
         })
     },
 
-    createAmbito(){
+    createData(){
       const data = {
         codigo: this.codigo,
         descripcion: this.descripcion,
       }
-      this.$axios.$post('ambito/', data).then(res => {
+      this.$axios.$post('tipologia/', data).then(res => {
           console.log(res.data)
-          this.codigo =''
-          this.descripcion =''
-          this.$alert("success", {desc: "Se ha creado un nuevo ambito con éxito", hash: 'knsddcssdc', title:'Creación de Ambito'})        
+          this.codigo = ''
+          this.descripcion = ''
+          this.$alert("success", {desc: "Se ha creado una nueva tipología con éxito", hash: 'knsddcssdc', title:'Creación de tipología'})        
         }).catch(err => {
           console.log(err)
         })
@@ -276,9 +277,9 @@ export default {
       formData.append('codigo', this.defaultItem.codigo)
       formData.append('descripcion', this.defaultItem.descripcion)
 
-      this.$axios.$patch('ambito/'+ this.defaultItem.id + '/', formData).then((res) => {
+      this.$axios.$patch('tipologia/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un ambito con éxito", hash: 'knsddcssdc', title:'Edición de Ambito'})        
+        this.$alert("success", {desc: "Se ha editado una tipología con éxito", hash: 'knsddcssdc', title:'Edición de tipología'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -292,10 +293,10 @@ export default {
     },
 
     deleteItem(){
-      this.$axios.$delete('ambito/'+ this.defaultItem.id + '/').then((res) => {
+      this.$axios.$delete('tipologia/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un ambito con éxito", hash: 'knsddcssdc', title:'Eliminación de Ambito'})        
+        this.$alert("success", {desc: "Se ha eliminado una tipología con éxito", hash: 'knsddcssdc', title:'Eliminación de tipología'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -304,4 +305,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/ambito.scss" lang="scss" />
+<style src="~/assets/styles/pages/tipologia.scss" lang="scss" />

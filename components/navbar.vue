@@ -141,6 +141,114 @@
             Ambito
           </span>
         </div>
+
+        <div v-if="$route.path == '/tipo-inmueble'" class="divcol">
+          <span class="index-text">
+            Tipo de Inmueble
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/estatus-inmueble'" class="divcol">
+          <span class="index-text">
+            Tipo de Estatus
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/nivel-inmueble'" class="divcol">
+          <span class="index-text">
+            Nivel de Inmueble
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/unidad-inmueble'" class="divcol">
+          <span class="index-text">
+            Unidad de Inmueble
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/tipo-documento'" class="divcol">
+          <span class="index-text">
+            Tipo de Documento
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/tipo-especial'" class="divcol">
+          <span class="index-text">
+            Tipo Especial
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/tipo-tenencia'" class="divcol">
+          <span class="index-text">
+            Tipo de Tenencia
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/topografia'" class="divcol">
+          <span class="index-text">
+            Topografía
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/acceso'" class="divcol">
+          <span class="index-text">
+            Acceso
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/forma'" class="divcol">
+          <span class="index-text">
+            Forma
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/ubicacion'" class="divcol">
+          <span class="index-text">
+            Ubicación
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/uso'" class="divcol">
+          <span class="index-text">
+            Uso
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/regimen'" class="divcol">
+          <span class="index-text">
+            Regimen
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/servicios'" class="divcol">
+          <span class="index-text">
+            Servicios
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/tipologia'" class="divcol">
+          <span class="index-text">
+            Tipología
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/fines-fiscales'" class="divcol">
+          <span class="index-text">
+            Fines Fiscales
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/tipo-desincorporacion'" class="divcol">
+          <span class="index-text">
+            Tipo de Desincorporación
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/tipo-transaccion'" class="divcol">
+          <span class="index-text">
+            Tipo de Transacción
+          </span>
+        </div>
       </div>
 
       <div class="divrow" style="gap:20px;">

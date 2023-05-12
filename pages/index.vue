@@ -70,13 +70,13 @@ export default {
         password: this.password,
         // ip:'1900',
       }).then((res)=>{
-        console.log(res.status)
+        console.log(res)
           // this.$toast.success('Autentificación exitosa') // instalar libreria para que funcione
           this.$axios.setToken(res.token, 'Token')
           this.$store.dispatch('storeUser', res)
           this.$router.push('dashboard')
 
-          // this.$axios.$get('ambito/')
+          this.$axios.$get('ambito/')
         
       }).catch((err)=>{
         // this.$toast.error('Error de autentificación')

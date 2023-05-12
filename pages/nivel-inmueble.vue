@@ -1,10 +1,10 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-ambito">
-      <div class="datos-ambito-container">
+    <section class="section1-nivel-inmueble">
+      <div class="datos-nivel-inmueble-container">
         <div class="title-morado">
-          <p class="datos-ambito-title">
-            Ambito
+          <p class="datos-nivel-inmueble-title">
+            Nivel de Inmueble
           </p>
 
           <v-dialog
@@ -22,7 +22,7 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Crear Ambito</span>
+                <span class="title">Crear Nuevo Nivel de Inmueble</span>
               </v-card-title>
 
               <hr>
@@ -37,10 +37,11 @@
                     >
                       <v-text-field
                         v-model="codigo"
-                        label="Ambito"
+                        label="Código"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
+
                     <v-col
                       cols="12"
                       sm="6"
@@ -66,7 +67,7 @@
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="createAmbito()"
+                  @click="createData()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -81,7 +82,7 @@
           >
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar Ambito</span>
+                <span class="title">Editar Nivel de Inmueble</span>
               </v-card-title>
 
               <hr>
@@ -96,11 +97,11 @@
                     >
                       <v-text-field
                         v-model="defaultItem.codigo"
-                        label="Ambito"
+                        label="Código"
                         class="input-dialog"
-                        disabled
                       ></v-text-field>
                     </v-col>
+
                     <v-col
                       cols="12"
                       sm="6"
@@ -148,7 +149,7 @@
 
           <v-data-table
             :headers="headers"
-            :items="ambitoData"
+            :items="nivelInmuebleData"
             :items-per-page="10"
             :search="search"
             :footer-props="{
@@ -204,7 +205,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "AmbitoPage",
+  name: "nivelInmueblePage",
   mixins: [computeds],
   data() {
     return {  
@@ -213,11 +214,11 @@ export default {
       dialog_editar: false,
       dialogDelete: false,
       headers: [
-        { text: 'Código', align: 'center', value: 'codigo',},
-        { text: 'Descripción', value: 'descripcion', align:'center' },
+        { text: 'Codigo', align: 'center', value: 'codigo',},
+        { text: 'Descripcion', align: 'center', value: 'descripcion',},
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
-      ambitoData: [],
+      nivelInmuebleData: [],
 
       defaultItem: {
         codigo: '',
@@ -227,35 +228,35 @@ export default {
     }
   },
   head() {
-    const title = 'Ambito';
+    const title = 'nivel Inmueble';
     return {
       title,
     }
   },
 
   mounted(){
-    this.getAmbito()
+    this.getData()
   },
 
   methods: {
-    getAmbito() {
-      this.$axios.$get('ambito').then(response => {
-          this.ambitoData = response
+    getData() {
+      this.$axios.$get('nivelinmueble').then(response => {
+          this.nivelInmuebleData = response
         }).catch(err => {
           console.log(err)
         })
     },
 
-    createAmbito(){
+    createData(){
       const data = {
         codigo: this.codigo,
         descripcion: this.descripcion,
       }
-      this.$axios.$post('ambito/', data).then(res => {
+      this.$axios.$post('nivelinmueble/', data).then(res => {
           console.log(res.data)
-          this.codigo =''
-          this.descripcion =''
-          this.$alert("success", {desc: "Se ha creado un nuevo ambito con éxito", hash: 'knsddcssdc', title:'Creación de Ambito'})        
+          this.codigo = ''
+          this.descripcion = ''
+          this.$alert("success", {desc: "Se ha creado un nuevo nivel de inmueble con éxito", hash: 'knsddcssdc', title:'Creación de nivel de Inmueble'})        
         }).catch(err => {
           console.log(err)
         })
@@ -276,9 +277,9 @@ export default {
       formData.append('codigo', this.defaultItem.codigo)
       formData.append('descripcion', this.defaultItem.descripcion)
 
-      this.$axios.$patch('ambito/'+ this.defaultItem.id + '/', formData).then((res) => {
+      this.$axios.$patch('nivelinmueble/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un ambito con éxito", hash: 'knsddcssdc', title:'Edición de Ambito'})        
+        this.$alert("success", {desc: "Se ha editado un nivel de inmueble con éxito", hash: 'knsddcssdc', title:'Edición de nivel de inmueble'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -292,10 +293,10 @@ export default {
     },
 
     deleteItem(){
-      this.$axios.$delete('ambito/'+ this.defaultItem.id + '/').then((res) => {
+      this.$axios.$delete('nivelinmueble/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un ambito con éxito", hash: 'knsddcssdc', title:'Eliminación de Ambito'})        
+        this.$alert("success", {desc: "Se ha eliminado un nivel de inmueble con éxito", hash: 'knsddcssdc', title:'Eliminación de nivel de inmueble'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -304,4 +305,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/ambito.scss" lang="scss" />
+<style src="~/assets/styles/pages/nivel-inmueble.scss" lang="scss" />

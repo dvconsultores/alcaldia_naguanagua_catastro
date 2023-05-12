@@ -101,6 +101,26 @@
               <v-list-item @click="$router.push('conjuntos-residenciales')">Conjunto Residencial</v-list-item>
               <v-list-item @click="$router.push('edificios')">Edificio / Centro Comercial</v-list-item>
               <v-list-item @click="$router.push('torres')">Torre</v-list-item>
+              <v-list-item @click="$router.push('tipo-inmueble')">Tipo de Inmueble</v-list-item>
+              <v-list-item @click="$router.push('estatus-inmueble')">Estatus de Inmueble</v-list-item>
+              <v-list-item @click="$router.push('nivel-inmueble')">Nivel de Inmueble</v-list-item>
+              <v-list-item @click="$router.push('unidad-inmueble')">Unidad del Inmueble</v-list-item>
+              <v-list-item @click="$router.push('tipo-documento')">Tipo de Documento</v-list-item>
+              <v-list-item @click="$router.push('tipo-especial')">Tipo Especial</v-list-item>
+              <v-list-item @click="$router.push('tipo-tenencia')">Tipo Tenencia</v-list-item>
+              <v-list-item @click="$router.push('topografia')">Topografía</v-list-item>
+              <v-list-item @click="$router.push('acceso')">Acceso</v-list-item>
+              <v-list-item @click="$router.push('forma')">Forma</v-list-item>
+              <v-list-item @click="$router.push('ubicacion')">Ubicación</v-list-item>
+              <v-list-item @click="$router.push('uso')">Uso</v-list-item>
+              <v-list-item @click="$router.push('regimen')">Régimen</v-list-item>
+              <v-list-item @click="$router.push('servicios')">Servicios</v-list-item>
+              <v-list-item @click="$router.push('tipologia')">Tipología</v-list-item>
+              <v-list-item @click="$router.push('fines-fiscales')">Fines Fiscales</v-list-item>
+              <v-list-item @click="$router.push('tipo-desincorporacion')">Tipo de Desincorporación</v-list-item>
+              <v-list-item @click="$router.push('tipo-transaccion')">Tipo de Transacción</v-list-item>
+
+
               <v-list-item>Lorem ipsum</v-list-item> 
             </v-list>
           </v-expansion-panel-content>
