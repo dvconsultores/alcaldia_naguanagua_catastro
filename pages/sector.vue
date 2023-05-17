@@ -75,7 +75,7 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">{{ formTitle }}</span>
+                <span class="title">Crear Sector</span>
               </v-card-title>
 
               <hr>
@@ -88,11 +88,14 @@
                       sm="6"
                       md="4"
                     >
-                      <v-text-field
-                        v-model="editedItem.ambito"
+                      <v-autocomplete
+                        v-model="nuevoRegistro.ambito"
                         label="Ambito"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="ambitoData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
                     <v-col
                       cols="12"
@@ -100,7 +103,7 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="editedItem.codigo"
+                        v-model="nuevoRegistro.codigo"
                         label="Código"
                         class="input-dialog"
                       ></v-text-field>
@@ -111,8 +114,8 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="editedItem.nombre"
-                        label="Nombre"
+                        v-model="nuevoRegistro.descripcion"
+                        label="Descripción"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
@@ -121,11 +124,13 @@
                       sm="6"
                       md="4"
                     >
-                      <v-text-field
-                        v-model="editedItem.clasificacion"
+                      <v-autocomplete
+                        v-model="nuevoRegistro.clasificacion"
                         label="Clasificación"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="sectoresData"
+                        item-text="clasificacion"
+                      ></v-autocomplete>
                     </v-col>
                     <v-col
                       cols="12"
@@ -133,7 +138,7 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="editedItem.area"
+                        v-model="nuevoRegistro.area"
                         label="Área"
                         class="input-dialog"
                       ></v-text-field>
@@ -145,7 +150,7 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="editedItem.perimetro"
+                        v-model="nuevoRegistro.perimetro"
                         label="Perímetro"
                         class="input-dialog"
                       ></v-text-field>
@@ -158,13 +163,122 @@
                 <v-spacer></v-spacer>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="close"
+                  @click="dialog = false"
                 >
                   Cancelar
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="save"
+                  @click="createSector()"
+                  style="background-color:#ED057E!important;"
+                >
+                  Guardar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog
+            v-model="dialog_editar"
+            max-width="1600px"
+          >
+            <v-card id="dialog-editar-crear">
+              <v-card-title>
+                <span class="title">Editar Sector</span>
+              </v-card-title>
+
+              <hr>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-autocomplete
+                        v-model="defaultItem.ambito"
+                        label="Ambito"
+                        class="input-dialog"
+                        :items="ambitoData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="defaultItem.codigo"
+                        label="Código"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="defaultItem.descripcion"
+                        label="Descripción"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-autocomplete
+                        v-model="defaultItem.clasificacion"
+                        label="Clasificación"
+                        class="input-dialog"
+                        :items="defaultItem.clasificacion"
+                        item-text="clasificacion"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="defaultItem.area"
+                        label="Área"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="defaultItem.perimetro"
+                        label="Perímetro"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  class="btn dialog-btn"
+                  @click="dialog_editar = false"
+                >
+                  Cancelar
+                </v-btn>
+                <v-btn
+                  class="btn dialog-btn"
+                  @click="saveData()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -199,23 +313,15 @@
               <v-toolbar
                 flat
                 class="toolbar-tabla"
-              >
-                <!-- <v-toolbar-title>My CRUD</v-toolbar-title>
-                <v-divider
-                  class="mx-4"
-                  inset
-                  vertical
-                ></v-divider>
-                <v-spacer></v-spacer> -->
-                
+              >  
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
                     <span class="alerta-text">Esta acción no se puede revertir</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="deleteItemConfirm">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="closeDelete" style="background-color:#ED057E!important;">No</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -233,77 +339,13 @@
               <v-icon
                 color="#810880"
                 big
-                @click="deleteItem(item)"
+                @click="openDelete(item)"
               >
                 mdi-delete
               </v-icon>
             </template>
-            <template v-slot:no-data>
-              <v-btn
-                color="primary"
-                @click="initialize"
-              >
-                Reset
-              </v-btn>
-            </template>
           </v-data-table>
         </div>
-
-        <!-- <div v-for="(item,index) in datosSectores" :key="index" class="sectores-inputs-container">
-          <v-text-field
-          v-model="item.ambito"
-          class="small-input mobile-inputs"
-          label="Ambito"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.codigo"
-          class="small-input mobile-inputs"
-          label="Código"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.nombre"
-          class="big-input mobile-inputs"
-          label="Nombre"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.clasificacion"
-          class="small-input mobile-inputs"
-          label="Clasificación"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.area"
-          class="small-input mobile-inputs"
-          label="Area"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.perimetro"
-          class="small-input mobile-inputs"
-          label="Perímetro"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-btn class="btns-add-remove"  @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-
-          <v-btn v-if="editingIndex !== index" class="btns-add-remove" @click="editingIndex = index">
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-
-          <v-btn v-if="editingIndex === index" class="btns-add-remove" @click="saveChanges">
-            <v-icon>mdi-content-save</v-icon>
-          </v-btn>
-        </div> -->
       </div>
     </section>
   </div>
@@ -319,89 +361,30 @@ export default {
     return {  
       search: '',
       dialog: false,
+      dialog_editar: false,
       dialogDelete: false,
+      nuevoRegistro:{},
       headers: [
         { text: 'Ambito', align: 'start', value: 'ambito',},
         { text: 'Código', value: 'codigo', align:'center' },
-        { text: 'Nombre', value: 'nombre', align:'center' },
+        { text: 'Nombre', value: 'descripcion', align:'center' },
         { text: 'Clasificación', value: 'clasificacion', align:'center' },
         { text: 'Área', value: 'area', align:'center' },
         { text: 'Perímetro', value: 'perimetro', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
+
       sectoresData: [],
-      editedIndex: -1,
-      editedItem: {
-        ambito: '',
-        codigo: '',
-        nombre: '',
-        clasificacion: '',
-        area: '',
-        perimetro: '',
-      },
+      ambitoData:[],
+    
       defaultItem: {
         ambito: '',
         codigo: '',
-        nombre: '',
+        descripcion: '',
         clasificacion: '',
         area: '',
         perimetro: '',
       },
-
-
-
-
-      // newItem: {
-      //   ambito: null,
-      //   codigo: null,
-      //   nombre:'',
-      //   clasificacion: null,
-      //   area: '',
-      //   perimetro:'',
-      // },
-      // editingIndex: null,
-      // datosSectores:[
-      //   {
-      //     ambito:"U448",
-      //     codigo:"158",
-      //     nombre:"Naranjal 1",
-      //     clasificacion:"8",
-      //     area:"000",
-      //     perimetro:"1234"
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     codigo:"158",
-      //     nombre:"Naranjal 1",
-      //     clasificacion:"8",
-      //     area:"000",
-      //     perimetro:"1234"
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     codigo:"158",
-      //     nombre:"Naranjal 1",
-      //     clasificacion:"8",
-      //     area:"000",
-      //     perimetro:"1234"
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     codigo:"158",
-      //     nombre:"Naranjal 1",
-      //     clasificacion:"8",
-      //     area:"000",
-      //     perimetro:"1234"
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     codigo:"158",
-      //     nombre:"Naranjal 1",
-      //     clasificacion:"8",
-      //     area:"000",
-      //     perimetro:"1234"
-      //   },
-      // ]
     }
   },
   head() {
@@ -411,147 +394,87 @@ export default {
     }
   },
 
-  computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'Agregar nuevo Sector' : 'Editar Sector'
-      },
-    },
-
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-      dialogDelete (val) {
-        val || this.closeDelete()
-      },
-    },
-
-    created () {
-      this.initialize()
-    },
+  mounted(){
+    this.getDataSector(),
+    this.getDataAmbito()
+  },
 
   methods: {
-    initialize () {
-        this.sectoresData = [
-          {
-            ambito:"U448",
-            codigo:"158",
-            nombre:"Naranjal 1",
-            clasificacion:"8",
-            area:"000",
-            perimetro:"1234"
-          },
-          {
-            ambito:"U448",
-            codigo:"158",
-            nombre:"Naranjal 1",
-            clasificacion:"8",
-            area:"000",
-            perimetro:"1234"
-          },
-          {
-            ambito:"U448",
-            codigo:"158",
-            nombre:"Naranjal 1",
-            clasificacion:"8",
-            area:"000",
-            perimetro:"1234"
-          },
-          {
-            ambito:"U448",
-            codigo:"158",
-            nombre:"Naranjal 1",
-            clasificacion:"8",
-            area:"000",
-            perimetro:"1234"
-          },
-          {
-            ambito:"U448",
-            codigo:"158",
-            nombre:"Naranjal 1",
-            clasificacion:"8",
-            area:"000",
-            perimetro:"1234"
-          },
-          {
-            ambito:"U448",
-            codigo:"158",
-            nombre:"Naranjal 1",
-            clasificacion:"8",
-            area:"000",
-            perimetro:"1234"
-          },
-        ]
-      },
+    getDataAmbito() {
+      this.$axios.$get('ambito').then(response => {
+          this.ambitoData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
-      editItem (item) {
-        this.editedIndex = this.sectoresData.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
+    getDataSector() {
+      this.$axios.$get('sector').then(response => {
+          this.sectoresData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
-      deleteItem (item) {
-        this.editedIndex = this.sectoresData.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
+    createSector(){
 
-      deleteItemConfirm () {
-        this.sectoresData.splice(this.editedIndex, 1)
-        this.closeDelete()
-      },
+      this.$axios.$post('sector/', this.nuevoRegistro).then(res => {
+          console.log(res.data)
+          this.nuevoRegistro = {}
+          this.$alert("success", {desc: "Se ha creado un nuevo sector con éxito", hash: 'knsddcssdc', title:'Creación de Sector'})        
+        }).catch(err => {
+          console.log(err)
+        })
 
-      close () {
         this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
+    },  
 
-      closeDelete () {
+    editItem(item){
+      console.log(item)
+      this.dialog_editar = true
+      this.defaultItem.id = item.id
+      this.defaultItem.codigo = item.codigo
+      this.defaultItem.descripcion = item.descripcion
+      this.defaultItem.ambito = item.ambito
+      this.defaultItem.clasificacion = item.clasificacion
+      this.defaultItem.area = item.area
+      this.defaultItem.perimetro = item.perimetro
+    },
+
+    saveData(){
+      const formData = new FormData()
+      formData.append('codigo', this.defaultItem.codigo)
+      formData.append('descripcion', this.defaultItem.descripcion)
+      formData.append('ambito', this.defaultItem.ambito)
+      formData.append('clasificacion', this.defaultItem.clasificacion)
+      formData.append('area', this.defaultItem.area)
+      formData.append('perimetro', this.defaultItem.perimetro)
+
+
+      this.$axios.$patch('sector/'+ this.defaultItem.id + '/', formData).then((res) => {
+        console.log(res.data)
+        this.$alert("success", {desc: "Se ha editado un sector con éxito", hash: 'knsddcssdc', title:'Edición de sector'})        
+      }).catch((err) => {
+        console.log(err)
+      });
+
+      this.dialog_editar = false
+    },  
+
+    openDelete(item){
+      this.defaultItem = item
+      this.dialogDelete = true
+    },
+
+    deleteItem(){
+      this.$axios.$delete('sector/'+ this.defaultItem.id + '/').then((res) => {
+        console.log(res.data)
         this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.sectoresData[this.editedIndex], this.editedItem)
-        } else {
-          this.sectoresData.push(this.editedItem)
-        }
-        this.close()
-      },
-
-    // removeDiv(index) {
-    //   this.datosSectores.splice(index, 1);
-    // },
-
-    // saveChanges() {
-    //   // Realizar cualquier acción necesaria para guardar los cambios aquí
-    //   this.editingIndex = null;
-    // },
-
-    // addItem() {
-    //   const newItem = {
-    //     ambito: this.newItem.ambito,
-    //     codigo: this.newItem.codigo,
-    //     nombre: this.newItem.nombre,
-    //     clasificacion: this.newItem.clasificacion,
-    //     area: this.newItem.area,
-    //     perimetro: this.newItem.perimetro,
-    //   };
-    //   this.datosSectores.push(newItem);
-    //   this.newItem.ambito = null;
-    //   this.newItem.codigo = null;
-    //   this.newItem.nombre = '';
-    //   this.newItem.clasificacion = null;
-    //   this.newItem.area = '';
-    //   this.newItem.perimetro = '';
-    // },
+        this.$alert("success", {desc: "Se ha eliminado un sector con éxito", hash: 'knsddcssdc', title:'Eliminación de Sector'})        
+      }).catch((err) => {
+        console.log(err)
+      });
+    },
   }
 };
 </script>

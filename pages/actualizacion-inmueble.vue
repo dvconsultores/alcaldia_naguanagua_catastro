@@ -43,13 +43,15 @@
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Tipo de Inmueble"
-          :items="tipo_inmueble"
+          :items="tipoInmuebleData"
+          item-text="descripcion"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Estatus Actual"
-          :items="estatus_actual"
+          :items="estatusInmuebleData"
+          item-text="descripcion"
           ></v-autocomplete>
         </div>
       </div>
@@ -67,79 +69,105 @@
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Ambito*"
-          :items="ambito"
+          :items="ambitoData"
+          item-text="descripcion"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Sector*"
-          :items="sector"
+          :items="sectorData"
+          item-text="descripcion"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Manzana*"
-          :items="manzana"
+          :items="manzanaData"
+          item-text="codigo"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Parcela*"
-          :items="parcela"
+          :items="parcelaData"
+          item-text="codigo"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Sub-Parcela*"
-          :items="sub_parcela"
+          :items="subParcelaData"
+          item-text="codigo"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Nivel"
-          :items="nivel"
+          :items="nivelInmuebleData"
+          item-text="descripcion"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Unidad"
-          :items="unidad"
+          :items="unidadInmuebleData"
+          item-text="descripcion"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Urbanización / Barrio*"
-          :items="urbanizacion"
+          :items="urbanizacionData"
+          item-text="nombre"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Calle"
-          :items="calle"
+          :items="calleData"
+          item-text="nombre"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Conj. Residencial / Centro Comercial"
-          :items="conj_residencial"
+          :items="conjuntoResidencialData"
+          item-text="nombre"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Edificio"
-          :items="edificio"
+          :items="edificioData"
+          item-text="nombre"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Avenida"
-          :items="avenida"
+          :items="avenidaData"
+          item-text="nombre"
+          item-value="id"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Torre"
-          :items="torre"
+          :items="torreData"
+          item-text="nombre"
+          item-value="id"
           ></v-autocomplete>
 
           <v-text-field
@@ -169,19 +197,19 @@
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Zona(1996 / 2001)"
-          :items="torre"
+          :items="zona"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Zona(2001 / 2003)"
-          :items="torre"
+          :items="zona"
           ></v-autocomplete>
 
           <v-autocomplete
           class="big-autocomplete mobile-inputs"
           label="Zona(2004)"
-          :items="torre"
+          :items="zona"
           ></v-autocomplete>
 
           <v-textarea
@@ -273,7 +301,23 @@ export default {
   name: "ActualizacionInmueblePage",
   mixins: [computeds],
   data() {
-    return { 
+    return {       
+      tipoInmuebleData:[],  
+      estatusInmuebleData:[],
+      ambitoData:[],
+      sectorData:[],
+      manzanaData:[],
+      parcelaData:[],
+      subParcelaData:[],
+      nivelInmuebleData:[],
+      unidadInmuebleData:[],
+      urbanizacionData:[],
+      calleData:[],
+      conjuntoResidencialData:[],
+      edificioData:[],
+      avenidaData:[],
+      torreData:[],
+      zona:["1","2","3"],
       dialog_exito: false,
       datosGenerales:[
         {
@@ -299,8 +343,144 @@ export default {
     }
   },
 
+  mounted(){
+    this.getDataTipo(),
+    this.getDataEstatus(),
+    this.getDataAmbito(),
+    this.getDataSector(),
+    this.getDataManzana(),
+    this.getDataParcela(),
+    this.getDataSubParcela(),
+    this.getDataNivel(),
+    this.getDataUnidad(),
+    this.getDataUrbanizacion(),
+    this.getDataCalle(),
+    this.getDataConjunto(),
+    this.getDataEdificio(),
+    this.getDataAvenida(),
+    this.getDataTorre()
+  },
+
   methods: {
-   
+    getDataSector(){
+      this.$axios.$get('sector').then(response => {
+          this.sectorData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataManzana(){
+      this.$axios.$get('manzana').then(response => {
+          this.manzanaData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataParcela(){
+      this.$axios.$get('parcela').then(response => {
+          this.parcelaData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataSubParcela(){
+      this.$axios.$get('subparcela').then(response => {
+          this.subParcelaData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataUrbanizacion(){
+      this.$axios.$get('urbanizacion').then(response => {
+          this.urbanizacionData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataCalle(){
+      this.$axios.$get('calle').then(response => {
+          this.calleData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataConjunto(){
+      this.$axios.$get('conjuntoresidencial').then(response => {
+          this.conjuntoResidencialData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataEdificio(){
+      this.$axios.$get('edificio').then(response => {
+          this.edificioData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataAvenida(){
+      this.$axios.$get('avenida').then(response => {
+          this.avenidaData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataTorre(){
+      this.$axios.$get('torre').then(response => {
+          this.torreData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+    
+    getDataTipo(){
+      this.$axios.$get('tipoinmueble').then(response => {
+          this.tipoInmuebleData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataEstatus() {
+      this.$axios.$get('estatusinmueble').then(response => {
+          this.estatusInmuebleData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataAmbito() {
+      this.$axios.$get('ambito').then(response => {
+          this.ambitoData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataNivel() {
+      this.$axios.$get('nivelinmueble').then(response => {
+          this.nivelInmuebleData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataUnidad() {
+      this.$axios.$get('unidadinmueble').then(response => {
+          this.unidadInmuebleData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
   }
 };
 </script>

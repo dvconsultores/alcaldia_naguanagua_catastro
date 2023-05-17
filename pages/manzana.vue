@@ -1,76 +1,5 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <!-- <section class="section1-manzana">
-      <div class="manzana-container">
-        <p class="title-manzana">
-          Agregar nueva Manzana
-        </p>
-
-        <hr>
-
-        <div class="textfield-search-container">
-          <v-autocomplete
-          v-model="newItem.ambito"
-          class="autocomplete-small"
-          label="Ambito*"
-          :items="items_ambito"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.sector"
-          class="autocomplete-small"
-          label="Sector*"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.codigo_manzana"
-          class="autocomplete-small"
-          label="Codigo Manzana*"
-          ></v-autocomplete>
-
-          <v-text-field
-          v-model="newItem.area"
-          class="inputs-consulta"
-          label="Area*"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="newItem.perimetro"
-          class="inputs-consulta"
-          label="Perimetro*"
-          ></v-text-field>
-
-          <v-autocomplete
-          v-model="newItem.via_norte"
-          class="autocomplete-small"
-          label="Via Norte*"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.via_sur"
-          class="inputs-consulta"
-          label="Via Sur*"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.via_este"
-          class="inputs-consulta"
-          label="Via Este*"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.via_oeste"
-          class="inputs-consulta"
-          label="Via Oeste*"
-          ></v-autocomplete>
-
-          <v-btn class="btn-buscar" @click="addItem">
-            Agregar
-          </v-btn>           
-        </div>
-      </div>
-    </section> -->
-
     <section class="section2-manzana">
       <div class="datos-manzana-container">
         <div class="title-morado">
@@ -93,7 +22,7 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">{{ formTitle }}</span>
+                <span class="title">Crear Manzana</span>
               </v-card-title>
 
               <hr>
@@ -101,108 +30,94 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.ambito"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.ambito"
                         label="Ambito"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="ambitoData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.sector"
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.sector"
                         label="Sector"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="sectoresData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
+
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.codigo_manzana"
+                        v-model="nuevoRegistro.codigo"
                         label="Código Manzana"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
+
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.area"
+                        v-model="nuevoRegistro.area"
                         label="Área"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
+
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.perimetro"
+                        v-model="nuevoRegistro.perimetro"
                         label="Perímetro"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
 
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.via_norte"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.via_norte"
                         label="Vía Norte"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="dataCalle"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
 
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.via_sur"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.via_sur"
                         label="Vía Sur"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="dataCalle"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
 
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.via_este"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.via_este"
                         label="Vía Este"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="dataCalle"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
 
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.via_oeste"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.via_oeste"
                         label="Vía Oeste"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="dataCalle"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -212,13 +127,137 @@
                 <v-spacer></v-spacer>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="close"
+                  @click="dialog = false"
                 >
                   Cancelar
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="save"
+                  @click="createManzana()"
+                  style="background-color:#ED057E!important;"
+                >
+                  Guardar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog
+            v-model="dialog_editar"
+            max-width="1600px"
+          >
+            <v-card id="dialog-editar-crear">
+              <v-card-title>
+                <span class="title">Editar Manzana</span>
+              </v-card-title>
+
+              <hr>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.ambito"
+                        label="Ambito"
+                        class="input-dialog"
+                        :items="ambitoData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.sector"
+                        label="Sector"
+                        class="input-dialog"
+                        :items="sectoresData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="defaultItem.codigo"
+                        label="Descripción"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+                   
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="defaultItem.area"
+                        label="Área"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="defaultItem.perimetro"
+                        label="Perímetro"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.via_norte"
+                        label="Vía Norte"
+                        class="input-dialog"
+                        :items="dataCalle"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.via_sur"
+                        label="Vía Sur"
+                        class="input-dialog"
+                        :items="dataCalle"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.via_este"
+                        label="Vía Este"
+                        class="input-dialog"
+                        :items="dataCalle"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.via_oeste"
+                        label="Vía Oeste"
+                        class="input-dialog"
+                        :items="dataCalle"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  class="btn dialog-btn"
+                  @click="dialog_editar = false"
+                >
+                  Cancelar
+                </v-btn>
+                <v-btn
+                  class="btn dialog-btn"
+                  @click="saveData()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -253,23 +292,15 @@
               <v-toolbar
                 flat
                 class="toolbar-tabla"
-              >
-                <!-- <v-toolbar-title>My CRUD</v-toolbar-title>
-                <v-divider
-                  class="mx-4"
-                  inset
-                  vertical
-                ></v-divider>
-                <v-spacer></v-spacer> -->
-                
+              >                
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
                     <span class="alerta-text">Esta acción no se puede revertir</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="deleteItemConfirm">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="closeDelete" style="background-color:#ED057E!important;">No</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -287,18 +318,10 @@
               <v-icon
                 color="#810880"
                 big
-                @click="deleteItem(item)"
+                @click="openDelete(item)"
               >
                 mdi-delete
               </v-icon>
-            </template>
-            <template v-slot:no-data>
-              <v-btn
-                color="primary"
-                @click="initialize"
-              >
-                Reset
-              </v-btn>
             </template>
           </v-data-table>
         </div>
@@ -396,36 +419,31 @@ export default {
     return {  
       search: '',
       dialog: false,
+      dialog_editar: false,
       dialogDelete: false,
+      nuevoRegistro:{},
       headers: [
-        { text: 'Ambito', align: 'start', value: 'ambito',},
-        { text: 'Sector', value: 'sector', align:'center' },
-        { text: 'Código Manzana', value: 'codigo_manzana', align:'center' },
+        { text: 'Ambito', align: 'start', value: 'descripcion_ambito',},
+        { text: 'Sector', value: 'descripcion_sector', align:'center' },
+        { text: 'Código Manzana', value: 'codigo', align:'center' },
         { text: 'Área', value: 'area', align:'center' },
         { text: 'Perímetro', value: 'perimetro', align:'center' },
-        { text: 'Vía Norte', value: 'via_norte', align:'center' },
-        { text: 'Vía Sur', value: 'via_sur', align:'center' },
-        { text: 'Vía Este', value: 'via_este', align:'center' },
-        { text: 'Vía Oeste', value: 'via_oeste', align:'center' },
+        { text: 'Vía Norte', value: 'descripcion_via_norte', align:'center' },
+        { text: 'Vía Sur', value: 'descripcion_via_sur', align:'center' },
+        { text: 'Vía Este', value: 'descripcion_via_este', align:'center' },
+        { text: 'Vía Oeste', value: 'descripcion_via_oeste', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
+
       sectoresManzana: [],
-      editedIndex: -1,
-      editedItem: {
-        ambito: '',
-        sector: '',
-        codigo_manzana: '',
-        area: '',
-        perimetro: '',
-        via_norte: '',
-        via_sur: '',
-        via_este: '',
-        via_oeste: '',
-      },
+      ambitoData:[],
+      sectoresData:[],
+      dataCalle: [],
+
       defaultItem: {
         ambito: '',
         sector: '',
-        codigo_manzana: '',
+        codigo: '',
         area: '',
         perimetro: '',
         via_norte: '',
@@ -433,75 +451,6 @@ export default {
         via_este: '',
         via_oeste: '',
       },
-      // newItem: {
-      //   ambito: null,
-      //   sector: null,
-      //   codigo_manzana: null,
-      //   area:'',
-      //   perimetro:'',
-      //   via_norte: null,
-      //   via_sur: null,
-      //   via_este: null,
-      //   via_oeste: null,
-      // },
-      // editingIndex: null,
-      // datosManzanas:[
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     codigo_manzana:"Naranjal 1",
-      //     area:"8",
-      //     perimetro:"000",
-      //     via_norte:"1234",
-      //     via_sur:"",
-      //     via_este:"",
-      //     via_oeste:"",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     codigo_manzana:"Naranjal 1",
-      //     area:"8",
-      //     perimetro:"000",
-      //     via_norte:"1234",
-      //     via_sur:"",
-      //     via_este:"",
-      //     via_oeste:"",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     codigo_manzana:"Naranjal 1",
-      //     area:"8",
-      //     perimetro:"000",
-      //     via_norte:"1234",
-      //     via_sur:"",
-      //     via_este:"",
-      //     via_oeste:"",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     codigo_manzana:"Naranjal 1",
-      //     area:"8",
-      //     perimetro:"000",
-      //     via_norte:"1234",
-      //     via_sur:"",
-      //     via_este:"",
-      //     via_oeste:"",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     codigo_manzana:"Naranjal 1",
-      //     area:"8",
-      //     perimetro:"000",
-      //     via_norte:"1234",
-      //     via_sur:"",
-      //     via_este:"",
-      //     via_oeste:"",
-      //   },
-      // ]
     }
   },
   head() {
@@ -511,162 +460,110 @@ export default {
     }
   },
 
-  computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'Agregar nueva Manzana' : 'Editar Manzana'
-      },
-    },
-
-  watch: {
-    dialog (val) {
-      val || this.close()
-    },
-    dialogDelete (val) {
-      val || this.closeDelete()
-    },
-  },
-
-  created () {
-    this.initialize()
+  mounted(){
+    this.getDataSector(),
+    this.getDataAmbito(),
+    this.getDataManzana(),
+    this.getCalle()
   },
 
   methods: {
-    initialize () {
-        this.sectoresManzana = [
-          {
-            ambito:"U448",
-            sector:"158",
-            codigo_manzana:"Naranjal 1",
-            area:"8",
-            perimetro:"000",
-            via_norte:"1234",
-            via_sur:"999",
-            via_este:"999",
-            via_oeste:"999",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            codigo_manzana:"Naranjal 1",
-            area:"8",
-            perimetro:"000",
-            via_norte:"1234",
-            via_sur:"990",
-            via_este:"999",
-            via_oeste:"999",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            codigo_manzana:"Naranjal 1",
-            area:"8",
-            perimetro:"000",
-            via_norte:"1234",
-            via_sur:"999",
-            via_este:"999",
-            via_oeste:"999",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            codigo_manzana:"Naranjal 1",
-            area:"8",
-            perimetro:"000",
-            via_norte:"1234",
-            via_sur:"999",
-            via_este:"999",
-            via_oeste:"999",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            codigo_manzana:"Naranjal 1",
-            area:"8",
-            perimetro:"000",
-            via_norte:"1234",
-            via_sur:"999",
-            via_este:"999",
-            via_oeste:"999",
-          },
-        ]
-      },
-
-      editItem (item) {
-        this.editedIndex = this.sectoresManzana.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-
-      deleteItem (item) {
-        this.editedIndex = this.sectoresManzana.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
-
-      deleteItemConfirm () {
-        this.sectoresManzana.splice(this.editedIndex, 1)
-        this.closeDelete()
-      },
-
-      close () {
-        this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
+    getCalle() {
+      this.$axios.$get('calle').then(response => {
+          this.dataCalle = response
+        }).catch(err => {
+          console.log(err)
         })
-      },
+    },
 
-      closeDelete () {
+    getDataAmbito() {
+      this.$axios.$get('ambito').then(response => {
+          this.ambitoData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataSector() {
+      this.$axios.$get('sector').then(response => {
+          this.sectoresData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    getDataManzana() {
+      this.$axios.$get('manzana').then(response => {
+          this.sectoresManzana = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    createManzana(){
+      this.$axios.$post('manzana/', this.nuevoRegistro).then(res => {
+        console.log(res.data)
+        this.nuevoRegistro = {}
+        this.$alert("success", {desc: "Se ha creado una nueva mazana con éxito", hash: 'knsddcssdc', title:'Creación de Manzana'})
+        this.getDataManzana()        
+      }).catch(err => {
+        console.log(err)
+      })
+
+      this.dialog = false
+    },  
+
+    editItem(item){
+      console.log(item)
+      this.dialog_editar = true
+      this.defaultItem.id = item.id
+      this.defaultItem.codigo = item.codigo
+      this.defaultItem.ambito = item.ambito
+      this.defaultItem.area = item.area
+      this.defaultItem.perimetro = item.perimetro
+      this.defaultItem.sector = item.sector
+      this.defaultItem.via_norte = item.via_norte
+      this.defaultItem.via_este = item.via_este
+      this.defaultItem.via_sur = item.via_sur
+      this.defaultItem.via_oeste = item.via_oeste
+    },
+
+    saveData(){
+      const formData = new FormData()
+      formData.append('codigo', this.defaultItem.codigo)
+      formData.append('ambito', this.defaultItem.ambito)
+      formData.append('area', this.defaultItem.area)
+      formData.append('perimetro', this.defaultItem.perimetro)
+      formData.append('sector', this.defaultItem.sector)
+      formData.append('via_norte', this.defaultItem.via_norte)
+      formData.append('via_este', this.defaultItem.via_este)
+      formData.append('via_sur', this.defaultItem.via_sur)
+      formData.append('via_oeste', this.defaultItem.via_oeste)
+
+      this.$axios.$patch('manzana/'+ this.defaultItem.id + '/', formData).then((res) => {
+        console.log(res.data)
+        this.$alert("success", {desc: "Se ha editado una manzana con éxito", hash: 'knsddcssdc', title:'Edición de manzana'})        
+      }).catch((err) => {
+        console.log(err)
+      });
+
+      this.dialog_editar = false
+    },  
+
+    openDelete(item){
+      this.defaultItem = item
+      this.dialogDelete = true
+    },
+
+    deleteItem(){
+      this.$axios.$delete('manzana/'+ this.defaultItem.id + '/').then((res) => {
+        console.log(res.data)
         this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.sectoresManzana[this.editedIndex], this.editedItem)
-        } else {
-          this.sectoresManzana.push(this.editedItem)
-        }
-        this.close()
-      },
-
-    // removeDiv(index) {
-    //   this.datosManzanas.splice(index, 1);
-    // },
-
-    // saveChanges() {
-    //   // Realizar cualquier acción necesaria para guardar los cambios aquí
-    //   this.editingIndex = null;
-    // },
-
-    // addItem() {
-    //   const newItem = {
-    //     ambito: this.newItem.ambito,
-    //     sector: this.newItem.sector,
-    //     codigo_manzana: this.newItem.codigo_manzana,
-    //     area: this.newItem.area,
-    //     perimetro: this.newItem.perimetro,
-    //     via_norte: this.newItem.via_norte,
-    //     via_sur: this.newItem.via_sur,
-    //     via_este: this.newItem.via_este,
-    //     via_oeste: this.newItem.via_oeste,
-
-    //   };
-    //   this.datosManzanas.push(newItem);
-    //   this.newItem.ambito = null;
-    //   this.newItem.sector = null;
-    //   this.newItem.codigo_manzana = null;
-    //   this.newItem.area = '';
-    //   this.newItem.perimetro = '';
-    //   this.newItem.via_norte = null;
-    //   this.newItem.via_sur = null;
-    //   this.newItem.via_este = null;
-    //   this.newItem.via_oeste = null;
-
-    // },
+        this.$alert("success", {desc: "Se ha eliminado una manzana con éxito", hash: 'knsddcssdc', title:'Eliminación de Manzana'})        
+      }).catch((err) => {
+        console.log(err)
+      });
+    },
   }
 };
 </script>

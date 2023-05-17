@@ -1,10 +1,10 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section2-torres">
-      <div class="datos-torres-container">
+    <section class="section1-avenida">
+      <div class="datos-avenida-container">
         <div class="title-morado">
-          <p class="datos-torres-title">
-            Torres
+          <p class="datos-avenida-title">
+            avenida
           </p>
 
           <v-dialog
@@ -22,61 +22,38 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Crear Torre</span>
+                <span class="title">Crear avenida</span>
               </v-card-title>
 
               <hr>
 
               <v-card-text>
                 <v-container>
-                  <v-row>
+                  <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.ambito"
-                        label="Ambito"
+                      <v-text-field
+                        v-model="nuevoRegistro.codigo"
+                        label="Código"
                         class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
+                      ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.conjunto_residencial"
-                        label="Nombre del Conjunto"
-                        class="input-dialog"
-                        :items="conjuntoData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="nuevoRegistro.nombre"
-                        label="Torre"
+                        label="Nombre"
                         class="input-dialog"
                       ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.tipo"
+                        label="Tipo"
+                        class="input-dialog"
+                        :items="avenidaData"
+                        item-text="tipo"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -92,7 +69,7 @@
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="createEdificio()"
+                  @click="createAvenida()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -104,64 +81,46 @@
           <v-dialog
             v-model="dialog_editar"
             max-width="1600px"
-          >             
+          >
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar Torre</span>
+                <span class="title">Editar avenida</span>
               </v-card-title>
 
               <hr>
 
               <v-card-text>
                 <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.ambito"
-                        label="Ambito"
+                  <v-row class="center">
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="defaultItem.codigo"
+                        label="Código"
                         class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
+                        disabled
+                      ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.conjunto_residencial"
-                        label="Nombre del Conjunto"
-                        class="input-dialog"
-                        :items="conjuntoData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="defaultItem.nombre"
-                        label="Torre"
+                        label="Nombre"
                         class="input-dialog"
                       ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.tipo"
+                        label="Tipo"
+                        class="input-dialog"
+                        :items="avenidaData"
+                        item-text="tipo"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -175,6 +134,7 @@
                 >
                   Cancelar
                 </v-btn>
+
                 <v-btn
                   class="btn dialog-btn"
                   @click="saveData()"
@@ -198,7 +158,7 @@
 
           <v-data-table
             :headers="headers"
-            :items="torresData"
+            :items="avenidaData"
             :items-per-page="10"
             :search="search"
             :footer-props="{
@@ -212,7 +172,7 @@
               <v-toolbar
                 flat
                 class="toolbar-tabla"
-              >        
+              >  
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
@@ -254,7 +214,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "TorresPage",
+  name: "avenidaPage",
   mixins: [computeds],
   data() {
     return {  
@@ -264,91 +224,46 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Ambito', align: 'start', value: 'ambito',},
-        { text: 'Sector', value: 'sector', align:'center' },
-        { text: 'Urbanización/Barrio', value: 'urbanizacion', align:'center' },
-        { text: 'Conjunto Residencial', value: 'conjunto_residencial', align:'center' },
-        { text: 'Nombre de la torre (Edificio)', value: 'nombre', align:'center' },
+        { text: 'Código', align: 'center', value: 'codigo',},
+        { text: 'Descripción', value: 'nombre', align:'center' },
+        { text: 'Tipo', value: 'tipo', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
-
-      torresData: [],   
-      conjuntoData: [],
-      sectoresData: [],
-      ambitoData:[],
-      urbanizacionData: [], 
+      avenidaData: [],
 
       defaultItem: {
-        ambito: '',
-        sector: '',
-        urbanizacion: '',
-        conjunto_residencial: '',
+        codigo: '',
         nombre: '',
+        tipo:'',
+        id:'',
       },
     }
   },
   head() {
-    const title = 'Edificio';
+    const title = 'Avenida';
     return {
       title,
     }
   },
 
   mounted(){
-    this.getDataSector(),
-    this.getDataAmbito(),
-    this.getDataUrbanizacion(),
-    this.getDataConjunto(),
-    this.getDataTorre()
+    this.getAvenida()
   },
 
   methods: {
-    getDataTorre(){
-      this.$axios.$get('torre').then(response => {
-          this.torresData = response
+    getAvenida() {
+      this.$axios.$get('avenida').then(response => {
+          this.avenidaData = response
         }).catch(err => {
           console.log(err)
         })
     },
 
-    getDataConjunto(){
-      this.$axios.$get('conjuntoresidencial').then(response => {
-          this.conjuntoData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataUrbanizacion(){
-      this.$axios.$get('urbanizacion').then(response => {
-          this.urbanizacionData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataAmbito() {
-      this.$axios.$get('ambito').then(response => {
-          this.ambitoData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataSector() {
-      this.$axios.$get('sector').then(response => {
-          this.sectoresData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    createEdificio(){
-
-      this.$axios.$post('torre/', this.nuevoRegistro).then(res => {
+    createAvenida(){
+      this.$axios.$post('avenida/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
-          this.$alert("success", {desc: "Se ha creado una nueva torre con éxito", hash: 'knsddcssdc', title:'Creación de torre'})        
+          this.$alert("success", {desc: "Se ha creado una nueva avenida con éxito", hash: 'knsddcssdc', title:'Creación de avenida'})        
         }).catch(err => {
           console.log(err)
         })
@@ -360,24 +275,20 @@ export default {
       console.log(item)
       this.dialog_editar = true
       this.defaultItem.id = item.id
-      this.defaultItem.ambito = item.ambito
-      this.defaultItem.sector = item.sector
-      this.defaultItem.urbanizacion = item.urbanizacion
-      this.defaultItem.conjunto_residencial = item.conjunto_residencial
+      this.defaultItem.codigo = item.codigo
       this.defaultItem.nombre = item.nombre
+      this.defaultItem.tipo = item.tipo
     },
 
     saveData(){
       const formData = new FormData()
-      formData.append('ambito', this.defaultItem.ambito)
-      formData.append('sector', this.defaultItem.sector)
-      formData.append('urbanizacion', this.defaultItem.urbanizacion)
-      formData.append('conjunto', this.defaultItem.conjunto_residencial)
+      formData.append('codigo', this.defaultItem.codigo)
       formData.append('nombre', this.defaultItem.nombre)
+      formData.append('tipo', this.defaultItem.tipo)
 
-      this.$axios.$patch('torre/'+ this.defaultItem.id + '/', formData).then((res) => {
+      this.$axios.$patch('avenida/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una torre con éxito", hash: 'knsddcssdc', title:'Edición de torre'})        
+        this.$alert("success", {desc: "Se ha editado una avenida con éxito", hash: 'knsddcssdc', title:'Edición de avenida'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -391,10 +302,10 @@ export default {
     },
 
     deleteItem(){
-      this.$axios.$delete('torre/'+ this.defaultItem.id + '/').then((res) => {
+      this.$axios.$delete('avenida/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una torre con éxito", hash: 'knsddcssdc', title:'Eliminación de torre'})        
+        this.$alert("success", {desc: "Se ha eliminado una avenida con éxito", hash: 'knsddcssdc', title:'Eliminación de avenida'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -403,4 +314,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/torres.scss" lang="scss" />
+<style src="~/assets/styles/pages/avenida.scss" lang="scss" />

@@ -1,46 +1,5 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <!-- <section class="section1-conjuntos">
-      <div class="conjuntos-container">
-        <p class="title-conjuntos">
-          Agregar nuevo Conjunto Residencial
-        </p>
-
-        <hr>
-
-        <div class="textfield-search-container">
-          <v-autocomplete
-          v-model="newItem.ambito"
-          class="autocomplete-small"
-          label="Ambito*"
-          :items="items_ambito"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.sector"
-          class="autocomplete-small"
-          label="Sector*"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.urb_barrio"
-          class="autocomplete-big"
-          label="Urbanización/Barrio*"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.nombre"
-          class="autocomplete-big"
-          label="Nombre del Conjunto*"
-          ></v-autocomplete>
-
-          <v-btn class="btn-buscar" @click="addItem">
-            Agregar
-          </v-btn>           
-        </div>
-      </div>
-    </section> -->
-
     <section class="section2-conjuntos">
       <div class="datos-conjuntos-container">
         <div class="title-morado">
@@ -63,7 +22,7 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">{{ formTitle }}</span>
+                <span class="title">Crea Conjunto Residencial</span>
               </v-card-title>
 
               <hr>
@@ -71,46 +30,39 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.ambito"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.ambito"
                         label="Ambito"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="ambitoData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.sector"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.sector"
                         label="Sector"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="sectoresData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.urbanizacion_barrio"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.urbanizacion"
                         label="Urbanización/Barrio"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="urbanizacionData"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.nombre"
+                        v-model="nuevoRegistro.nombre"
                         label="Nombre del Conjunto"
                         class="input-dialog"
                       ></v-text-field>
@@ -123,13 +75,87 @@
                 <v-spacer></v-spacer>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="close"
+                  @click="dialog = false"
                 >
                   Cancelar
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="save"
+                  @click="createConjunto()"
+                  style="background-color:#ED057E!important;"
+                >
+                  Guardar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog
+            v-model="dialog_editar"
+            max-width="1600px"
+          >
+            <v-card id="dialog-editar-crear">
+              <v-card-title>
+                <span class="title">Editar Conjunto Residencial</span>
+              </v-card-title>
+
+              <hr>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.ambito"
+                        label="Ambito"
+                        class="input-dialog"
+                        :items="ambitoData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.sector"
+                        label="Sector"
+                        class="input-dialog"
+                        :items="sectoresData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.urbanizacion"
+                        label="Urbanización/Barrio"
+                        class="input-dialog"
+                        :items="urbanizacionData"
+                        item-text="nombre"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="defaultItem.nombre"
+                        label="Nombre del Conjunto"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  class="btn dialog-btn"
+                  @click="dialog_editar = false"
+                >
+                  Cancelar
+                </v-btn>
+                <v-btn
+                  class="btn dialog-btn"
+                  @click="saveData()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -165,22 +191,14 @@
                 flat
                 class="toolbar-tabla"
               >
-                <!-- <v-toolbar-title>My CRUD</v-toolbar-title>
-                <v-divider
-                  class="mx-4"
-                  inset
-                  vertical
-                ></v-divider>
-                <v-spacer></v-spacer> -->
-                
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
                     <span class="alerta-text">Esta acción no se puede revertir</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="deleteItemConfirm">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="closeDelete" style="background-color:#ED057E!important;">No</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -198,63 +216,13 @@
               <v-icon
                 color="#810880"
                 big
-                @click="deleteItem(item)"
+                @click="openDelete(item)"
               >
                 mdi-delete
               </v-icon>
             </template>
-            <template v-slot:no-data>
-              <v-btn
-                color="primary"
-                @click="initialize"
-              >
-                Reset
-              </v-btn>
-            </template>
           </v-data-table>
         </div>
-
-        <!-- <div v-for="(item,index) in datosConjuntos" :key="index" class="conjuntos-inputs-container">
-          <v-text-field
-          v-model="item.ambito"
-          class="small-input mobile-inputs"
-          label="Ambito"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.sector"
-          class="small-input mobile-inputs"
-          label="Sector"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.urb_barrio"
-          class="big-input mobile-inputs"
-          label="Urbanización/Barrio"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.nombre"
-          class="big-input mobile-inputs"
-          label="Nombre del Conjunto"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-btn class="btns-add-remove"  @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-
-          <v-btn v-if="editingIndex !== index" class="btns-add-remove" @click="editingIndex = index">
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-
-          <v-btn v-if="editingIndex === index" class="btns-add-remove" @click="saveChanges">
-            <v-icon>mdi-content-save</v-icon>
-          </v-btn>
-        </div> -->
       </div>
     </section>
   </div>
@@ -270,68 +238,28 @@ export default {
     return {  
       search: '',
       dialog: false,
+      dialog_editar: false,
       dialogDelete: false,
+      nuevoRegistro:{},
       headers: [
         { text: 'Ambito', align: 'start', value: 'ambito',},
         { text: 'Sector', value: 'sector', align:'center' },
-        { text: 'Urbanización/Barrio', value: 'urbanizacion_barrio', align:'center' },
+        { text: 'Urbanización/Barrio', value: 'urbanizacion', align:'center' },
         { text: 'Nombre del Conjunto', value: 'nombre', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
+
       conjuntoData: [],
-      editedIndex: -1,
-      editedItem: {
-        ambito: '',
-        sector: '',
-        urbanizacion_barrio: '',
-        nombre: '',
-      },
+      sectoresData: [],
+      ambitoData:[],
+      urbanizacionData: [],
+
       defaultItem: {
         ambito: '',
         sector: '',
-        urbanizacion_barrio: '',
+        urbanizacion: '',
         nombre: '',
       },
-
-      // newItem: {
-      //   ambito: null,
-      //   sector: null,
-      //   urb_barrio: null,
-      //   nombre: null,
-      // },
-      // editingIndex: null,
-      // datosConjuntos:[
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     urb_barrio:"Naranjal 1",
-      //     nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     urb_barrio:"Naranjal 1",
-      //     nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     urb_barrio:"Naranjal 1",
-      //     nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     urb_barrio:"Naranjal 1",
-      //     nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     urb_barrio:"Naranjal 1",
-      //     nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-      //   },
-      // ]
     }
   },
   head() {
@@ -340,132 +268,101 @@ export default {
       title,
     }
   },
-
-  computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'Agregar nuevo Conjunto Residencial' : 'Editar Conjunto Residencial'
-      },
-    },
-
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-      dialogDelete (val) {
-        val || this.closeDelete()
-      },
-    },
-
-    created () {
-      this.initialize()
-    },
+  
+  mounted(){
+    this.getDataSector(),
+    this.getDataAmbito(),
+    this.getDataUrbanizacion(),
+    this.getDataConjunto()
+  },
 
   methods: {
-    initialize () {
-        this.conjuntoData = [
-          {
-            ambito:"U448",
-            sector:"158",
-            urbanizacion_barrio:"Naranjal 1",
-            nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            urbanizacion_barrio:"Naranjal 1",
-            nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            urbanizacion_barrio:"Naranjal 1",
-            nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            urbanizacion_barrio:"Naranjal 1",
-            nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            urbanizacion_barrio:"Naranjal 1",
-            nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            urbanizacion_barrio:"Naranjal 1",
-            nombre:"C.R. Villas de Rocio, Sector III Modulo K",
-          },
-        ]
-      },
+    getDataConjunto(){
+      this.$axios.$get('conjuntoresidencial').then(response => {
+          this.conjuntoData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
-      editItem (item) {
-        this.editedIndex = this.conjuntoData.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
+    getDataUrbanizacion(){
+      this.$axios.$get('urbanizacion').then(response => {
+          this.urbanizacionData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
-      deleteItem (item) {
-        this.editedIndex = this.conjuntoData.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
+    getDataAmbito() {
+      this.$axios.$get('ambito').then(response => {
+          this.ambitoData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
-      deleteItemConfirm () {
-        this.conjuntoData.splice(this.editedIndex, 1)
-        this.closeDelete()
-      },
+    getDataSector() {
+      this.$axios.$get('sector').then(response => {
+          this.sectoresData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
-      close () {
+    createConjunto(){
+
+      this.$axios.$post('conjuntoresidencial/', this.nuevoRegistro).then(res => {
+          console.log(res.data)
+          this.nuevoRegistro = {}
+          this.$alert("success", {desc: "Se ha creado un nuevo conjunto residencial con éxito", hash: 'knsddcssdc', title:'Creación de conjunto'})        
+        }).catch(err => {
+          console.log(err)
+        })
+
         this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
+    },  
 
-      closeDelete () {
+    editItem(item){
+      console.log(item)
+      this.dialog_editar = true
+      this.defaultItem.id = item.id
+      this.defaultItem.ambito = item.ambito
+      this.defaultItem.sector = item.sector
+      this.defaultItem.nombre = item.nombre
+      this.defaultItem.tipo = item.tipo
+    },
+
+    saveData(){
+      const formData = new FormData()
+      formData.append('ambito', this.defaultItem.ambito)
+      formData.append('sector', this.defaultItem.sector)
+      formData.append('nombre', this.defaultItem.nombre)
+      formData.append('tipo', this.defaultItem.tipo)
+
+      this.$axios.$patch('conjuntoresidencial/'+ this.defaultItem.id + '/', formData).then((res) => {
+        console.log(res.data)
+        this.$alert("success", {desc: "Se ha editado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Edición de conjunto'})        
+      }).catch((err) => {
+        console.log(err)
+      });
+
+      this.dialog_editar = false
+    },  
+
+    openDelete(item){
+      this.defaultItem = item
+      this.dialogDelete = true
+    },
+
+    deleteItem(){
+      this.$axios.$delete('conjuntoresidencial/'+ this.defaultItem.id + '/').then((res) => {
+        console.log(res.data)
         this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.conjuntoData[this.editedIndex], this.editedItem)
-        } else {
-          this.conjuntoData.push(this.editedItem)
-        }
-        this.close()
-      },
-
-    // removeDiv(index) {
-    //   this.datosConjuntos.splice(index, 1);
-    // },
-
-    // saveChanges() {
-    //   // Realizar cualquier acción necesaria para guardar los cambios aquí
-    //   this.editingIndex = null;
-    // },
-
-    // addItem() {
-    //   const newItem = {
-    //     ambito: this.newItem.ambito,
-    //     sector: this.newItem.sector,
-    //     urb_barrio: this.newItem.urb_barrio,
-    //     nombre: this.newItem.nombre,
-    //   };
-    //   this.datosConjuntos.push(newItem);
-    //   this.newItem.ambito = null;
-    //   this.newItem.sector = null;
-    //   this.newItem.urb_barrio = null;
-    //   this.newItem.nombre = null;
-    // },
+        this.$alert("success", {desc: "Se ha eliminado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Eliminación de Conjunto'})        
+      }).catch((err) => {
+        console.log(err)
+      });
+    },
   }
 };
 </script>

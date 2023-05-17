@@ -249,6 +249,18 @@
             Tipo de Transacción
           </span>
         </div>
+
+        <div v-if="$route.path == '/calle'" class="divcol">
+          <span class="index-text">
+            Calles
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/avenida'" class="divcol">
+          <span class="index-text">
+            Avenidas
+          </span>
+        </div>
       </div>
 
       <div class="divrow" style="gap:20px;">

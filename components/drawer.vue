@@ -96,8 +96,8 @@
               <v-list-item @click="$router.push('parcela')">Parcela</v-list-item>
               <v-list-item @click="$router.push('sub-parcela')">Sub - Parcela</v-list-item>
               <v-list-item @click="$router.push('urbanizacion-barrio')">Urbanizacion / Barrio</v-list-item>
-              <v-list-item>Calle</v-list-item>
-              <v-list-item>Avenida</v-list-item>
+              <v-list-item @click="$router.push('calle')">Calle</v-list-item>
+              <v-list-item @click="$router.push('avenida')">Avenida</v-list-item>
               <v-list-item @click="$router.push('conjuntos-residenciales')">Conjunto Residencial</v-list-item>
               <v-list-item @click="$router.push('edificios')">Edificio / Centro Comercial</v-list-item>
               <v-list-item @click="$router.push('torres')">Torre</v-list-item>

@@ -1,5 +1,13 @@
 <template>
   <section class="center section-login">
+    <!-- <v-dialog v-model="isLoading" persistent>
+      <v-card loading="true">
+        <v-card-text>
+          Cargando...
+        </v-card-text>
+      </v-card>
+    </v-dialog> -->
+
     <img src="~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png" alt="Escudo-Naguanagua">
     <img src="~/assets/sources/images/morado.png" alt="morado">
     <div class="divcol center container-login">
@@ -52,6 +60,7 @@ export default {
   layout:'empty-layout',
   data() {
     return {
+      isLoading:false,
       show1:false,
       email:null,
       password:null,
@@ -65,6 +74,7 @@ export default {
   },
   methods: {
     login () {
+      this.isLoading = true; // Mostrar el modal de carga
       this.$axios.$post('signin/', {
         username: this.email,
         password: this.password,
@@ -74,14 +84,13 @@ export default {
           // this.$toast.success('Autentificación exitosa') // instalar libreria para que funcione
           this.$axios.setToken(res.token, 'Token')
           this.$store.dispatch('storeUser', res)
-          this.$router.push('dashboard')
-
-          this.$axios.$get('ambito/')
-        
+          this.$router.push('dashboard')        
       }).catch((err)=>{
         // this.$toast.error('Error de autentificación')
         console.error(err)
-      })
+      }).finally(() => {
+          this.isLoading = false; // Ocultar el modal de carga una vez que se completa la solicitud
+      });
     },
   }
 };

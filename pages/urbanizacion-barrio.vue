@@ -1,46 +1,5 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <!-- <section class="section1-urbanizacion-barrio">
-      <div class="urbanizacion-barrio-container">
-        <p class="title-urbanizacion-barrio">
-          Agregar nueva Urbanización o Barrio
-        </p>
-
-        <hr>
-
-        <div class="textfield-search-container">
-          <v-autocomplete
-          v-model="newItem.ambito"
-          class="autocomplete-small"
-          label="Ambito*"
-          :items="items_ambito"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.sector"
-          class="autocomplete-small"
-          label="Sector*"
-          ></v-autocomplete>
-
-          <v-text-field
-          v-model="newItem.nombre"
-          class="inputs-consulta"
-          label="Nombre*"
-          ></v-text-field>
-
-          <v-autocomplete
-          v-model="newItem.tipo"
-          class="autocomplete-big"
-          label="Tipo*"
-          ></v-autocomplete>
-
-          <v-btn class="btn-buscar" @click="addItem">
-            Agregar
-          </v-btn>           
-        </div>
-      </div>
-    </section> -->
-
     <section class="section2-urbanizacion-barrio">
       <div class="datos-urbanizacion-barrio-container">
         <div class="title-morado">
@@ -63,7 +22,7 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">{{ formTitle }}</span>
+                <span class="title">Crear Urbanización</span>
               </v-card-title>
 
               <hr>
@@ -71,49 +30,42 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.ambito"
-                        label="Ambito"
-                        class="input-dialog"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                          v-model="nuevoRegistro.ambito"
+                          label="Ambito"
+                          class="input-dialog"
+                          :items="ambitoData"
+                          item-text="descripcion"
+                          item-value="id"
+                        ></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.sector"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.sector"
                         label="Sector"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="sectoresData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.nombre"
+                        v-model="nuevoRegistro.nombre"
                         label="Nombre"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.tipo"
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.tipo"
                         label="Tipo"
                         class="input-dialog"
-                      ></v-text-field>
+                        :items="urbanizacionData"
+                        item-text="tipo"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -123,13 +75,87 @@
                 <v-spacer></v-spacer>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="close"
+                  @click="dialog = false"
                 >
                   Cancelar
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="save"
+                  @click="createUrbanizacion()"
+                  style="background-color:#ED057E!important;"
+                >
+                  Guardar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog
+          v-model="dialog_editar"
+            max-width="1600px"
+          >
+            <v-card id="dialog-editar-crear">
+              <v-card-title>
+                <span class="title">Crear Urbanización</span>
+              </v-card-title>
+
+              <hr>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                          v-model="defaultItem.ambito"
+                          label="Ambito"
+                          class="input-dialog"
+                          :items="ambitoData"
+                          item-text="descripcion"
+                          item-value="id"
+                        ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.sector"
+                        label="Sector"
+                        class="input-dialog"
+                        :items="sectoresData"
+                        item-text="descripcion"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="defaultItem.nombre"
+                        label="Nombre"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">                    
+                      <v-autocomplete
+                        v-model="defaultItem.tipo"
+                        label="Tipo"
+                        class="input-dialog"
+                        :items="urbanizacionData"
+                        item-text="tipo"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  class="btn dialog-btn"
+                  @click="dialog = false"
+                >
+                  Cancelar
+                </v-btn>
+                <v-btn
+                  class="btn dialog-btn"
+                  @click="saveData()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -164,23 +190,15 @@
               <v-toolbar
                 flat
                 class="toolbar-tabla"
-              >
-                <!-- <v-toolbar-title>My CRUD</v-toolbar-title>
-                <v-divider
-                  class="mx-4"
-                  inset
-                  vertical
-                ></v-divider>
-                <v-spacer></v-spacer> -->
-                
+              >                
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
                     <span class="alerta-text">Esta acción no se puede revertir</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="deleteItemConfirm">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="closeDelete" style="background-color:#ED057E!important;">No</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -198,18 +216,10 @@
               <v-icon
                 color="#810880"
                 big
-                @click="deleteItem(item)"
+                @click="openDelete(item)"
               >
                 mdi-delete
               </v-icon>
-            </template>
-            <template v-slot:no-data>
-              <v-btn
-                color="primary"
-                @click="initialize"
-              >
-                Reset
-              </v-btn>
             </template>
           </v-data-table>
         </div>
@@ -269,7 +279,9 @@ export default {
     return {  
       search: '',
       dialog: false,
+      dialog_editar: false,
       dialogDelete: false,
+      nuevoRegistro:{},
       headers: [
         { text: 'Ambito', align: 'start', value: 'ambito',},
         { text: 'Sector', value: 'sector', align:'center' },
@@ -277,54 +289,17 @@ export default {
         { text: 'Tipo', value: 'tipo', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
+
+      sectoresData: [],
+      ambitoData:[],
       urbanizacionData: [],
-      editedIndex: -1,
-      editedItem: {
-        ambito: '',
-        sector: '',
-        nombre: '',
-        tipo: '',
-      },
+     
       defaultItem: {
         ambito: '',
         sector: '',
         nombre: '',
         tipo: '',
       },
-
-      // newItem: {
-      //   ambito: null,
-      //   sector: null,
-      //   nombre:'',
-      //   tipo: null,
-      // },
-      // editingIndex: null,
-      // datosUrbanizacion:[
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     nombre:"Naranjal 1",
-      //     tipo:"8",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     nombre:"Naranjal 1",
-      //     tipo:"8",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     nombre:"Naranjal 1",
-      //     tipo:"8",
-      //   },
-      //   {
-      //     ambito:"U448",
-      //     sector:"158",
-      //     nombre:"Naranjal 1",
-      //     tipo:"8",
-      //   },
-      // ]
     }
   },
   head() {
@@ -334,132 +309,91 @@ export default {
     }
   },
 
-  computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'Agregar nueva Urbanización o Barrio' : 'Editar Urbanización o Barrio'
-      },
-    },
-
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-      dialogDelete (val) {
-        val || this.closeDelete()
-      },
-    },
-
-    created () {
-      this.initialize()
-    },
+  mounted(){
+    this.getDataSector(),
+    this.getDataAmbito(),
+    this.getDataUrbanizacion()
+  },
 
   methods: {
-    initialize () {
-        this.urbanizacionData = [
-          {
-            ambito:"U448",
-            sector:"158",
-            nombre:"Naranjal 1",
-            tipo:"8",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            nombre:"Naranjal 1",
-            tipo:"8",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            nombre:"Naranjal 1",
-            tipo:"8",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            nombre:"Naranjal 1",
-            tipo:"8",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            nombre:"Naranjal 1",
-            tipo:"8",
-          },
-          {
-            ambito:"U448",
-            sector:"158",
-            nombre:"Naranjal 1",
-            tipo:"8",
-          },
-        ]
-      },
+    getDataUrbanizacion(){
+      this.$axios.$get('urbanizacion').then(response => {
+          this.urbanizacionData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
-      editItem (item) {
-        this.editedIndex = this.urbanizacionData.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
+    getDataAmbito() {
+      this.$axios.$get('ambito').then(response => {
+          this.ambitoData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
-      deleteItem (item) {
-        this.editedIndex = this.urbanizacionData.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
+    getDataSector() {
+      this.$axios.$get('sector').then(response => {
+          this.sectoresData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
-      deleteItemConfirm () {
-        this.urbanizacionData.splice(this.editedIndex, 1)
-        this.closeDelete()
-      },
+    createUrbanizacion(){
 
-      close () {
+      this.$axios.$post('urbanizacion/', this.nuevoRegistro).then(res => {
+          console.log(res.data)
+          this.nuevoRegistro = {}
+          this.$alert("success", {desc: "Se ha creado una nueva urbanización con éxito", hash: 'knsddcssdc', title:'Creación de urbanización'})        
+        }).catch(err => {
+          console.log(err)
+        })
+
         this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
+    },  
 
-      closeDelete () {
+    editItem(item){
+      console.log(item)
+      this.dialog_editar = true
+      this.defaultItem.id = item.id
+      this.defaultItem.ambito = item.ambito
+      this.defaultItem.sector = item.sector
+      this.defaultItem.nombre = item.nombre
+      this.defaultItem.tipo = item.tipo
+    },
+
+    saveData(){
+      const formData = new FormData()
+      formData.append('ambito', this.defaultItem.ambito)
+      formData.append('sector', this.defaultItem.sector)
+      formData.append('nombre', this.defaultItem.nombre)
+      formData.append('tipo', this.defaultItem.tipo)
+
+      this.$axios.$patch('urbanizacion/'+ this.defaultItem.id + '/', formData).then((res) => {
+        console.log(res.data)
+        this.$alert("success", {desc: "Se ha editado una urbanización con éxito", hash: 'knsddcssdc', title:'Edición de urbanización'})        
+      }).catch((err) => {
+        console.log(err)
+      });
+
+      this.dialog_editar = false
+    },  
+
+    openDelete(item){
+      this.defaultItem = item
+      this.dialogDelete = true
+    },
+
+    deleteItem(){
+      this.$axios.$delete('urbanizacion/'+ this.defaultItem.id + '/').then((res) => {
+        console.log(res.data)
         this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.urbanizacionData[this.editedIndex], this.editedItem)
-        } else {
-          this.urbanizacionData.push(this.editedItem)
-        }
-        this.close()
-      },
-
-
-    // removeDiv(index) {
-    //   this.datosUrbanizacion.splice(index, 1);
-    // },
-
-    // saveChanges() {
-    //   // Realizar cualquier acción necesaria para guardar los cambios aquí
-    //   this.editingIndex = null;
-    // },
-
-    // addItem() {
-    //   const newItem = {
-    //     ambito: this.newItem.ambito,
-    //     sector: this.newItem.sector,
-    //     nombre: this.newItem.nombre,
-    //     tipo: this.newItem.tipo,
-    //   };
-    //   this.datosUrbanizacion.push(newItem);
-    //   this.newItem.ambito = null;
-    //   this.newItem.sector = null;
-    //   this.newItem.nombre = '';
-    //   this.newItem.tipo = null;
-    // },
+        this.$alert("success", {desc: "Se ha eliminado una urbanización con éxito", hash: 'knsddcssdc', title:'Eliminación de urbanización'})        
+      }).catch((err) => {
+        console.log(err)
+      });
+    },
   }
 };
 </script>

@@ -21,6 +21,20 @@
     "_name": "_7195851e"
   },
   {
+    "name": "avenida___en",
+    "path": "/avenida",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/avenida.vue",
+    "chunkName": "pages/avenida",
+    "_name": "_743134f0"
+  },
+  {
+    "name": "calle___en",
+    "path": "/calle",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/calle.vue",
+    "chunkName": "pages/calle",
+    "_name": "_b63b80f2"
+  },
+  {
     "name": "cedula-catastral___en",
     "path": "/cedula-catastral",
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/cedula-catastral.vue",
@@ -320,6 +334,20 @@
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
     "chunkName": "pages/ambito",
     "_name": "_7195851e"
+  },
+  {
+    "name": "avenida___es",
+    "path": "/es/avenida",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/avenida.vue",
+    "chunkName": "pages/avenida",
+    "_name": "_743134f0"
+  },
+  {
+    "name": "calle___es",
+    "path": "/es/calle",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/calle.vue",
+    "chunkName": "pages/calle",
+    "_name": "_b63b80f2"
   },
   {
     "name": "cedula-catastral___es",
