@@ -49,6 +49,7 @@ const _5c1bab42 = () => interopDefault(import('../pages/ubicacion.vue' /* webpac
 const _e80875ce = () => interopDefault(import('../pages/unidad-inmueble.vue' /* webpackChunkName: "pages/unidad-inmueble" */))
 const _75469122 = () => interopDefault(import('../pages/urbanizacion-barrio.vue' /* webpackChunkName: "pages/urbanizacion-barrio" */))
 const _5c646f5e = () => interopDefault(import('../pages/uso.vue' /* webpackChunkName: "pages/uso" */))
+const _c69d52d0 = () => interopDefault(import('../pages/zona.vue' /* webpackChunkName: "pages/zona" */))
 const _4cf18ef6 = () => interopDefault(import('../pages/verification-email/_verification.vue' /* webpackChunkName: "pages/verification-email/_verification" */))
 
 const emptyFn = () => {}
@@ -243,6 +244,10 @@ export const routerOptions = {
     component: _5c646f5e,
     name: "uso___en"
   }, {
+    path: "/zona",
+    component: _c69d52d0,
+    name: "zona___en"
+  }, {
     path: "/es/acceso",
     component: _397c9650,
     name: "acceso___es"
@@ -418,6 +423,10 @@ export const routerOptions = {
     path: "/es/uso",
     component: _5c646f5e,
     name: "uso___es"
+  }, {
+    path: "/es/zona",
+    component: _c69d52d0,
+    name: "zona___es"
   }, {
     path: "/es/verification-email/:verification?",
     component: _4cf18ef6,

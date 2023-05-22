@@ -261,6 +261,12 @@
             Avenidas
           </span>
         </div>
+
+        <div v-if="$route.path == '/zona'" class="divcol">
+          <span class="index-text">
+            Zonas
+          </span>
+        </div>
       </div>
 
       <div class="divrow" style="gap:20px;">

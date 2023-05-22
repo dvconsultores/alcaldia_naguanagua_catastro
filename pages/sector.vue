@@ -365,7 +365,7 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Ambito', align: 'start', value: 'ambito',},
+        { text: 'Ambito', align: 'start', value: 'descripcion_ambito',},
         { text: 'Código', value: 'codigo', align:'center' },
         { text: 'Nombre', value: 'descripcion', align:'center' },
         { text: 'Clasificación', value: 'clasificacion', align:'center' },

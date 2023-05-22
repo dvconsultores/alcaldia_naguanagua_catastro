@@ -15,18 +15,20 @@
           ></v-autocomplete>
 
           <v-text-field
+          v-model="tipoDocumento"
           class="inputs-consulta"
           label="Cédula"
+          @input="buscarPropietario"
           ></v-text-field>
 
-          <v-btn class="btn-buscar">
+          <v-btn class="btn-buscar" @click="buscarPropietario">
             Buscar
           </v-btn>
         </div>
       </div>
     </section>
 
-    <section class="section2-modificar">
+    <section v-if="propietarioEncontrado" class="section2-modificar">
       <div class="datos-contribuyente-div">
         <p class="title-modificar">
           Datos del Contribuyente
@@ -40,31 +42,32 @@
               Tipo de documento
             </span>
             <div>
-              <v-radio-group v-model="radio_group" row>
-                <v-radio label="Cedula" :value="1" name="radio-group"></v-radio>
-                <v-radio label="RIF" :value="2" name="radio-group"></v-radio>
-                <v-radio label="Pasaporte" :value="3" name="radio-group"></v-radio>
+              <v-radio-group v-model="propietario.tipo_documento" row>
+                <v-radio label="Cedula" value="Cedula" name="radio-group"></v-radio>
+                <v-radio label="RIF" value="RIF" name="radio-group"></v-radio>
+                <v-radio label="Pasaporte" value="Psaporte" name="radio-group"></v-radio>
               </v-radio-group>
             </div>
           </div>
 
           <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
             <v-autocomplete
+              v-model="propietario.nacionalidad"
               :items="items2"
               class="autocomplete-field"
             ></v-autocomplete>
 
             <v-text-field
+            v-model="propietario.numero_documento"
             class="input-big"
-            :value="item.nro_documento"
             label="Nro de Documento"
             style="max-width: 490px;"
             ></v-text-field>
           </div>
 
           <v-text-field
+            v-model="propietario.nombre"
             class="input-big"
-            :value="item.nombre"
             label="Nombre / Razón Social"
           ></v-text-field>
 
@@ -73,14 +76,14 @@
           ></v-textarea>
 
           <v-text-field
+            v-model="propietario.telefono_principal"
             class="input-medium"
-            :value="item.telefono1"
             label="Telefono"
           ></v-text-field>
 
           <v-text-field
+            v-model="propietario.telefono_secundario"
             class="input-medium"
-            :value="item.telefono2"
             label="Telefono 2"
           ></v-text-field>
 
@@ -91,35 +94,27 @@
           ></v-text-field>
 
           <v-text-field
+            v-model="propietario.email_principal"
             class="input-correo"
-            :value="item.correo"
             label="Correo electronico"
           ></v-text-field>
 
           <v-text-field
+            v-model="propietario.emaill_secundario"
             class="input-correo"
-            :value="item.correo2"
             label="Correo electronico 2"
           ></v-text-field>
         </div>
       </div>
 
       <div class="div-btns">
-        <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
-            <template #activator="{attrs, on}">
-              <v-btn v-bind="attrs" v-on="on">
-                Guardar
-              </v-btn>
-            </template>
-            <v-card class="card-dialog-exito">
-              <v-icon @click="dialog_exito = false">mdi-close</v-icon>
-              <p class="p-dialog">Se ha modificado con éxito!</p>
-            </v-card>
-        </v-dialog>
-
-        <v-btn style="background-color:#ED057E!important;">
-          Cancelar
+        <v-btn @click="saveData()">
+          Guardar
         </v-btn>
+
+        <!-- <v-btn style="background-color:#ED057E!important;">
+          Cancelar
+        </v-btn> -->
       </div>
     </section>
   </div>
@@ -133,8 +128,20 @@ export default{
   mixins:[computeds],
   data(){
     return{
+      tipoDocumento: '',
+      propietarioEncontrado: null,
+      propietario: {
+        tipo_documento: '',
+        nacionalidad: '',
+        numero_documento: '',
+        nombre: '',
+        telefono_principal: '',
+        telefono_secundario: '',
+        email_principal: '',
+        emaill_secundario: '',
+      },
       dialog_exito: false,
-      radio_group: 1,
+      tipo_documento: 1,
       items: ['V', 'J', 'G', 'E'],
       items2: ['V', 'J', 'G', 'E'],
       datosContainer:[
@@ -148,7 +155,9 @@ export default{
           correo:"catastroprueba@alcaldianaguanagua.com",
           correo2:"",
         },
-      ]
+      ],
+
+      propietarioData:[],
     }
   },
 
@@ -159,8 +168,72 @@ export default{
     }
   },
 
-  methods: {
+  mounted(){
+    this.getContribuyente()
+    this.buscarPropietario()
+  },
 
+  methods: {
+    getContribuyente() {
+      this.$axios.$get('propietario').then(response => {
+          this.propietarioData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    buscarPropietario() {
+      // Filtrar la lista de propietarioData basándose en el tipo de documento introducido
+      this.propietarioEncontrado = this.propietarioData.find(prop => prop.numero_documento === this.tipoDocumento);
+      
+      if (this.propietarioEncontrado) {
+        // Se encontró un propietario con el tipo de documento especificado
+        // Aquí podrías realizar cualquier lógica adicional o cargar más datos del propietario
+        this.propietario.tipo_documento = this.propietarioEncontrado.tipo_documento;
+        this.propietario.nacionalidad = this.propietarioEncontrado.nacionalidad;
+        this.propietario.numero_documento = this.propietarioEncontrado.numero_documento;
+        this.propietario.nombre = this.propietarioEncontrado.nombre;
+        this.propietario.telefono_principal = this.propietarioEncontrado.telefono_principal;
+        this.propietario.telefono_secundario = this.propietarioEncontrado.telefono_secundario;
+        this.propietario.email_principal = this.propietarioEncontrado.email_principal;
+        this.propietario.emaill_secundario = this.propietarioEncontrado.emaill_secundario;
+
+        // Otros campos del propietario
+      } else {
+        // No se encontró un propietario con el tipo de documento especificado
+        // Puedes reiniciar los campos o mostrar un mensaje de error, etc.
+        this.propietario.tipo_documento = '';
+        this.propietario.nacionalidad = '';
+        this.propietario.numero_documento = '';
+        this.propietario.nombre = '';
+        this.propietario.telefono_principal = '';
+        this.propietario.telefono_secundario = '';
+        this.propietario.email_principal = '';
+        this.propietario.emaill_secundario = '';
+        // Otros campos del propietario
+      }
+    },
+
+    saveData() {
+      const formData = new FormData();
+      formData.append('tipo_documento', this.propietario.tipo_documento);
+      formData.append('nacionalidad', this.propietario.nacionalidad);
+      formData.append('numero_documento', this.propietario.numero_documento);
+      formData.append('nombre', this.propietario.nombre);
+      formData.append('telefono_principal', this.propietario.telefono_principal);
+      formData.append('telefono_secundario', this.propietario.telefono_secundario);
+      formData.append('email_principal', this.propietario.email_principal);
+      formData.append('email_secundario', this.propietario.email_secundario);
+
+      this.$axios.$patch(`propietario/${this.propietarioEncontrado.id}/`, formData)
+      .then(res => {
+        console.log(res.data);
+        this.$alert("success", { desc: "Se ha editado un contribuyente con éxito", hash: 'knsddcssdc', title: 'Edición de contribuyente' });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }, 
   }
 }
 

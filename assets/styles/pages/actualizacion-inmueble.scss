@@ -81,6 +81,20 @@
       }
     }
   }
+}
+
+
+.section2-actualizacion{
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
+  overflow-x: hidden;
+  margin-right: 0px!important;
+  margin-left: 0px;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 10px 10px;
 
   .datos-generales-container{
     position: relative;
@@ -154,20 +168,6 @@
       }
     }
   }
-}
-
-
-.section2-actualizacion{
-  display: flex;
-  flex-direction: column;
-  max-width: 1440px;
-  width: 100%;
-  overflow-x: hidden;
-  margin-right: 0px!important;
-  margin-left: 0px;
-  gap: 10px;
-  padding-bottom: 10px;
-  padding-inline: 10px 10px;
 
   .direccion-container{
     position: relative;

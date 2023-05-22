@@ -19,10 +19,10 @@
           label="Cédula"
           ></v-text-field>
 
-          <v-text-field
+          <!-- <v-text-field
           class="inputs-consulta"
           label="Nombre o Apellido"
-          ></v-text-field>
+          ></v-text-field> -->
 
           <v-btn class="btn-buscar">
             Buscar
@@ -113,66 +113,77 @@
                 label="Nro. Expediente"
                 :value="item2.nro_expediente"
                 class="small-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Sector"
                 :value="item2.sector"
                 class="small-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Manzana"
                 :value="item2.manzana"
                 class="small-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Sub-Parcela"
                 :value="item2.sub_parcela"
                 class="small-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Av/Calle"
                 :value="item2.av_calle"
                 class="big-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Conj. Residencial"
                 :value="item2.conj_residencial"
                 class="small-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Edificio"
                 :value="item2.edificio"
                 class="small-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Nro.Casa/Apto"
                 :value="item2.casa_apto"
                 class="small-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Sub-Parcela"
                 :value="item2.sub_parcela"
                 class="small-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Piso"
                 :value="item2.piso"
                 class="small-input"
+                disabled
                 ></v-text-field>
 
                 <v-text-field
                 label="Nro. Civico"
                 :value="item2.nro_civico"
                 class="small-input"
+                disabled
                 ></v-text-field>
               </div>
 

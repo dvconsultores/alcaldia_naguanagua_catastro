@@ -119,8 +119,7 @@
               <v-list-item @click="$router.push('fines-fiscales')">Fines Fiscales</v-list-item>
               <v-list-item @click="$router.push('tipo-desincorporacion')">Tipo de Desincorporación</v-list-item>
               <v-list-item @click="$router.push('tipo-transaccion')">Tipo de Transacción</v-list-item>
-
-
+              <v-list-item @click="$router.push('zona')">Zona</v-list-item>
               <v-list-item>Lorem ipsum</v-list-item> 
             </v-list>
           </v-expansion-panel-content>

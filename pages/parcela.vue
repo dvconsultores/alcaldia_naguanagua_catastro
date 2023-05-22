@@ -274,9 +274,9 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Ambito', align: 'start', value: 'ambito',},
-        { text: 'Sector', value: 'sector', align:'center' },
-        { text: 'Código Manzana', value: 'manzana', align:'center' },
+        { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
+        { text: 'Sector', value: 'descripcion_sector', align:'center' },
+        { text: 'Código Manzana', value: 'codigo_manzana', align:'center' },
         { text: 'Código Parcela', value: 'codigo', align:'center' },
         { text: 'Área', value: 'area', align:'center' },
         { text: 'Perímetro', value: 'perimetro', align:'center' },
@@ -289,12 +289,12 @@ export default {
       sectoresData:[],
 
       defaultItem: {
-        ambito: '',
-        sector: '',
-        manzana: '',
-        codigo: '',
-        area: '',
-        perimetro: '',
+        ambito: null,
+        sector: null,
+        manzana: null,
+        codigo: null,
+        area: null,
+        perimetro: null,
       },
     }
   },
@@ -316,6 +316,7 @@ export default {
     getDataParcela(){
       this.$axios.$get('parcela').then(response => {
           this.dataParcela = response
+          console.log(this.dataParcela,'text')
         }).catch(err => {
           console.log(err)
         })
@@ -358,7 +359,7 @@ export default {
     },  
 
     editItem(item){
-      console.log(item)
+      console.log(item.ambito, 'text')
       this.dialog_editar = true
       this.defaultItem.id = item.id
       this.defaultItem.ambito = item.ambito

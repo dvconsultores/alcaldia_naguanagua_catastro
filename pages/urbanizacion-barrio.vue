@@ -283,8 +283,8 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Ambito', align: 'start', value: 'ambito',},
-        { text: 'Sector', value: 'sector', align:'center' },
+        { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
+        { text: 'Sector', value: 'descripcion_sector', align:'center' },
         { text: 'Nombre', value: 'nombre', align:'center' },
         { text: 'Tipo', value: 'tipo', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
