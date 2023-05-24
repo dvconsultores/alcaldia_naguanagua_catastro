@@ -25,7 +25,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{ item.fecha }}
+              {{ obtenerFechaActual() }}
             </p>
           </div>
 
@@ -35,7 +35,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{item.propietario}}
+              {{nombrePropietario}}
             </p>
           </div>
 
@@ -45,7 +45,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{item.id_type}} - {{item.id_number}}
+              {{nacionalidadPropietario}} - {{cedulaPropietario}}
             </p>
           </div>
         </div>
@@ -153,6 +153,9 @@ export default{
   mixins: [computeds],
   data() {
     return{
+      nombrePropietario: '',
+      cedulaPropietario: '',
+      nacionalidadPropietario: '',
       dialog_exito: false,
       monto_total:"72,4",
       show_observaciones: false,
@@ -167,6 +170,9 @@ export default{
       ],
 
       divs:[{icon:""}],
+
+      propietarioData:[],
+      tasaData:[],
     }
   },
 
@@ -177,13 +183,48 @@ export default{
     }
   },
 
+  mounted(){
+    this.getDataPropietarios()
+    this.getDataTasa()
+  },
+
   methods: {
+    getDataTasa (){
+      this.$axios.$get('tasamulta').then(response => {
+        this.tasaData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getDataPropietarios(){
+      this.$axios.$get('propietario').then(response => {
+        this.propietarioData = response
+        if (this.propietarioData.length > 0) {
+        // Acceder al objeto número uno (índice 0) y asignar las propiedades deseadas
+        this.nombrePropietario = this.propietarioData[0].nombre;
+        this.cedulaPropietario = this.propietarioData[0].numero_documento;
+        this.nacionalidadPropietario = this.propietarioData[0].nacionalidad;
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
     addDiv(){
       this.divs.push({});
     },  
 
     removeDiv(index) {
       this.divs.splice(index, 1);
+    },
+
+    obtenerFechaActual() {
+      const fecha = new Date();
+      const dia = fecha.getDate().toString().padStart(2, '0');
+      const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+      const anio = fecha.getFullYear().toString().slice(-2);
+      return `${dia}/${mes}/${anio}`;
     }
   }
 }

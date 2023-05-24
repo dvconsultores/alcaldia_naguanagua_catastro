@@ -66,7 +66,7 @@
 
         <div v-if="$route.path == '/crear-contribuyente'" class="divcol">
           <span class="index-text">
-            Nuevo contribuyente
+            Contribuyentes o Propietarios
           </span>
         </div>
 
@@ -265,6 +265,36 @@
         <div v-if="$route.path == '/zona'" class="divcol">
           <span class="index-text">
             Zonas
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/bcv'" class="divcol">
+          <span class="index-text">
+            Tasa BCV
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/unidad-tributaria'" class="divcol">
+          <span class="index-text">
+            Unidades Tributarias
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/moneda'" class="divcol">
+          <span class="index-text">
+            Monedas
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/tasa-multa'" class="divcol">
+          <span class="index-text">
+            Tasas / Multas
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/tipo-pago'" class="divcol">
+          <span class="index-text">
+            Tipo de pago
           </span>
         </div>
       </div>

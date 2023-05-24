@@ -8,6 +8,7 @@ const _397c9650 = () => interopDefault(import('../pages/acceso.vue' /* webpackCh
 const _36c8b099 = () => interopDefault(import('../pages/actualizacion-inmueble.vue' /* webpackChunkName: "pages/actualizacion-inmueble" */))
 const _7195851e = () => interopDefault(import('../pages/ambito.vue' /* webpackChunkName: "pages/ambito" */))
 const _743134f0 = () => interopDefault(import('../pages/avenida.vue' /* webpackChunkName: "pages/avenida" */))
+const _6c6705d6 = () => interopDefault(import('../pages/bcv.vue' /* webpackChunkName: "pages/bcv" */))
 const _b63b80f2 = () => interopDefault(import('../pages/calle.vue' /* webpackChunkName: "pages/calle" */))
 const _3c19b03c = () => interopDefault(import('../pages/cedula-catastral.vue' /* webpackChunkName: "pages/cedula-catastral" */))
 const _6a0240e6 = () => interopDefault(import('../pages/conjuntos-residenciales.vue' /* webpackChunkName: "pages/conjuntos-residenciales" */))
@@ -26,6 +27,7 @@ const _bccd79ac = () => interopDefault(import('../pages/liquidacion.vue' /* webp
 const _7c7bbc29 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _356e1cb4 = () => interopDefault(import('../pages/manzana.vue' /* webpackChunkName: "pages/manzana" */))
 const _7bb13e58 = () => interopDefault(import('../pages/modificar-datos.vue' /* webpackChunkName: "pages/modificar-datos" */))
+const _071be9f4 = () => interopDefault(import('../pages/moneda.vue' /* webpackChunkName: "pages/moneda" */))
 const _18f9e93e = () => interopDefault(import('../pages/nivel-inmueble.vue' /* webpackChunkName: "pages/nivel-inmueble" */))
 const _7fbbb690 = () => interopDefault(import('../pages/parcela.vue' /* webpackChunkName: "pages/parcela" */))
 const _1c741aa4 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
@@ -36,10 +38,12 @@ const _bbf87554 = () => interopDefault(import('../pages/sector.vue' /* webpackCh
 const _0be8a91d = () => interopDefault(import('../pages/servicios.vue' /* webpackChunkName: "pages/servicios" */))
 const _0e400cc0 = () => interopDefault(import('../pages/solicitud-inmueble-existente.vue' /* webpackChunkName: "pages/solicitud-inmueble-existente" */))
 const _8447feaa = () => interopDefault(import('../pages/sub-parcela.vue' /* webpackChunkName: "pages/sub-parcela" */))
+const _37a133cf = () => interopDefault(import('../pages/tasa-multa.vue' /* webpackChunkName: "pages/tasa-multa" */))
 const _419ac44a = () => interopDefault(import('../pages/tipo-desincorporacion.vue' /* webpackChunkName: "pages/tipo-desincorporacion" */))
 const _30caaa6a = () => interopDefault(import('../pages/tipo-documento.vue' /* webpackChunkName: "pages/tipo-documento" */))
 const _c0c6bc26 = () => interopDefault(import('../pages/tipo-especial.vue' /* webpackChunkName: "pages/tipo-especial" */))
 const _a5a088c8 = () => interopDefault(import('../pages/tipo-inmueble.vue' /* webpackChunkName: "pages/tipo-inmueble" */))
+const _12bb0dd2 = () => interopDefault(import('../pages/tipo-pago.vue' /* webpackChunkName: "pages/tipo-pago" */))
 const _4c43f62e = () => interopDefault(import('../pages/tipo-tenencia.vue' /* webpackChunkName: "pages/tipo-tenencia" */))
 const _34502766 = () => interopDefault(import('../pages/tipo-transaccion.vue' /* webpackChunkName: "pages/tipo-transaccion" */))
 const _67bafde8 = () => interopDefault(import('../pages/tipologia.vue' /* webpackChunkName: "pages/tipologia" */))
@@ -47,6 +51,7 @@ const _206ffd92 = () => interopDefault(import('../pages/topografia.vue' /* webpa
 const _07474f4e = () => interopDefault(import('../pages/torres.vue' /* webpackChunkName: "pages/torres" */))
 const _5c1bab42 = () => interopDefault(import('../pages/ubicacion.vue' /* webpackChunkName: "pages/ubicacion" */))
 const _e80875ce = () => interopDefault(import('../pages/unidad-inmueble.vue' /* webpackChunkName: "pages/unidad-inmueble" */))
+const _0cc3c8b5 = () => interopDefault(import('../pages/unidad-tributaria.vue' /* webpackChunkName: "pages/unidad-tributaria" */))
 const _75469122 = () => interopDefault(import('../pages/urbanizacion-barrio.vue' /* webpackChunkName: "pages/urbanizacion-barrio" */))
 const _5c646f5e = () => interopDefault(import('../pages/uso.vue' /* webpackChunkName: "pages/uso" */))
 const _c69d52d0 = () => interopDefault(import('../pages/zona.vue' /* webpackChunkName: "pages/zona" */))
@@ -79,6 +84,10 @@ export const routerOptions = {
     path: "/avenida",
     component: _743134f0,
     name: "avenida___en"
+  }, {
+    path: "/bcv",
+    component: _6c6705d6,
+    name: "bcv___en"
   }, {
     path: "/calle",
     component: _b63b80f2,
@@ -152,6 +161,10 @@ export const routerOptions = {
     component: _7bb13e58,
     name: "modificar-datos___en"
   }, {
+    path: "/moneda",
+    component: _071be9f4,
+    name: "moneda___en"
+  }, {
     path: "/nivel-inmueble",
     component: _18f9e93e,
     name: "nivel-inmueble___en"
@@ -192,6 +205,10 @@ export const routerOptions = {
     component: _8447feaa,
     name: "sub-parcela___en"
   }, {
+    path: "/tasa-multa",
+    component: _37a133cf,
+    name: "tasa-multa___en"
+  }, {
     path: "/tipo-desincorporacion",
     component: _419ac44a,
     name: "tipo-desincorporacion___en"
@@ -207,6 +224,10 @@ export const routerOptions = {
     path: "/tipo-inmueble",
     component: _a5a088c8,
     name: "tipo-inmueble___en"
+  }, {
+    path: "/tipo-pago",
+    component: _12bb0dd2,
+    name: "tipo-pago___en"
   }, {
     path: "/tipo-tenencia",
     component: _4c43f62e,
@@ -236,6 +257,10 @@ export const routerOptions = {
     component: _e80875ce,
     name: "unidad-inmueble___en"
   }, {
+    path: "/unidad-tributaria",
+    component: _0cc3c8b5,
+    name: "unidad-tributaria___en"
+  }, {
     path: "/urbanizacion-barrio",
     component: _75469122,
     name: "urbanizacion-barrio___en"
@@ -263,6 +288,10 @@ export const routerOptions = {
     path: "/es/avenida",
     component: _743134f0,
     name: "avenida___es"
+  }, {
+    path: "/es/bcv",
+    component: _6c6705d6,
+    name: "bcv___es"
   }, {
     path: "/es/calle",
     component: _b63b80f2,
@@ -332,6 +361,10 @@ export const routerOptions = {
     component: _7bb13e58,
     name: "modificar-datos___es"
   }, {
+    path: "/es/moneda",
+    component: _071be9f4,
+    name: "moneda___es"
+  }, {
     path: "/es/nivel-inmueble",
     component: _18f9e93e,
     name: "nivel-inmueble___es"
@@ -372,6 +405,10 @@ export const routerOptions = {
     component: _8447feaa,
     name: "sub-parcela___es"
   }, {
+    path: "/es/tasa-multa",
+    component: _37a133cf,
+    name: "tasa-multa___es"
+  }, {
     path: "/es/tipo-desincorporacion",
     component: _419ac44a,
     name: "tipo-desincorporacion___es"
@@ -387,6 +424,10 @@ export const routerOptions = {
     path: "/es/tipo-inmueble",
     component: _a5a088c8,
     name: "tipo-inmueble___es"
+  }, {
+    path: "/es/tipo-pago",
+    component: _12bb0dd2,
+    name: "tipo-pago___es"
   }, {
     path: "/es/tipo-tenencia",
     component: _4c43f62e,
@@ -415,6 +456,10 @@ export const routerOptions = {
     path: "/es/unidad-inmueble",
     component: _e80875ce,
     name: "unidad-inmueble___es"
+  }, {
+    path: "/es/unidad-tributaria",
+    component: _0cc3c8b5,
+    name: "unidad-tributaria___es"
   }, {
     path: "/es/urbanizacion-barrio",
     component: _75469122,

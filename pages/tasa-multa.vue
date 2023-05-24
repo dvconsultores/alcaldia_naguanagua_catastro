@@ -1,10 +1,10 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section2-conjuntos">
-      <div class="datos-conjuntos-container">
+    <section class="section1-tasa">
+      <div class="datos-tasa-container">
         <div class="title-morado">
-          <p class="datos-conjuntos-title">
-            Conjuntos Residenciales
+          <p class="datos-tasa-title">
+            Tasa / Multa
           </p>
 
           <v-dialog
@@ -22,50 +22,49 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Crea Conjunto Residencial</span>
+                <span class="title">Crear Tasa/Multa</span>
               </v-card-title>
 
               <hr>
 
               <v-card-text>
                 <v-container>
-                  <v-row>
+                  <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.ambito"
-                        label="Ambito"
+                      <v-text-field
+                        v-model="nuevoRegistro.descripcion"
+                        label="Descripción"
                         class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="nuevoRegistro.nombre"
-                        label="Nombre del Conjunto"
+                        v-model="nuevoRegistro.unidad_tributaria"
+                        label="Unidad tributaria"
                         class="input-dialog"
                       ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.tipo"
+                        label="Tipo"
+                        class="input-dialog"
+                        :items="tasaData"
+                        item-text="tipo"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.aplica"
+                        label="Aplica"
+                        class="input-dialog"
+                        :items="tasaData"
+                        item-text="aplica"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -81,7 +80,7 @@
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="createConjunto()"
+                  @click="createTasa()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -96,50 +95,54 @@
           >
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar Conjunto Residencial</span>
+                <span class="title">Editar Tasa/Multa</span>
               </v-card-title>
 
               <hr>
 
               <v-card-text>
                 <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.ambito"
-                        label="Ambito"
+                  <v-row class="center">
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="defaultItem.descripcion"
+                        label="Descripción"
                         class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
+                        disabled
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="defaultItem.nombre"
-                        label="Nombre del Conjunto"
+                        v-model="defaultItem.unidad_tributaria"
+                        label="Unidad Tributaria"
                         class="input-dialog"
                       ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.tipo"
+                        label="Tipo"
+                        class="input-dialog"
+                        :items="tasaData"
+                        item-text="tipo"
+                        item-value="id"
+                      ></v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.aplica"
+                        label="Aplica"
+                        class="input-dialog"
+                        :items="tasaData"
+                        item-text="aplica"
+                        item-value="id"
+                      ></v-autocomplete>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -153,6 +156,7 @@
                 >
                   Cancelar
                 </v-btn>
+
                 <v-btn
                   class="btn dialog-btn"
                   @click="saveData()"
@@ -176,7 +180,7 @@
 
           <v-data-table
             :headers="headers"
-            :items="conjuntoData"
+            :items="tasaData"
             :items-per-page="10"
             :search="search"
             :footer-props="{
@@ -190,7 +194,7 @@
               <v-toolbar
                 flat
                 class="toolbar-tabla"
-              >
+              >  
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
@@ -232,7 +236,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "BarrioPage",
+  name: "tasaPage",
   mixins: [computeds],
   data() {
     return {  
@@ -242,79 +246,48 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
-        { text: 'Sector', value: 'descripcion_sector', align:'center' },
-        { text: 'Urbanización/Barrio', value: 'nombre_urbanizacion', align:'center' },
-        { text: 'Nombre del Conjunto', value: 'nombre', align:'center' },
+        { text: 'Código', align: 'center', value: 'descripcion',},
+        { text: 'Descripción', value: 'unidad_tributaria', align:'center' },
+        { text: 'Tipo', value: 'tipo', align:'center' },
+        { text: 'Aplica', value: 'aplica', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
-
-      conjuntoData: [],
-      sectoresData: [],
-      ambitoData:[],
-      urbanizacionData: [],
+      tasaData: [],
 
       defaultItem: {
-        ambito: '',
-        sector: '',
-        urbanizacion: '',
-        nombre: '',
+        descripcion: '',
+        unidad_tributaria: '',
+        tipo:'',
+        aplica:'',
       },
     }
   },
   head() {
-    const title = 'Urbanizacion o Barrio';
+    const title = 'Tasa / Multa';
     return {
       title,
     }
   },
-  
+
   mounted(){
-    this.getDataSector(),
-    this.getDataAmbito(),
-    this.getDataUrbanizacion(),
-    this.getDataConjunto()
+    this.getTasa()
   },
 
   methods: {
-    getDataConjunto(){
-      this.$axios.$get('conjuntoresidencial').then(response => {
-          this.conjuntoData = response
+    getTasa() {
+      this.$axios.$get('tasamulta').then(response => {
+          this.tasaData = response
         }).catch(err => {
           console.log(err)
         })
     },
 
-    getDataUrbanizacion(){
-      this.$axios.$get('urbanizacion').then(response => {
-          this.urbanizacionData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataAmbito() {
-      this.$axios.$get('ambito').then(response => {
-          this.ambitoData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataSector() {
-      this.$axios.$get('sector').then(response => {
-          this.sectoresData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    createConjunto(){
-
-      this.$axios.$post('conjuntoresidencial/', this.nuevoRegistro).then(res => {
+    createTasa(){
+      this.$axios.$post('tasamulta/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
-          this.$alert("success", {desc: "Se ha creado un nuevo conjunto residencial con éxito", hash: 'knsddcssdc', title:'Creación de conjunto'})        
+          this.tasaData.push(res)
+          this.$alert("success", {desc: "Se ha creado una nueva tasa/multa con éxito", hash: 'knsddcssdc', title:'Creación de tasa/multa'})        
         }).catch(err => {
           console.log(err)
         })
@@ -326,22 +299,22 @@ export default {
       console.log(item)
       this.dialog_editar = true
       this.defaultItem.id = item.id
-      this.defaultItem.ambito = item.ambito
-      this.defaultItem.sector = item.sector
-      this.defaultItem.nombre = item.nombre
-      this.defaultItem.urbanizacion = item.urbanizacion
+      this.defaultItem.descripcion = item.descripcion
+      this.defaultItem.unidad_tributaria = item.unidad_tributaria
+      this.defaultItem.tipo = item.tipo
+      this.defaultItem.aplica = item.aplica
     },
 
     saveData(){
       const formData = new FormData()
-      formData.append('ambito', this.defaultItem.ambito)
-      formData.append('sector', this.defaultItem.sector)
-      formData.append('nombre', this.defaultItem.nombre)
-      formData.append('tipo', this.defaultItem.urbanizacion)
+      formData.append('descripcion', this.defaultItem.descripcion)
+      formData.append('unidad_tributaria', this.defaultItem.unidad_tributaria)
+      formData.append('tipo', this.defaultItem.tipo)
+      formData.append('aplica', this.defaultItem.aplica)
 
-      this.$axios.$patch('conjuntoresidencial/'+ this.defaultItem.id + '/', formData).then((res) => {
+      this.$axios.$patch('tasamulta/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Edición de conjunto'})        
+        this.$alert("success", {desc: "Se ha editado una tasa/multa con éxito", hash: 'knsddcssdc', title:'Edición de tasa/multa'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -355,10 +328,10 @@ export default {
     },
 
     deleteItem(){
-      this.$axios.$delete('conjuntoresidencial/'+ this.defaultItem.id + '/').then((res) => {
+      this.$axios.$delete('tasamulta/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Eliminación de Conjunto'})        
+        this.$alert("success", {desc: "Se ha eliminado una tasa/multa con éxito", hash: 'knsddcssdc', title:'Eliminación de tasa/multa'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -367,4 +340,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/conjuntos-residenciales.scss" lang="scss" />
+<style src="~/assets/styles/pages/tasa-multa.scss" lang="scss" />

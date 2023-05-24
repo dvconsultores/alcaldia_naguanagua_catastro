@@ -79,7 +79,7 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-list class="lista">
-              <v-list-item @click="$router.push('crear-contribuyente')">Nuevo Contribuyente</v-list-item>
+              <v-list-item @click="$router.push('crear-contribuyente')">Contribuyentes</v-list-item>
               <v-list-item @click="$router.push('modificar-datos')">Modificar Datos del Contribuyente</v-list-item>            </v-list>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -120,6 +120,11 @@
               <v-list-item @click="$router.push('tipo-desincorporacion')">Tipo de Desincorporación</v-list-item>
               <v-list-item @click="$router.push('tipo-transaccion')">Tipo de Transacción</v-list-item>
               <v-list-item @click="$router.push('zona')">Zona</v-list-item>
+              <v-list-item @click="$router.push('bcv')">Tasa BCV</v-list-item>
+              <v-list-item @click="$router.push('unidad-tributaria')">Unidad Tributaria</v-list-item>
+              <v-list-item @click="$router.push('moneda')">Monedas</v-list-item>
+              <v-list-item @click="$router.push('tasa-multa')">Tasa / Multa</v-list-item>
+              <v-list-item @click="$router.push('tipo-pago')">Tipo de pago</v-list-item>
               <v-list-item>Lorem ipsum</v-list-item> 
             </v-list>
           </v-expansion-panel-content>

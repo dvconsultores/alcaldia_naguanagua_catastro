@@ -1033,3 +1033,14 @@
     box-shadow: 0 0 0px 1000px #ffffff inset;
   }
 }
+
+.v-select-list .v-list-item--active {
+  background: var(--primary) !important;
+  --c:#fff!important;
+}
+
+.btn-tabla{
+  background-color: var(--primary)!important;
+  --c:#fff!important;
+  --fw:700!important;
+}

@@ -255,6 +255,7 @@ export default {
           console.log(res.data)
           this.codigo =''
           this.descripcion =''
+          this.ambitoData.push(res)
           this.$alert("success", {desc: "Se ha creado un nuevo ambito con éxito", hash: 'knsddcssdc', title:'Creación de Ambito'})        
         }).catch(err => {
           console.log(err)

@@ -1,10 +1,10 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section2-conjuntos">
-      <div class="datos-conjuntos-container">
+    <section class="section1-tipo-pago">
+      <div class="datos-tipo-pago-container">
         <div class="title-morado">
-          <p class="datos-conjuntos-title">
-            Conjuntos Residenciales
+          <p class="datos-tipo-pago-title">
+            Tipos de Pagos
           </p>
 
           <v-dialog
@@ -22,48 +22,18 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Crea Conjunto Residencial</span>
+                <span class="title">Crear Tipo de Pago</span>
               </v-card-title>
 
               <hr>
 
               <v-card-text>
                 <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.ambito"
-                        label="Ambito"
-                        class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
+                  <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="nuevoRegistro.nombre"
-                        label="Nombre del Conjunto"
+                        v-model="nuevoRegistro.descripcion"
+                        label="Descripción"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
@@ -81,7 +51,7 @@
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="createConjunto()"
+                  @click="createTipoPago()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -96,49 +66,20 @@
           >
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar Conjunto Residencial</span>
+                <span class="title">Editar Tipo de Pago</span>
               </v-card-title>
 
               <hr>
 
               <v-card-text>
                 <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.ambito"
-                        label="Ambito"
-                        class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
+                  <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="defaultItem.nombre"
-                        label="Nombre del Conjunto"
+                        v-model="defaultItem.descripcion"
+                        label="Descripción"
                         class="input-dialog"
+                        disabled
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -153,6 +94,7 @@
                 >
                   Cancelar
                 </v-btn>
+
                 <v-btn
                   class="btn dialog-btn"
                   @click="saveData()"
@@ -176,7 +118,7 @@
 
           <v-data-table
             :headers="headers"
-            :items="conjuntoData"
+            :items="tipoPagoData"
             :items-per-page="10"
             :search="search"
             :footer-props="{
@@ -190,7 +132,7 @@
               <v-toolbar
                 flat
                 class="toolbar-tabla"
-              >
+              >  
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
@@ -232,7 +174,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "BarrioPage",
+  name: "tipoPagoPage",
   mixins: [computeds],
   data() {
     return {  
@@ -242,79 +184,42 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
-        { text: 'Sector', value: 'descripcion_sector', align:'center' },
-        { text: 'Urbanización/Barrio', value: 'nombre_urbanizacion', align:'center' },
-        { text: 'Nombre del Conjunto', value: 'nombre', align:'center' },
+        { text: 'Descripción', value: 'descripcion', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
-
-      conjuntoData: [],
-      sectoresData: [],
-      ambitoData:[],
-      urbanizacionData: [],
+      tipoPagoData: [],
 
       defaultItem: {
-        ambito: '',
-        sector: '',
-        urbanizacion: '',
-        nombre: '',
+        descripcion: '',
       },
     }
   },
   head() {
-    const title = 'Urbanizacion o Barrio';
+    const title = 'Tipo Pago';
     return {
       title,
     }
   },
-  
+
   mounted(){
-    this.getDataSector(),
-    this.getDataAmbito(),
-    this.getDataUrbanizacion(),
-    this.getDataConjunto()
+    this.getTipoPago()
   },
 
   methods: {
-    getDataConjunto(){
-      this.$axios.$get('conjuntoresidencial').then(response => {
-          this.conjuntoData = response
+    getTipoPago() {
+      this.$axios.$get('tipopago').then(response => {
+          this.tipoPagoData = response
         }).catch(err => {
           console.log(err)
         })
     },
 
-    getDataUrbanizacion(){
-      this.$axios.$get('urbanizacion').then(response => {
-          this.urbanizacionData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataAmbito() {
-      this.$axios.$get('ambito').then(response => {
-          this.ambitoData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataSector() {
-      this.$axios.$get('sector').then(response => {
-          this.sectoresData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    createConjunto(){
-
-      this.$axios.$post('conjuntoresidencial/', this.nuevoRegistro).then(res => {
+    createTipoPago(){
+      this.$axios.$post('tipopago/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
-          this.$alert("success", {desc: "Se ha creado un nuevo conjunto residencial con éxito", hash: 'knsddcssdc', title:'Creación de conjunto'})        
+          this.tipoPagoData.push(res)
+          this.$alert("success", {desc: "Se ha creado un tipo de pago con éxito", hash: 'knsddcssdc', title:'Creación de TP'})        
         }).catch(err => {
           console.log(err)
         })
@@ -326,22 +231,16 @@ export default {
       console.log(item)
       this.dialog_editar = true
       this.defaultItem.id = item.id
-      this.defaultItem.ambito = item.ambito
-      this.defaultItem.sector = item.sector
-      this.defaultItem.nombre = item.nombre
-      this.defaultItem.urbanizacion = item.urbanizacion
+      this.defaultItem.descripcion = item.descripcion
     },
 
     saveData(){
       const formData = new FormData()
-      formData.append('ambito', this.defaultItem.ambito)
-      formData.append('sector', this.defaultItem.sector)
-      formData.append('nombre', this.defaultItem.nombre)
-      formData.append('tipo', this.defaultItem.urbanizacion)
+      formData.append('descripcion', this.defaultItem.descripcion)
 
-      this.$axios.$patch('conjuntoresidencial/'+ this.defaultItem.id + '/', formData).then((res) => {
+      this.$axios.$patch('tipopago/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Edición de conjunto'})        
+        this.$alert("success", {desc: "Se ha editado un tipo de pago con éxito", hash: 'knsddcssdc', title:'Edición de TP'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -355,10 +254,10 @@ export default {
     },
 
     deleteItem(){
-      this.$axios.$delete('conjuntoresidencial/'+ this.defaultItem.id + '/').then((res) => {
+      this.$axios.$delete('tipopago/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Eliminación de Conjunto'})        
+        this.$alert("success", {desc: "Se ha eliminado un tipo de pago con éxito", hash: 'knsddcssdc', title:'Eliminación de TP'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -367,4 +266,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/conjuntos-residenciales.scss" lang="scss" />
+<style src="~/assets/styles/pages/tipo-pago.scss" lang="scss" />

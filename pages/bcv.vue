@@ -1,10 +1,10 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section2-conjuntos">
-      <div class="datos-conjuntos-container">
+    <section class="section1-bcv">
+      <div class="datos-bcv-container">
         <div class="title-morado">
-          <p class="datos-conjuntos-title">
-            Conjuntos Residenciales
+          <p class="datos-bcv-title">
+            Calle
           </p>
 
           <v-dialog
@@ -22,48 +22,41 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Crea Conjunto Residencial</span>
+                <span class="title">Crear Tasa BCV</span>
               </v-card-title>
 
               <hr>
 
               <v-card-text>
                 <v-container>
-                  <v-row>
+                  <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.ambito"
-                        label="Ambito"
+                      <v-text-field
+                        v-model="nuevoRegistro.fecha"
+                        label="Fecha"
                         class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="nuevoRegistro.nombre"
-                        label="Nombre del Conjunto"
+                        v-model="nuevoRegistro.fecha_vigente"
+                        label="Fecha Vigente"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="nuevoRegistro.monto"
+                        label="Monto"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="nuevoRegistro.habilitado"
+                        label="Monto"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
@@ -81,7 +74,7 @@
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="createConjunto()"
+                  @click="createTasa()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -96,48 +89,38 @@
           >
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar Conjunto Residencial</span>
+                <span class="title">Editar Tasa BCV</span>
               </v-card-title>
 
               <hr>
 
               <v-card-text>
                 <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.ambito"
-                        label="Ambito"
+                  <v-row class="center">
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="defaultItem.fecha"
+                        label="Fecha"
                         class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
+                        disabled
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="defaultItem.nombre"
-                        label="Nombre del Conjunto"
+                        v-model="defaultItem.fecha_vigente"
+                        label="Fecha Vigente"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="defaultItem.monto"
+                        label="Tipo"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
@@ -153,6 +136,7 @@
                 >
                   Cancelar
                 </v-btn>
+
                 <v-btn
                   class="btn dialog-btn"
                   @click="saveData()"
@@ -176,7 +160,7 @@
 
           <v-data-table
             :headers="headers"
-            :items="conjuntoData"
+            :items="bcvData"
             :items-per-page="10"
             :search="search"
             :footer-props="{
@@ -190,7 +174,7 @@
               <v-toolbar
                 flat
                 class="toolbar-tabla"
-              >
+              >  
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
@@ -232,7 +216,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "BarrioPage",
+  name: "bcvPage",
   mixins: [computeds],
   data() {
     return {  
@@ -242,79 +226,48 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
-        { text: 'Sector', value: 'descripcion_sector', align:'center' },
-        { text: 'Urbanización/Barrio', value: 'nombre_urbanizacion', align:'center' },
-        { text: 'Nombre del Conjunto', value: 'nombre', align:'center' },
+        { text: 'Fecha', align: 'center', value: 'fecha',},
+        { text: 'Fecha Vigente', value: 'fecha_vigente', align:'center' },
+        { text: 'Monto', value: 'monto', align:'center' },
+        { text: 'Estatus', value: 'habilitado', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
-
-      conjuntoData: [],
-      sectoresData: [],
-      ambitoData:[],
-      urbanizacionData: [],
+      bcvData: [],
 
       defaultItem: {
-        ambito: '',
-        sector: '',
-        urbanizacion: '',
-        nombre: '',
+        fecha: '',
+        fecha_vigente: '',
+        monto:'',
+        habilitado:'',
       },
     }
   },
   head() {
-    const title = 'Urbanizacion o Barrio';
+    const title = 'BCV';
     return {
       title,
     }
   },
-  
+
   mounted(){
-    this.getDataSector(),
-    this.getDataAmbito(),
-    this.getDataUrbanizacion(),
-    this.getDataConjunto()
+    this.getBCV()
   },
 
   methods: {
-    getDataConjunto(){
-      this.$axios.$get('conjuntoresidencial').then(response => {
-          this.conjuntoData = response
+    getBCV() {
+      this.$axios.$get('tasabcv').then(response => {
+          this.bcvData = response
         }).catch(err => {
           console.log(err)
         })
     },
 
-    getDataUrbanizacion(){
-      this.$axios.$get('urbanizacion').then(response => {
-          this.urbanizacionData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataAmbito() {
-      this.$axios.$get('ambito').then(response => {
-          this.ambitoData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataSector() {
-      this.$axios.$get('sector').then(response => {
-          this.sectoresData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    createConjunto(){
-
-      this.$axios.$post('conjuntoresidencial/', this.nuevoRegistro).then(res => {
+    createTasa(){
+      this.$axios.$post('tasabcv/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
-          this.$alert("success", {desc: "Se ha creado un nuevo conjunto residencial con éxito", hash: 'knsddcssdc', title:'Creación de conjunto'})        
+          this.bcvData.push(res)
+          this.$alert("success", {desc: "Se ha creado una nueva tasa con éxito", hash: 'knsddcssdc', title:'Creación de tasa'})        
         }).catch(err => {
           console.log(err)
         })
@@ -326,22 +279,23 @@ export default {
       console.log(item)
       this.dialog_editar = true
       this.defaultItem.id = item.id
-      this.defaultItem.ambito = item.ambito
-      this.defaultItem.sector = item.sector
-      this.defaultItem.nombre = item.nombre
-      this.defaultItem.urbanizacion = item.urbanizacion
+      this.defaultItem.fecha = item.fecha
+      this.defaultItem.fecha_vigente = item.fecha_vigente
+      this.defaultItem.monto = item.monto
+      this.defaultItem.habilitado = item.habilitado
     },
 
     saveData(){
       const formData = new FormData()
-      formData.append('ambito', this.defaultItem.ambito)
-      formData.append('sector', this.defaultItem.sector)
-      formData.append('nombre', this.defaultItem.nombre)
-      formData.append('tipo', this.defaultItem.urbanizacion)
+      formData.append('fecha', this.defaultItem.fecha)
+      formData.append('vigente', this.defaultItem.fecha_vigente)
+      formData.append('monto', this.defaultItem.monto)
+      formData.append('habilitado', this.defaultItem.habilitado)
 
-      this.$axios.$patch('conjuntoresidencial/'+ this.defaultItem.id + '/', formData).then((res) => {
+
+      this.$axios.$patch('tasabcv/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Edición de conjunto'})        
+        this.$alert("success", {desc: "Se ha editado una tasa con éxito", hash: 'knsddcssdc', title:'Edición de tasa'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -355,10 +309,10 @@ export default {
     },
 
     deleteItem(){
-      this.$axios.$delete('conjuntoresidencial/'+ this.defaultItem.id + '/').then((res) => {
+      this.$axios.$delete('tasabcv/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Eliminación de Conjunto'})        
+        this.$alert("success", {desc: "Se ha eliminado una tasa con éxito", hash: 'knsddcssdc', title:'Eliminación de tasa'})        
       }).catch((err) => {
         console.log(err)
       });
@@ -367,4 +321,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/conjuntos-residenciales.scss" lang="scss" />
+<style src="~/assets/styles/pages/bcv.scss" lang="scss" />

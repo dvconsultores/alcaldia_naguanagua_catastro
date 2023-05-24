@@ -307,22 +307,9 @@
     </div>
 
     <div class="divrow center mobile-col" style="gap:20px;">
-      <!-- <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
-        <template #activator="{attrs, on}">
-          
-        </template>
-        <v-card class="card-dialog-exito">
-          <v-icon @click="dialog_exito = false">mdi-close</v-icon>
-          <p class="p-dialog">¡Se ha actualizado el inmueble con éxito!</p>
-        </v-card>
-      </v-dialog> -->
       <v-btn class="btn btn-mobile" @click="saveData()">
         Guardar
       </v-btn>
-
-      <!-- <v-btn class="btn btn-mobile" style="background-color:#ED057E!important;">
-        Cancelar
-      </v-btn> -->
     </div>
    </section>
   </div>

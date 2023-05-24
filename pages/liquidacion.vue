@@ -1,6 +1,6 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-liquidacion">
+    <!-- <section class="section1-liquidacion">
       <div class="consulta-liquidacion-container">
         <p class="title-liquidacion">
           Consultar Propietario
@@ -24,7 +24,7 @@
           </v-btn>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <section class="section2-liquidacion">
       <div class="datos-contribuyente-container">
@@ -41,7 +41,7 @@
             </p>
 
             <p class="nombre-desc">
-              María Pera C.
+              {{nombrePropietario}}
             </p>
           </div>
 
@@ -51,7 +51,7 @@
             </p>
 
             <p class="nombre-desc">
-              V - 12.345.678
+              {{ nacionalidadPropietario }} - {{ cedulaPropietario }}
             </p>
           </div>
 
@@ -192,6 +192,10 @@ export default {
   mixins: [computeds],
   data() {
     return{
+      nombrePropietario: '',
+      cedulaPropietario: '',
+      nacionalidadPropietario: '',
+      propietarioData:[],
       items: ['V', 'J', 'G', 'E'],
       cant_total:"4",
 
@@ -210,34 +214,34 @@ export default {
           piso:"Calle prueba",
           nro_civico:"123",
         },
-        {
-          nro_expediente:"49552",
-          sector:"49522",
-          manzana:"23",
-          parcela:"12.345.6789",
-          sub_parcela:"999",
-          urbanizacion:"",
-          av_calle:"Calle prueba",
-          conj_residencial:"Calle prueba",
-          edificio:"Calle prueba",
-          torre:"Calle prueba",
-          piso:"Calle prueba",
-          nro_civico:"123",
-        },
-        {
-          nro_expediente:"49552",
-          sector:"49522",
-          manzana:"23",
-          parcela:"12.345.6789",
-          sub_parcela:"999",
-          urbanizacion:"",
-          av_calle:"Calle prueba",
-          conj_residencial:"Calle prueba",
-          edificio:"Calle prueba",
-          torre:"Calle prueba",
-          piso:"Calle prueba",
-          nro_civico:"123",
-        },
+        // {
+        //   nro_expediente:"49552",
+        //   sector:"49522",
+        //   manzana:"23",
+        //   parcela:"12.345.6789",
+        //   sub_parcela:"999",
+        //   urbanizacion:"",
+        //   av_calle:"Calle prueba",
+        //   conj_residencial:"Calle prueba",
+        //   edificio:"Calle prueba",
+        //   torre:"Calle prueba",
+        //   piso:"Calle prueba",
+        //   nro_civico:"123",
+        // },
+        // {
+        //   nro_expediente:"49552",
+        //   sector:"49522",
+        //   manzana:"23",
+        //   parcela:"12.345.6789",
+        //   sub_parcela:"999",
+        //   urbanizacion:"",
+        //   av_calle:"Calle prueba",
+        //   conj_residencial:"Calle prueba",
+        //   edificio:"Calle prueba",
+        //   torre:"Calle prueba",
+        //   piso:"Calle prueba",
+        //   nro_civico:"123",
+        // },
       ],
     }
   },
@@ -249,8 +253,24 @@ export default {
     }
   },
 
-  methods: {
+  mounted(){
+    this.getDataPropietarios()
+  },
 
+  methods: {
+    getDataPropietarios(){
+      this.$axios.$get('propietario').then(response => {
+        this.propietarioData = response
+        if (this.propietarioData.length > 0) {
+        // Acceder al objeto número uno (índice 0) y asignar las propiedades deseadas
+        this.nombrePropietario = this.propietarioData[0].nombre;
+        this.cedulaPropietario = this.propietarioData[0].numero_documento;
+        this.nacionalidadPropietario = this.propietarioData[0].nacionalidad;
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   }
 
 }
