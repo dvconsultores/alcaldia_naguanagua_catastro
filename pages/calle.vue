@@ -263,6 +263,7 @@ export default {
       this.$axios.$post('calle/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
+          this.calleData.push(res)
           this.$alert("success", {desc: "Se ha creado una nueva calle con éxito", hash: 'knsddcssdc', title:'Creación de calle'})        
         }).catch(err => {
           console.log(err)
@@ -288,7 +289,11 @@ export default {
 
       this.$axios.$patch('calle/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una calle con éxito", hash: 'knsddcssdc', title:'Edición de calle'})        
+        this.$alert("success", {desc: "Se ha editado una calle con éxito", hash: 'knsddcssdc', title:'Edición de calle'})
+        const index = this.calleData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.calleData, index, { ...this.defaultItem });
+        }         
       }).catch((err) => {
         console.log(err)
       });
@@ -305,7 +310,11 @@ export default {
       this.$axios.$delete('calle/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una calle con éxito", hash: 'knsddcssdc', title:'Eliminación de calle'})        
+        this.$alert("success", {desc: "Se ha eliminado una calle con éxito", hash: 'knsddcssdc', title:'Eliminación de calle'}) 
+        const index = this.calleData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.calleData.splice(index, 1);
+        }        
       }).catch((err) => {
         console.log(err)
       });

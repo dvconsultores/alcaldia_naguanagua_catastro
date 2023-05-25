@@ -36,7 +36,7 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="codigo"
+                        v-model="nuevoRegistro.codigo"
                         label="Código"
                         class="input-dialog"
                       ></v-text-field>
@@ -48,7 +48,7 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="descripcion"
+                        v-model="nuevoRegistro.descripcion"
                         label="Descripción"
                         class="input-dialog"
                       ></v-text-field>
@@ -213,6 +213,7 @@ export default {
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
+      nuevoRegistro: {},
       headers: [
         { text: 'Codigo', align: 'center', value: 'codigo',},
         { text: 'Descripcion', align: 'center', value: 'descripcion',},
@@ -248,14 +249,10 @@ export default {
     },
 
     createData(){
-      const data = {
-        codigo: this.codigo,
-        descripcion: this.descripcion,
-      }
-      this.$axios.$post('tipoespecial/', data).then(res => {
+      this.$axios.$post('tipoespecial/', this.nuevoRegistro).then(res => {
           console.log(res.data)
-          this.codigo = ''
-          this.descripcion = ''
+          this.nuevoRegistro = {}
+          this.tipoespecialData.push(res)
           this.$alert("success", {desc: "Se ha creado un nuevo tipo especial con éxito", hash: 'knsddcssdc', title:'Creación de tipo especial'})        
         }).catch(err => {
           console.log(err)
@@ -279,7 +276,11 @@ export default {
 
       this.$axios.$patch('tipoespecial/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un tipo especial con éxito", hash: 'knsddcssdc', title:'Edición de tipo de especial'})        
+        this.$alert("success", {desc: "Se ha editado un tipo especial con éxito", hash: 'knsddcssdc', title:'Editado'}) 
+        const index = this.tipoespecialData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.tipoespecialData, index, { ...this.defaultItem });
+        }         
       }).catch((err) => {
         console.log(err)
       });
@@ -296,7 +297,11 @@ export default {
       this.$axios.$delete('tipoespecial/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un tipo especial con éxito", hash: 'knsddcssdc', title:'Eliminación de tipo especial'})        
+        this.$alert("success", {desc: "Se ha eliminado un tipo especial con éxito", hash: 'knsddcssdc', title:'Eliminado'})   
+        const index = this.tipoespecialData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.tipoespecialData.splice(index, 1);
+        }       
       }).catch((err) => {
         console.log(err)
       });

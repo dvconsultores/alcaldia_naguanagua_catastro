@@ -504,6 +504,7 @@ export default {
       this.$axios.$post('manzana/', this.nuevoRegistro).then(res => {
         console.log(res.data)
         this.nuevoRegistro = {}
+        this.sectoresManzana.push(res)
         this.$alert("success", {desc: "Se ha creado una nueva mazana con éxito", hash: 'knsddcssdc', title:'Creación de Manzana'})
         this.getDataManzana()        
       }).catch(err => {
@@ -542,7 +543,11 @@ export default {
 
       this.$axios.$patch('manzana/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una manzana con éxito", hash: 'knsddcssdc', title:'Edición de manzana'})        
+        this.$alert("success", {desc: "Se ha editado una manzana con éxito", hash: 'knsddcssdc', title:'Edición de manzana'})
+        const index = this.sectoresManzana.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.sectoresManzana, index, { ...this.defaultItem });
+        }          
       }).catch((err) => {
         console.log(err)
       });
@@ -559,7 +564,11 @@ export default {
       this.$axios.$delete('manzana/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una manzana con éxito", hash: 'knsddcssdc', title:'Eliminación de Manzana'})        
+        this.$alert("success", {desc: "Se ha eliminado una manzana con éxito", hash: 'knsddcssdc', title:'Eliminación de Manzana'}) 
+        const index = this.sectoresManzana.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.sectoresManzana.splice(index, 1);
+        }          
       }).catch((err) => {
         console.log(err)
       });

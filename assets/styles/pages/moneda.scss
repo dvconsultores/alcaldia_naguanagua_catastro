@@ -255,10 +255,16 @@
     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
     padding-inline: 10px;
     border-radius: 10px;
+    min-height: 66px;
   }
 
-  .input-dialog:active, .input-dialog:focus-within{
-    border: 1px solid var(--primary);
+  .input-dialog-checkbox{
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    padding-inline: 10px;
+    border-radius: 5px;
+    min-height: 66px;
+    margin-top: 4px;
+    padding-top: 20px!important;
   }
 }
 

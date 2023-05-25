@@ -9,7 +9,7 @@
         <hr>
 
         <div class="textfield-search-container">
-          <v-menu
+        <v-menu
           v-model="menu"
           :close-on-content-click="false"
           :nudge-right="5"

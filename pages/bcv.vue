@@ -4,7 +4,7 @@
       <div class="datos-bcv-container">
         <div class="title-morado">
           <p class="datos-bcv-title">
-            Calle
+            Tasa BCV
           </p>
 
           <v-dialog
@@ -31,18 +31,65 @@
                 <v-container>
                   <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="nuevoRegistro.fecha"
-                        label="Fecha"
-                        class="input-dialog"
-                      ></v-text-field>
+                      <v-menu
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      :nudge-right="5"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-text-field
+                          v-model="nuevoRegistro.fecha"
+                          class="input-dialog"
+                          label="Fecha"
+                          append-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker
+                          v-model="nuevoRegistro.fecha"
+                          label="Fecha"
+                          @input="formatoFecha()"
+                          color="blue"
+                          header-color="#810880"
+                          class="custom-date-picker"
+                        ></v-date-picker>
+                      </v-menu>
                     </v-col>
+
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="nuevoRegistro.fecha_vigente"
-                        label="Fecha Vigente"
-                        class="input-dialog"
-                      ></v-text-field>
+                      <v-menu
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      :nudge-right="5"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-text-field
+                          v-model="nuevoRegistro.fecha_vigente"
+                          class="input-dialog"
+                          label="Fecha Vigente"
+                          append-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker
+                          v-model="nuevoRegistro.fecha_vigente"
+                          label="Fecha"
+                          @input="formatoFechaVigente()"
+                          color="blue"
+                          header-color="#810880"
+                          class="custom-date-picker"
+                        ></v-date-picker>
+                      </v-menu>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
@@ -54,11 +101,11 @@
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                      <v-checkbox
                         v-model="nuevoRegistro.habilitado"
-                        label="Monto"
-                        class="input-dialog"
-                      ></v-text-field>
+                        label="Marque esta casilla para habilitar este registro"
+                        class="input-dialog-checkbox"
+                      ></v-checkbox>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -97,24 +144,66 @@
               <v-card-text>
                 <v-container>
                   <v-row class="center">
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="defaultItem.fecha"
-                        label="Fecha"
-                        class="input-dialog"
-                        disabled
-                      ></v-text-field>
-                    </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="defaultItem.fecha_vigente"
-                        label="Fecha Vigente"
-                        class="input-dialog"
-                      ></v-text-field>
+                      <v-menu
+                      v-model="menu3"
+                      :close-on-content-click="false"
+                      :nudge-right="5"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-text-field
+                          v-model="defaultItem.fecha"
+                          class="input-dialog"
+                          label="Fecha"
+                          append-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker
+                          v-model="defaultItem.fecha"
+                          label="Fecha"
+                          @input="formatoFecha()"
+                          color="blue"
+                          header-color="#810880"
+                          class="custom-date-picker"
+                        ></v-date-picker>
+                      </v-menu>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-menu
+                      v-model="menu4"
+                      :close-on-content-click="false"
+                      :nudge-right="5"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-text-field
+                          v-model="defaultItem.fecha_vigente"
+                          class="input-dialog"
+                          label="Fecha"
+                          append-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker
+                          v-model="defaultItem.fecha_vigente"
+                          label="Fecha"
+                          @input="formatoFechaVigente()"
+                          color="blue"
+                          header-color="#810880"
+                          class="custom-date-picker"
+                        ></v-date-picker>
+                      </v-menu>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
@@ -123,6 +212,14 @@
                         label="Tipo"
                         class="input-dialog"
                       ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-checkbox
+                        v-model="defaultItem.habilitado"
+                        label="Marque esta casilla para habilitar este registro"
+                        class="input-dialog-checkbox"
+                      ></v-checkbox>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -214,12 +311,17 @@
 
 <script>
 import computeds from '~/mixins/computeds'
+import moment from 'moment'
 
 export default {
   name: "bcvPage",
   mixins: [computeds],
   data() {
     return {  
+      menu: false,
+      menu2: false,
+      menu3: false,
+      menu4: false,
       search: '',
       dialog: false,
       dialog_editar: false,
@@ -254,6 +356,24 @@ export default {
   },
 
   methods: {
+    formatoFecha() {
+      if (this.fecha) {
+        // Formatear la fecha utilizando moment.js
+        this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
+        // Asignar la fecha formateada al campo "fecha"
+        this.fecha = this.fechaFormateada
+      }
+    },
+
+    formatoFechaVigente() {
+      if (this.fecha_vigente) {
+        // Formatear la fecha utilizando moment.js
+        this.fechaFormateadaVigente = moment(this.nuevaFechaVigente).format('YYYY-MM-DD HH:mm:ss')
+        // Asignar la fecha formateada al campo "fecha"
+        this.fecha_vigente = this.fechaFormateadaVigente
+      }
+    },
+
     getBCV() {
       this.$axios.$get('tasabcv').then(response => {
           this.bcvData = response
@@ -295,7 +415,11 @@ export default {
 
       this.$axios.$patch('tasabcv/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una tasa con éxito", hash: 'knsddcssdc', title:'Edición de tasa'})        
+        this.$alert("success", {desc: "Se ha editado una tasa con éxito", hash: 'knsddcssdc', title:'Edición de tasa'})   
+        const index = this.bcvData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.bcvData, index, { ...this.defaultItem });
+        }
       }).catch((err) => {
         console.log(err)
       });
@@ -312,7 +436,11 @@ export default {
       this.$axios.$delete('tasabcv/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una tasa con éxito", hash: 'knsddcssdc', title:'Eliminación de tasa'})        
+        this.$alert("success", {desc: "Se ha eliminado una tasa con éxito", hash: 'knsddcssdc', title:'Eliminación de tasa'})   
+        const index = this.bcvData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.bcvData.splice(index, 1);
+        }     
       }).catch((err) => {
         console.log(err)
       });

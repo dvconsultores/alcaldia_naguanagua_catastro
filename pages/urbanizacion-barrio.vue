@@ -345,6 +345,7 @@ export default {
       this.$axios.$post('urbanizacion/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
+          this.urbanizacionData.push(res)
           this.$alert("success", {desc: "Se ha creado una nueva urbanización con éxito", hash: 'knsddcssdc', title:'Creación de urbanización'})        
         }).catch(err => {
           console.log(err)
@@ -372,7 +373,11 @@ export default {
 
       this.$axios.$patch('urbanizacion/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una urbanización con éxito", hash: 'knsddcssdc', title:'Edición de urbanización'})        
+        this.$alert("success", {desc: "Se ha editado una urbanización con éxito", hash: 'knsddcssdc', title:'Edición de urbanización'}) 
+        const index = this.urbanizacionData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.urbanizacionData, index, { ...this.defaultItem });
+        }        
       }).catch((err) => {
         console.log(err)
       });
@@ -389,7 +394,11 @@ export default {
       this.$axios.$delete('urbanizacion/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una urbanización con éxito", hash: 'knsddcssdc', title:'Eliminación de urbanización'})        
+        this.$alert("success", {desc: "Se ha eliminado una urbanización con éxito", hash: 'knsddcssdc', title:'Eliminación de urbanización'})  
+        const index = this.urbanizacionData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.urbanizacionData.splice(index, 1);
+        }         
       }).catch((err) => {
         console.log(err)
       });

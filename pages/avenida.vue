@@ -263,6 +263,7 @@ export default {
       this.$axios.$post('avenida/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
+          this.avenidaData.push(res)
           this.$alert("success", {desc: "Se ha creado una nueva avenida con éxito", hash: 'knsddcssdc', title:'Creación de avenida'})        
         }).catch(err => {
           console.log(err)
@@ -288,7 +289,11 @@ export default {
 
       this.$axios.$patch('avenida/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una avenida con éxito", hash: 'knsddcssdc', title:'Edición de avenida'})        
+        this.$alert("success", {desc: "Se ha editado una avenida con éxito", hash: 'knsddcssdc', title:'Edición de avenida'}) 
+        const index = this.avenidaData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.avenidaData, index, { ...this.defaultItem });
+        }         
       }).catch((err) => {
         console.log(err)
       });
@@ -305,7 +310,11 @@ export default {
       this.$axios.$delete('avenida/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una avenida con éxito", hash: 'knsddcssdc', title:'Eliminación de avenida'})        
+        this.$alert("success", {desc: "Se ha eliminado una avenida con éxito", hash: 'knsddcssdc', title:'Eliminación de avenida'})
+        const index = this.avenidaData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.avenidaData.splice(index, 1);
+        }           
       }).catch((err) => {
         console.log(err)
       });

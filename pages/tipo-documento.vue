@@ -36,7 +36,7 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="codigo"
+                        v-model="nuevoRegistro.codigo"
                         label="Código"
                         class="input-dialog"
                       ></v-text-field>
@@ -48,7 +48,7 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="descripcion"
+                        v-model="nuevoRegistro.descripcion"
                         label="Descripción"
                         class="input-dialog"
                       ></v-text-field>
@@ -213,6 +213,7 @@ export default {
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
+      nuevoRegistro: {},
       headers: [
         { text: 'Codigo', align: 'center', value: 'codigo',},
         { text: 'Descripcion', align: 'center', value: 'descripcion',},
@@ -248,15 +249,11 @@ export default {
     },
 
     createData(){
-      const data = {
-        codigo: this.codigo,
-        descripcion: this.descripcion,
-      }
-      this.$axios.$post('tipodocumento/', data).then(res => {
+      this.$axios.$post('tipodocumento/', this.nuevoRegistro).then(res => {
           console.log(res.data)
-          this.codigo = ''
-          this.descripcion = ''
-          this.$alert("success", {desc: "Se ha creado un nuevo Tipo de Documento con éxito", hash: 'knsddcssdc', title:'Creación de Tipo de Documento'})        
+          this.nuevoRegistro = {}
+          this.tipoDocumentoData.push(res)
+          this.$alert("success", {desc: "Se ha creado un nuevo Tipo de Documento con éxito", hash: 'knsddcssdc', title:'Creado'})        
         }).catch(err => {
           console.log(err)
         })
@@ -279,7 +276,11 @@ export default {
 
       this.$axios.$patch('tipodocumento/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un Tipo de Documento con éxito", hash: 'knsddcssdc', title:'Edición de Tipo de Documento'})        
+        this.$alert("success", {desc: "Se ha editado un Tipo de Documento con éxito", hash: 'knsddcssdc', title:'Editado'}) 
+        const index = this.tipoDocumentoData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.tipoDocumentoData, index, { ...this.defaultItem });
+        }          
       }).catch((err) => {
         console.log(err)
       });
@@ -296,7 +297,11 @@ export default {
       this.$axios.$delete('tipodocumento/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un Tipo de Documento con éxito", hash: 'knsddcssdc', title:'Eliminación de Tipo de Documento'})        
+        this.$alert("success", {desc: "Se ha eliminado un Tipo de Documento con éxito", hash: 'knsddcssdc', title:'Eliminado'})
+        const index = this.tipoDocumentoData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.tipoDocumentoData.splice(index, 1);
+        }          
       }).catch((err) => {
         console.log(err)
       });

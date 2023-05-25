@@ -36,7 +36,7 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="codigo"
+                        v-model="nuevoRegistro.codigo"
                         label="Código"
                         class="input-dialog"
                       ></v-text-field>
@@ -48,7 +48,7 @@
                       md="4"
                     >
                       <v-text-field
-                        v-model="descripcion"
+                        v-model="nuevoRegistro.descripcion"
                         label="Descripción"
                         class="input-dialog"
                       ></v-text-field>
@@ -213,6 +213,7 @@ export default {
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
+      nuevoRegistro: {},
       headers: [
         { text: 'Código', align: 'center', value: 'codigo',},
         { text: 'Descripción', align: 'center', value: 'descripcion',},
@@ -248,15 +249,11 @@ export default {
     },
 
     createData(){
-      const data = {
-        codigo: this.codigo,
-        descripcion: this.descripcion,
-      }
-      this.$axios.$post('uso/', data).then(res => {
+      this.$axios.$post('uso/', this.nuevoRegistro).then(res => {
           console.log(res.data)
-          this.codigo = ''
-          this.descripcion = ''
-          this.$alert("success", {desc: "Se ha creado un nuevo uso con éxito", hash: 'knsddcssdc', title:'Creación de uso'})        
+          this.nuevoRegistro = {}
+          this.usoData.push(res)
+          this.$alert("success", {desc: "Se ha creado un nuevo uso con éxito", hash: 'knsddcssdc', title:'Creado'})        
         }).catch(err => {
           console.log(err)
         })
@@ -279,7 +276,11 @@ export default {
 
       this.$axios.$patch('uso/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un uso con éxito", hash: 'knsddcssdc', title:'Edición de uso'})        
+        this.$alert("success", {desc: "Se ha editado un uso con éxito", hash: 'knsddcssdc', title:'Editado'})   
+        const index = this.usoData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.usoData, index, { ...this.defaultItem });
+        }     
       }).catch((err) => {
         console.log(err)
       });
@@ -296,7 +297,11 @@ export default {
       this.$axios.$delete('uso/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un uso con éxito", hash: 'knsddcssdc', title:'Eliminación de uso'})        
+        this.$alert("success", {desc: "Se ha eliminado un uso con éxito", hash: 'knsddcssdc', title:'Eliminado'}) 
+        const index = this.usoData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.usoData.splice(index, 1);
+        }          
       }).catch((err) => {
         console.log(err)
       });

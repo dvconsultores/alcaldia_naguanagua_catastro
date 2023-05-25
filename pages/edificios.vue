@@ -345,10 +345,10 @@ export default {
     },
 
     createEdificio(){
-
       this.$axios.$post('edificio/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
+          this.edificiosData.push(res)
           this.$alert("success", {desc: "Se ha creado un nuevo edificio con éxito", hash: 'knsddcssdc', title:'Creación de edificio'})        
         }).catch(err => {
           console.log(err)
@@ -378,7 +378,11 @@ export default {
 
       this.$axios.$patch('edificio/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un edificio con éxito", hash: 'knsddcssdc', title:'Edición de edificio'})        
+        this.$alert("success", {desc: "Se ha editado un edificio con éxito", hash: 'knsddcssdc', title:'Edición de edificio'})
+        const index = this.edificiosData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.edificiosData, index, { ...this.defaultItem });
+        }          
       }).catch((err) => {
         console.log(err)
       });
@@ -395,7 +399,11 @@ export default {
       this.$axios.$delete('edificio/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un edificio con éxito", hash: 'knsddcssdc', title:'Eliminación de edificio'})        
+        this.$alert("success", {desc: "Se ha eliminado un edificio con éxito", hash: 'knsddcssdc', title:'Eliminación de edificio'})
+        const index = this.edificiosData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.edificiosData.splice(index, 1);
+        }          
       }).catch((err) => {
         console.log(err)
       });

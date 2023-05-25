@@ -240,7 +240,11 @@ export default {
 
       this.$axios.$patch('tipopago/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un tipo de pago con éxito", hash: 'knsddcssdc', title:'Edición de TP'})        
+        this.$alert("success", {desc: "Se ha editado un tipo de pago con éxito", hash: 'knsddcssdc', title:'Edición de TP'})
+        const index = this.tipoPagoData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.tipoPagoData, index, { ...this.defaultItem });
+        }           
       }).catch((err) => {
         console.log(err)
       });
@@ -257,7 +261,11 @@ export default {
       this.$axios.$delete('tipopago/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un tipo de pago con éxito", hash: 'knsddcssdc', title:'Eliminación de TP'})        
+        this.$alert("success", {desc: "Se ha eliminado un tipo de pago con éxito", hash: 'knsddcssdc', title:'Eliminación de TP'})
+        const index = this.tipoPagoData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.tipoPagoData.splice(index, 1);
+        }           
       }).catch((err) => {
         console.log(err)
       });

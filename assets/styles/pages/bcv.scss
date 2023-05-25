@@ -255,6 +255,16 @@
     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
     padding-inline: 10px;
     border-radius: 10px;
+    min-height: 66px;
+  }
+
+  .input-dialog-checkbox{
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    padding-inline: 10px;
+    border-radius: 5px;
+    min-height: 66px;
+    margin-top: 4px;
+    padding-top: 20px!important;
   }
 
   .input-dialog:active, .input-dialog:focus-within{
@@ -274,3 +284,19 @@
 .v-text-field > .v-input__control > .v-input__slot:after {
   width: 0%;
 }
+
+
+////////////////////////////menu data-picker//////////////////
+/// 
+
+.custom-date-picker .v-picker__body {
+  background-color: #fff!important;
+
+  .active{
+    background-color: var(--bg-ap)!important;
+  }
+}
+
+.theme--dark.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus) {
+  color: #000;
+} 

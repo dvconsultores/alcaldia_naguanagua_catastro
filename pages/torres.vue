@@ -348,6 +348,7 @@ export default {
       this.$axios.$post('torre/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
+          this.torresData.push(res)
           this.$alert("success", {desc: "Se ha creado una nueva torre con éxito", hash: 'knsddcssdc', title:'Creación de torre'})        
         }).catch(err => {
           console.log(err)
@@ -377,7 +378,11 @@ export default {
 
       this.$axios.$patch('torre/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una torre con éxito", hash: 'knsddcssdc', title:'Edición de torre'})        
+        this.$alert("success", {desc: "Se ha editado una torre con éxito", hash: 'knsddcssdc', title:'Edición de torre'})   
+        const index = this.torresData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.torresData, index, { ...this.defaultItem });
+        }      
       }).catch((err) => {
         console.log(err)
       });
@@ -394,7 +399,11 @@ export default {
       this.$axios.$delete('torre/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una torre con éxito", hash: 'knsddcssdc', title:'Eliminación de torre'})        
+        this.$alert("success", {desc: "Se ha eliminado una torre con éxito", hash: 'knsddcssdc', title:'Eliminación de torre'})
+        const index = this.torresData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.torresData.splice(index, 1);
+        }          
       }).catch((err) => {
         console.log(err)
       });

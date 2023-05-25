@@ -350,6 +350,7 @@ export default {
       this.$axios.$post('parcela/', this.nuevoRegistro).then(res => {
         console.log(res.data)
         this.nuevoRegistro = {}
+        this.dataParcela.push(res)
         this.$alert("success", {desc: "Se ha creado una nueva parcela con éxito", hash: 'knsddcssdc', title:'Creación de Parcela'})        
       }).catch(err => {
         console.log(err)
@@ -382,7 +383,11 @@ export default {
 
       this.$axios.$patch('parcela/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una parcela con éxito", hash: 'knsddcssdc', title:'Edición de parcela'})        
+        this.$alert("success", {desc: "Se ha editado una parcela con éxito", hash: 'knsddcssdc', title:'Edición de parcela'})  
+        const index = this.dataParcela.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.dataParcela, index, { ...this.defaultItem });
+        }       
       }).catch((err) => {
         console.log(err)
       });
@@ -399,7 +404,11 @@ export default {
       this.$axios.$delete('parcela/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una parcela con éxito", hash: 'knsddcssdc', title:'Eliminación de Parcela'})        
+        this.$alert("success", {desc: "Se ha eliminado una parcela con éxito", hash: 'knsddcssdc', title:'Eliminación de Parcela'})
+        const index = this.dataParcela.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.dataParcela.splice(index, 1);
+        }             
       }).catch((err) => {
         console.log(err)
       });

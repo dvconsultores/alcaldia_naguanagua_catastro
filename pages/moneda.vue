@@ -39,11 +39,12 @@
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                      <v-checkbox
                         v-model="nuevoRegistro.habilitado"
-                        label="Monto"
-                        class="input-dialog"
-                      ></v-text-field>
+                        label="Marque esta casilla para habilitar este registro"
+                        class="input-dialog-checkbox"
+                        style="margin-top: 4px;"
+                      ></v-checkbox>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -92,11 +93,12 @@
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                      <v-checkbox
                         v-model="defaultItem.habilitado"
-                        label="Monto"
-                        class="input-dialog"
-                      ></v-text-field>
+                        label="Desmarque esta casilla para deshabilitar este registro"
+                        class="input-dialog-checkbox"
+                        style="margin-top: 4px;"
+                      ></v-checkbox>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -200,7 +202,7 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Fecha', align: 'center', value: 'descripcion',},
+        { text: 'Descripción', align: 'center', value: 'descripcion',},
         { text: 'Estatus', value: 'habilitado', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
@@ -261,7 +263,11 @@ export default {
 
       this.$axios.$patch('moneda/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una moneda con éxito", hash: 'knsddcssdc', title:'Edición de moneda'})        
+        this.$alert("success", {desc: "Se ha editado una moneda con éxito", hash: 'knsddcssdc', title:'Edición de moneda'}) 
+        const index = this.monedaData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.monedaData, index, { ...this.defaultItem });
+        }            
       }).catch((err) => {
         console.log(err)
       });
@@ -278,7 +284,11 @@ export default {
       this.$axios.$delete('moneda/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una moneda con éxito", hash: 'knsddcssdc', title:'Eliminación de moneda'})        
+        this.$alert("success", {desc: "Se ha eliminado una moneda con éxito", hash: 'knsddcssdc', title:'Eliminación de moneda'})
+        const index = this.monedaData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.monedaData.splice(index, 1);
+        }         
       }).catch((err) => {
         console.log(err)
       });

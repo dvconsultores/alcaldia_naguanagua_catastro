@@ -417,10 +417,10 @@ export default {
     },
 
     createSector(){
-
       this.$axios.$post('sector/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
+          this.sectoresData.push(res)
           this.$alert("success", {desc: "Se ha creado un nuevo sector con éxito", hash: 'knsddcssdc', title:'Creación de Sector'})        
         }).catch(err => {
           console.log(err)
@@ -453,7 +453,11 @@ export default {
 
       this.$axios.$patch('sector/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un sector con éxito", hash: 'knsddcssdc', title:'Edición de sector'})        
+        this.$alert("success", {desc: "Se ha editado un sector con éxito", hash: 'knsddcssdc', title:'Edición de sector'})
+        const index = this.sectoresData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.sectoresData, index, { ...this.defaultItem });
+        }         
       }).catch((err) => {
         console.log(err)
       });
@@ -470,7 +474,11 @@ export default {
       this.$axios.$delete('sector/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un sector con éxito", hash: 'knsddcssdc', title:'Eliminación de Sector'})        
+        this.$alert("success", {desc: "Se ha eliminado un sector con éxito", hash: 'knsddcssdc', title:'Eliminación de Sector'}) 
+        const index = this.sectoresData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.sectoresData.splice(index, 1);
+        }          
       }).catch((err) => {
         console.log(err)
       });

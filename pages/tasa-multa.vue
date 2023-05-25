@@ -246,8 +246,8 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Código', align: 'center', value: 'descripcion',},
-        { text: 'Descripción', value: 'unidad_tributaria', align:'center' },
+        { text: 'Descripción', align: 'center', value: 'descripcion',},
+        { text: 'Unidad Tributaria', value: 'unidad_tributaria', align:'center' },
         { text: 'Tipo', value: 'tipo', align:'center' },
         { text: 'Aplica', value: 'aplica', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
@@ -314,7 +314,11 @@ export default {
 
       this.$axios.$patch('tasamulta/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una tasa/multa con éxito", hash: 'knsddcssdc', title:'Edición de tasa/multa'})        
+        this.$alert("success", {desc: "Se ha editado una tasa/multa con éxito", hash: 'knsddcssdc', title:'Edición de tasa/multa'}) 
+        const index = this.tasaData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.tasaData, index, { ...this.defaultItem });
+        }         
       }).catch((err) => {
         console.log(err)
       });
@@ -331,7 +335,11 @@ export default {
       this.$axios.$delete('tasamulta/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una tasa/multa con éxito", hash: 'knsddcssdc', title:'Eliminación de tasa/multa'})        
+        this.$alert("success", {desc: "Se ha eliminado una tasa/multa con éxito", hash: 'knsddcssdc', title:'Eliminación de tasa/multa'}) 
+        const index = this.tasaData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.tasaData.splice(index, 1);
+        }         
       }).catch((err) => {
         console.log(err)
       });
