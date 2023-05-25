@@ -338,7 +338,7 @@ export default {
       this.$axios.$post('propietario/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
-          this.propietarioData.push(res) //linea para agregar el registro en la tabla sin refrescar
+          this.propietarioData.push(res)
           this.dialog = false
           this.$alert("success", {desc: "Se ha creado un nuevo contribuyente con éxito", hash: 'knsddcssdc', title:'Creación de contribuyente'})        
         }).catch(err => {
@@ -373,7 +373,11 @@ export default {
 
       this.$axios.$patch('propietario/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un contribuyente con éxito", hash: 'knsddcssdc', title:'Edición de contribuyente'})        
+        this.$alert("success", {desc: "Se ha editado un contribuyente con éxito", hash: 'knsddcssdc', title:'Edición de contribuyente'})  
+        const index = this.propietarioData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.$set(this.propietarioData, index, { ...this.defaultItem });
+        }       
       }).catch((err) => {
         console.log(err)
       });
@@ -390,7 +394,11 @@ export default {
       this.$axios.$delete('propietario/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un contribuyente con éxito", hash: 'knsddcssdc', title:'Eliminación de contribuyente'})        
+        this.$alert("success", {desc: "Se ha eliminado un contribuyente con éxito", hash: 'knsddcssdc', title:'Eliminación de contribuyente'}) 
+        const index = this.propietarioData.findIndex((item) => item.id === this.defaultItem.id);
+        if (index !== -1) {
+          this.propietarioData.splice(index, 1);
+        }         
       }).catch((err) => {
         console.log(err)
       });
