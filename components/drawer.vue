@@ -28,10 +28,10 @@
           <v-expansion-panel-content>
             <v-list class="lista">
               <v-list-item to="/liquidacion" active-class="active">Liquidación</v-list-item>
-              <v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
+              <!--v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
               <v-list-item @click="$router.push('consultar-propietario')">Consulta por propietario</v-list-item>
               <v-list-item>Consulta por parámetros</v-list-item>
-              <v-list-item @click="$router.push('reporte-taquilla')">Reportes taquilla</v-list-item>
+              <v-list-item @click="$router.push('reporte-taquilla')">Reportes taquilla</v-list-item !-->
           </v-list>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -48,7 +48,7 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
 
-        <v-expansion-panel style="background-color:var(--bg-ap);">
+        <!--v-expansion-panel style="background-color:var(--bg-ap);">
           <v-expansion-panel-header>
             <v-icon>mdi-file-document</v-icon>Reporte
           </v-expansion-panel-header>
@@ -57,7 +57,7 @@
               <v-list-item @click="$router.push('cedula-catastral')">Cédula Catastral</v-list-item>
           </v-list>
           </v-expansion-panel-content>
-        </v-expansion-panel>
+        </v-expansion-panel!-->
 
         <v-expansion-panel style="background-color:var(--bg-ap);">
           <v-expansion-panel-header>
@@ -65,11 +65,11 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-list class="lista">
-              <v-list-item @click="$router.push('inscripcion-inmueble')">Incorporación del inmueble</v-list-item>
+              <!--v-list-item @click="$router.push('inscripcion-inmueble')">Incorporación del inmueble</v-list-item>
               <v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
               <v-list-item @click="$router.push('actualizacion-inmueble')">Actualización de los datos</v-list-item>
               <v-list-item>Consulta por parámetros</v-list-item>
-              <v-list-item @click="$router.push('consultar-propietario')">Consultas por propietarios</v-list-item>  
+              <v-list-item @click="$router.push('consultar-propietario')">Consultas por propietarios</v-list-item!-->  
               <v-list-item @click="$router.push('consulta-inmueble')">Consultar inmueble</v-list-item>        
             </v-list>
           </v-expansion-panel-content>

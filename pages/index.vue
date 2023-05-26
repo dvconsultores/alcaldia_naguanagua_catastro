@@ -84,7 +84,9 @@ export default {
           // this.$toast.success('Autentificación exitosa') // instalar libreria para que funcione
           this.$axios.setToken(res.token, 'Token')
           this.$store.dispatch('storeUser', res)
-          this.$router.push('dashboard')        
+          //this.$router.push('dashboard')
+          this.$router.push('modificar-datos')
+                  
       }).catch((err)=>{
         // this.$toast.error('Error de autentificación')
         console.error(err)

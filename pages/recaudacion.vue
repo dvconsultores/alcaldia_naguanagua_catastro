@@ -1,7 +1,7 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
     <section class="section1-recaudacion">
-      <div class="recaudacion-container">
+      <!--div class="recaudacion-container">
         <p class="title-recaudacion">
           Recaudación
         </p>
@@ -23,7 +23,7 @@
             Buscar
           </v-btn>
         </div>
-      </div>
+      </div!-->
 
       <div class="impuestos-container">
         <p class="title-modificar">
@@ -120,9 +120,9 @@ export default{
       items: ['V', 'J', 'G', 'E'],
       datosContribuyente:[
         {
-          nombre:"María Pera C.",
+          nombre:"Sebastian Rosa",
           id_type:"V",
-          id_number:"12.345.678",
+          id_number:"28083944",
         }
       ],
       impuestosTasa:[

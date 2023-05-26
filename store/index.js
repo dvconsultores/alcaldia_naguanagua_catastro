@@ -1,4 +1,5 @@
 export const state = () => ({
+  user: null , //creacion de variable
   theme: "light",
   overlay: { opacity: 0.2, color: "black" },
   dataUser: {
@@ -22,6 +23,9 @@ export const state = () => ({
 });
 
 export const mutations = {
+  STORE_USER(state, user) { // seteo de data
+    state.user = user
+  },
   emailVerification(state, {token, email}) {
     state.currentEmailVerification.token = token
     state.currentEmailVerification.email = email
@@ -78,7 +82,7 @@ export const mutations = {
         // push data socials
         state.dataUser.dataSocial.push({ icon: keys, link: values })
       }
-    }
+    };
   },
   signIn(state, key) {
     const nearWallet = "https://wallet.testnet.near.org"
@@ -107,6 +111,9 @@ export const mutations = {
 };
 
 export const actions = {
+  storeUser({commit}, user) { // recibe la data y la manda a store user para ser seteada
+    commit('STORE_USER', user)
+  },
   modalConnect() {
     const layout = this.$router.app.$children.find(data=>data.$el === document.getElementById("layout"));
     layout.$refs.connect.modalConnect = true
@@ -143,6 +150,9 @@ export const getters = {
     if (filterA) filters = filters.filter(data => data.tier === filterA)
 
     return filters.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  },
+  getUser(state) { // consulta la variable
+    return state.user
   }
 };
 

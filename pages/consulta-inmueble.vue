@@ -218,26 +218,26 @@
               <hr>
               <div class="inputs-container">
                 <v-text-field v-model="selectedItem.numero_expediente" class="input-mostrar" label="Numero de expediente"></v-text-field>
-                <v-text-field v-model="selectedItem.tipo" class="input-mostrar" label="Tipo"></v-text-field>
-                <v-text-field v-model="selectedItem.status" class="input-mostrar" label="Estatus"></v-text-field>
-                <v-text-field v-model="selectedItem.ambito" class="input-mostrar" label="Ambito"></v-text-field>
-                <v-text-field v-model="selectedItem.sector" class="input-mostrar" label="Sector"></v-text-field>
-                <v-text-field v-model="selectedItem.manzana" class="input-mostrar" label="Manzana"></v-text-field>
-                <v-text-field v-model="selectedItem.parcela" class="input-mostrar" label="Parcela"></v-text-field>
-                <v-text-field v-model="selectedItem.subparcela" class="input-mostrar" label="Sub-Parcela"></v-text-field>
-                <v-text-field v-model="selectedItem.nivel" class="input-mostrar" label="Nivel"></v-text-field>
-                <v-text-field v-model="selectedItem.unidad" class="input-mostrar" label="Unidad"></v-text-field>
-                <v-text-field v-model="selectedItem.urbanizacion" class="input-mostrar" label="Urbanización"></v-text-field>
-                <v-text-field v-model="selectedItem.calle" class="input-mostrar" label="Calle"></v-text-field>
-                <v-text-field v-model="selectedItem.conjunto_residencial" class="input-mostrar" label="Conjunto Residencial"></v-text-field>
-                <v-text-field v-model="selectedItem.edificio" class="input-mostrar" label="Edificio"></v-text-field>
-                <v-text-field v-model="selectedItem.avenida" class="input-mostrar" label="Avenida"></v-text-field>
-                <v-text-field v-model="selectedItem.torre" class="input-mostrar" label="Torre"></v-text-field>
+                <v-text-field v-model="selectedItem.descripcion_tipo" class="input-mostrar" label="Tipo"></v-text-field>
+                <v-text-field v-model="selectedItem.descripcion_status" class="input-mostrar" label="Estatus"></v-text-field>
+                <v-text-field v-model="selectedItem.descripcion_ambito" class="input-mostrar" label="Ambito"></v-text-field>
+                <v-text-field v-model="selectedItem.descripcion_sector" class="input-mostrar" label="Sector"></v-text-field>
+                <v-text-field v-model="selectedItem.descripcion_manzana" class="input-mostrar" label="Manzana"></v-text-field>
+                <v-text-field v-model="selectedItem.codigo_parcela" class="input-mostrar" label="Parcela"></v-text-field>
+                <v-text-field v-model="selectedItem.codigo_subparcela" class="input-mostrar" label="Sub-Parcela"></v-text-field>
+                <v-text-field v-model="selectedItem.descripcion_nivel" class="input-mostrar" label="Nivel"></v-text-field>
+                <v-text-field v-model="selectedItem.descripcion_unidad" class="input-mostrar" label="Unidad"></v-text-field>
+                <v-text-field v-model="selectedItem.nombre_urbanizacion" class="input-mostrar" label="Urbanización"></v-text-field>
+                <v-text-field v-model="selectedItem.nombre_calle" class="input-mostrar" label="Calle"></v-text-field>
+                <v-text-field v-model="selectedItem.nombre_conjunto_residencial" class="input-mostrar" label="Conjunto Residencial"></v-text-field>
+                <v-text-field v-model="selectedItem.nombre_edificio" class="input-mostrar" label="Edificio"></v-text-field>
+                <v-text-field v-model="selectedItem.nombre_avenida" class="input-mostrar" label="Avenida"></v-text-field>
+                <v-text-field v-model="selectedItem.nombre_torre" class="input-mostrar" label="Torre"></v-text-field>
                 <v-text-field v-model="selectedItem.numero_civico" class="input-mostrar" label="Nro. Civicio"></v-text-field>
                 <v-text-field v-model="selectedItem.numero_casa" class="input-mostrar" label="Nro. Casa"></v-text-field>
                 <v-text-field v-model="selectedItem.numero_piso" class="input-mostrar" label="Nro. Piso"></v-text-field>
                 <v-text-field v-model="selectedItem.telefono" class="input-mostrar" label="Telefono"></v-text-field>
-                <v-text-field v-model="selectedItem.zona" class="input-mostrar" label="Zona"></v-text-field>
+                <v-text-field v-model="selectedItem.descripcion_zona" class="input-mostrar" label="Zona"></v-text-field>
                 <v-text-field v-model="selectedItem.direccion" class="input-mostrar" label="Dirección"></v-text-field>
                 <v-text-field v-model="selectedItem.referencia" class="input-mostrar" label="Referencia"></v-text-field>
               </div>
