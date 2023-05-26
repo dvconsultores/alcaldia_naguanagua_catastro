@@ -297,24 +297,48 @@
             Tipo de pago
           </span>
         </div>
+
+        <div v-if="$route.path == '/consulta-inmueble'" class="divcol">
+          <span class="index-text">
+            Busqueda de inmueble
+          </span>
+        </div>
       </div>
 
       <div class="divrow" style="gap:20px;">
 
-        <v-icon @click="$router.push('/configuracion')">
+        <!-- <v-icon @click="$router.push('/configuracion')">
           mdi-cog-outline
         </v-icon>
 
         <v-icon>
           mdi-bell-outline
-        </v-icon>
+        </v-icon> -->
 
-        <div class="divcol aend">
+        <div class="divcol center">
           <span class="span-saludo">
             ¡Hola Usuario 234!
           </span>
           <span class="span-admin">
             Administrador
+          </span>
+        </div>
+
+        <div class="divcol center">
+          <span class="span-saludo">
+            Nro.Expediente
+          </span>
+          <span class="span-admin">
+            33582
+          </span>
+        </div>
+
+        <div class="divcol center">
+          <span class="span-saludo">
+            Nro. de indentificación
+          </span>
+          <span class="span-admin">
+            28083944
           </span>
         </div>
       </div>

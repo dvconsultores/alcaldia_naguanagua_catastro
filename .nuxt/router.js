@@ -12,6 +12,7 @@ const _6c6705d6 = () => interopDefault(import('../pages/bcv.vue' /* webpackChunk
 const _b63b80f2 = () => interopDefault(import('../pages/calle.vue' /* webpackChunkName: "pages/calle" */))
 const _3c19b03c = () => interopDefault(import('../pages/cedula-catastral.vue' /* webpackChunkName: "pages/cedula-catastral" */))
 const _6a0240e6 = () => interopDefault(import('../pages/conjuntos-residenciales.vue' /* webpackChunkName: "pages/conjuntos-residenciales" */))
+const _1695ba7b = () => interopDefault(import('../pages/consulta-inmueble.vue' /* webpackChunkName: "pages/consulta-inmueble" */))
 const _be5f4c88 = () => interopDefault(import('../pages/consultar-propietario.vue' /* webpackChunkName: "pages/consultar-propietario" */))
 const _0f70c95e = () => interopDefault(import('../pages/crear-contribuyente.vue' /* webpackChunkName: "pages/crear-contribuyente" */))
 const _5a1d95d4 = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
@@ -100,6 +101,10 @@ export const routerOptions = {
     path: "/conjuntos-residenciales",
     component: _6a0240e6,
     name: "conjuntos-residenciales___en"
+  }, {
+    path: "/consulta-inmueble",
+    component: _1695ba7b,
+    name: "consulta-inmueble___en"
   }, {
     path: "/consultar-propietario",
     component: _be5f4c88,
@@ -304,6 +309,10 @@ export const routerOptions = {
     path: "/es/conjuntos-residenciales",
     component: _6a0240e6,
     name: "conjuntos-residenciales___es"
+  }, {
+    path: "/es/consulta-inmueble",
+    component: _1695ba7b,
+    name: "consulta-inmueble___es"
   }, {
     path: "/es/consultar-propietario",
     component: _be5f4c88,

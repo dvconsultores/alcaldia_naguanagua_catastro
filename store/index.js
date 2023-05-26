@@ -78,7 +78,7 @@ export const mutations = {
         // push data socials
         state.dataUser.dataSocial.push({ icon: keys, link: values })
       }
-    };
+    }
   },
   signIn(state, key) {
     const nearWallet = "https://wallet.testnet.near.org"

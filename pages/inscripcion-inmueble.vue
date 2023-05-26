@@ -8,14 +8,14 @@
 
         <hr>
 
-        <div v-for="(item,index) in dataCreacion" :key="index" class="container-creacion-datos">
+        <div class="container-creacion-datos">
           <div class="title-description-div">
             <p class="nombre-razon">
               Nro. Recibo
             </p>
 
             <p class="nombre-desc">
-              {{item.nro_recibo}}
+              {{numeroCorrelativo}}
             </p>
           </div>
 
@@ -71,6 +71,7 @@
         <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
           <v-textarea
           class="textarea"
+          v-model="estadoCuentaData.observaciones"
           ></v-textarea>
         </div>
       </div>
@@ -84,7 +85,7 @@
           </p>
 
           <p class="solicitud-title">
-            Monto total: {{ monto_total }}
+            Monto total: {{ resultado }}
           </p>
         </div>
 
@@ -96,23 +97,33 @@
           <span style="display:none;">{{ div.icon }}</span>
 
           <v-autocomplete
+          v-model="estadoCuentaDetalleData"
           class="big-autocomplete mobile-inputs"
           label="Tasa / Multa"
+          :items="tasaMultaData"
+          item-text="descripcion"
+          item-value="id"
+          @change="selectedField"
           ></v-autocomplete>
 
           <v-text-field
           class="small-input mobile-inputs"
           label="Monto UT"
+          disabled
+          v-model="monto_unidad_tributaria"
           ></v-text-field>
 
           <v-text-field
           class="small-input mobile-inputs"
           label="Cantidad"
+          v-model="valor2"
           ></v-text-field>
 
           <v-text-field
           class="small-input mobile-inputs"
           label="Total"
+          :value="resultado" 
+          disabled
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
@@ -153,6 +164,8 @@ export default{
   mixins: [computeds],
   data() {
     return{
+      monto_unidad_tributaria: null,
+      valor2:null,
       nombrePropietario: '',
       cedulaPropietario: '',
       nacionalidadPropietario: '',
@@ -173,6 +186,10 @@ export default{
 
       propietarioData:[],
       tasaData:[],
+      estadoCuentaData:[],
+      estadoCuentaDetalleData:[],
+      correlativoData:[],
+      tasaMultaData:[],
     }
   },
 
@@ -186,9 +203,69 @@ export default{
   mounted(){
     this.getDataPropietarios()
     this.getDataTasa()
+    this.getEstadoCuenta()
+    this.getEstadoCuentaDetalle()
+    this.getCorrelativo()
+    this.getTasaMulta()
+  },
+
+  computed: {
+    resultado(){
+      if (this.monto_unidad_tributaria && this.valor2) {
+        return parseFloat(this.monto_unidad_tributaria) * parseFloat(this.valor2);
+      } else {
+        return null;
+      }
+    }
   },
 
   methods: {
+    selectedField(data){
+      console.log(data)
+      var tasa_encontrada = this.tasaMultaData.find(tasa => 
+        data === tasa.id
+      )
+      
+      this.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
+      console.log(tasa_encontrada, this.estadoCuentaDetalleData)
+    },
+
+    getTasaMulta(){
+      this.$axios.$get('tasamulta').then(response => {
+        this.tasaMultaData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getCorrelativo(){
+      this.$axios.$get('correlativo').then(response => {
+        this.correlativoData = response
+        this.numeroCorrelativo = this.correlativoData[0].NumeroEstadoCuenta
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getEstadoCuentaDetalle(){
+      this.$axios.$get('estadocuentadetalle').then(response => {
+        this.estadoCuentaDetalleData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getEstadoCuenta(){
+      this.$axios.$get('estadocuenta').then(response => {
+        this.estadoCuentaData = response
+        this.nombrePropietario = this.propietarioData[0].nombre
+        this.cedulaPropietario = this.propietarioData[0].numero_documento
+        this.nacionalidadPropietario = this.propietarioData[0].nacionalidad
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
     getDataTasa (){
       this.$axios.$get('tasamulta').then(response => {
         this.tasaData = response

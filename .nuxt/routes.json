@@ -56,6 +56,13 @@
     "_name": "_6a0240e6"
   },
   {
+    "name": "consulta-inmueble___en",
+    "path": "/consulta-inmueble",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble.vue",
+    "chunkName": "pages/consulta-inmueble",
+    "_name": "_1695ba7b"
+  },
+  {
     "name": "consultar-propietario___en",
     "path": "/consultar-propietario",
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario.vue",
@@ -411,6 +418,13 @@
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/conjuntos-residenciales.vue",
     "chunkName": "pages/conjuntos-residenciales",
     "_name": "_6a0240e6"
+  },
+  {
+    "name": "consulta-inmueble___es",
+    "path": "/es/consulta-inmueble",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble.vue",
+    "chunkName": "pages/consulta-inmueble",
+    "_name": "_1695ba7b"
   },
   {
     "name": "consultar-propietario___es",

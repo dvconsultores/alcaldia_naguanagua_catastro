@@ -69,7 +69,9 @@
               <v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
               <v-list-item @click="$router.push('actualizacion-inmueble')">Actualización de los datos</v-list-item>
               <v-list-item>Consulta por parámetros</v-list-item>
-              <v-list-item @click="$router.push('consultar-propietario')">Consultas por propietarios</v-list-item>          </v-list>
+              <v-list-item @click="$router.push('consultar-propietario')">Consultas por propietarios</v-list-item>  
+              <v-list-item @click="$router.push('consulta-inmueble')">Consultar inmueble</v-list-item>        
+            </v-list>
           </v-expansion-panel-content>
         </v-expansion-panel>
 
@@ -79,8 +81,8 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-list class="lista">
-              <v-list-item @click="$router.push('crear-contribuyente')">Contribuyentes</v-list-item>
-              <v-list-item @click="$router.push('modificar-datos')">Modificar Datos del Contribuyente</v-list-item>            </v-list>
+              <!-- <v-list-item @click="$router.push('crear-contribuyente')">Contribuyentes</v-list-item> -->
+              <v-list-item @click="$router.push('modificar-datos')">Administrar Datos del Contribuyente</v-list-item>            </v-list>
           </v-expansion-panel-content>
         </v-expansion-panel>
 
