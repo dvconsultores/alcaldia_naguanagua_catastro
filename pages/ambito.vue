@@ -218,7 +218,7 @@ export default {
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
       ambitoData: [],
-      permido: (this.$store.getters.getUser),
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
       defaultItem: {
         codigo: '',
         descripcion: '',
@@ -234,14 +234,29 @@ export default {
   },
 
   mounted(){
-  //this.permido.forEach(element => {
-  //  console.log('state', element.modulo)
-  //}); 
-  console.log('state', this.permido)
+    this.permisos()
+
     this.getAmbito()
   },
 
   methods: {
+    permisos(){
+
+      const longitud = this.$options.name.length;
+      console.log('logitud',longitud)
+      this.modulo = this.$options.name.substring(0,longitud - 4).toLowerCase();
+
+      console.log('state1', this.$options.name,this.modulo,this.permido)
+      console.log('tipo state1', typeof this.permido)
+
+
+      console.log('modulos:');
+      this.permido.forEach((modulo) => {
+        console.log(modulo.modulo);
+      });
+      // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
+      console.log(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+    },
     getAmbito() {
       this.$axios.$get('ambito').then(response => {
           this.ambitoData = response

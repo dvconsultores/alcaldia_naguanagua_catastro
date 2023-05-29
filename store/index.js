@@ -175,7 +175,8 @@ export const getters = {
 
 
   getUser(state) { // consulta la variable
-    return state.user[0]
+    //return state.user[0]
+    return state.user
   },
   getcontribuyente(state) { // consulta la variable
     return state.contribuyente
