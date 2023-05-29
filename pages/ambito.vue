@@ -218,7 +218,7 @@ export default {
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
       ambitoData: [],
-
+      permido: this.$store.getters.getUser,
       defaultItem: {
         codigo: '',
         descripcion: '',
@@ -234,6 +234,7 @@ export default {
   },
 
   mounted(){
+    console.log('state', this.permido)
     this.getAmbito()
   },
 

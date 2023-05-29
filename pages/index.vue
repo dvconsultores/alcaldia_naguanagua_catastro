@@ -83,7 +83,7 @@ export default {
         console.log(res)
           // this.$toast.success('Autentificación exitosa') // instalar libreria para que funcione
           this.$axios.setToken(res.token, 'Token')
-          this.$store.dispatch('storeUser', res)
+          this.$store.dispatch('storeUser', res.permisos)
           //this.$router.push('dashboard')
           this.$router.push('modificar-datos')
                   

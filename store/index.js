@@ -1,10 +1,14 @@
 export const state = () => ({
+
   user: null , //creacion de variable
+  contribuyente: undefined,//creacion de variable
+  expediente: undefined,//creacion de variable
+
   theme: "light",
   overlay: { opacity: 0.2, color: "black" },
   dataUser: {
     banner: undefined,
-    avatar: undefined,
+    //avatar: undefined,
     accountId: undefined,
     username: undefined,
     email: undefined,
@@ -23,9 +27,18 @@ export const state = () => ({
 });
 
 export const mutations = {
+
   STORE_USER(state, user) { // seteo de data
     state.user = user
   },
+  STORE_contribuyente(state, contribuyente) { // seteo de data
+    state.contribuyente = contribuyente
+  },
+  STORE_expediente(state, expediente) { // seteo de data
+    state.uexpedienteser = expediente
+  },
+
+
   emailVerification(state, {token, email}) {
     state.currentEmailVerification.token = token
     state.currentEmailVerification.email = email
@@ -41,12 +54,12 @@ export const mutations = {
   },
   setData(state, data) {
     if (window.$nuxt.$wallet.isSignedIn() && typeof data === 'string') {
-      state.dataUser.avatar = require('~/assets/sources/avatars/avatar.png');
+      //state.dataUser.avatar = require('~/assets/sources/avatars/avatar.png');
       state.dataUser.accountId = data;
     } else if (window.$nuxt.$wallet.isSignedIn() && typeof data === 'object') {
       state.dataUser.accountId = data.wallet;
       state.dataUser.banner = data.banner ? this.$axios.defaults.baseURL+data.banner : undefined;
-      state.dataUser.avatar = data.avatar ? this.$axios.defaults.baseURL+data.avatar : require('~/assets/sources/avatars/avatar.png');
+      //state.dataUser.avatar = data.avatar ? this.$axios.defaults.baseURL+data.avatar : require('~/assets/sources/avatars/avatar.png');
       state.dataUser.username = data.username;
       state.dataUser.email = data.email;
       state.dataUser.bio = data.bio;
@@ -82,7 +95,7 @@ export const mutations = {
         // push data socials
         state.dataUser.dataSocial.push({ icon: keys, link: values })
       }
-    };
+    }
   },
   signIn(state, key) {
     const nearWallet = "https://wallet.testnet.near.org"
@@ -114,6 +127,14 @@ export const actions = {
   storeUser({commit}, user) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_USER', user)
   },
+  storecontribuyente({commit}, contribuyente) { // recibe la data y la manda a store user para ser seteada
+    commit('STORE_contribuyente', contribuyente)
+  },
+  storeexpediente({commit}, expediente) { // recibe la data y la manda a store user para ser seteada
+    commit('STORE_expediente', expediente)
+  },
+
+
   modalConnect() {
     const layout = this.$router.app.$children.find(data=>data.$el === document.getElementById("layout"));
     layout.$refs.connect.modalConnect = true
@@ -141,7 +162,7 @@ export const actions = {
 };
 
 export const getters = {
-  pagination: () => ({items, currentPage, itemsPerPage, search, filterA, filterB}) => {
+  pagination: () => ({items, currentPage, itemsPerPage, search, filterA}) => {
     let filters = [...items]
 
     // search
@@ -151,9 +172,17 @@ export const getters = {
 
     return filters.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
   },
+
+
   getUser(state) { // consulta la variable
-    return state.user
-  }
+    return state.user[0]
+  },
+  getcontribuyente(state) { // consulta la variable
+    return state.contribuyente
+  },
+  getexpediente(state) { // consulta la variable
+    return state.expediente
+  },
 };
 
 export const modules = {
