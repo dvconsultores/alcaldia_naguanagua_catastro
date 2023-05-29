@@ -8,6 +8,7 @@ You can directly use them in pages and other components without the need to impo
 
 - `<Alerts>` | `<alerts>` (components/alerts.vue)
 - `<CustomeDrawer>` | `<custome-drawer>` (components/custome-drawer.vue)
+- `<DrawerCopy>` | `<drawer-copy>` (components/drawer-copy.vue)
 - `<Drawer>` | `<drawer>` (components/drawer.vue)
 - `<Filters>` | `<filters>` (components/filters.vue)
 - `<Footer>` | `<footer>` (components/footer.vue)

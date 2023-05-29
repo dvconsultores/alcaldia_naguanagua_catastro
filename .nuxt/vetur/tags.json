@@ -5,6 +5,9 @@
   "CustomeDrawer": {
     "description": "Auto imported from components/custome-drawer.vue"
   },
+  "DrawerCopy": {
+    "description": "Auto imported from components/drawer-copy.vue"
+  },
   "Drawer": {
     "description": "Auto imported from components/drawer.vue"
   },

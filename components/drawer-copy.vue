@@ -21,33 +21,6 @@
       </v-list>
 
       <v-expansion-panels accordion>
-
-        <v-expansion-panel style="background-color:var(--bg-ap);" 
-          v-for="item_menu in menu" :key="item_menu.modulo">
-          <v-expansion-panel-header>
-            <v-icon>mdi-store</v-icon>{{ item_menu.titulo_modulo }} NEW
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            
-            <v-list class="lista">
-              <v-list-item
-                v-for="item in getMenuOptions(item_menu.modulo)" :key="item.menu_modulo"
-                class="vertical-nav-menu-link"
-                v-bind="$attrs"
-                active-class="active"
-                v-show="item.leer"
-                :to="item.modulo"
-              >
-                  {{ item.titulo_modulo }}
-                  NEW
-              </v-list-item>
-
-          </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-
-
         <v-expansion-panel style="background-color:var(--bg-ap);">
           <v-expansion-panel-header>
             <v-icon>mdi-store</v-icon>Taquilla
@@ -314,9 +287,81 @@ export default {
   data() {
     return {
       drawer_mobile: null,
-      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
-      menu:[],
-      menu_opciones:[],
+      // itemDrawer:[
+      //   {
+      //     icon:"mdi-home",
+      //     title:"Inicio",
+      //     link:"dashboard",
+      //   },
+      //   {
+      //     icon:"mdi-store",
+      //     title:"Taquilla",
+      //   },
+      //   {
+      //     icon:"mdi-bank",
+      //     title:"Hacienda",
+      //   },
+      //   {
+      //     icon:"mdi-file-document",
+      //     title:"Reporte",
+      //     link:"perfil",
+      //   },
+      //   {
+      //     icon:"mdi-city",
+      //     title:"Inmuebles",
+      //     link:"configuracion",
+      //   },
+      //   {
+      //     icon:"mdi-account-multiple",
+      //     title:"Contribuyente"
+      //   },
+      //   {
+      //     icon:"mdi-dns",
+      //     title:"Archivo"
+      //   },
+      //   {
+      //     icon:"mdi-cog",
+      //     title:"Configuración"
+      //   }
+      // ],
+
+      // itemDrawer2:[
+      //   {
+      //     icon:"mdi-home",
+      //     title:"Inicio",
+      //     link:"dashboard",
+      //   },
+      //   {
+      //     icon:"mdi-store",
+      //     title:"Taquilla",
+      //   },
+      //   {
+      //     icon:"mdi-bank",
+      //     title:"Hacienda",
+      //   },
+      //   {
+      //     icon:"mdi-file-document",
+      //     title:"Reporte",
+      //     link:"perfil",
+      //   },
+      //   {
+      //     icon:"mdi-city",
+      //     title:"Inmuebles",
+      //     link:"configuracion",
+      //   },
+      //   {
+      //     icon:"mdi-account-multiple",
+      //     title:"Contribuyente"
+      //   },
+      //   {
+      //     icon:"mdi-dns",
+      //     title:"Archivo"
+      //   },
+      //   {
+      //     icon:"mdi-cog",
+      //     title:"Configuración"
+      //   }
+      // ],
     }
   },
 
@@ -329,30 +374,9 @@ export default {
       return this.$vuetify.breakpoint.xs
     },
   },
-  mounted(){
-    this.permisos()
-  },
+
   methods: {
-    permisos(){
-
-      this.menu=(this.permido.filter(permido => permido.es_menu_modulo));
-      console.log('menu:');
-      this.menu.forEach((modulo) => {
-        console.log('menu:',modulo.modulo);
-      });
-
-      this.menu_opciones=(this.permido.filter(permido => !permido.es_menu_modulo));
-      console.log('opcions:');
-      this.menu_opciones.forEach((modulo) => {
-        console.log('opcions:',modulo.modulo);
-      });
-      console.log('menu:',this.menu);
-      console.log('opcions:',this.menu_opciones);
-
-    },
-    getMenuOptions(menuName) {
-      return this.menu_opciones.filter(menu_opciones => menu_opciones.menu_modulo === menuName);
-    },
+    
   },
 
 }

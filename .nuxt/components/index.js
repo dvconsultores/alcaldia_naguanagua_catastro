@@ -1,5 +1,6 @@
 export { default as Alerts } from '../../components/alerts.vue'
 export { default as CustomeDrawer } from '../../components/custome-drawer.vue'
+export { default as DrawerCopy } from '../../components/drawer-copy.vue'
 export { default as Drawer } from '../../components/drawer.vue'
 export { default as Filters } from '../../components/filters.vue'
 export { default as Footer } from '../../components/footer.vue'
