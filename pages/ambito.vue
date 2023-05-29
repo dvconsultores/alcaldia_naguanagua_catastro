@@ -236,7 +236,7 @@ export default {
   mounted(){
   //this.permido.forEach(element => {
   //  console.log('state', element.modulo)
-  //});
+  //}); 
   console.log('state', this.permido)
     this.getAmbito()
   },
