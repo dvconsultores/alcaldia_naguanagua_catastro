@@ -3,742 +3,636 @@
     "name": "acceso___en",
     "path": "/acceso",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/acceso.vue",
-    "chunkName": "pages/acceso",
-    "_name": "_7d0e5d0a"
+    "chunkName": "pages/acceso"
   },
   {
     "name": "actualizacion-inmueble___en",
     "path": "/actualizacion-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-inmueble.vue",
-    "chunkName": "pages/actualizacion-inmueble",
-    "_name": "_0d119478"
+    "chunkName": "pages/actualizacion-inmueble"
   },
   {
     "name": "ambito___en",
     "path": "/ambito",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
-    "chunkName": "pages/ambito",
-    "_name": "_0cdc7f6e"
+    "chunkName": "pages/ambito"
   },
   {
     "name": "avenida___en",
     "path": "/avenida",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/avenida.vue",
-    "chunkName": "pages/avenida",
-    "_name": "_3d728fbd"
+    "chunkName": "pages/avenida"
   },
   {
     "name": "bcv___en",
     "path": "/bcv",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/bcv.vue",
-    "chunkName": "pages/bcv",
-    "_name": "_20f1ec6c"
+    "chunkName": "pages/bcv"
   },
   {
     "name": "calle___en",
     "path": "/calle",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/calle.vue",
-    "chunkName": "pages/calle",
-    "_name": "_462c72fc"
+    "chunkName": "pages/calle"
   },
   {
     "name": "cedula-catastral___en",
     "path": "/cedula-catastral",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/cedula-catastral.vue",
-    "chunkName": "pages/cedula-catastral",
-    "_name": "_9e9b9cb2"
+    "chunkName": "pages/cedula-catastral"
   },
   {
     "name": "conjuntos-residenciales___en",
     "path": "/conjuntos-residenciales",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/conjuntos-residenciales.vue",
-    "chunkName": "pages/conjuntos-residenciales",
-    "_name": "_5e20ffc2"
+    "chunkName": "pages/conjuntos-residenciales"
   },
   {
     "name": "consulta-inmueble___en",
     "path": "/consulta-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble.vue",
-    "chunkName": "pages/consulta-inmueble",
-    "_name": "_350d6670"
+    "chunkName": "pages/consulta-inmueble"
   },
   {
     "name": "consultar-propietario___en",
     "path": "/consultar-propietario",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario.vue",
-    "chunkName": "pages/consultar-propietario",
-    "_name": "_22f70331"
+    "chunkName": "pages/consultar-propietario"
   },
   {
     "name": "crear-contribuyente___en",
     "path": "/crear-contribuyente",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/crear-contribuyente.vue",
-    "chunkName": "pages/crear-contribuyente",
-    "_name": "_57841e06"
+    "chunkName": "pages/crear-contribuyente"
   },
   {
     "name": "dashboard___en",
     "path": "/dashboard",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/dashboard.vue",
-    "chunkName": "pages/dashboard",
-    "_name": "_1b8706c9"
+    "chunkName": "pages/dashboard"
   },
   {
     "name": "desincorporacion-inmueble___en",
     "path": "/desincorporacion-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/desincorporacion-inmueble.vue",
-    "chunkName": "pages/desincorporacion-inmueble",
-    "_name": "_3fe333e3"
+    "chunkName": "pages/desincorporacion-inmueble"
   },
   {
     "name": "edificios___en",
     "path": "/edificios",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/edificios.vue",
-    "chunkName": "pages/edificios",
-    "_name": "_39d4beec"
+    "chunkName": "pages/edificios"
   },
   {
     "name": "index___es",
     "path": "/es",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_541e4c87"
+    "chunkName": "pages/index"
   },
   {
     "name": "estatus-inmueble___en",
     "path": "/estatus-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estatus-inmueble.vue",
-    "chunkName": "pages/estatus-inmueble",
-    "_name": "_49cd7a34"
+    "chunkName": "pages/estatus-inmueble"
   },
   {
     "name": "fines-fiscales___en",
     "path": "/fines-fiscales",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/fines-fiscales.vue",
-    "chunkName": "pages/fines-fiscales",
-    "_name": "_41a5b15b"
+    "chunkName": "pages/fines-fiscales"
   },
   {
     "name": "forma___en",
     "path": "/forma",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/forma.vue",
-    "chunkName": "pages/forma",
-    "_name": "_1fa7db5c"
+    "chunkName": "pages/forma"
   },
   {
     "name": "impuestos-pago___en",
     "path": "/impuestos-pago",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/impuestos-pago.vue",
-    "chunkName": "pages/impuestos-pago",
-    "_name": "_f29babc0"
+    "chunkName": "pages/impuestos-pago"
   },
   {
     "name": "inscripcion-inmueble___en",
     "path": "/inscripcion-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/inscripcion-inmueble.vue",
-    "chunkName": "pages/inscripcion-inmueble",
-    "_name": "_41046902"
+    "chunkName": "pages/inscripcion-inmueble"
   },
   {
     "name": "liquidacion___en",
     "path": "/liquidacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/liquidacion.vue",
-    "chunkName": "pages/liquidacion",
-    "_name": "_a32b6a42"
+    "chunkName": "pages/liquidacion"
   },
   {
     "name": "login___en",
     "path": "/login",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/login.vue",
-    "chunkName": "pages/login",
-    "_name": "_1dc5ef9e"
+    "chunkName": "pages/login"
   },
   {
     "name": "manzana___en",
     "path": "/manzana",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/manzana.vue",
-    "chunkName": "pages/manzana",
-    "_name": "_a60d722e"
+    "chunkName": "pages/manzana"
   },
   {
     "name": "modificar-datos___en",
     "path": "/modificar-datos",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/modificar-datos.vue",
-    "chunkName": "pages/modificar-datos",
-    "_name": "_249d638d"
+    "chunkName": "pages/modificar-datos"
   },
   {
     "name": "moneda___en",
     "path": "/moneda",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/moneda.vue",
-    "chunkName": "pages/moneda",
-    "_name": "_f723739e"
+    "chunkName": "pages/moneda"
   },
   {
     "name": "nivel-inmueble___en",
     "path": "/nivel-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/nivel-inmueble.vue",
-    "chunkName": "pages/nivel-inmueble",
-    "_name": "_dbec6d2e"
+    "chunkName": "pages/nivel-inmueble"
   },
   {
     "name": "parcela___en",
     "path": "/parcela",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/parcela.vue",
-    "chunkName": "pages/parcela",
-    "_name": "_37ad4eed"
+    "chunkName": "pages/parcela"
   },
   {
     "name": "planilla-desincorporacion___en",
     "path": "/planilla-desincorporacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/planilla-desincorporacion.vue",
-    "chunkName": "pages/planilla-desincorporacion",
-    "_name": "_44e0d9a3"
+    "chunkName": "pages/planilla-desincorporacion"
   },
   {
     "name": "recaudacion___en",
     "path": "/recaudacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion.vue",
-    "chunkName": "pages/recaudacion",
-    "_name": "_d076870a"
+    "chunkName": "pages/recaudacion"
   },
   {
     "name": "regimen___en",
     "path": "/regimen",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/regimen.vue",
-    "chunkName": "pages/regimen",
-    "_name": "_422c3f54"
+    "chunkName": "pages/regimen"
   },
   {
     "name": "reporte-taquilla___en",
     "path": "/reporte-taquilla",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-taquilla.vue",
-    "chunkName": "pages/reporte-taquilla",
-    "_name": "_17e835c0"
+    "chunkName": "pages/reporte-taquilla"
   },
   {
     "name": "sector___en",
     "path": "/sector",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/sector.vue",
-    "chunkName": "pages/sector",
-    "_name": "_2a000081"
+    "chunkName": "pages/sector"
   },
   {
     "name": "servicios___en",
     "path": "/servicios",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/servicios.vue",
-    "chunkName": "pages/servicios",
-    "_name": "_655bcbdc"
+    "chunkName": "pages/servicios"
   },
   {
     "name": "solicitud-inmueble-existente___en",
     "path": "/solicitud-inmueble-existente",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/solicitud-inmueble-existente.vue",
-    "chunkName": "pages/solicitud-inmueble-existente",
-    "_name": "_0082b28b"
+    "chunkName": "pages/solicitud-inmueble-existente"
   },
   {
     "name": "sub-parcela___en",
     "path": "/sub-parcela",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/sub-parcela.vue",
-    "chunkName": "pages/sub-parcela",
-    "_name": "_6aa5ef40"
+    "chunkName": "pages/sub-parcela"
   },
   {
     "name": "tasa-multa___en",
     "path": "/tasa-multa",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tasa-multa.vue",
-    "chunkName": "pages/tasa-multa",
-    "_name": "_b9343d0c"
+    "chunkName": "pages/tasa-multa"
   },
   {
     "name": "tipo-desincorporacion___en",
     "path": "/tipo-desincorporacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-desincorporacion.vue",
-    "chunkName": "pages/tipo-desincorporacion",
-    "_name": "_61594750"
+    "chunkName": "pages/tipo-desincorporacion"
   },
   {
     "name": "tipo-documento___en",
     "path": "/tipo-documento",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-documento.vue",
-    "chunkName": "pages/tipo-documento",
-    "_name": "_60aa8af6"
+    "chunkName": "pages/tipo-documento"
   },
   {
     "name": "tipo-especial___en",
     "path": "/tipo-especial",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-especial.vue",
-    "chunkName": "pages/tipo-especial",
-    "_name": "_876adf3c"
+    "chunkName": "pages/tipo-especial"
   },
   {
     "name": "tipo-inmueble___en",
     "path": "/tipo-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-inmueble.vue",
-    "chunkName": "pages/tipo-inmueble",
-    "_name": "_6c44abde"
+    "chunkName": "pages/tipo-inmueble"
   },
   {
     "name": "tipo-pago___en",
     "path": "/tipo-pago",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-pago.vue",
-    "chunkName": "pages/tipo-pago",
-    "_name": "_57b70272"
+    "chunkName": "pages/tipo-pago"
   },
   {
     "name": "tipo-tenencia___en",
     "path": "/tipo-tenencia",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-tenencia.vue",
-    "chunkName": "pages/tipo-tenencia",
-    "_name": "_68f1e4a3"
+    "chunkName": "pages/tipo-tenencia"
   },
   {
     "name": "tipo-transaccion___en",
     "path": "/tipo-transaccion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-transaccion.vue",
-    "chunkName": "pages/tipo-transaccion",
-    "_name": "_ae2eae5e"
+    "chunkName": "pages/tipo-transaccion"
   },
   {
     "name": "tipologia___en",
     "path": "/tipologia",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipologia.vue",
-    "chunkName": "pages/tipologia",
-    "_name": "_29246edd"
+    "chunkName": "pages/tipologia"
   },
   {
     "name": "topografia___en",
     "path": "/topografia",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/topografia.vue",
-    "chunkName": "pages/topografia",
-    "_name": "_e796a986"
+    "chunkName": "pages/topografia"
   },
   {
     "name": "torres___en",
     "path": "/torres",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/torres.vue",
-    "chunkName": "pages/torres",
-    "_name": "_f74ed8f8"
+    "chunkName": "pages/torres"
   },
   {
     "name": "ubicacion___en",
     "path": "/ubicacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/ubicacion.vue",
-    "chunkName": "pages/ubicacion",
-    "_name": "_d948c958"
+    "chunkName": "pages/ubicacion"
   },
   {
     "name": "unidad-inmueble___en",
     "path": "/unidad-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/unidad-inmueble.vue",
-    "chunkName": "pages/unidad-inmueble",
-    "_name": "_34e7ea4e"
+    "chunkName": "pages/unidad-inmueble"
   },
   {
     "name": "unidad-tributaria___en",
     "path": "/unidad-tributaria",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/unidad-tributaria.vue",
-    "chunkName": "pages/unidad-tributaria",
-    "_name": "_2b3b74aa"
+    "chunkName": "pages/unidad-tributaria"
   },
   {
     "name": "urbanizacion-barrio___en",
     "path": "/urbanizacion-barrio",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/urbanizacion-barrio.vue",
-    "chunkName": "pages/urbanizacion-barrio",
-    "_name": "_24993a24"
+    "chunkName": "pages/urbanizacion-barrio"
   },
   {
     "name": "uso___en",
     "path": "/uso",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/uso.vue",
-    "chunkName": "pages/uso",
-    "_name": "_10ef55f4"
+    "chunkName": "pages/uso"
   },
   {
     "name": "zona___en",
     "path": "/zona",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/zona.vue",
-    "chunkName": "pages/zona",
-    "_name": "_2e486083"
+    "chunkName": "pages/zona"
   },
   {
     "name": "acceso___es",
     "path": "/es/acceso",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/acceso.vue",
-    "chunkName": "pages/acceso",
-    "_name": "_7d0e5d0a"
+    "chunkName": "pages/acceso"
   },
   {
     "name": "actualizacion-inmueble___es",
     "path": "/es/actualizacion-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-inmueble.vue",
-    "chunkName": "pages/actualizacion-inmueble",
-    "_name": "_0d119478"
+    "chunkName": "pages/actualizacion-inmueble"
   },
   {
     "name": "ambito___es",
     "path": "/es/ambito",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
-    "chunkName": "pages/ambito",
-    "_name": "_0cdc7f6e"
+    "chunkName": "pages/ambito"
   },
   {
     "name": "avenida___es",
     "path": "/es/avenida",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/avenida.vue",
-    "chunkName": "pages/avenida",
-    "_name": "_3d728fbd"
+    "chunkName": "pages/avenida"
   },
   {
     "name": "bcv___es",
     "path": "/es/bcv",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/bcv.vue",
-    "chunkName": "pages/bcv",
-    "_name": "_20f1ec6c"
+    "chunkName": "pages/bcv"
   },
   {
     "name": "calle___es",
     "path": "/es/calle",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/calle.vue",
-    "chunkName": "pages/calle",
-    "_name": "_462c72fc"
+    "chunkName": "pages/calle"
   },
   {
     "name": "cedula-catastral___es",
     "path": "/es/cedula-catastral",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/cedula-catastral.vue",
-    "chunkName": "pages/cedula-catastral",
-    "_name": "_9e9b9cb2"
+    "chunkName": "pages/cedula-catastral"
   },
   {
     "name": "conjuntos-residenciales___es",
     "path": "/es/conjuntos-residenciales",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/conjuntos-residenciales.vue",
-    "chunkName": "pages/conjuntos-residenciales",
-    "_name": "_5e20ffc2"
+    "chunkName": "pages/conjuntos-residenciales"
   },
   {
     "name": "consulta-inmueble___es",
     "path": "/es/consulta-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble.vue",
-    "chunkName": "pages/consulta-inmueble",
-    "_name": "_350d6670"
+    "chunkName": "pages/consulta-inmueble"
   },
   {
     "name": "consultar-propietario___es",
     "path": "/es/consultar-propietario",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario.vue",
-    "chunkName": "pages/consultar-propietario",
-    "_name": "_22f70331"
+    "chunkName": "pages/consultar-propietario"
   },
   {
     "name": "crear-contribuyente___es",
     "path": "/es/crear-contribuyente",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/crear-contribuyente.vue",
-    "chunkName": "pages/crear-contribuyente",
-    "_name": "_57841e06"
+    "chunkName": "pages/crear-contribuyente"
   },
   {
     "name": "dashboard___es",
     "path": "/es/dashboard",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/dashboard.vue",
-    "chunkName": "pages/dashboard",
-    "_name": "_1b8706c9"
+    "chunkName": "pages/dashboard"
   },
   {
     "name": "desincorporacion-inmueble___es",
     "path": "/es/desincorporacion-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/desincorporacion-inmueble.vue",
-    "chunkName": "pages/desincorporacion-inmueble",
-    "_name": "_3fe333e3"
+    "chunkName": "pages/desincorporacion-inmueble"
   },
   {
     "name": "edificios___es",
     "path": "/es/edificios",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/edificios.vue",
-    "chunkName": "pages/edificios",
-    "_name": "_39d4beec"
+    "chunkName": "pages/edificios"
   },
   {
     "name": "estatus-inmueble___es",
     "path": "/es/estatus-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estatus-inmueble.vue",
-    "chunkName": "pages/estatus-inmueble",
-    "_name": "_49cd7a34"
+    "chunkName": "pages/estatus-inmueble"
   },
   {
     "name": "fines-fiscales___es",
     "path": "/es/fines-fiscales",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/fines-fiscales.vue",
-    "chunkName": "pages/fines-fiscales",
-    "_name": "_41a5b15b"
+    "chunkName": "pages/fines-fiscales"
   },
   {
     "name": "forma___es",
     "path": "/es/forma",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/forma.vue",
-    "chunkName": "pages/forma",
-    "_name": "_1fa7db5c"
+    "chunkName": "pages/forma"
   },
   {
     "name": "impuestos-pago___es",
     "path": "/es/impuestos-pago",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/impuestos-pago.vue",
-    "chunkName": "pages/impuestos-pago",
-    "_name": "_f29babc0"
+    "chunkName": "pages/impuestos-pago"
   },
   {
     "name": "inscripcion-inmueble___es",
     "path": "/es/inscripcion-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/inscripcion-inmueble.vue",
-    "chunkName": "pages/inscripcion-inmueble",
-    "_name": "_41046902"
+    "chunkName": "pages/inscripcion-inmueble"
   },
   {
     "name": "liquidacion___es",
     "path": "/es/liquidacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/liquidacion.vue",
-    "chunkName": "pages/liquidacion",
-    "_name": "_a32b6a42"
+    "chunkName": "pages/liquidacion"
   },
   {
     "name": "login___es",
     "path": "/es/login",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/login.vue",
-    "chunkName": "pages/login",
-    "_name": "_1dc5ef9e"
+    "chunkName": "pages/login"
   },
   {
     "name": "manzana___es",
     "path": "/es/manzana",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/manzana.vue",
-    "chunkName": "pages/manzana",
-    "_name": "_a60d722e"
+    "chunkName": "pages/manzana"
   },
   {
     "name": "modificar-datos___es",
     "path": "/es/modificar-datos",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/modificar-datos.vue",
-    "chunkName": "pages/modificar-datos",
-    "_name": "_249d638d"
+    "chunkName": "pages/modificar-datos"
   },
   {
     "name": "moneda___es",
     "path": "/es/moneda",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/moneda.vue",
-    "chunkName": "pages/moneda",
-    "_name": "_f723739e"
+    "chunkName": "pages/moneda"
   },
   {
     "name": "nivel-inmueble___es",
     "path": "/es/nivel-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/nivel-inmueble.vue",
-    "chunkName": "pages/nivel-inmueble",
-    "_name": "_dbec6d2e"
+    "chunkName": "pages/nivel-inmueble"
   },
   {
     "name": "parcela___es",
     "path": "/es/parcela",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/parcela.vue",
-    "chunkName": "pages/parcela",
-    "_name": "_37ad4eed"
+    "chunkName": "pages/parcela"
   },
   {
     "name": "planilla-desincorporacion___es",
     "path": "/es/planilla-desincorporacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/planilla-desincorporacion.vue",
-    "chunkName": "pages/planilla-desincorporacion",
-    "_name": "_44e0d9a3"
+    "chunkName": "pages/planilla-desincorporacion"
   },
   {
     "name": "recaudacion___es",
     "path": "/es/recaudacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion.vue",
-    "chunkName": "pages/recaudacion",
-    "_name": "_d076870a"
+    "chunkName": "pages/recaudacion"
   },
   {
     "name": "regimen___es",
     "path": "/es/regimen",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/regimen.vue",
-    "chunkName": "pages/regimen",
-    "_name": "_422c3f54"
+    "chunkName": "pages/regimen"
   },
   {
     "name": "reporte-taquilla___es",
     "path": "/es/reporte-taquilla",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-taquilla.vue",
-    "chunkName": "pages/reporte-taquilla",
-    "_name": "_17e835c0"
+    "chunkName": "pages/reporte-taquilla"
   },
   {
     "name": "sector___es",
     "path": "/es/sector",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/sector.vue",
-    "chunkName": "pages/sector",
-    "_name": "_2a000081"
+    "chunkName": "pages/sector"
   },
   {
     "name": "servicios___es",
     "path": "/es/servicios",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/servicios.vue",
-    "chunkName": "pages/servicios",
-    "_name": "_655bcbdc"
+    "chunkName": "pages/servicios"
   },
   {
     "name": "solicitud-inmueble-existente___es",
     "path": "/es/solicitud-inmueble-existente",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/solicitud-inmueble-existente.vue",
-    "chunkName": "pages/solicitud-inmueble-existente",
-    "_name": "_0082b28b"
+    "chunkName": "pages/solicitud-inmueble-existente"
   },
   {
     "name": "sub-parcela___es",
     "path": "/es/sub-parcela",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/sub-parcela.vue",
-    "chunkName": "pages/sub-parcela",
-    "_name": "_6aa5ef40"
+    "chunkName": "pages/sub-parcela"
   },
   {
     "name": "tasa-multa___es",
     "path": "/es/tasa-multa",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tasa-multa.vue",
-    "chunkName": "pages/tasa-multa",
-    "_name": "_b9343d0c"
+    "chunkName": "pages/tasa-multa"
   },
   {
     "name": "tipo-desincorporacion___es",
     "path": "/es/tipo-desincorporacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-desincorporacion.vue",
-    "chunkName": "pages/tipo-desincorporacion",
-    "_name": "_61594750"
+    "chunkName": "pages/tipo-desincorporacion"
   },
   {
     "name": "tipo-documento___es",
     "path": "/es/tipo-documento",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-documento.vue",
-    "chunkName": "pages/tipo-documento",
-    "_name": "_60aa8af6"
+    "chunkName": "pages/tipo-documento"
   },
   {
     "name": "tipo-especial___es",
     "path": "/es/tipo-especial",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-especial.vue",
-    "chunkName": "pages/tipo-especial",
-    "_name": "_876adf3c"
+    "chunkName": "pages/tipo-especial"
   },
   {
     "name": "tipo-inmueble___es",
     "path": "/es/tipo-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-inmueble.vue",
-    "chunkName": "pages/tipo-inmueble",
-    "_name": "_6c44abde"
+    "chunkName": "pages/tipo-inmueble"
   },
   {
     "name": "tipo-pago___es",
     "path": "/es/tipo-pago",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-pago.vue",
-    "chunkName": "pages/tipo-pago",
-    "_name": "_57b70272"
+    "chunkName": "pages/tipo-pago"
   },
   {
     "name": "tipo-tenencia___es",
     "path": "/es/tipo-tenencia",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-tenencia.vue",
-    "chunkName": "pages/tipo-tenencia",
-    "_name": "_68f1e4a3"
+    "chunkName": "pages/tipo-tenencia"
   },
   {
     "name": "tipo-transaccion___es",
     "path": "/es/tipo-transaccion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipo-transaccion.vue",
-    "chunkName": "pages/tipo-transaccion",
-    "_name": "_ae2eae5e"
+    "chunkName": "pages/tipo-transaccion"
   },
   {
     "name": "tipologia___es",
     "path": "/es/tipologia",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/tipologia.vue",
-    "chunkName": "pages/tipologia",
-    "_name": "_29246edd"
+    "chunkName": "pages/tipologia"
   },
   {
     "name": "topografia___es",
     "path": "/es/topografia",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/topografia.vue",
-    "chunkName": "pages/topografia",
-    "_name": "_e796a986"
+    "chunkName": "pages/topografia"
   },
   {
     "name": "torres___es",
     "path": "/es/torres",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/torres.vue",
-    "chunkName": "pages/torres",
-    "_name": "_f74ed8f8"
+    "chunkName": "pages/torres"
   },
   {
     "name": "ubicacion___es",
     "path": "/es/ubicacion",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/ubicacion.vue",
-    "chunkName": "pages/ubicacion",
-    "_name": "_d948c958"
+    "chunkName": "pages/ubicacion"
   },
   {
     "name": "unidad-inmueble___es",
     "path": "/es/unidad-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/unidad-inmueble.vue",
-    "chunkName": "pages/unidad-inmueble",
-    "_name": "_34e7ea4e"
+    "chunkName": "pages/unidad-inmueble"
   },
   {
     "name": "unidad-tributaria___es",
     "path": "/es/unidad-tributaria",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/unidad-tributaria.vue",
-    "chunkName": "pages/unidad-tributaria",
-    "_name": "_2b3b74aa"
+    "chunkName": "pages/unidad-tributaria"
   },
   {
     "name": "urbanizacion-barrio___es",
     "path": "/es/urbanizacion-barrio",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/urbanizacion-barrio.vue",
-    "chunkName": "pages/urbanizacion-barrio",
-    "_name": "_24993a24"
+    "chunkName": "pages/urbanizacion-barrio"
   },
   {
     "name": "uso___es",
     "path": "/es/uso",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/uso.vue",
-    "chunkName": "pages/uso",
-    "_name": "_10ef55f4"
+    "chunkName": "pages/uso"
   },
   {
     "name": "zona___es",
     "path": "/es/zona",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/zona.vue",
-    "chunkName": "pages/zona",
-    "_name": "_2e486083"
+    "chunkName": "pages/zona"
   },
   {
     "name": "verification-email-verification___es",
     "path": "/es/verification-email/:verification?",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/verification-email/_verification.vue",
-    "chunkName": "pages/verification-email/_verification",
-    "_name": "_6dfd83f0"
+    "chunkName": "pages/verification-email/_verification"
   },
   {
     "name": "verification-email-verification___en",
     "path": "/verification-email/:verification?",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/verification-email/_verification.vue",
-    "chunkName": "pages/verification-email/_verification",
-    "_name": "_6dfd83f0"
+    "chunkName": "pages/verification-email/_verification"
   },
   {
     "name": "index___en",
     "path": "/",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_541e4c87"
+    "chunkName": "pages/index"
   }
 ]
