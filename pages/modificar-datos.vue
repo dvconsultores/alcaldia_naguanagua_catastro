@@ -7,16 +7,9 @@
             Propietarios o contribuyentes
           </p>
 
-          <v-dialog
-            v-model="dialog"
-            max-width="1600px"
-          >
+          <v-dialog v-model="dialog" max-width="1600px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                class="btn-add-tabla"
-                v-bind="attrs"
-                v-on="on"
-              >
+              <v-btn class="btn-add-tabla" v-bind="attrs" v-on="on">
                 +
               </v-btn>
             </template>
@@ -44,59 +37,31 @@
                     </div>
 
                     <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.nacionalidad"
-                        :items="items2"
-                        class="autocomplete-field"
-                      ></v-autocomplete>
+                      <v-autocomplete v-model="nuevoRegistro.nacionalidad" :items="items2"
+                        class="autocomplete-field"></v-autocomplete>
 
-                      <v-text-field
-                      v-model="nuevoRegistro.numero_documento"
-                      class="input-big"
-                      label="Nro de Documento"
-                      style="max-width: 490px;"
-                      ></v-text-field>
+                      <v-text-field v-model="nuevoRegistro.numero_documento" class="input-big" label="Nro de Documento"
+                        style="max-width: 490px;"></v-text-field>
                     </div>
 
-                    <v-text-field
-                      v-model="nuevoRegistro.nombre"
-                      class="input-big"
-                      label="Nombre / Razón Social"
-                    ></v-text-field>
+                    <v-text-field v-model="nuevoRegistro.nombre" class="input-big"
+                      label="Nombre / Razón Social"></v-text-field>
 
-                    <v-textarea
-                    class="input-textarea"
-                    label="Dirección"
-                    ></v-textarea>
+                    <v-textarea class="input-textarea" label="Dirección"></v-textarea>
 
-                    <v-text-field
-                      v-model="nuevoRegistro.telefono_principal"
-                      class="input-medium"
-                      label="Telefono"
-                    ></v-text-field>
+                    <v-text-field v-model="nuevoRegistro.telefono_principal" class="input-medium"
+                      label="Telefono"></v-text-field>
 
-                    <v-text-field
-                      v-model="nuevoRegistro.telefono_secundario"
-                      class="input-medium"
-                      label="Telefono 2"
-                    ></v-text-field>
+                    <v-text-field v-model="nuevoRegistro.telefono_secundario" class="input-medium"
+                      label="Telefono 2"></v-text-field>
 
-                    <v-text-field
-                      class="input-medium"
-                      label="Fax"
-                    ></v-text-field>
+                    <v-text-field class="input-medium" label="Fax"></v-text-field>
 
-                    <v-text-field
-                      v-model="nuevoRegistro.email_principal"
-                      class="input-correo"
-                      label="Correo electronico"
-                    ></v-text-field>
+                    <v-text-field v-model="nuevoRegistro.email_principal" class="input-correo"
+                      label="Correo electronico"></v-text-field>
 
-                    <v-text-field
-                      v-model="nuevoRegistro.emaill_secundario"
-                      class="input-correo"
-                      label="Correo electronico 2"
-                    ></v-text-field>
+                    <v-text-field v-model="nuevoRegistro.emaill_secundario" class="input-correo"
+                      label="Correo electronico 2"></v-text-field>
                   </div>
                 </div>
 
@@ -104,7 +69,7 @@
                   <v-btn @click="createContribuyente()">
                     Guardar
                   </v-btn>
-                  
+
                   <v-btn style="background-color:#ED057E!important;" @click="dialog = false">
                     Cancelar
                   </v-btn>
@@ -113,10 +78,7 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog
-            v-model="dialog_editar"
-            max-width="1600px"
-          >
+          <v-dialog v-model="dialog_editar" max-width="1600px">
             <v-card id="dialog-editar-crear">
               <v-card-title>
                 <span class="title">Editar Contribuyente</span>
@@ -140,59 +102,31 @@
                     </div>
 
                     <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
-                      <v-autocomplete
-                        v-model="defaultItem.nacionalidad"
-                        :items="items2"
-                        class="autocomplete-field"
-                      ></v-autocomplete>
+                      <v-autocomplete v-model="defaultItem.nacionalidad" :items="items2"
+                        class="autocomplete-field"></v-autocomplete>
 
-                      <v-text-field
-                      v-model="defaultItem.numero_documento"
-                      class="input-big"
-                      label="Nro de Documento"
-                      style="max-width: 490px;"
-                      ></v-text-field>
+                      <v-text-field v-model="defaultItem.numero_documento" class="input-big" label="Nro de Documento"
+                        style="max-width: 490px;"></v-text-field>
                     </div>
 
-                    <v-text-field
-                      v-model="defaultItem.nombre"
-                      class="input-big"
-                      label="Nombre / Razón Social"
-                    ></v-text-field>
+                    <v-text-field v-model="defaultItem.nombre" class="input-big"
+                      label="Nombre / Razón Social"></v-text-field>
 
-                    <v-textarea
-                    class="input-textarea"
-                    label="Dirección"
-                    ></v-textarea>
+                    <v-textarea class="input-textarea" label="Dirección"></v-textarea>
 
-                    <v-text-field
-                      v-model="defaultItem.telefono_principal"
-                      class="input-medium"
-                      label="Telefono"
-                    ></v-text-field>
+                    <v-text-field v-model="defaultItem.telefono_principal" class="input-medium"
+                      label="Telefono"></v-text-field>
 
-                    <v-text-field
-                      v-model="defaultItem.telefono_secundario"
-                      class="input-medium"
-                      label="Telefono 2"
-                    ></v-text-field>
+                    <v-text-field v-model="defaultItem.telefono_secundario" class="input-medium"
+                      label="Telefono 2"></v-text-field>
 
-                    <v-text-field
-                      class="input-medium"
-                      label="Fax"
-                    ></v-text-field>
+                    <v-text-field class="input-medium" label="Fax"></v-text-field>
 
-                    <v-text-field
-                      v-model="defaultItem.email_principal"
-                      class="input-correo"
-                      label="Correo electronico"
-                    ></v-text-field>
+                    <v-text-field v-model="defaultItem.email_principal" class="input-correo"
+                      label="Correo electronico"></v-text-field>
 
-                    <v-text-field
-                      v-model="defaultItem.emaill_secundario"
-                      class="input-correo"
-                      label="Correo electronico 2"
-                    ></v-text-field>
+                    <v-text-field v-model="defaultItem.emaill_secundario" class="input-correo"
+                      label="Correo electronico 2"></v-text-field>
                   </div>
                 </div>
 
@@ -200,7 +134,7 @@
                   <v-btn @click="saveData()">
                     Guardar
                   </v-btn>
-                  
+
                   <v-btn style="background-color:#ED057E!important;" @click="dialog_editar = false">
                     Cancelar
                   </v-btn>
@@ -211,31 +145,14 @@
         </div>
 
         <div class="data-table-container">
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Buscar"
-            hide-details
-            class="input-data-table"
-          ></v-text-field>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
+            class="input-data-table"></v-text-field>
 
-          <v-data-table
-            :headers="headers"
-            :items="propietarioData"
-            :items-per-page="10"
-            :search="search"
-            :footer-props="{
-              itemsPerPageText: 'Items por página',
-            }"
-            sort-by="codigo"
-            class="mytabla"
-            mobile-breakpoint="840"
-          >
+          <v-data-table :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
+            itemsPerPageText: 'Items por página',
+          }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
-              <v-toolbar
-                flat
-                class="toolbar-tabla"
-              >  
+              <v-toolbar flat class="toolbar-tabla">
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
@@ -243,7 +160,21 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false"
+                        style="background-color:#ED057E!important;">No</v-btn>
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+                <v-dialog v-model="dialogSelecciona" max-width="500px">
+                  <v-card id="dialog-eliminar-card">
+                    <v-card-title class="center title">¿Seleccionarlo?</v-card-title>
+                    <span class="alerta-text">Este será el contribuyente con el cual usted realizará las operaciones.</span>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogSelecciona = false"
+                        style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -251,26 +182,17 @@
               </v-toolbar>
             </template>
             <template #[`item.actions`]="{ item }">
-              <v-icon
-                color="#810880"
-                big
-                @click="editItem(item)"
-              >
+              <v-icon color="#810880" big @click="editItem(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon
-                color="#810880"
-                big
-                @click="openDelete(item)"
-              >
+              <v-icon color="#810880" big @click="openDelete(item)">
                 mdi-delete
               </v-icon>
             </template>
 
             <template #[`item.actions2`]="{ item }">
-              <v-btn class="btn-tabla" 
-                     @click="StoreContribuyenteId(item)">
-                Subir Expediente
+              <v-btn class="btn-tabla" @click="openSelecciona(item)">
+                Seleccionar Contribuyente
               </v-btn>
             </template>
           </v-data-table>
@@ -287,18 +209,19 @@ export default {
   name: "callePage",
   mixins: [computeds],
   data() {
-    return {  
+    return {
       search: '',
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
-      nuevoRegistro:{},
+      dialogSelecciona: false,
+      nuevoRegistro: {},
       headers: [
-        { text: 'Nombre', align: 'center', value: 'nombre',},
-        { text: 'Nacionalidad', value: 'nacionalidad', align:'center' },
-        { text: 'Numero de Documento', value: 'numero_documento', align:'center' },
-        { text: '', value: 'actions', sortable: false, align:'center' },
-        { text: '', value: 'actions2', sortable: false, align:'center' },
+        { text: 'Nombre', align: 'center', value: 'nombre', },
+        { text: 'Nacionalidad', value: 'nacionalidad', align: 'center' },
+        { text: 'Numero de Documento', value: 'numero_documento', align: 'center' },
+        { text: '', value: 'actions', sortable: false, align: 'center' },
+        { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],
       propietarioData: [],
       items2: ['V', 'J', 'G', 'E'],
@@ -306,12 +229,12 @@ export default {
       defaultItem: {
         tipo_documento: '',
         nacionalidad: '',
-        numero_documento:'',
-        nombre:'',
-        telefono_principal:'',
-        telefono_secundario:'',
-        email_principal:'',
-        emaill_secundario:'',
+        numero_documento: '',
+        nombre: '',
+        telefono_principal: '',
+        telefono_secundario: '',
+        email_principal: '',
+        emaill_secundario: '',
       },
     }
   },
@@ -322,38 +245,33 @@ export default {
     }
   },
 
-  mounted(){
+  mounted() {
     this.getContribuyente()
   },
 
   methods: {
-    StoreContribuyenteId(item) {
-      console.log(item)
-      this.$store.dispatch('storeContribuyente', item)
-      console.log('lucasss')
-      console.log(this.$store.getters.getContribuyente)
-    },
+
     getContribuyente() {
       this.$axios.$get('propietario').then(response => {
-          this.propietarioData = response
-        }).catch(err => {
-          console.log(err)
-        })
+        this.propietarioData = response
+      }).catch(err => {
+        console.log(err)
+      })
     },
 
-    createContribuyente(){
+    createContribuyente() {
       this.$axios.$post('propietario/', this.nuevoRegistro).then(res => {
-          console.log(res.data)
-          this.nuevoRegistro = {}
-          this.propietarioData.push(res)
-          this.dialog = false
-          this.$alert("success", {desc: "Se ha creado un nuevo contribuyente con éxito", hash: 'knsddcssdc', title:'Creación de contribuyente'})        
-        }).catch(err => {
-          console.log(err)
-        })
-    }, 
+        console.log(res.data)
+        this.nuevoRegistro = {}
+        this.propietarioData.push(res)
+        this.dialog = false
+        this.$alert("success", { desc: "Se ha creado un nuevo contribuyente con éxito", hash: 'knsddcssdc', title: 'Creación de contribuyente' })
+      }).catch(err => {
+        console.log(err)
+      })
+    },
 
-    editItem(item){
+    editItem(item) {
       console.log(item)
       this.dialog_editar = true
       this.defaultItem.id = item.id
@@ -367,7 +285,7 @@ export default {
       this.defaultItem.emaill_secundario = item.emaill_secundario
     },
 
-    saveData(){
+    saveData() {
       const formData = new FormData()
       formData.append('tipo_documento', this.defaultItem.tipo_documento)
       formData.append('nacionalidad', this.defaultItem.nacionalidad)
@@ -378,34 +296,50 @@ export default {
       formData.append('email_principal', this.defaultItem.email_principal)
       formData.append('email_secundario', this.defaultItem.emaill_secundario)
 
-      this.$axios.$patch('propietario/'+ this.defaultItem.id + '/', formData).then((res) => {
+      this.$axios.$patch('propietario/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un contribuyente con éxito", hash: 'knsddcssdc', title:'Edición de contribuyente'})  
+        this.$alert("success", { desc: "Se ha editado un contribuyente con éxito", hash: 'knsddcssdc', title: 'Edición de contribuyente' })
         const index = this.propietarioData.findIndex((item) => item.id === this.defaultItem.id);
         if (index !== -1) {
           this.$set(this.propietarioData, index, { ...this.defaultItem });
-        }       
+        }
       }).catch((err) => {
         console.log(err)
       });
 
       this.dialog_editar = false
-    },  
+    },
 
-    openDelete(item){
+    openDelete(item) {
       this.defaultItem = item
       this.dialogDelete = true
     },
 
-    deleteItem(){
-      this.$axios.$delete('propietario/'+ this.defaultItem.id + '/').then((res) => {
+    openSelecciona(item) {
+      this.defaultItem = item
+      this.dialogSelecciona = true
+    },
+
+    StoreContribuyenteId() {
+      //console.log(this.defaultItem)
+      this.$store.getters.getContribuyente== undefined ? console.log('vacio') : console.log(this.$store.getters.getContribuyente)
+      this.$store.dispatch('storeContribuyente', this.defaultItem)
+      console.log('lucasss')
+      console.log(this.$store.getters.getContribuyente)
+
+
+      console.log(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente)))
+      this.dialogSelecciona = false
+    },
+    deleteItem() {
+      this.$axios.$delete('propietario/' + this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un contribuyente con éxito", hash: 'knsddcssdc', title:'Eliminación de contribuyente'}) 
+        this.$alert("success", { desc: "Se ha eliminado un contribuyente con éxito", hash: 'knsddcssdc', title: 'Eliminación de contribuyente' })
         const index = this.propietarioData.findIndex((item) => item.id === this.defaultItem.id);
         if (index !== -1) {
           this.propietarioData.splice(index, 1);
-        }         
+        }
       }).catch((err) => {
         console.log(err)
       });

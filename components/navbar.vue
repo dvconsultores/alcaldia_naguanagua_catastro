@@ -337,8 +337,14 @@
           <span class="span-saludo">
             Nro. de indentificación
           </span>
-          <span class="span-admin">
-            28083944
+          <span class="span-admin" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
+            tipo_documento: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.tipo_documento))}}
+          </span>
+          <span class="span-admin" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
+            numero_documento: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
+          </span>
+          <span class="span-admin" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
+            nombre: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
           </span>
         </div>
       </div>
@@ -356,8 +362,15 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      permido: [],
 
     };
+  },
+  mounted() {
+    this.permido=this.$store.getters.getContribuyente== undefined ? [] : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente)) 
+    
+ //this.permido= JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))== undefined  ? {} : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))
+  console.log('kkkhkk',this.permido)
   },
 
   methods: {

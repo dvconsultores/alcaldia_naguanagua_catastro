@@ -179,7 +179,7 @@ export const getters = {
     return state.user
   },
   getContribuyente(state) { // consulta la variable
-    return state.contribuyente
+    return state.contribuyente == undefined ? 'Sin Seleccionar' : state.contribuyente
   },
   getExpediente(state) { // consulta la variable
     return state.expediente
