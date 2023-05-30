@@ -127,10 +127,10 @@ export const actions = {
   storeUser({commit}, user) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_USER', user)
   },
-  storecontribuyente({commit}, contribuyente) { // recibe la data y la manda a store user para ser seteada
+  storeContribuyente({commit}, contribuyente) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_contribuyente', contribuyente)
   },
-  storeexpediente({commit}, expediente) { // recibe la data y la manda a store user para ser seteada
+  storeExpediente({commit}, expediente) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_expediente', expediente)
   },
 
@@ -178,10 +178,10 @@ export const getters = {
     //return state.user[0]
     return state.user
   },
-  getcontribuyente(state) { // consulta la variable
+  getContribuyente(state) { // consulta la variable
     return state.contribuyente
   },
-  getexpediente(state) { // consulta la variable
+  getExpediente(state) { // consulta la variable
     return state.expediente
   },
 };

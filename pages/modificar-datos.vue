@@ -267,8 +267,9 @@
               </v-icon>
             </template>
 
-            <template #[`item.actions2`]>
-              <v-btn class="btn-tabla">
+            <template #[`item.actions2`]="{ item }">
+              <v-btn class="btn-tabla" 
+                     @click="StoreContribuyenteId(item)">
                 Subir Expediente
               </v-btn>
             </template>
@@ -326,6 +327,12 @@ export default {
   },
 
   methods: {
+    StoreContribuyenteId(item) {
+      console.log(item)
+      this.$store.dispatch('storeContribuyente', item)
+      console.log('lucasss')
+      console.log(this.$store.getters.getContribuyente)
+    },
     getContribuyente() {
       this.$axios.$get('propietario').then(response => {
           this.propietarioData = response

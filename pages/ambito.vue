@@ -164,34 +164,15 @@ export default {
 
   methods: {
     permisos() {
+      /********************************************************************************************************
+        Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser
+      ******************************************************************************************************* */
 
       const longitud = this.$options.name.length;
-      console.log('logitud', longitud)
       this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
 
-      console.log('state1', this.$options.name, this.modulo, this.permido)
-      console.log('tipo state1', typeof this.permido)
-
-
-      console.log('modulos:');
-      this.permido.forEach((modulo) => {
-        console.log(modulo.modulo);
-      });
       // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
       console.log(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
-
-      this.menu = (this.permido.filter(permido => permido.es_menu_modulo));
-      console.log('menu:');
-      this.menu.forEach((modulo) => {
-        console.log('menu:', modulo.modulo);
-      });
-
-      this.menu_opciones = (this.permido.filter(permido => !permido.es_menu_modulo));
-      console.log('opcions:');
-      this.menu_opciones.forEach((modulo) => {
-        console.log('opcions:', modulo.modulo);
-      });
-
 
     },
     getAmbito() {
