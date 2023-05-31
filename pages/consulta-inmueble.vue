@@ -242,9 +242,9 @@
                 <v-text-field v-model="selectedItem.referencia" class="input-mostrar" label="Referencia"></v-text-field>
               </div>
 
-              <div class="div-btns">
+              <div class="div-btns" @click="StoreExpedienteId(selectedItem)">
                 <v-btn>
-                  Guardar
+                  Seleccionar Expediente
                 </v-btn>
                 
                 <v-btn style="background-color:#ED057E!important;" @click="dialog_mostrar = false">
@@ -314,7 +314,7 @@
 
             <template #[`item.actions2`]="{ item }" >
               <v-btn class="btn-tabla" @click="openDialog(item)">
-                Seleccionar
+                Ver Detalle
               </v-btn>
             </template>
           </v-data-table>
@@ -340,9 +340,9 @@ export default {
       nuevoRegistro:{},
       headers: [
         { text: 'Numero de expediente', align: 'center', value: 'numero_expediente'},
-        { text: 'Tipo', value: 'tipo', align:'center' },
-        { text: 'Status', value: 'status', align:'center' },
-        { text: 'Urbanización', value: 'urbanizacion', align:'center' },
+        { text: 'Urbanización', value: 'nombre_urbanizacion', align:'center' },
+        { text: 'Conjunto', value: 'nombre_conjunto_residencial', align:'center' },
+        { text: 'Status', value: 'descripcion_status', align:'center' },
         // { text: '', value: 'actions', sortable: false, align:'center' },
         { text: '', value: 'actions2', sortable: false, align:'center' },
       ],
@@ -401,6 +401,16 @@ export default {
   },
 
   methods: {
+    StoreExpedienteId(item) {
+      this.$store.getters.getExpediente== undefined ? console.log('vacio') : console.log('lleno',this.$store.getters.getExpediente)
+      this.$store.dispatch('storeExpediente', item)
+      console.log('lucas1')
+      console.log(item)
+      console.log('lucas2')
+      console.log(this.$store.getters.getExpediente)
+      console.log(JSON.parse(JSON.stringify(this.$store.getters.getExpediente)))
+      this.dialog_mostrar = false
+    },
     getInmueble() {
       this.$axios.$get('inmueble').then(response => {
           this.inmuebleData = response

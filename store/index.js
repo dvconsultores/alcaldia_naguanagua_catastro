@@ -35,7 +35,7 @@ export const mutations = {
     state.contribuyente = contribuyente
   },
   STORE_expediente(state, expediente) { // seteo de data
-    state.uexpedienteser = expediente
+    state.expediente = expediente
   },
 
 
@@ -182,7 +182,7 @@ export const getters = {
     return state.contribuyente == undefined ? 'Sin Seleccionar' : state.contribuyente
   },
   getExpediente(state) { // consulta la variable
-    return state.expediente
+    return state.expediente == undefined ? 'Sin Seleccionar' : state.expediente
   },
 };
 

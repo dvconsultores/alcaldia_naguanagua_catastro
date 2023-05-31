@@ -25,7 +25,7 @@
         <v-expansion-panel style="background-color:var(--bg-ap);" 
           v-for="item_menu in menu" :key="item_menu.modulo">
           <v-expansion-panel-header>
-            <v-icon>mdi-store</v-icon>{{ item_menu.titulo_modulo }} NEW
+            <v-icon>mdi-store</v-icon>{{ item_menu.titulo_modulo }}
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-list class="lista">
@@ -36,7 +36,7 @@
                 active-class="active"
                 v-show="item.leer"
                 :to="item.modulo"
-              >  {{ item.titulo_modulo }}  NEW
+              >  {{ item.titulo_modulo }}
               </v-list-item>
           </v-list>
           </v-expansion-panel-content>
