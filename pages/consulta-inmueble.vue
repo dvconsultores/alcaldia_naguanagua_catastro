@@ -340,9 +340,9 @@ export default {
       nuevoRegistro:{},
       headers: [
         { text: 'Numero de expediente', align: 'center', value: 'numero_expediente'},
-        { text: 'Tipo', value: 'tipo', align:'center' },
-        { text: 'Status', value: 'status', align:'center' },
-        { text: 'Urbanización', value: 'urbanizacion', align:'center' },
+        { text: 'Tipo', value: 'descripcion_tipo', align:'center' },
+        { text: 'Status', value: 'descripcion_status', align:'center' },
+        { text: 'Urbanización', value: 'nombre_urbanizacion', align:'center' },
         // { text: '', value: 'actions', sortable: false, align:'center' },
         { text: '', value: 'actions2', sortable: false, align:'center' },
       ],
