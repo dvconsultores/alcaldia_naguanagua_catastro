@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <v-navigation-drawer
     v-if="!mobile && !mobile2"
@@ -21,14 +22,12 @@
       </v-list>
 
       <v-expansion-panels accordion>
-
         <v-expansion-panel style="background-color:var(--bg-ap);" 
           v-for="item_menu in menu" :key="item_menu.modulo">
           <v-expansion-panel-header>
-            <v-icon>mdi-store</v-icon>{{ item_menu.titulo_modulo }} NEW
+            <v-icon>mdi-store</v-icon>{{ item_menu.titulo_modulo }}
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            
             <v-list class="lista">
               <v-list-item
                 v-for="item in getMenuOptions(item_menu.modulo)" :key="item.menu_modulo"
@@ -37,132 +36,10 @@
                 active-class="active"
                 v-show="item.leer"
                 :to="item.modulo"
-              >
-                  {{ item.titulo_modulo }}
-                  NEW
+              >  {{ item.titulo_modulo }}
               </v-list-item>
-
           </v-list>
           </v-expansion-panel-content>
-        </v-expansion-panel>
-
-
-
-        <v-expansion-panel style="background-color:var(--bg-ap);">
-          <v-expansion-panel-header>
-            <v-icon>mdi-store</v-icon>Taquilla
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-list class="lista">
-              <v-list-item to="/liquidacion" active-class="active">Liquidación</v-list-item>
-              <!--v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
-              <v-list-item @click="$router.push('consultar-propietario')">Consulta por propietario</v-list-item>
-              <v-list-item>Consulta por parámetros</v-list-item>
-              <v-list-item @click="$router.push('reporte-taquilla')">Reportes taquilla</v-list-item !-->
-          </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel style="background-color:var(--bg-ap);">
-          <v-expansion-panel-header>
-            <v-icon>mdi-bank</v-icon>Hacienda
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-list class="lista">
-              <v-list-item @click="$router.push('recaudacion')">Recaudación</v-list-item>
-              <v-list-item @click="$router.push('consultar-propietario')">Consulta por propietario</v-list-item>
-          </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <!--v-expansion-panel style="background-color:var(--bg-ap);">
-          <v-expansion-panel-header>
-            <v-icon>mdi-file-document</v-icon>Reporte
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-list class="lista">
-              <v-list-item @click="$router.push('cedula-catastral')">Cédula Catastral</v-list-item>
-          </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel!-->
-
-        <v-expansion-panel style="background-color:var(--bg-ap);">
-          <v-expansion-panel-header>
-            <v-icon>mdi-city</v-icon>Inmuebles
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-list class="lista">
-              <!--v-list-item @click="$router.push('inscripcion-inmueble')">Incorporación del inmueble</v-list-item>
-              <v-list-item @click="$router.push('desincorporacion-inmueble')">Desincorporación del Inmueble</v-list-item>
-              <v-list-item @click="$router.push('actualizacion-inmueble')">Actualización de los datos</v-list-item>
-              <v-list-item>Consulta por parámetros</v-list-item>
-              <v-list-item @click="$router.push('consultar-propietario')">Consultas por propietarios</v-list-item!-->  
-              <v-list-item @click="$router.push('consulta-inmueble')">Consultar inmueble</v-list-item>        
-            </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel style="background-color:var(--bg-ap);">
-          <v-expansion-panel-header>
-            <v-icon>mdi-account-multiple</v-icon>Contribuyente
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-list class="lista">
-              <!-- <v-list-item @click="$router.push('crear-contribuyente')">Contribuyentes</v-list-item> -->
-              <v-list-item @click="$router.push('modificar-datos')">Administrar Datos del Contribuyente</v-list-item>            </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel style="background-color:var(--bg-ap);">
-          <v-expansion-panel-header>
-            <v-icon>mdi-dns</v-icon>Archivo
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-list class="lista">
-              <v-list-item @click="$router.push('ambito')">Ambito</v-list-item>
-              <v-list-item @click="$router.push('sector')">Sector</v-list-item>
-              <v-list-item @click="$router.push('manzana')">Manzana</v-list-item>
-              <v-list-item @click="$router.push('parcela')">Parcela</v-list-item>
-              <v-list-item @click="$router.push('sub-parcela')">Sub - Parcela</v-list-item>
-              <v-list-item @click="$router.push('urbanizacion-barrio')">Urbanizacion / Barrio</v-list-item>
-              <v-list-item @click="$router.push('calle')">Calle</v-list-item>
-              <v-list-item @click="$router.push('avenida')">Avenida</v-list-item>
-              <v-list-item @click="$router.push('conjuntos-residenciales')">Conjunto Residencial</v-list-item>
-              <v-list-item @click="$router.push('edificios')">Edificio / Centro Comercial</v-list-item>
-              <v-list-item @click="$router.push('torres')">Torre</v-list-item>
-              <v-list-item @click="$router.push('tipo-inmueble')">Tipo de Inmueble</v-list-item>
-              <v-list-item @click="$router.push('estatus-inmueble')">Estatus de Inmueble</v-list-item>
-              <v-list-item @click="$router.push('nivel-inmueble')">Nivel de Inmueble</v-list-item>
-              <v-list-item @click="$router.push('unidad-inmueble')">Unidad del Inmueble</v-list-item>
-              <v-list-item @click="$router.push('tipo-documento')">Tipo de Documento</v-list-item>
-              <v-list-item @click="$router.push('tipo-especial')">Tipo Especial</v-list-item>
-              <v-list-item @click="$router.push('tipo-tenencia')">Tipo Tenencia</v-list-item>
-              <v-list-item @click="$router.push('topografia')">Topografía</v-list-item>
-              <v-list-item @click="$router.push('acceso')">Acceso</v-list-item>
-              <v-list-item @click="$router.push('forma')">Forma</v-list-item>
-              <v-list-item @click="$router.push('ubicacion')">Ubicación</v-list-item>
-              <v-list-item @click="$router.push('uso')">Uso</v-list-item>
-              <v-list-item @click="$router.push('regimen')">Régimen</v-list-item>
-              <v-list-item @click="$router.push('servicios')">Servicios</v-list-item>
-              <v-list-item @click="$router.push('tipologia')">Tipología</v-list-item>
-              <v-list-item @click="$router.push('fines-fiscales')">Fines Fiscales</v-list-item>
-              <v-list-item @click="$router.push('tipo-desincorporacion')">Tipo de Desincorporación</v-list-item>
-              <v-list-item @click="$router.push('tipo-transaccion')">Tipo de Transacción</v-list-item>
-              <v-list-item @click="$router.push('zona')">Zona</v-list-item>
-              <v-list-item @click="$router.push('bcv')">Tasa BCV</v-list-item>
-              <v-list-item @click="$router.push('unidad-tributaria')">Unidad Tributaria</v-list-item>
-              <v-list-item @click="$router.push('moneda')">Monedas</v-list-item>
-              <v-list-item @click="$router.push('tasa-multa')">Tasa / Multa</v-list-item>
-              <v-list-item @click="$router.push('tipo-pago')">Tipo de pago</v-list-item>
-              <v-list-item>Lorem ipsum</v-list-item> 
-            </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel style="background-color:var(--bg-ap);">
-          <v-expansion-panel-header>
-            <v-icon>mdi-cog</v-icon>Configuración
-          </v-expansion-panel-header>
         </v-expansion-panel>
       </v-expansion-panels>
 
@@ -330,27 +207,39 @@ export default {
     },
   },
   mounted(){
-    this.permisos()
+    this.permisos_menu()
   },
   methods: {
-    permisos(){
+    permisos_menu(){
 
-      this.menu=(this.permido.filter(permido => permido.es_menu_modulo));
-      console.log('menu:');
-      this.menu.forEach((modulo) => {
-        console.log('menu:',modulo.modulo);
+      this.menu=(this.permido.filter(permido => permido.es_menu_modulo && permido.leer));
+      this.menu.sort((a, b) => { // ordenar la lista de menues
+        // Comparar por el campo 'orden_modulo' de forma ascendente    return a.orden_modulo - b.orden_modulo;
+        // Comparar por el campo 'orden_modulo' de forma descendente   return b.orden_modulo - a.orden_modulo;
+        return a.orden_modulo - b.orden_modulo;
       });
 
-      this.menu_opciones=(this.permido.filter(permido => !permido.es_menu_modulo));
-      console.log('opcions:');
-      this.menu_opciones.forEach((modulo) => {
-        console.log('opcions:',modulo.modulo);
+
+      this.menu_opciones=(this.permido.filter(permido => !permido.es_menu_modulo && permido.leer));
+      this.menu_opciones.sort((a, b) => { // ordenar la lista de menues
+        // Comparar por el campo 'orden_modulo' de forma ascendente    return a.orden_modulo - b.orden_modulo;
+        // Comparar por el campo 'orden_modulo' de forma descendente   return b.orden_modulo - a.orden_modulo;
+        return a.orden_modulo - b.orden_modulo;
       });
-      console.log('menu:',this.menu);
-      console.log('opcions:',this.menu_opciones);
+
+      //console.log('menu:');
+      //this.menu.forEach((modulo) => {
+      //  console.log('menu:',modulo.modulo);
+      //});
+      //console.log('opcions:');
+      //this.menu_opciones.forEach((modulo) => {
+      //  console.log('opcions:',modulo.modulo);
+      //});
+      //console.log('menu:',this.menu);
+      //console.log('opcions:',this.menu_opciones);
 
     },
-    getMenuOptions(menuName) {
+    getMenuOptions(menuName) {  // filtra las opciones segun el menu que los agrupa
       return this.menu_opciones.filter(menu_opciones => menu_opciones.menu_modulo === menuName);
     },
   },

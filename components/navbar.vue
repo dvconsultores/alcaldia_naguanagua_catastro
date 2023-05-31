@@ -326,19 +326,31 @@
 
         <div class="divcol center">
           <span class="span-saludo">
-            Nro.Expediente
+            Inmueble
           </span>
-          <span class="span-admin">
-            33582
+          <span class="span-admin" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
+           Expediente Nro.: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.numero_expediente))}}
+          </span>
+          <span class="span-admin" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
+           Urbanizacion: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.nombre_urbanizacion))}}
+          </span>
+          <span class="span-admin" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
+           Conjunto Residencial: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.nombre_conjunto_residencial))}}
           </span>
         </div>
 
         <div class="divcol center">
           <span class="span-saludo">
-            Nro. de indentificación
+           Contribuyente
           </span>
-          <span class="span-admin">
-            28083944
+          <span class="span-admin" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
+            Tipo de Documento: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.tipo_documento))}}
+          </span>
+          <span class="span-admin" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
+            Número Documento: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
+          </span>
+          <span class="span-admin" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
+            Nombre: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
           </span>
         </div>
       </div>
@@ -356,10 +368,8 @@ export default {
   mixins: [computeds],
   data() {
     return {
-
     };
   },
-
   methods: {
     
   },
