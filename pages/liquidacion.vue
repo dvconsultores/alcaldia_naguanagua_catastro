@@ -41,7 +41,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{nombrePropietario}}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
             </p>
           </div>
 
@@ -51,7 +51,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{ nacionalidadPropietario }} - {{ cedulaPropietario }}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
             </p>
           </div>
 
@@ -261,12 +261,7 @@ export default {
     getDataPropietarios(){
       this.$axios.$get('propietario').then(response => {
         this.propietarioData = response
-        if (this.propietarioData.length > 0) {
-        // Acceder al objeto número uno (índice 0) y asignar las propiedades deseadas
-        this.nombrePropietario = this.propietarioData[0].nombre;
-        this.cedulaPropietario = this.propietarioData[0].numero_documento;
-        this.nacionalidadPropietario = this.propietarioData[0].nacionalidad;
-        }
+      
       }).catch(err => {
         console.log(err)
       })

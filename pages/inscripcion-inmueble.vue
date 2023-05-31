@@ -35,7 +35,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{nombrePropietario}}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
             </p>
           </div>
 
@@ -45,7 +45,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{nacionalidadPropietario}} - {{cedulaPropietario}}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
             </p>
           </div>
         </div>

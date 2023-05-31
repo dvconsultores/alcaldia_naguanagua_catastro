@@ -169,7 +169,7 @@
                 <v-dialog v-model="dialogSelecciona" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Seleccionarlo?</v-card-title>
-                    <span class="alerta-text">Este será el contribuyente con el cual usted realizará las operaciones.</span>
+                      <span class="alerta-text" style="text-align:center;">Este será el contribuyente con el cual usted realizará las operaciones.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
