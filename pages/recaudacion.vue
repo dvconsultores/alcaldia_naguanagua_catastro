@@ -31,7 +31,7 @@
         </p>
       </div>
 
-      <div v-for="(item,index) in datosContribuyente" :key="index" class="datos-contribuyente-container">
+      <div class="datos-contribuyente-container">
         <div class="container-morado">
           <span>
             Datos del Contribuyente
@@ -49,7 +49,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{item.nombre}}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
             </p>
           </div>
 
@@ -59,7 +59,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{item.id_type}} - {{item.id_number}}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
             </p>
           </div>
         </div>
@@ -118,13 +118,6 @@ export default{
     return{
       cant_total: 288,
       items: ['V', 'J', 'G', 'E'],
-      datosContribuyente:[
-        {
-          nombre:"Sebastian Rosa",
-          id_type:"V",
-          id_number:"28083944",
-        }
-      ],
       impuestosTasa:[
         {
           nro_recibo:"456324",

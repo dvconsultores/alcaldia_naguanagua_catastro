@@ -1,6 +1,6 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-consultar-propietario">
+    <!-- <section class="section1-consultar-propietario">
       <div class="consulta-propietario-container">
         <p class="title-propietario">
           Consultar Propietario
@@ -19,20 +19,20 @@
           label="Cédula"
           ></v-text-field>
 
-          <!-- <v-text-field
+          <v-text-field
           class="inputs-consulta"
           label="Nombre o Apellido"
-          ></v-text-field> -->
+          ></v-text-field>
 
           <v-btn class="btn-buscar">
             Buscar
           </v-btn>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <section class="section2-consultar-propietario">
-      <div v-for="(item,index) in propietarioDatos" :key="index" class="datos-propietario-container">
+      <div class="datos-propietario-container">
         <div class="container-morado">
           <span>
             Datos del Propietario
@@ -48,7 +48,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{item.nombre}}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
             </p>
           </div>
 
@@ -58,7 +58,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{item.id_type}} - {{item.id_number}}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
             </p>
           </div>
 
@@ -68,7 +68,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{item.total_inmuebles}}
+              2
             </p>
           </div>
 
@@ -78,7 +78,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{ item.pendiente_habilitacion }}
+              2
             </p>
           </div>
         </div>

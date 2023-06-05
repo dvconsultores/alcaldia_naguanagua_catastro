@@ -491,72 +491,90 @@
 
 
 #dialog-mostrar{
-  background-color: #fff;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding-inline: 20px;
-  padding-block: 20px;
 
-  .title{
-    color:var(--primary);
-    font-weight:700!important;
-    font-size: 1.5em!important;
+  .v-slide-group__content{
+    background-color: #fff;
   }
 
-  hr{
-    border: solid 1px rgba(#000000,0.1);
-    width: 130%;
-    margin-left: -20px;
-    margin-block: 20px;
+  .v-tab{
+    background-color: #fff;
+    box-shadow: none!important;
+    width: 200px;
+    min-height: 75px;
+    height: 75px;
+    --c: var(--primary);
+    --fw: 700;
+    border-radius: 0px;
   }
 
-  .inputs-container{
+  .card-detalles{
+    background-color: #fff;
+    border-radius: 10px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    padding-inline: 20px;
+    padding-block: 20px;
 
-    .input-mostrar{
-      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-      border-radius: 10px;
-      border: 1px solid var(--primary);
-      padding-inline: 10px;
-      height: 65px;
-      max-width: 250px;
-      min-width: 130px;
+    .title{
+      color:var(--primary);
+      font-weight:700!important;
+      font-size: 1.5em!important;
     }
-  }
 
-  .div-btns{
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 30px;
+    hr{
+      border: solid 1px rgba(#000000,0.1);
+      width: 130%;
+      margin-left: -20px;
+      margin-bottom: 20px;
+    }
 
-    .v-btn{
-      background-color: var(--primary);
-      margin-bottom: 10px;
-      min-height: 55px;
-      height: 55px;
-      border-radius: 0.5em;
-      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)!important;
-      width: 350px;
-      border-radius: 50px;
+    .inputs-container{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
 
-      @include media(max, 500px){
+      .input-mostrar{
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 65px;
         max-width: 250px;
+        min-width: 130px;
       }
+    }
 
-      span{
-        --c: #fff;
-        font-weight: 700!important;
+    .div-btns{
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+
+      .v-btn{
+        background-color: var(--primary);
+        margin-bottom: 10px;
+        min-height: 55px;
+        height: 55px;
+        border-radius: 0.5em;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)!important;
+        width: 350px;
+        border-radius: 50px;
+
+        @include media(max, 500px){
+          max-width: 250px;
+        }
+
+        span{
+          --c: #fff;
+          font-weight: 700!important;
+        }
       }
     }
   }

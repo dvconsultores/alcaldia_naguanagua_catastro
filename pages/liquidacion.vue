@@ -82,95 +82,95 @@
           </p>
 
           <p style="margin-bottom:0px;">
-            Cant. total: {{ cant_total }}
+            Cant. total: {{ inmueblePropietariosData.length }}
           </p>
         </div>
 
         <hr>
 
-        <div v-for="(item,index) in dataInmuebles" :key="index" class="dataInmuebles-container divrow">
+        <div v-for="(item,index) in inmueblePropietariosData" :key="index" class="dataInmuebles-container divrow">
           <div class="inputs-container">
             <v-text-field 
+            v-model="item.inmueble.numero_expediente"
             class="small-input mobile-input" 
             label="Nro. Expediente" 
-            :value="item.nro_expediente" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.descripcion_sector"
             class="small-input mobile-input" 
             label="Sector" 
-            :value="item.sector" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.descripcion_manzana"
             class="small-input mobile-input" 
             label="Manzana" 
-            :value="item.manzana" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.codigo_parcela"
             class="small-input mobile-input" 
             label="Parcela" 
-            :value="item.parcela" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.codigo_subparcela"
             class="small-input mobile-input" 
             label="Sub-Parcela" 
-            :value="item.sub_parcela" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.nombre_urbanizacion"
             class="big-input mobile-input" 
             label="Urbanización" 
-            :value="item.urbanizacion" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.nombre_calle"
             class="medio-input mobile-input" 
             label="Av/Calle" 
-            :value="item.av_calle" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.nombre_conjunto_residencial"
             class="medio-input mobile-input" 
             label="Conj. Residencial" 
-            :value="item.conj_residencial" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.nombre_edificio"
             class="medio-input mobile-input" 
             label="Edificio" 
-            :value="item.edificio" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.nombre_torre"
             class="small-input mobile-input" 
             label="Torre" 
-            :value="item.torre" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.numero_piso"
             class="small-input mobile-input" 
             label="Piso" 
-            :value="item.piso" 
             disabled
             ></v-text-field>
 
             <v-text-field 
+            v-model="item.inmueble.numero_civico"
             class="small-input mobile-input" 
             label="Nro. Cívico" 
-            :value="item.nro_civico" 
             disabled
             ></v-text-field>
           </div>
@@ -192,6 +192,7 @@ export default {
   mixins: [computeds],
   data() {
     return{
+      inmueblePropietariosData: [],
       nombrePropietario: '',
       cedulaPropietario: '',
       nacionalidadPropietario: '',
@@ -254,10 +255,23 @@ export default {
   },
 
   mounted(){
+    // this.returnHome()
     this.getDataPropietarios()
+    this.getInmueblePropietarios()
+  },
+
+  created(){
+    this.returnHome()
   },
 
   methods: {
+    returnHome(){
+        if (!this.$store.getters.getContribuyente) {
+        this.$router.push({ name: 'dashboard' })
+        console.log('dataaaaaaaaaa')
+      }
+    },
+
     getDataPropietarios(){
       this.$axios.$get('propietario').then(response => {
         this.propietarioData = response
@@ -265,7 +279,27 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-    }
+    },
+
+    getInmueblePropietarios(){
+      this.$axios.$get('inmueble_propietarios/?propietario=' + this.$store.getters.getContribuyente.id).then(response => {
+        this.inmueblePropietariosData = response
+        console.log(this.inmueblePropietariosData, 'dataa')
+      
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    // obtenerInmuebles() {
+    //   this.$axios.$get('inmueble_propietarios' + '/' + this.$store.getters.getContribuyente.id).then(response => {
+    //     this.inmueblePropietariosData = response
+    //     console.log(this.inmueblePropietariosData.inmueble.sector, 'sector')
+      
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    // },
   }
 
 }

@@ -216,7 +216,7 @@ export default {
       nuevoRegistro: {},
       headers: [
         { text: 'Codigo', align: 'center', value: 'codigo',},
-        { text: 'Descripcion', align: 'center', value: 'descripcion',},
+        { text: 'Descripción', align: 'center', value: 'descripcion',},
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
       estatusInmuebleData: [],

@@ -324,11 +324,6 @@ export default {
       //console.log(this.defaultItem)
       this.$store.getters.getContribuyente== undefined ? console.log('vacio') : console.log(this.$store.getters.getContribuyente)
       this.$store.dispatch('storeContribuyente', this.defaultItem)
-      console.log('lucasss')
-      console.log(this.$store.getters.getContribuyente)
-
-
-      console.log(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente)))
       this.dialogSelecciona = false
     },
     deleteItem() {
