@@ -19,14 +19,27 @@
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
               <v-toolbar flat class="toolbar-tabla">
-                <v-dialog v-model="dialogSelecciona" max-width="500px">
+                <v-dialog v-model="dialogDevuelve" max-width="500px">
                   <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Seleccionarlo?</v-card-title>
-                      <span class="alerta-text" style="text-align:center;">Este será el contribuyente con el cual usted realizará las operaciones.</span>
+                    <v-card-title class="center title">¿Devolver Documento?</v-card-title>
+                      <span class="alerta-text" style="text-align:center;">El documento retornará a quien lo envio.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogSelecciona = false"
+                      <v-btn class="btn dialog-btn" text @click="dialogDevuelve = false"
+                        style="background-color:#ED057E!important;">No</v-btn>
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+                <v-dialog v-model="dialogRecibe" max-width="500px">
+                  <v-card id="dialog-eliminar-card">
+                    <v-card-title class="center title">¿Recibir Documento?</v-card-title>
+                      <span class="alerta-text" style="text-align:center;">El documento se marcará como recibido y aparecerá en el buzon DOCUMENTOS POR PROCESAR.</span>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogRecibe = false"
                         style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
@@ -35,12 +48,12 @@
               </v-toolbar>
             </template>
             <template #[`item.actions1`]="{ item }">
-              <v-btn class="btn-tabla" @click="openSelecciona(item)">
+              <v-btn class="btn-tabla" @click="openDevuelve(item)">
                 Devolver
               </v-btn>
             </template>
             <template #[`item.actions2`]="{ item }">
-              <v-btn class="btn-tabla" @click="openSelecciona(item)">
+              <v-btn class="btn-tabla" @click="openRecibe(item)">
                 Recibir
               </v-btn>
             </template>
@@ -61,8 +74,8 @@ export default {
     return {
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
       search: '',
-      dialog: false,
-      dialogSelecciona: false,
+      dialogRecibe: false,
+      dialogDevuelve: false,
       headers: [
         { text: '# Solicitud', align: 'center', value: 'flujo', },
         { text: '# Expediente', value: 'expediente', align: 'center' },
@@ -95,10 +108,13 @@ export default {
         console.log(err)
       })
     },
-
-    openSelecciona(item) {
+    openDevuelve(item) {
       this.defaultItem = item
-      this.dialogSelecciona = true
+      this.dialogDevuelve = true
+    },
+    openRecibe(item) {
+      this.defaultItem = item
+      this.dialogRecibe = true
     },
 
     StoreContribuyenteId() {
