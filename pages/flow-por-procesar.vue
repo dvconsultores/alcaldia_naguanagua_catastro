@@ -32,29 +32,11 @@
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
-                <v-dialog v-model="dialogRecibe" max-width="500px">
-                  <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Recibir Documento?</v-card-title>
-                      <span class="alerta-text" style="text-align:center;">El documento se marcará como recibido y aparecerá en el buzon DOCUMENTOS POR PROCESAR.</span>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="saveRecibe()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogRecibe = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
               </v-toolbar>
             </template>
             <template #[`item.actions1`]="{ item }">
               <v-btn class="btn-tabla" @click="openDevuelve(item)">
-                Devolver
-              </v-btn>
-            </template>
-            <template #[`item.actions2`]="{ item }">
-              <v-btn class="btn-tabla" @click="openRecibe(item)">
-                Recibir
+                Procesar
               </v-btn>
             </template>
           </v-data-table>
@@ -77,13 +59,14 @@ export default {
       dialogRecibe: false,
       dialogDevuelve: false,
       headers: [
-        { text: '# Solicitud', align: 'center', value: 'flujo', },
-        { text: '# Expediente', value: 'expediente', align: 'center' },
+        { text: 'Solicitud', align: 'center', value: 'flujo', },
+        { text: 'Expediente', value: 'expediente', align: 'center' },
+        { text: 'Operación', value: 'tipoflujo_descripcion', align: 'center' },
         { text: 'Propietario', value: 'propietario_nombre', align: 'center' },
         { text: 'Fecha Solicitud', value: 'flujo_fecha', align: 'center' },
         { text: 'Fecha Recepción', value: 'recibe_fecha', align: 'center' },
+        { text: 'Tarea', value: 'tarea_display', align: 'center' },
         { text: '', value: 'actions1', sortable: false, align: 'center' },
-        { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],
       flujoData: [],
       defaultItem: [],

@@ -77,10 +77,12 @@ export default {
       dialogRecibe: false,
       dialogDevuelve: false,
       headers: [
-        { text: '# Solicitud', align: 'center', value: 'flujo', },
-        { text: '# Expediente', value: 'expediente', align: 'center' },
+        { text: 'Solicitud', align: 'center', value: 'flujo', },
+        { text: 'Expediente', value: 'expediente', align: 'center' },
+        { text: 'Operación', value: 'tipoflujo_descripcion', align: 'center' },
         { text: 'Propietario', value: 'propietario_nombre', align: 'center' },
         { text: 'Fecha Solicitud', value: 'flujo_fecha', align: 'center' },
+        { text: 'Tarea', value: 'tarea_display', align: 'center' },
         { text: '', value: 'actions1', sortable: false, align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],
@@ -132,6 +134,7 @@ export default {
     saveRecibe() {
       const formData = new FormData()
       formData.append('estado', 2)
+      formData.append('tarea', 3)
       this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", { desc: "Se ha recibido el documento con éxito", hash: 'knsddcssdc', title: 'Recepción de Documento' })
@@ -145,4 +148,4 @@ export default {
 </script>
 
 
-<style src="~/assets/styles/pages/modificar-datos.scss" lang="scss" />
+<style src="~/assets/styles/pages/flow-por-recibir.scss" lang="scss" />
