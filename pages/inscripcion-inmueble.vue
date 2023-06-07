@@ -57,6 +57,25 @@
         </div>
       </div>
 
+      <div class="flujo-container">
+        <p class="title-inscripcion-inmueble">
+          Seleccione el tipo de estado de cuenta 
+        </p>
+
+        <hr>
+
+        <div class="center" style="width: 90%;">
+          <v-autocomplete
+          v-model="flujo"
+          class="autocomplete-flujo"
+          label="Tipo de Flujo"
+          :items="flujoData"
+          item-text="descripcion"
+          item-value="id"
+          ></v-autocomplete>
+        </div>
+      </div>
+
       <div class="observaciones-container">
         <div class="jspace" style="width: 100%; padding-top: 20px; margin-bottom: 10px;">
           <p class="title-observaciones">
@@ -100,10 +119,8 @@
         </v-btn>
 
         <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
-          <span style="display:none;">{{ div.icon }}</span>
-
           <v-autocomplete
-          v-model="div.estadoCuentaDetalleData"
+          v-model="div.tasa_multa_id"
           class="big-autocomplete mobile-inputs"
           label="Tasa / Multa"
           :items="tasaMultaData"
@@ -120,19 +137,18 @@
           ></v-text-field>
 
           <v-text-field
-          v-model="div.calculo"
+          v-model="div.cantidad"
           class="small-input mobile-inputs"
           label="Cantidad"
-          readonly
+          @input="multiplicarValor(index)"
           ></v-text-field>
 
-          <!-- <v-text-field
-          v-model
+          <v-text-field
+          v-model="div.calculo"
           class="small-input mobile-inputs"
           label="Total"
-          :value="calculo" 
-          disabled
-          ></v-text-field> -->
+          readonly
+          ></v-text-field>
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
             <v-icon>mdi-delete</v-icon>
@@ -143,11 +159,12 @@
 
         <div class="divrow center div-btns" style="gap:30px;">
 
-          <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
+          <v-btn class="btn size-btn" @click="createEstadoCuenta()">
+            Guardar
+          </v-btn>
+          <!-- <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
             <template #activator="{attrs, on}">
-              <v-btn class="btn size-btn" v-bind="attrs" v-on="on" @click="dialog_exito = true">
-                Guardar
-              </v-btn>
+             
             </template>
             <v-card class="card-dialog-exito">
               <v-icon @click="dialog_exito = false">mdi-close</v-icon>
@@ -157,7 +174,7 @@
 
           <v-btn class="btn size-btn" style="background-color:#ED057E!important;">
             Cancelar
-          </v-btn>
+          </v-btn> -->
         </div>
       </div>
     </section>
@@ -172,6 +189,7 @@ export default{
   mixins: [computeds],
   data() {
     return{
+      observaciones:'',
       nuevoRegistro: {},
       monto_unidad_tributaria: null,
       valor2:null,
@@ -193,19 +211,19 @@ export default{
 
       divs:[
         {
-          estadoCuentaDetalleData: null,
+          tasa_multa_id: null,
           monto_unidad_tributaria: null,
+          cantidad: null,
           calculo: null,
         }
       ],
 
       propietarioData:[],
       tasaData:[],
-      estadoCuentaData:[],
-      estadoCuentaDetalleData:[],
       correlativoData:[],
       tasaMultaData:[],
       bcvData:[],
+      flujoData:[],
     }
   },
 
@@ -218,27 +236,34 @@ export default{
 
   mounted(){
     this.getDataTasa()
-    this.getEstadoCuenta()
-    this.getEstadoCuentaDetalle()
     this.getCorrelativo()
     this.getTasaMulta()
     this.getBCV()
-    // this.createEstadoCuenta()
+    this.getFlujo()
   },
 
   computed: {
     resultado(){
-      return this.updateTotal()
+      return this.montoTotal()
     },
   },
 
   methods: {
-    unidadadesPorPetro(index) {
+    multiplicarValor(index) {
       const div = this.divs[index];
-      const calculo = (div.monto_unidad_tributaria * 60) / 27
-      div.calculo = calculo.toFixed(2)
-      return div.calculo;
+      if (div.cantidad !== null) {
+        div.calculo = (div.monto_unidad_tributaria * div.cantidad * 60 * this.montoBCV).toFixed(2);
+      }
     },
+
+    getFlujo(){
+      this.$axios.$get('tipoflujo').then(response => {
+        this.flujoData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    
 
     getBCV() {
       this.$axios.$get('tasabcv').then(response => {
@@ -249,7 +274,7 @@ export default{
         })
     },
 
-    updateTotal() {
+    montoTotal() {
       let total = 0
       for (const div of this.divs) {
         if (div.calculo !== null) {
@@ -261,10 +286,10 @@ export default{
 
     selectedField(index) {
       const div = this.divs[index]
-      const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.estadoCuentaDetalleData)
+      const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasa_multa_id)
       div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
 
-      this.unidadadesPorPetro(index)
+      this.multiplicarValor(index)
     },
 
     getTasaMulta(){
@@ -284,33 +309,16 @@ export default{
       })
     },
 
-    getEstadoCuentaDetalle(){
-      this.$axios.$get('estadocuentadetalle').then(response => {
-        this.estadoCuentaDetalleData = response
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-
-    getEstadoCuenta(){
-      this.$axios.$get('estadocuenta').then(response => {
-        this.estadoCuentaData = response
-       
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-
     createEstadoCuenta(){
       const data = {
-        correlativo:this.numeroCorrelativo,
+        flujo: this.flujo,
+        correlativo: this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,
         observacion: this.observaciones,
         detalle: this.divs,
-        monto_total: this.updateTotal()
+        monto_total: this.montoTotal()
       }
-      console.log(data)
-      this.$axios.$post('endpointporhacer/', data).then(res => {
+      this.$axios.$post('crearestadocuenta/', data).then(res => {
         console.log(res)
         this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
       }).catch(err =>{
