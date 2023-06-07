@@ -25,7 +25,7 @@
         <v-expansion-panel style="background-color:var(--bg-ap);" 
           v-for="item_menu in menu" :key="item_menu.modulo">
           <v-expansion-panel-header>
-            <v-icon>mdi-store</v-icon>{{ item_menu.titulo_modulo }}
+            <v-icon>{{ item_menu.icono_modulo }}</v-icon>{{ item_menu.titulo_modulo }}
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-list class="lista">
@@ -36,7 +36,7 @@
                 active-class="active"
                 v-show="item.leer"
                 :to="item.modulo"
-              >  {{ item.titulo_modulo }}
+              > <v-icon>{{ item.icono_modulo }} </v-icon>    {{ item.titulo_modulo }}
               </v-list-item>
           </v-list>
           </v-expansion-panel-content>
@@ -191,7 +191,7 @@ export default {
   data() {
     return {
       drawer_mobile: null,
-      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       menu:[],
       menu_opciones:[],
     }
@@ -211,6 +211,7 @@ export default {
   },
   methods: {
     permisos_menu(){
+      //console.log('alalla',JSON.parse(JSON.stringify(this.$store.getters.getUser)))
 
       this.menu=(this.permido.filter(permido => permido.es_menu_modulo && permido.leer));
       this.menu.sort((a, b) => { // ordenar la lista de menues
