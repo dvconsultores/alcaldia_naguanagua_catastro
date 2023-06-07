@@ -115,23 +115,24 @@
           <v-text-field
           class="small-input mobile-inputs"
           label="Monto UT"
-          disabled
+          readonly
           v-model="div.monto_unidad_tributaria"
           ></v-text-field>
 
           <v-text-field
+          v-model="div.calculo"
           class="small-input mobile-inputs"
           label="Cantidad"
-          v-model="div.unidadadesPorPetro"
-          disabled
+          readonly
           ></v-text-field>
 
-          <v-text-field
+          <!-- <v-text-field
+          v-model
           class="small-input mobile-inputs"
           label="Total"
-          :value="div.monto_unidad_tributaria*div.valor2" 
+          :value="calculo" 
           disabled
-          ></v-text-field>
+          ></v-text-field> -->
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
             <v-icon>mdi-delete</v-icon>
@@ -194,8 +195,7 @@ export default{
         {
           estadoCuentaDetalleData: null,
           monto_unidad_tributaria: null,
-          valor2:null,
-
+          calculo: null,
         }
       ],
 
@@ -223,25 +223,21 @@ export default{
     this.getCorrelativo()
     this.getTasaMulta()
     this.getBCV()
+    // this.createEstadoCuenta()
   },
 
   computed: {
     resultado(){
       return this.updateTotal()
     },
-
-    calculo(){
-      return this.unidadadesPorPetro()
-    }
   },
 
   methods: {
-    unidadadesPorPetro(){
-      let calculo = 0
-      for (const div of this.divs){
-        calculo += (div.monto_unidad_tributaria*60)/27;
-      }
-      return calculo
+    unidadadesPorPetro(index) {
+      const div = this.divs[index];
+      const calculo = (div.monto_unidad_tributaria * 60) / 27
+      div.calculo = calculo.toFixed(2)
+      return div.calculo;
     },
 
     getBCV() {
@@ -254,17 +250,21 @@ export default{
     },
 
     updateTotal() {
-      let total = 0;
+      let total = 0
       for (const div of this.divs) {
-        total += div.monto_unidad_tributaria * div.valor2;
+        if (div.calculo !== null) {
+          total += parseFloat(div.calculo)
+        }
       }
-      return total;
+      return total.toFixed(2)
     },
 
     selectedField(index) {
-      const div = this.divs[index];
+      const div = this.divs[index]
       const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.estadoCuentaDetalleData)
-      div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria;
+      div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
+
+      this.unidadadesPorPetro(index)
     },
 
     getTasaMulta(){
@@ -306,12 +306,13 @@ export default{
         correlativo:this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,
         observacion: this.observaciones,
-        detalle: this.divs
+        detalle: this.divs,
+        monto_total: this.updateTotal()
       }
       console.log(data)
       this.$axios.$post('endpointporhacer/', data).then(res => {
         console.log(res)
-        this.$alert("success", {desc: "Se ha editado una avenida con éxito", hash: 'knsddcssdc', title:'Edición de avenida'}) 
+        this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
       }).catch(err =>{
         console.log(err)
       })
