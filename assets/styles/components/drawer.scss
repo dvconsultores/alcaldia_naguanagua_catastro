@@ -10,15 +10,18 @@
   }
 }
 
-// .active {
-//   background-color: #f4ecf4;
-//   border-right: 5px solid var(--primary);
-// }
-
-.hover:hover, .hover:active{
+.header-hover:hover{
   background-color: #f4ecf4;
   border-right: 5px solid var(--primary);
+  --c: var(--primary)!important;
 }
+
+.drawer-active {
+  background-color: #f4ecf4;
+  border-right: 5px solid var(--primary);
+  --c: var(--primary)!important;
+}
+
 
 .v-expansion-panel::before {
   box-shadow: none !important;
@@ -59,6 +62,7 @@
     .v-list-item:hover{
       background-color: #f4ecf4;
       border-right: 5px solid var(--primary);
+      color: var(--primary)!important;
     }
   }
 }

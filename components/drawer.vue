@@ -24,7 +24,7 @@
       <v-expansion-panels accordion>
         <v-expansion-panel style="background-color:var(--bg-ap);" 
           v-for="item_menu in menu" :key="item_menu.modulo">
-          <v-expansion-panel-header>
+          <v-expansion-panel-header class="header-hover">
             <v-icon>{{ item_menu.icono_modulo }}</v-icon>{{ item_menu.titulo_modulo }}
           </v-expansion-panel-header>
           <v-expansion-panel-content>
@@ -33,10 +33,10 @@
                 v-for="item in getMenuOptions(item_menu.modulo)" :key="item.menu_modulo"
                 class="vertical-nav-menu-link"
                 v-bind="$attrs"
-                active-class="active"
+                active-class="drawer-active"
                 v-show="item.leer"
                 :to="item.modulo"
-              > <v-icon>{{ item.icono_modulo }} </v-icon>    {{ item.titulo_modulo }}
+              >{{ item.titulo_modulo }}
               </v-list-item>
           </v-list>
           </v-expansion-panel-content>

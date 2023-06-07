@@ -110,7 +110,7 @@
           </p>
 
           <p class="solicitud-title">
-            Monto total: {{ resultado }}
+            Monto total: {{ montoTotal() }}
           </p>
         </div>
 
@@ -149,6 +149,7 @@
           class="small-input mobile-inputs"
           label="Total"
           readonly
+          :value="0"
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
@@ -215,7 +216,7 @@ export default{
           tasa_multa_id: null,
           monto_unidad_tributaria: null,
           cantidad: 1,
-          calculo: null,
+          calculo: 0,
         }
       ],
 
@@ -243,11 +244,11 @@ export default{
     this.getFlujo()
   },
 
-  computed: {
-    resultado(){
-      return this.montoTotal()
-    },
-  },
+  // computed: {
+  //   resultado(){
+  //     return this.montoTotal()
+  //   },
+  // },
 
   methods: {
     multiplicarValor(index) {
@@ -337,7 +338,7 @@ export default{
     },
 
     addDiv(){
-      this.divs.push({cantidad: 1});
+      this.divs.push({cantidad: 1, calculo: 0});
     },  
 
     removeDiv(index) {
