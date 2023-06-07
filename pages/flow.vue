@@ -98,4 +98,4 @@ export default {
 </script>
 
 
-<style src="~/assets/styles/pages/modificar-datos.scss" lang="scss" />
+<style src="~/assets/styles/pages/flow.scss" lang="scss" />
