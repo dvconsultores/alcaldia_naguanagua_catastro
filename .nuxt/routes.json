@@ -126,6 +126,20 @@
     "_name": "_74e90b09"
   },
   {
+    "name": "flow-por-procesar___en",
+    "path": "/flow-por-procesar",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-procesar.vue",
+    "chunkName": "pages/flow-por-procesar",
+    "_name": "_0f443c63"
+  },
+  {
+    "name": "flow-por-recibir___en",
+    "path": "/flow-por-recibir",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-recibir.vue",
+    "chunkName": "pages/flow-por-recibir",
+    "_name": "_2c9458d4"
+  },
+  {
     "name": "forma___en",
     "path": "/forma",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/forma.vue",
@@ -201,13 +215,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/planilla-desincorporacion.vue",
     "chunkName": "pages/planilla-desincorporacion",
     "_name": "_44e0d9a3"
-  },
-  {
-    "name": "por_recibir___en",
-    "path": "/por_recibir",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/por_recibir.vue",
-    "chunkName": "pages/por_recibir",
-    "_name": "_1bc662ca"
   },
   {
     "name": "recaudacion___en",
@@ -497,6 +504,20 @@
     "_name": "_74e90b09"
   },
   {
+    "name": "flow-por-procesar___es",
+    "path": "/es/flow-por-procesar",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-procesar.vue",
+    "chunkName": "pages/flow-por-procesar",
+    "_name": "_0f443c63"
+  },
+  {
+    "name": "flow-por-recibir___es",
+    "path": "/es/flow-por-recibir",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-recibir.vue",
+    "chunkName": "pages/flow-por-recibir",
+    "_name": "_2c9458d4"
+  },
+  {
     "name": "forma___es",
     "path": "/es/forma",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/forma.vue",
@@ -572,13 +593,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/planilla-desincorporacion.vue",
     "chunkName": "pages/planilla-desincorporacion",
     "_name": "_44e0d9a3"
-  },
-  {
-    "name": "por_recibir___es",
-    "path": "/es/por_recibir",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/por_recibir.vue",
-    "chunkName": "pages/por_recibir",
-    "_name": "_1bc662ca"
   },
   {
     "name": "recaudacion___es",

@@ -4,7 +4,7 @@
       <div class="modificar-datos-container">
         <div class="title-morado">
           <p class="modificar-datos-title">
-            Documentos por Recibir
+            Documentos por Procesar
           </p>
 
 
@@ -25,7 +25,7 @@
                       <span class="alerta-text" style="text-align:center;">El documento retornará a quien lo envio.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="saveDevuelve()">Si</v-btn>
                       <v-btn class="btn dialog-btn" text @click="dialogDevuelve = false"
                         style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
@@ -38,7 +38,7 @@
                       <span class="alerta-text" style="text-align:center;">El documento se marcará como recibido y aparecerá en el buzon DOCUMENTOS POR PROCESAR.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="saveRecibe()">Si</v-btn>
                       <v-btn class="btn dialog-btn" text @click="dialogRecibe = false"
                         style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
@@ -68,7 +68,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "por_recibirPage",
+  name: "flow-por-procesarPage",
   mixins: [computeds],
   data() {
     return {
@@ -81,15 +81,18 @@ export default {
         { text: '# Expediente', value: 'expediente', align: 'center' },
         { text: 'Propietario', value: 'propietario_nombre', align: 'center' },
         { text: 'Fecha Solicitud', value: 'flujo_fecha', align: 'center' },
+        { text: 'Fecha Recepción', value: 'recibe_fecha', align: 'center' },
         { text: '', value: 'actions1', sortable: false, align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],
       flujoData: [],
+      defaultItem: [],
+
 
     }
   },
   head() {
-    const title = 'Documentos Por Recibir';
+    const title = 'Documentos Por Procesar';
     return {
       title,
     }
@@ -102,7 +105,7 @@ export default {
   methods: {
 
     getFlujo() {
-      this.$axios.$get('flujodetalle/?estado=1&recibe_usuario='+this.permido.user_id).then(response => {
+      this.$axios.$get('flujodetalle/?estado=2&recibe_usuario='+this.permido.user_id).then(response => {
         this.flujoData = response
       }).catch(err => {
         console.log(err)
@@ -116,12 +119,27 @@ export default {
       this.defaultItem = item
       this.dialogRecibe = true
     },
-
-    StoreContribuyenteId() {
-      //console.log(this.defaultItem)
-      this.$store.getters.getContribuyente== undefined ? console.log('vacio') : console.log(this.$store.getters.getContribuyente)
-      this.$store.dispatch('storeContribuyente', this.defaultItem)
-      this.dialogSelecciona = false
+    saveDevuelve() {
+      const formData = new FormData()
+      formData.append('recibe_usuario', this.defaultItem.envia_usuario)
+      this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
+        console.log(res.data)
+        this.$alert("success", { desc: "Se ha devuelto el documento con éxito", hash: 'knsddcssdc', title: 'Devolución de Documento' })
+        this.dialogDevuelve = false
+      }).catch((err) => {
+        console.log(err)
+      });
+    },
+    saveRecibe() {
+      const formData = new FormData()
+      formData.append('estado', 2)
+      this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
+        console.log(res.data)
+        this.$alert("success", { desc: "Se ha recibido el documento con éxito", hash: 'knsddcssdc', title: 'Recepción de Documento' })
+        this.dialogRecibe = false
+      }).catch((err) => {
+        console.log(err)
+      });
     },
   }
 };
