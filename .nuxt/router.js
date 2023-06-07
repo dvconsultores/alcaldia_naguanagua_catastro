@@ -19,12 +19,12 @@ const _5a1d95d4 = () => interopDefault(import('../pages/dashboard.vue' /* webpac
 const _266f6624 = () => interopDefault(import('../pages/desincorporacion-inmueble.vue' /* webpackChunkName: "pages/desincorporacion-inmueble" */))
 const _786b4df7 = () => interopDefault(import('../pages/edificios.vue' /* webpackChunkName: "pages/edificios" */))
 const _9a57cddc = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _6bd4ac4f = () => interopDefault(import('../pages/estado-cuenta.vue' /* webpackChunkName: "pages/estado-cuenta" */))
 const _55960e6e = () => interopDefault(import('../pages/estatus-inmueble.vue' /* webpackChunkName: "pages/estatus-inmueble" */))
 const _6ed45da0 = () => interopDefault(import('../pages/fines-fiscales.vue' /* webpackChunkName: "pages/fines-fiscales" */))
 const _4ee1dedd = () => interopDefault(import('../pages/forma.vue' /* webpackChunkName: "pages/forma" */))
 const _0da249f5 = () => interopDefault(import('../pages/impuestos-pago.vue' /* webpackChunkName: "pages/impuestos-pago" */))
 const _8e9ed5d2 = () => interopDefault(import('../pages/inscripcion-inmueble.vue' /* webpackChunkName: "pages/inscripcion-inmueble" */))
-const _bccd79ac = () => interopDefault(import('../pages/liquidacion.vue' /* webpackChunkName: "pages/liquidacion" */))
 const _7c7bbc29 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _356e1cb4 = () => interopDefault(import('../pages/manzana.vue' /* webpackChunkName: "pages/manzana" */))
 const _7bb13e58 = () => interopDefault(import('../pages/modificar-datos.vue' /* webpackChunkName: "pages/modificar-datos" */))
@@ -130,6 +130,10 @@ export const routerOptions = {
     component: _9a57cddc,
     name: "index___es"
   }, {
+    path: "/estado-cuenta",
+    component: _6bd4ac4f,
+    name: "estado-cuenta___en"
+  }, {
     path: "/estatus-inmueble",
     component: _55960e6e,
     name: "estatus-inmueble___en"
@@ -149,10 +153,6 @@ export const routerOptions = {
     path: "/inscripcion-inmueble",
     component: _8e9ed5d2,
     name: "inscripcion-inmueble___en"
-  }, {
-    path: "/liquidacion",
-    component: _bccd79ac,
-    name: "liquidacion___en"
   }, {
     path: "/login",
     component: _7c7bbc29,
@@ -334,6 +334,10 @@ export const routerOptions = {
     component: _786b4df7,
     name: "edificios___es"
   }, {
+    path: "/es/estado-cuenta",
+    component: _6bd4ac4f,
+    name: "estado-cuenta___es"
+  }, {
     path: "/es/estatus-inmueble",
     component: _55960e6e,
     name: "estatus-inmueble___es"
@@ -353,10 +357,6 @@ export const routerOptions = {
     path: "/es/inscripcion-inmueble",
     component: _8e9ed5d2,
     name: "inscripcion-inmueble___es"
-  }, {
-    path: "/es/liquidacion",
-    component: _bccd79ac,
-    name: "liquidacion___es"
   }, {
     path: "/es/login",
     component: _7c7bbc29,

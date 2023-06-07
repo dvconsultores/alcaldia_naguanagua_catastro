@@ -2,9 +2,15 @@
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
     <section class="section1-descripcion-inmueble">
       <div class="creacion-container">
-        <p class="title-inscripcion-inmueble">
-          Creación de estado de solicitud
-        </p>
+        <div class="divrow jspace" style="width:100%;">
+          <p class="title-inscripcion-inmueble">
+            Creación de estado de solicitud
+          </p>
+
+          <span class="title-inscripcion-inmueble">
+            Tasa BCV: {{ montoBCV }}
+          </span>
+        </div>
 
         <hr>
 
@@ -71,7 +77,7 @@
         <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
           <v-textarea
           class="textarea"
-          v-model="estadoCuentaData.observaciones"
+          v-model="observaciones"
           ></v-textarea>
         </div>
       </div>
@@ -97,32 +103,33 @@
           <span style="display:none;">{{ div.icon }}</span>
 
           <v-autocomplete
-          v-model="estadoCuentaDetalleData"
+          v-model="div.estadoCuentaDetalleData"
           class="big-autocomplete mobile-inputs"
           label="Tasa / Multa"
           :items="tasaMultaData"
           item-text="descripcion"
           item-value="id"
-          @change="selectedField"
+          @change="selectedField(index)"
           ></v-autocomplete>
 
           <v-text-field
           class="small-input mobile-inputs"
           label="Monto UT"
           disabled
-          v-model="monto_unidad_tributaria"
+          v-model="div.monto_unidad_tributaria"
           ></v-text-field>
 
           <v-text-field
           class="small-input mobile-inputs"
           label="Cantidad"
-          v-model="valor2"
+          v-model="div.unidadadesPorPetro"
+          disabled
           ></v-text-field>
 
           <v-text-field
           class="small-input mobile-inputs"
           label="Total"
-          :value="resultado" 
+          :value="div.monto_unidad_tributaria*div.valor2" 
           disabled
           ></v-text-field>
 
@@ -164,6 +171,7 @@ export default{
   mixins: [computeds],
   data() {
     return{
+      nuevoRegistro: {},
       monto_unidad_tributaria: null,
       valor2:null,
       nombrePropietario: '',
@@ -182,7 +190,14 @@ export default{
         }
       ],
 
-      divs:[{icon:""}],
+      divs:[
+        {
+          estadoCuentaDetalleData: null,
+          monto_unidad_tributaria: null,
+          valor2:null,
+
+        }
+      ],
 
       propietarioData:[],
       tasaData:[],
@@ -190,6 +205,7 @@ export default{
       estadoCuentaDetalleData:[],
       correlativoData:[],
       tasaMultaData:[],
+      bcvData:[],
     }
   },
 
@@ -201,33 +217,54 @@ export default{
   },
 
   mounted(){
-    this.getDataPropietarios()
     this.getDataTasa()
     this.getEstadoCuenta()
     this.getEstadoCuentaDetalle()
     this.getCorrelativo()
     this.getTasaMulta()
+    this.getBCV()
   },
 
   computed: {
     resultado(){
-      if (this.monto_unidad_tributaria && this.valor2) {
-        return parseFloat(this.monto_unidad_tributaria) * parseFloat(this.valor2);
-      } else {
-        return null;
-      }
+      return this.updateTotal()
+    },
+
+    calculo(){
+      return this.unidadadesPorPetro()
     }
   },
 
   methods: {
-    selectedField(data){
-      console.log(data)
-      var tasa_encontrada = this.tasaMultaData.find(tasa => 
-        data === tasa.id
-      )
-      
-      this.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
-      console.log(tasa_encontrada, this.estadoCuentaDetalleData)
+    unidadadesPorPetro(){
+      let calculo = 0
+      for (const div of this.divs){
+        calculo += (div.monto_unidad_tributaria*60)/27;
+      }
+      return calculo
+    },
+
+    getBCV() {
+      this.$axios.$get('tasabcv').then(response => {
+          this.bcvData = response
+          this.montoBCV = this.bcvData[0].monto
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    updateTotal() {
+      let total = 0;
+      for (const div of this.divs) {
+        total += div.monto_unidad_tributaria * div.valor2;
+      }
+      return total;
+    },
+
+    selectedField(index) {
+      const div = this.divs[index];
+      const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.estadoCuentaDetalleData)
+      div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria;
     },
 
     getTasaMulta(){
@@ -258,10 +295,24 @@ export default{
     getEstadoCuenta(){
       this.$axios.$get('estadocuenta').then(response => {
         this.estadoCuentaData = response
-        this.nombrePropietario = this.propietarioData[0].nombre
-        this.cedulaPropietario = this.propietarioData[0].numero_documento
-        this.nacionalidadPropietario = this.propietarioData[0].nacionalidad
+       
       }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    createEstadoCuenta(){
+      const data = {
+        correlativo:this.numeroCorrelativo,
+        propietario: this.$store.getters.getContribuyente.id,
+        observacion: this.observaciones,
+        detalle: this.divs
+      }
+      console.log(data)
+      this.$axios.$post('endpointporhacer/', data).then(res => {
+        console.log(res)
+        this.$alert("success", {desc: "Se ha editado una avenida con éxito", hash: 'knsddcssdc', title:'Edición de avenida'}) 
+      }).catch(err =>{
         console.log(err)
       })
     },
@@ -269,20 +320,6 @@ export default{
     getDataTasa (){
       this.$axios.$get('tasamulta').then(response => {
         this.tasaData = response
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-
-    getDataPropietarios(){
-      this.$axios.$get('propietario').then(response => {
-        this.propietarioData = response
-        if (this.propietarioData.length > 0) {
-        // Acceder al objeto número uno (índice 0) y asignar las propiedades deseadas
-        this.nombrePropietario = this.propietarioData[0].nombre;
-        this.cedulaPropietario = this.propietarioData[0].numero_documento;
-        this.nacionalidadPropietario = this.propietarioData[0].nacionalidad;
-        }
       }).catch(err => {
         console.log(err)
       })

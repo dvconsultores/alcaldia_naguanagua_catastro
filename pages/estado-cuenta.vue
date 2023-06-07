@@ -64,14 +64,14 @@
             </span>
           </v-card>
 
-          <v-card class="cards-liquidacion">
+          <!-- <v-card class="cards-liquidacion">
             <v-icon class="icon-card">
               mdi-gavel
             </v-icon>
             <span class="title-card">
               Estado de la Liquidación
             </span>
-          </v-card>
+          </v-card> -->
         </div>
       </div>
 
@@ -188,7 +188,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "LiquidacionPage",
+  name: "EstadoCuentaPage",
   mixins: [computeds],
   data() {
     return{
@@ -248,7 +248,7 @@ export default {
   },
 
   head() {
-    const title = 'Liquidacion';
+    const title = 'Estado de Cuenta';
     return {
       title,
     }
@@ -305,4 +305,4 @@ export default {
 }
 </script>
 
-<style src="~/assets/styles/pages/liquidacion.scss" lang="scss" />
+<style src="~/assets/styles/pages/estado-cuenta.scss" lang="scss" />

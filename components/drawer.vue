@@ -219,7 +219,7 @@ export default {
         return a.orden_modulo - b.orden_modulo;
       });
 
-
+      
       this.menu_opciones=(this.permido.filter(permido => !permido.es_menu_modulo && permido.leer));
       this.menu_opciones.sort((a, b) => { // ordenar la lista de menues
         // Comparar por el campo 'orden_modulo' de forma ascendente    return a.orden_modulo - b.orden_modulo;

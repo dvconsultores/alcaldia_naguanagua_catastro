@@ -105,6 +105,13 @@
     "_name": "_9a57cddc"
   },
   {
+    "name": "estado-cuenta___en",
+    "path": "/estado-cuenta",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta.vue",
+    "chunkName": "pages/estado-cuenta",
+    "_name": "_6bd4ac4f"
+  },
+  {
     "name": "estatus-inmueble___en",
     "path": "/estatus-inmueble",
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/estatus-inmueble.vue",
@@ -138,13 +145,6 @@
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/inscripcion-inmueble.vue",
     "chunkName": "pages/inscripcion-inmueble",
     "_name": "_8e9ed5d2"
-  },
-  {
-    "name": "liquidacion___en",
-    "path": "/liquidacion",
-    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/liquidacion.vue",
-    "chunkName": "pages/liquidacion",
-    "_name": "_bccd79ac"
   },
   {
     "name": "login___en",
@@ -462,6 +462,13 @@
     "_name": "_786b4df7"
   },
   {
+    "name": "estado-cuenta___es",
+    "path": "/es/estado-cuenta",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta.vue",
+    "chunkName": "pages/estado-cuenta",
+    "_name": "_6bd4ac4f"
+  },
+  {
     "name": "estatus-inmueble___es",
     "path": "/es/estatus-inmueble",
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/estatus-inmueble.vue",
@@ -495,13 +502,6 @@
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/inscripcion-inmueble.vue",
     "chunkName": "pages/inscripcion-inmueble",
     "_name": "_8e9ed5d2"
-  },
-  {
-    "name": "liquidacion___es",
-    "path": "/es/liquidacion",
-    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/liquidacion.vue",
-    "chunkName": "pages/liquidacion",
-    "_name": "_bccd79ac"
   },
   {
     "name": "login___es",

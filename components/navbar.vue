@@ -10,9 +10,9 @@
           </span>
         </div>
 
-        <div v-if="$route.path == '/liquidacion'" class="divcol">
+        <div v-if="$route.path == '/estado-cuenta'" class="divcol">
           <span class="index-text">
-            Liquidación
+            Estado de Cuenta
           </span>
         </div>
 
