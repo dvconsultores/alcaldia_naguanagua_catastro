@@ -22,6 +22,8 @@ const _541e4c87 = () => interopDefault(import('../pages/index.vue' /* webpackChu
 const _49cd7a34 = () => interopDefault(import('../pages/estatus-inmueble.vue' /* webpackChunkName: "pages/estatus-inmueble" */))
 const _41a5b15b = () => interopDefault(import('../pages/fines-fiscales.vue' /* webpackChunkName: "pages/fines-fiscales" */))
 const _74e90b09 = () => interopDefault(import('../pages/flow.vue' /* webpackChunkName: "pages/flow" */))
+const _0f443c63 = () => interopDefault(import('../pages/flow-por-procesar.vue' /* webpackChunkName: "pages/flow-por-procesar" */))
+const _2c9458d4 = () => interopDefault(import('../pages/flow-por-recibir.vue' /* webpackChunkName: "pages/flow-por-recibir" */))
 const _1fa7db5c = () => interopDefault(import('../pages/forma.vue' /* webpackChunkName: "pages/forma" */))
 const _f29babc0 = () => interopDefault(import('../pages/impuestos-pago.vue' /* webpackChunkName: "pages/impuestos-pago" */))
 const _41046902 = () => interopDefault(import('../pages/inscripcion-inmueble.vue' /* webpackChunkName: "pages/inscripcion-inmueble" */))
@@ -33,7 +35,6 @@ const _f723739e = () => interopDefault(import('../pages/moneda.vue' /* webpackCh
 const _dbec6d2e = () => interopDefault(import('../pages/nivel-inmueble.vue' /* webpackChunkName: "pages/nivel-inmueble" */))
 const _37ad4eed = () => interopDefault(import('../pages/parcela.vue' /* webpackChunkName: "pages/parcela" */))
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
-const _1bc662ca = () => interopDefault(import('../pages/por_recibir.vue' /* webpackChunkName: "pages/por_recibir" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
 const _17e835c0 = () => interopDefault(import('../pages/reporte-taquilla.vue' /* webpackChunkName: "pages/reporte-taquilla" */))
@@ -148,6 +149,14 @@ export const routerOptions = {
     component: _74e90b09,
     name: "flow___en"
   }, {
+    path: "/flow-por-procesar",
+    component: _0f443c63,
+    name: "flow-por-procesar___en"
+  }, {
+    path: "/flow-por-recibir",
+    component: _2c9458d4,
+    name: "flow-por-recibir___en"
+  }, {
     path: "/forma",
     component: _1fa7db5c,
     name: "forma___en"
@@ -187,10 +196,6 @@ export const routerOptions = {
     path: "/planilla-desincorporacion",
     component: _44e0d9a3,
     name: "planilla-desincorporacion___en"
-  }, {
-    path: "/por_recibir",
-    component: _1bc662ca,
-    name: "por_recibir___en"
   }, {
     path: "/recaudacion",
     component: _d076870a,
@@ -360,6 +365,14 @@ export const routerOptions = {
     component: _74e90b09,
     name: "flow___es"
   }, {
+    path: "/es/flow-por-procesar",
+    component: _0f443c63,
+    name: "flow-por-procesar___es"
+  }, {
+    path: "/es/flow-por-recibir",
+    component: _2c9458d4,
+    name: "flow-por-recibir___es"
+  }, {
     path: "/es/forma",
     component: _1fa7db5c,
     name: "forma___es"
@@ -399,10 +412,6 @@ export const routerOptions = {
     path: "/es/planilla-desincorporacion",
     component: _44e0d9a3,
     name: "planilla-desincorporacion___es"
-  }, {
-    path: "/es/por_recibir",
-    component: _1bc662ca,
-    name: "por_recibir___es"
   }, {
     path: "/es/recaudacion",
     component: _d076870a,
