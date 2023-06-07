@@ -141,6 +141,7 @@
           class="small-input mobile-inputs"
           label="Cantidad"
           @input="multiplicarValor(index)"
+          :value="1"
           ></v-text-field>
 
           <v-text-field
@@ -213,7 +214,7 @@ export default{
         {
           tasa_multa_id: null,
           monto_unidad_tributaria: null,
-          cantidad: null,
+          cantidad: 1,
           calculo: null,
         }
       ],
@@ -320,6 +321,7 @@ export default{
       }
       this.$axios.$post('crearestadocuenta/', data).then(res => {
         console.log(res)
+        this.$router.push('modificar-datos')
         this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
       }).catch(err =>{
         console.log(err)
@@ -335,7 +337,7 @@ export default{
     },
 
     addDiv(){
-      this.divs.push({});
+      this.divs.push({cantidad: 1});
     },  
 
     removeDiv(index) {
