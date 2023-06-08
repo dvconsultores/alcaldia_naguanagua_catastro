@@ -19,7 +19,8 @@ const _5a1d95d4 = () => interopDefault(import('../pages/dashboard.vue' /* webpac
 const _266f6624 = () => interopDefault(import('../pages/desincorporacion-inmueble.vue' /* webpackChunkName: "pages/desincorporacion-inmueble" */))
 const _786b4df7 = () => interopDefault(import('../pages/edificios.vue' /* webpackChunkName: "pages/edificios" */))
 const _9a57cddc = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
-const _6bd4ac4f = () => interopDefault(import('../pages/estado-cuenta.vue' /* webpackChunkName: "pages/estado-cuenta" */))
+const _24378517 = () => interopDefault(import('../pages/estado-cuenta-catastro.vue' /* webpackChunkName: "pages/estado-cuenta-catastro" */))
+const _c3003cd2 = () => interopDefault(import('../pages/estado-cuenta-taquilla.vue' /* webpackChunkName: "pages/estado-cuenta-taquilla" */))
 const _55960e6e = () => interopDefault(import('../pages/estatus-inmueble.vue' /* webpackChunkName: "pages/estatus-inmueble" */))
 const _6ed45da0 = () => interopDefault(import('../pages/fines-fiscales.vue' /* webpackChunkName: "pages/fines-fiscales" */))
 const _395bfdc4 = () => interopDefault(import('../pages/flow.vue' /* webpackChunkName: "pages/flow" */))
@@ -133,9 +134,13 @@ export const routerOptions = {
     component: _9a57cddc,
     name: "index___es"
   }, {
-    path: "/estado-cuenta",
-    component: _6bd4ac4f,
-    name: "estado-cuenta___en"
+    path: "/estado-cuenta-catastro",
+    component: _24378517,
+    name: "estado-cuenta-catastro___en"
+  }, {
+    path: "/estado-cuenta-taquilla",
+    component: _c3003cd2,
+    name: "estado-cuenta-taquilla___en"
   }, {
     path: "/estatus-inmueble",
     component: _55960e6e,
@@ -349,9 +354,13 @@ export const routerOptions = {
     component: _786b4df7,
     name: "edificios___es"
   }, {
-    path: "/es/estado-cuenta",
-    component: _6bd4ac4f,
-    name: "estado-cuenta___es"
+    path: "/es/estado-cuenta-catastro",
+    component: _24378517,
+    name: "estado-cuenta-catastro___es"
+  }, {
+    path: "/es/estado-cuenta-taquilla",
+    component: _c3003cd2,
+    name: "estado-cuenta-taquilla___es"
   }, {
     path: "/es/estatus-inmueble",
     component: _55960e6e,

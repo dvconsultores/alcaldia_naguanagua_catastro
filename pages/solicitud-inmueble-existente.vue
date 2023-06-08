@@ -1,21 +1,27 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-inmueble-existente">
+    <section class="section1-descripcion-inmueble">
       <div class="creacion-container">
-        <p class="title-inscripcion-inmueble">
-          Creación de estado de solicitud
-        </p>
+        <div class="divrow jspace" style="width:100%;">
+          <p class="title-inscripcion-inmueble">
+            Creación de estado de solicitud
+          </p>
+
+          <span class="title-inscripcion-inmueble">
+            Tasa BCV: {{ montoBCV }}
+          </span>
+        </div>
 
         <hr>
 
-        <div v-for="(item,index) in dataCreacion" :key="index" class="container-creacion-datos">
+        <div class="container-creacion-datos">
           <div class="title-description-div">
             <p class="nombre-razon">
               Nro. Recibo
             </p>
 
             <p class="nombre-desc">
-              {{item.nro_recibo}}
+              {{numeroCorrelativo}}
             </p>
           </div>
 
@@ -25,7 +31,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{ item.fecha }}
+              {{ obtenerFechaActual() }}
             </p>
           </div>
 
@@ -35,7 +41,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{item.propietario}}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
             </p>
           </div>
 
@@ -45,20 +51,43 @@
             </p>
 
             <p class="nombre-desc">
-              {{item.id_type}} - {{item.id_number}}
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
             </p>
           </div>
         </div>
       </div>
 
+      <div class="flujo-container">
+        <p class="title-inscripcion-inmueble">
+          Seleccione el tipo de estado de cuenta 
+        </p>
+
+        <hr>
+
+        <div class="center" style="width: 90%;">
+          <v-autocomplete
+          v-model="flujo"
+          class="autocomplete-flujo"
+          label="Tipo de Flujo"
+          :items="flujoData"
+          item-text="descripcion"
+          item-value="id"
+          ></v-autocomplete>
+        </div>
+      </div>
+
       <div class="observaciones-container">
-        <div class="jspace" style="width: 100%; padding-top: 20px; margin-bottom: 10px;">
+        <div class="jspace center" style="width: 100%; margin-bottom: 0px;">
           <p class="title-observaciones">
             Observaciones
           </p>
 
-          <v-btn class="btn-mas" @click="show_observaciones = true">
+          <v-btn class="btn-mas" v-if="show_observaciones != true" @click="show_observaciones = true">
             +
+          </v-btn>
+
+          <v-btn class="btn-mas" v-if="show_observaciones === true " @click="show_observaciones = false">
+            -
           </v-btn>
         </div>
 
@@ -67,6 +96,7 @@
         <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
           <v-textarea
           class="textarea"
+          v-model="observaciones"
           ></v-textarea>
         </div>
       </div>
@@ -78,33 +108,31 @@
           </span>
         </div>
 
-        <div v-for="(item,index) in existenteFields" :key="index" class="divrow center wrap" style="width:100%; gap: 30px; padding-inline:20px;">
+        <div class="divrow center wrap" style="width:100%; gap: 30px; padding-inline:20px;">
           <v-text-field
           disabled
           label="Nro. Expediente"
-          :value="item.nro_expediente"
           class="big-textfield"
           ></v-text-field>
 
           <v-text-field
           disabled
           label="Direccion"
-          :value="item.direccion"
           class="small-textfield"
           ></v-text-field>
         </div>
       </div>
     </section>
 
-    <section class="section2-inmueble-existente">
+    <section class="section2-inscripcion-inmueble">
       <div class="descripcion-container">
         <div class="title-morado">
           <p class="solicitud-title">
-            Descripción de la solicitud
+            Items de la solicitud
           </p>
 
           <p class="solicitud-title">
-            Monto total: {{ monto_total }}
+            Monto total: {{ montoTotal() }}
           </p>
         </div>
 
@@ -113,26 +141,37 @@
         </v-btn>
 
         <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
-          <span style="display:none;">{{ div.icon }}</span>
-
           <v-autocomplete
+          v-model="div.tasa_multa_id"
           class="big-autocomplete mobile-inputs"
           label="Tasa / Multa"
+          :items="tasaMultaData"
+          item-text="descripcion"
+          item-value="id"
+          @change="selectedField(index)"
           ></v-autocomplete>
 
           <v-text-field
           class="small-input mobile-inputs"
           label="Monto UT"
+          readonly
+          v-model="div.monto_unidad_tributaria"
           ></v-text-field>
 
           <v-text-field
+          v-model="div.cantidad"
           class="small-input mobile-inputs"
           label="Cantidad"
+          @input="multiplicarValor(index)"
+          :value="1"
           ></v-text-field>
 
           <v-text-field
+          v-model="div.calculo"
           class="small-input mobile-inputs"
           label="Total"
+          readonly
+          :value="0"
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
@@ -144,21 +183,22 @@
 
         <div class="divrow center div-btns" style="gap:30px;">
 
-          <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
+          <v-btn class="btn size-btn" @click="createEstadoCuenta()">
+            Guardar
+          </v-btn>
+          <!-- <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
             <template #activator="{attrs, on}">
-              <v-btn class="btn size-btn" v-bind="attrs" v-on="on" @click="dialog_exito = true">
-                Guardar
-              </v-btn>
+             
             </template>
             <v-card class="card-dialog-exito">
               <v-icon @click="dialog_exito = false">mdi-close</v-icon>
-              <p class="p-dialog">¡Se ha guardado con éxito!</p>
+              <p class="p-dialog">¡La inscripción del inmueble se ha guardado con éxito!</p>
             </v-card>
           </v-dialog>
 
           <v-btn class="btn size-btn" style="background-color:#ED057E!important;">
             Cancelar
-          </v-btn>
+          </v-btn> -->
         </div>
       </div>
     </section>
@@ -169,10 +209,17 @@
 import computeds from '~/mixins/computeds'
 
 export default{
-  name: "InscripcionInmuebleExistentePage",
+  name: "InscripcionInmueblePage",
   mixins: [computeds],
   data() {
     return{
+      observaciones:'',
+      nuevoRegistro: {},
+      monto_unidad_tributaria: null,
+      valor2:null,
+      nombrePropietario: '',
+      cedulaPropietario: '',
+      nacionalidadPropietario: '',
       dialog_exito: false,
       monto_total:"72,4",
       show_observaciones: false,
@@ -186,31 +233,159 @@ export default{
         }
       ],
 
-      divs:[{icon:""}],
-
-      existenteFields:[
+      divs:[
         {
-          nro_expediente:"43210",
-          direccion:"URB .AV CALLE",
+          tasa_multa_id: null,
+          monto_unidad_tributaria: null,
+          cantidad: 1,
+          calculo: 0,
         }
       ],
+
+      propietarioData:[],
+      tasaData:[],
+      correlativoData:[],
+      tasaMultaData:[],
+      bcvData:[],
+      flujoData:[],
+      inmuebleData: [],
     }
   },
 
   head() {
-    const title = 'Inscripcion Inmueble Existente';
+    const title = 'Inscripcion Inmueble';
     return {
       title,
     }
   },
 
+  mounted(){
+    this.getDataTasa()
+    this.getCorrelativo()
+    this.getTasaMulta()
+    this.getBCV()
+    this.getFlujo()
+    const inmuebleId = this.$route.params.id;
+    this.obtenerInmueble(inmuebleId);
+  },
+
+  // computed: {
+  //   resultado(){
+  //     return this.montoTotal()
+  //   },
+  // },
+
   methods: {
+    obtenerInmueble(id) {
+      this.$axios.$get(`/inmueble/${id}`).then(response => {
+          this.inmuebleData = response
+        }).catch(error => {
+          console.error(error);
+        })
+    },
+
+    multiplicarValor(index) {
+      const div = this.divs[index];
+      if (div.cantidad !== null) {
+        div.calculo = (div.monto_unidad_tributaria * div.cantidad * 60 * this.montoBCV).toFixed(2);
+      }
+    },
+
+    getFlujo(){
+      this.$axios.$get('tipoflujo').then(response => {
+        this.flujoData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    
+
+    getBCV() {
+      this.$axios.$get('tasabcv').then(response => {
+          this.bcvData = response
+          console.log(this.inmuebleId,'idddd')
+          this.montoBCV = this.bcvData[0].monto
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    montoTotal() {
+      let total = 0
+      for (const div of this.divs) {
+        if (div.calculo !== null) {
+          total += parseFloat(div.calculo)
+        }
+      }
+      return total.toFixed(2)
+    },
+
+    selectedField(index) {
+      const div = this.divs[index]
+      const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasa_multa_id)
+      div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
+
+      this.multiplicarValor(index)
+    },
+
+    getTasaMulta(){
+      this.$axios.$get('tasamulta').then(response => {
+        this.tasaMultaData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getCorrelativo(){
+      this.$axios.$get('correlativo').then(response => {
+        this.correlativoData = response
+        this.numeroCorrelativo = this.correlativoData[0].NumeroEstadoCuenta
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    createEstadoCuenta(){
+      const data = {
+        inmueble: null,
+        flujo: this.flujo,
+        correlativo: this.numeroCorrelativo,
+        propietario: this.$store.getters.getContribuyente.id,
+        observacion: this.observaciones,
+        detalle: this.divs,
+        monto_total: this.montoTotal()
+      }
+      this.$axios.$post('crearestadocuenta/', data).then(res => {
+        console.log(res)
+        this.$router.push('modificar-datos')
+        this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
+      }).catch(err =>{
+        console.log(err)
+      })
+    },
+
+    getDataTasa (){
+      this.$axios.$get('tasamulta').then(response => {
+        this.tasaData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
     addDiv(){
-      this.divs.push({});
+      this.divs.push({cantidad: 1, calculo: 0});
     },  
 
     removeDiv(index) {
       this.divs.splice(index, 1);
+    },
+
+    obtenerFechaActual() {
+      const fecha = new Date();
+      const dia = fecha.getDate().toString().padStart(2, '0');
+      const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+      const anio = fecha.getFullYear().toString().slice(-2);
+      return `${dia}/${mes}/${anio}`;
     }
   }
 }

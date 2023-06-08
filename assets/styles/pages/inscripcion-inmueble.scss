@@ -18,9 +18,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
-    gap: 20px;
+    gap: 5px;
     overflow-x: hidden;
     box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
     margin-bottom: 20px;
@@ -29,6 +29,7 @@
       --c: var(--primary);
       --fw: 700;
       font-size: 22px;
+      margin-bottom: 4px;
     }
 
     hr{
@@ -86,9 +87,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 8px;
     padding-inline: 10px;
-    padding-block: 20px 30px;
+    padding-block: 10px 30px;
     background-color: #fff;
     box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
     margin-bottom: 20px;
@@ -125,7 +126,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 8px;
     padding: 10px;
     background-color: #fff;
     box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
@@ -181,9 +182,8 @@
   .descripcion-container{
     position: relative;
     width: 100%;
-    padding-top: 120px;
     border-radius: 10px;
-    padding: 120px 20px 20px 0px;
+    padding: 70px 20px 20px 0px;
     background-color: #fff;
     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
     display: grid;
@@ -198,7 +198,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 100px;
+      height: 60px;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       padding-left: 20px;
@@ -226,7 +226,7 @@
       box-shadow: none!important;
       height: 30px;
       min-height: 30px;
-      margin-top: -15px;
+      margin-top: 0px;
       margin-right: -20px;
       margin-bottom: 30px;
       justify-self:flex-end;

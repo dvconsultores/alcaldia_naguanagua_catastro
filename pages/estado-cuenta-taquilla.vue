@@ -57,25 +57,6 @@
         </div>
       </div>
 
-      <div class="flujo-container">
-        <p class="title-inscripcion-inmueble">
-          Seleccione el tipo de estado de cuenta 
-        </p>
-
-        <hr>
-
-        <div class="center" style="width: 90%;">
-          <v-autocomplete
-          v-model="flujo"
-          class="autocomplete-flujo"
-          label="Tipo de Flujo"
-          :items="flujoData"
-          item-text="descripcion"
-          item-value="id"
-          ></v-autocomplete>
-        </div>
-      </div>
-
       <div class="observaciones-container">
         <div class="jspace center" style="width: 100%; margin-bottom: 0px;">
           <p class="title-observaciones">
@@ -225,7 +206,6 @@ export default{
       correlativoData:[],
       tasaMultaData:[],
       bcvData:[],
-      flujoData:[],
     }
   },
 
@@ -241,14 +221,7 @@ export default{
     this.getCorrelativo()
     this.getTasaMulta()
     this.getBCV()
-    this.getFlujo()
   },
-
-  // computed: {
-  //   resultado(){
-  //     return this.montoTotal()
-  //   },
-  // },
 
   methods: {
     multiplicarValor(index) {
@@ -257,15 +230,6 @@ export default{
         div.calculo = (div.monto_unidad_tributaria * div.cantidad * 60 * this.montoBCV).toFixed(2);
       }
     },
-
-    getFlujo(){
-      this.$axios.$get('tipoflujo').then(response => {
-        this.flujoData = response
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    
 
     getBCV() {
       this.$axios.$get('tasabcv').then(response => {
@@ -357,4 +321,4 @@ export default{
 }
 </script>
 
-<style src="~/assets/styles/pages/inscripcion-inmueble.scss" lang="scss" />
+<style src="~/assets/styles/pages/estado-cuenta-taquilla.scss" lang="scss" />

@@ -1,31 +1,5 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <!-- <section class="section1-liquidacion">
-      <div class="consulta-liquidacion-container">
-        <p class="title-liquidacion">
-          Consultar Propietario
-        </p>
-
-        <hr>
-
-        <div class="textfield-search-container">
-          <v-autocomplete
-          :items="items"
-          class="autocomplete-field"
-          ></v-autocomplete>
-
-          <v-text-field
-          class="inputs-consulta"
-          label="Cédula"
-          ></v-text-field>
-
-          <v-btn class="btn-buscar">
-            Buscar
-          </v-btn>
-        </div>
-      </div>
-    </section> -->
-
     <section class="section2-liquidacion">
       <div class="datos-contribuyente-container">
         <div class="title-morado">
@@ -64,14 +38,14 @@
             </span>
           </v-card>
 
-          <!-- <v-card class="cards-liquidacion">
+          <v-card class="cards-liquidacion" @click="$router.push('estado-cuenta-taquilla')">
             <v-icon class="icon-card">
               mdi-gavel
             </v-icon>
             <span class="title-card">
-              Estado de la Liquidación
+              Estado de cuenta taquilla
             </span>
-          </v-card> -->
+          </v-card>
         </div>
       </div>
 
@@ -199,51 +173,6 @@ export default {
       propietarioData:[],
       items: ['V', 'J', 'G', 'E'],
       cant_total:"4",
-
-      dataInmuebles:[
-        {
-          nro_expediente:"49552",
-          sector:"49522",
-          manzana:"23",
-          parcela:"12.345.6789",
-          sub_parcela:"999",
-          urbanizacion:"",
-          av_calle:"Calle prueba",
-          conj_residencial:"Calle prueba",
-          edificio:"Calle prueba",
-          torre:"Calle prueba",
-          piso:"Calle prueba",
-          nro_civico:"123",
-        },
-        // {
-        //   nro_expediente:"49552",
-        //   sector:"49522",
-        //   manzana:"23",
-        //   parcela:"12.345.6789",
-        //   sub_parcela:"999",
-        //   urbanizacion:"",
-        //   av_calle:"Calle prueba",
-        //   conj_residencial:"Calle prueba",
-        //   edificio:"Calle prueba",
-        //   torre:"Calle prueba",
-        //   piso:"Calle prueba",
-        //   nro_civico:"123",
-        // },
-        // {
-        //   nro_expediente:"49552",
-        //   sector:"49522",
-        //   manzana:"23",
-        //   parcela:"12.345.6789",
-        //   sub_parcela:"999",
-        //   urbanizacion:"",
-        //   av_calle:"Calle prueba",
-        //   conj_residencial:"Calle prueba",
-        //   edificio:"Calle prueba",
-        //   torre:"Calle prueba",
-        //   piso:"Calle prueba",
-        //   nro_civico:"123",
-        // },
-      ],
     }
   },
 
@@ -255,22 +184,15 @@ export default {
   },
 
   mounted(){
-    // this.returnHome()
     this.getDataPropietarios()
     this.getInmueblePropietarios()
   },
 
-  created(){
-    this.returnHome()
-  },
 
   methods: {
-    returnHome(){
-        if (!this.$store.getters.getContribuyente) {
-        this.$router.push({ name: 'dashboard' })
-        console.log('dataaaaaaaaaa')
-      }
-    },
+    // redireccionarSolicitudInmuebleExistente(inmuebleId) {
+    //   this.$router.push({ path: 'solicitud-inmueble-existente', params: { id: inmuebleId } });
+    // },
 
     getDataPropietarios(){
       this.$axios.$get('propietario').then(response => {
@@ -305,4 +227,4 @@ export default {
 }
 </script>
 
-<style src="~/assets/styles/pages/estado-cuenta.scss" lang="scss" />
+<style src="~/assets/styles/pages/estado-cuenta-catastro.scss" lang="scss" />

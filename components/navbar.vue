@@ -10,9 +10,15 @@
           </span>
         </div>
 
-        <div v-if="$route.path == '/estado-cuenta'" class="divcol">
+        <div v-if="$route.path == '/estado-cuenta-catastro'" class="divcol">
           <span class="index-text">
-            Estado de Cuenta
+            Estado de Cuenta Catastro
+          </span>
+        </div>
+
+        <div v-if="$route.path == '/estado-cuenta-taquilla'" class="divcol">
+          <span class="index-text">
+            Estado de Cuenta Taquilla
           </span>
         </div>
 
