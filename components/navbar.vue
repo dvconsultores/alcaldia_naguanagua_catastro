@@ -10,303 +10,315 @@
           </span>
         </div>
 
-        <div v-if="$route.path == '/estado-cuenta-catastro'" class="divcol">
+        <div v-else-if="$route.path == '/estado-cuenta-catastro'" class="divcol">
           <span class="index-text">
             Estado de Cuenta Catastro
           </span>
         </div>
 
-        <div v-if="$route.path == '/estado-cuenta-taquilla'" class="divcol">
+        <div v-else-if="$route.path == '/estado-cuenta-taquilla'" class="divcol">
           <span class="index-text">
             Estado de Cuenta Taquilla
           </span>
         </div>
 
-        <div v-if="$route.path == '/inscripcion-inmueble'" class="divcol">
+        <div v-else-if="$route.path == '/inscripcion-inmueble'" class="divcol">
           <span class="index-text">
             Inscripción de inmueble
           </span>
         </div>
 
-        <div v-if="$route.path == '/solicitud-inmueble-existente'" class="divcol">
+        <div v-else-if="$route.path == '/solicitud-inmueble-existente/' + inmuebleId" class="divcol">
           <span class="index-text">
             Inscripción de inmueble
           </span>
         </div>
 
-        <div v-if="$route.path == '/consultar-propietario'" class="divcol">
+        <div v-else-if="$route.path == '/consultar-propietario'" class="divcol">
           <span class="index-text">
             Consultar por propietario
           </span>
         </div>
 
-        <div v-if="$route.path == '/desincorporacion-inmueble'" class="divcol">
+        <div v-else-if="$route.path == '/desincorporacion-inmueble'" class="divcol">
           <span class="index-text">
             Desincorporación de inmueble
           </span>
         </div>
 
-        <div v-if="$route.path == '/planilla-desincorporacion'" class="divcol">
+        <div v-else-if="$route.path == '/planilla-desincorporacion'" class="divcol">
           <span class="index-text">
             Desincorporación de inmueble
           </span>
         </div>
 
-        <div v-if="$route.path == '/recaudacion'" class="divcol">
+        <div v-else-if="$route.path == '/recaudacion'" class="divcol">
           <span class="index-text">
             Recaudación
           </span>
         </div>
 
-        <div v-if="$route.path == '/modificar-datos'" class="divcol">
+        <div v-else-if="$route.path == '/modificar-datos'" class="divcol">
           <span class="index-text">
             Modificar contribuyente
           </span>
         </div>
 
-        <div v-if="$route.path == '/impuestos-pago'" class="divcol">
+        <div v-else-if="$route.path == '/impuestos-pago'" class="divcol">
           <span class="index-text">
             Impuestos de tasa (Pago)
           </span>
         </div>
 
-        <div v-if="$route.path == '/crear-contribuyente'" class="divcol">
+        <div v-else-if="$route.path == '/crear-contribuyente'" class="divcol">
           <span class="index-text">
             Contribuyentes o Propietarios
           </span>
         </div>
 
-        <div v-if="$route.path == '/cedula-catastral'" class="divcol">
+        <div v-else-if="$route.path == '/cedula-catastral'" class="divcol">
           <span class="index-text">
             Cédula Catastral
           </span>
         </div>
 
-        <div v-if="$route.path == '/reporte-taquilla'" class="divcol">
+        <div v-else-if="$route.path == '/reporte-taquilla'" class="divcol">
           <span class="index-text">
             Reportes Taquilla
           </span>
         </div>
 
-        <div v-if="$route.path == '/actualizacion-inmueble'" class="divcol">
+        <div v-else-if="$route.path == '/actualizacion-inmueble'" class="divcol">
           <span class="index-text">
             Actualización del Inmueble
           </span>
         </div>
 
-        <div v-if="$route.path == '/sector'" class="divcol">
+        <div v-else-if="$route.path == '/sector'" class="divcol">
           <span class="index-text">
             Sector
           </span>
         </div>
 
-        <div v-if="$route.path == '/manzana'" class="divcol">
+        <div v-else-if="$route.path == '/manzana'" class="divcol">
           <span class="index-text">
             Manzana
           </span>
         </div>
 
-        <div v-if="$route.path == '/parcela'" class="divcol">
+        <div v-else-if="$route.path == '/parcela'" class="divcol">
           <span class="index-text">
             Parcelas
           </span>
         </div>
 
-        <div v-if="$route.path == '/sub-parcela'" class="divcol">
+        <div v-else-if="$route.path == '/sub-parcela'" class="divcol">
           <span class="index-text">
             Sub - Parcelas
           </span>
         </div>
 
-        <div v-if="$route.path == '/urbanizacion-barrio'" class="divcol">
+        <div v-else-if="$route.path == '/urbanizacion-barrio'" class="divcol">
           <span class="index-text">
             Urbanización o Barrio
           </span>
         </div>
 
-        <div v-if="$route.path == '/edificios'" class="divcol">
+        <div v-else-if="$route.path == '/edificios'" class="divcol">
           <span class="index-text">
             Edificios o Centros Comerciales
           </span>
         </div>
 
-        <div v-if="$route.path == '/conjuntos-residenciales'" class="divcol">
+        <div v-else-if="$route.path == '/conjuntos-residenciales'" class="divcol">
           <span class="index-text">
             Conjuntos Residenciales
           </span>
         </div>
 
-        <div v-if="$route.path == '/torres'" class="divcol">
+        <div v-else-if="$route.path == '/torres'" class="divcol">
           <span class="index-text">
             Torres
           </span>
         </div>
 
-        <div v-if="$route.path == '/ambito'" class="divcol">
+        <div v-else-if="$route.path == '/ambito'" class="divcol">
           <span class="index-text">
             Ambito
           </span>
         </div>
 
-        <div v-if="$route.path == '/tipo-inmueble'" class="divcol">
+        <div v-else-if="$route.path == '/tipo-inmueble'" class="divcol">
           <span class="index-text">
             Tipo de Inmueble
           </span>
         </div>
 
-        <div v-if="$route.path == '/estatus-inmueble'" class="divcol">
+        <div v-else-if="$route.path == '/estatus-inmueble'" class="divcol">
           <span class="index-text">
             Tipo de Estatus
           </span>
         </div>
 
-        <div v-if="$route.path == '/nivel-inmueble'" class="divcol">
+        <div v-else-if="$route.path == '/nivel-inmueble'" class="divcol">
           <span class="index-text">
             Nivel de Inmueble
           </span>
         </div>
 
-        <div v-if="$route.path == '/unidad-inmueble'" class="divcol">
+        <div v-else-if="$route.path == '/unidad-inmueble'" class="divcol">
           <span class="index-text">
             Unidad de Inmueble
           </span>
         </div>
 
-        <div v-if="$route.path == '/tipo-documento'" class="divcol">
+        <div v-else-if="$route.path == '/tipo-documento'" class="divcol">
           <span class="index-text">
             Tipo de Documento
           </span>
         </div>
 
-        <div v-if="$route.path == '/tipo-especial'" class="divcol">
+        <div v-else-if="$route.path == '/tipo-especial'" class="divcol">
           <span class="index-text">
             Tipo Especial
           </span>
         </div>
 
-        <div v-if="$route.path == '/tipo-tenencia'" class="divcol">
+        <div v-else-if="$route.path == '/tipo-tenencia'" class="divcol">
           <span class="index-text">
             Tipo de Tenencia
           </span>
         </div>
 
-        <div v-if="$route.path == '/topografia'" class="divcol">
+        <div v-else-if="$route.path == '/topografia'" class="divcol">
           <span class="index-text">
             Topografía
           </span>
         </div>
 
-        <div v-if="$route.path == '/acceso'" class="divcol">
+        <div v-else-if="$route.path == '/acceso'" class="divcol">
           <span class="index-text">
             Acceso
           </span>
         </div>
 
-        <div v-if="$route.path == '/forma'" class="divcol">
+        <div v-else-if="$route.path == '/forma'" class="divcol">
           <span class="index-text">
             Forma
           </span>
         </div>
 
-        <div v-if="$route.path == '/ubicacion'" class="divcol">
+        <div v-else-if="$route.path == '/ubicacion'" class="divcol">
           <span class="index-text">
             Ubicación
           </span>
         </div>
 
-        <div v-if="$route.path == '/uso'" class="divcol">
+        <div v-else-if="$route.path == '/uso'" class="divcol">
           <span class="index-text">
             Uso
           </span>
         </div>
 
-        <div v-if="$route.path == '/regimen'" class="divcol">
+        <div v-else-if="$route.path == '/regimen'" class="divcol">
           <span class="index-text">
             Regimen
           </span>
         </div>
 
-        <div v-if="$route.path == '/servicios'" class="divcol">
+        <div v-else-if="$route.path == '/servicios'" class="divcol">
           <span class="index-text">
             Servicios
           </span>
         </div>
 
-        <div v-if="$route.path == '/tipologia'" class="divcol">
+        <div v-else-if="$route.path == '/tipologia'" class="divcol">
           <span class="index-text">
             Tipología
           </span>
         </div>
 
-        <div v-if="$route.path == '/fines-fiscales'" class="divcol">
+        <div v-else-if="$route.path == '/fines-fiscales'" class="divcol">
           <span class="index-text">
             Fines Fiscales
           </span>
         </div>
 
-        <div v-if="$route.path == '/tipo-desincorporacion'" class="divcol">
+        <div v-else-if="$route.path == '/tipo-desincorporacion'" class="divcol">
           <span class="index-text">
             Tipo de Desincorporación
           </span>
         </div>
 
-        <div v-if="$route.path == '/tipo-transaccion'" class="divcol">
+        <div v-else-if="$route.path == '/tipo-transaccion'" class="divcol">
           <span class="index-text">
             Tipo de Transacción
           </span>
         </div>
 
-        <div v-if="$route.path == '/calle'" class="divcol">
+        <div v-else-if="$route.path == '/calle'" class="divcol">
           <span class="index-text">
             Calles
           </span>
         </div>
 
-        <div v-if="$route.path == '/avenida'" class="divcol">
+        <div v-else-if="$route.path == '/avenida'" class="divcol">
           <span class="index-text">
             Avenidas
           </span>
         </div>
 
-        <div v-if="$route.path == '/zona'" class="divcol">
+        <div v-else-if="$route.path == '/zona'" class="divcol">
           <span class="index-text">
             Zonas
           </span>
         </div>
 
-        <div v-if="$route.path == '/bcv'" class="divcol">
+        <div v-else-if="$route.path == '/bcv'" class="divcol">
           <span class="index-text">
             Tasa BCV
           </span>
         </div>
 
-        <div v-if="$route.path == '/unidad-tributaria'" class="divcol">
+        <div v-else-if="$route.path == '/unidad-tributaria'" class="divcol">
           <span class="index-text">
             Unidades Tributarias
           </span>
         </div>
 
-        <div v-if="$route.path == '/moneda'" class="divcol">
+        <div v-else-if="$route.path == '/moneda'" class="divcol">
           <span class="index-text">
             Monedas
           </span>
         </div>
 
-        <div v-if="$route.path == '/tasa-multa'" class="divcol">
+        <div v-else-if="$route.path == '/tasa-multa'" class="divcol">
           <span class="index-text">
             Tasas / Multas
           </span>
         </div>
 
-        <div v-if="$route.path == '/tipo-pago'" class="divcol">
+        <div v-else-if="$route.path == '/tipo-pago'" class="divcol">
           <span class="index-text">
             Tipo de pago
           </span>
         </div>
 
-        <div v-if="$route.path == '/consulta-inmueble'" class="divcol">
+        <div v-else-if="$route.path == '/consulta-inmueble'" class="divcol">
           <span class="index-text">
             Busqueda de inmueble
+          </span>
+        </div>
+
+        <div v-else-if="$route.path == '/liquidacion'" class="divcol">
+          <span class="index-text">
+            Liquidación
+          </span>
+        </div>
+
+        <div v-else class="divcol">
+          <span class="index-text">
+            Estado de cuenta de inmueble existente
           </span>
         </div>
       </div>

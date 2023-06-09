@@ -35,7 +35,7 @@
                 v-bind="$attrs"
                 active-class="drawer-active"
                 v-show="item.leer"
-                :to="item.modulo"
+                @click="$router.push(item.modulo)"
               >{{ item.titulo_modulo }}
               </v-list-item>
           </v-list>

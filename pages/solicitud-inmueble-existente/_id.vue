@@ -110,12 +110,14 @@
 
         <div class="divrow center wrap" style="width:100%; gap: 30px; padding-inline:20px;">
           <v-text-field
+          v-model="inmuebleData.numero_expediente"
           disabled
           label="Nro. Expediente"
           class="big-textfield"
           ></v-text-field>
 
           <v-text-field
+          v-model="inmuebleData.direccion"
           disabled
           label="Direccion"
           class="small-textfield"
@@ -260,24 +262,21 @@ export default{
   },
 
   mounted(){
+    console.log(this.$route.params)
     this.getDataTasa()
     this.getCorrelativo()
     this.getTasaMulta()
     this.getBCV()
     this.getFlujo()
-    const inmuebleId = this.$route.params.id;
-    this.obtenerInmueble(inmuebleId);
+    const inmuebleId = this.$route.params.id
+    this.obtenerInmueble(inmuebleId)
   },
 
-  // computed: {
-  //   resultado(){
-  //     return this.montoTotal()
-  //   },
-  // },
+  
 
   methods: {
     obtenerInmueble(id) {
-      this.$axios.$get(`/inmueble/${id}`).then(response => {
+      this.$axios.$get(`inmueble/${id}`).then(response => {
           this.inmuebleData = response
         }).catch(error => {
           console.error(error);
@@ -303,7 +302,6 @@ export default{
     getBCV() {
       this.$axios.$get('tasabcv').then(response => {
           this.bcvData = response
-          console.log(this.inmuebleId,'idddd')
           this.montoBCV = this.bcvData[0].monto
         }).catch(err => {
           console.log(err)
@@ -347,7 +345,7 @@ export default{
 
     createEstadoCuenta(){
       const data = {
-        inmueble: null,
+        inmueble: this.inmuebleData.id,
         flujo: this.flujo,
         correlativo: this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,

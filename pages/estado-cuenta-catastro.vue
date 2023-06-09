@@ -1,6 +1,6 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section2-liquidacion">
+    <section class="section1-estado-cuenta">
       <div class="datos-contribuyente-container">
         <div class="title-morado">
           <p class="contribuyente-datos">
@@ -29,7 +29,7 @@
             </p>
           </div>
 
-          <v-card class="cards-liquidacion" @click="$router.push('inscripcion-inmueble')">
+          <v-card class="cards-estado-cuenta" @click="$router.push('inscripcion-inmueble')">
             <v-icon class="icon-card">
               mdi-transfer-down
             </v-icon>
@@ -38,7 +38,7 @@
             </span>
           </v-card>
 
-          <v-card class="cards-liquidacion" @click="$router.push('estado-cuenta-taquilla')">
+          <v-card class="cards-estado-cuenta" @click="$router.push('estado-cuenta-taquilla')">
             <v-icon class="icon-card">
               mdi-gavel
             </v-icon>
@@ -149,7 +149,7 @@
             ></v-text-field>
           </div>
 
-          <v-btn class="btn-swap" @click="$router.push('solicitud-inmueble-existente')">
+          <v-btn class="btn-swap" @click="redireccionarSolicitudInmuebleExistente(item.inmueble.id)">
             <v-icon>mdi-swap-horizontal</v-icon>
           </v-btn>
         </div>
@@ -167,12 +167,6 @@ export default {
   data() {
     return{
       inmueblePropietariosData: [],
-      nombrePropietario: '',
-      cedulaPropietario: '',
-      nacionalidadPropietario: '',
-      propietarioData:[],
-      items: ['V', 'J', 'G', 'E'],
-      cant_total:"4",
     }
   },
 
@@ -184,23 +178,13 @@ export default {
   },
 
   mounted(){
-    this.getDataPropietarios()
     this.getInmueblePropietarios()
   },
 
 
   methods: {
-    // redireccionarSolicitudInmuebleExistente(inmuebleId) {
-    //   this.$router.push({ path: 'solicitud-inmueble-existente', params: { id: inmuebleId } });
-    // },
-
-    getDataPropietarios(){
-      this.$axios.$get('propietario').then(response => {
-        this.propietarioData = response
-      
-      }).catch(err => {
-        console.log(err)
-      })
+    redireccionarSolicitudInmuebleExistente(inmuebleId) {
+      this.$router.push(`/solicitud-inmueble-existente/${inmuebleId}`)
     },
 
     getInmueblePropietarios(){
@@ -212,16 +196,6 @@ export default {
         console.log(err)
       })
     },
-
-    // obtenerInmuebles() {
-    //   this.$axios.$get('inmueble_propietarios' + '/' + this.$store.getters.getContribuyente.id).then(response => {
-    //     this.inmueblePropietariosData = response
-    //     console.log(this.inmueblePropietariosData.inmueble.sector, 'sector')
-      
-    //   }).catch(err => {
-    //     console.log(err)
-    //   })
-    // },
   }
 
 }

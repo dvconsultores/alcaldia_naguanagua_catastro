@@ -29,6 +29,7 @@ const _9008512e = () => interopDefault(import('../pages/flow-por-recibir.vue' /*
 const _4ee1dedd = () => interopDefault(import('../pages/forma.vue' /* webpackChunkName: "pages/forma" */))
 const _0da249f5 = () => interopDefault(import('../pages/impuestos-pago.vue' /* webpackChunkName: "pages/impuestos-pago" */))
 const _8e9ed5d2 = () => interopDefault(import('../pages/inscripcion-inmueble.vue' /* webpackChunkName: "pages/inscripcion-inmueble" */))
+const _bccd79ac = () => interopDefault(import('../pages/liquidacion.vue' /* webpackChunkName: "pages/liquidacion" */))
 const _7c7bbc29 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _356e1cb4 = () => interopDefault(import('../pages/manzana.vue' /* webpackChunkName: "pages/manzana" */))
 const _7bb13e58 = () => interopDefault(import('../pages/modificar-datos.vue' /* webpackChunkName: "pages/modificar-datos" */))
@@ -41,7 +42,6 @@ const _675eb621 = () => interopDefault(import('../pages/regimen.vue' /* webpackC
 const _7f7363b5 = () => interopDefault(import('../pages/reporte-taquilla.vue' /* webpackChunkName: "pages/reporte-taquilla" */))
 const _bbf87554 = () => interopDefault(import('../pages/sector.vue' /* webpackChunkName: "pages/sector" */))
 const _0be8a91d = () => interopDefault(import('../pages/servicios.vue' /* webpackChunkName: "pages/servicios" */))
-const _0e400cc0 = () => interopDefault(import('../pages/solicitud-inmueble-existente.vue' /* webpackChunkName: "pages/solicitud-inmueble-existente" */))
 const _8447feaa = () => interopDefault(import('../pages/sub-parcela.vue' /* webpackChunkName: "pages/sub-parcela" */))
 const _37a133cf = () => interopDefault(import('../pages/tasa-multa.vue' /* webpackChunkName: "pages/tasa-multa" */))
 const _419ac44a = () => interopDefault(import('../pages/tipo-desincorporacion.vue' /* webpackChunkName: "pages/tipo-desincorporacion" */))
@@ -60,6 +60,8 @@ const _0cc3c8b5 = () => interopDefault(import('../pages/unidad-tributaria.vue' /
 const _75469122 = () => interopDefault(import('../pages/urbanizacion-barrio.vue' /* webpackChunkName: "pages/urbanizacion-barrio" */))
 const _5c646f5e = () => interopDefault(import('../pages/uso.vue' /* webpackChunkName: "pages/uso" */))
 const _c69d52d0 = () => interopDefault(import('../pages/zona.vue' /* webpackChunkName: "pages/zona" */))
+const _20fe0745 = () => interopDefault(import('../pages/liquidacion-inmueble-existente/_id.vue' /* webpackChunkName: "pages/liquidacion-inmueble-existente/_id" */))
+const _7c6b116a = () => interopDefault(import('../pages/solicitud-inmueble-existente/_id.vue' /* webpackChunkName: "pages/solicitud-inmueble-existente/_id" */))
 const _4cf18ef6 = () => interopDefault(import('../pages/verification-email/_verification.vue' /* webpackChunkName: "pages/verification-email/_verification" */))
 
 const emptyFn = () => {}
@@ -174,6 +176,10 @@ export const routerOptions = {
     component: _8e9ed5d2,
     name: "inscripcion-inmueble___en"
   }, {
+    path: "/liquidacion",
+    component: _bccd79ac,
+    name: "liquidacion___en"
+  }, {
     path: "/login",
     component: _7c7bbc29,
     name: "login___en"
@@ -221,10 +227,6 @@ export const routerOptions = {
     path: "/servicios",
     component: _0be8a91d,
     name: "servicios___en"
-  }, {
-    path: "/solicitud-inmueble-existente",
-    component: _0e400cc0,
-    name: "solicitud-inmueble-existente___en"
   }, {
     path: "/sub-parcela",
     component: _8447feaa,
@@ -394,6 +396,10 @@ export const routerOptions = {
     component: _8e9ed5d2,
     name: "inscripcion-inmueble___es"
   }, {
+    path: "/es/liquidacion",
+    component: _bccd79ac,
+    name: "liquidacion___es"
+  }, {
     path: "/es/login",
     component: _7c7bbc29,
     name: "login___es"
@@ -441,10 +447,6 @@ export const routerOptions = {
     path: "/es/servicios",
     component: _0be8a91d,
     name: "servicios___es"
-  }, {
-    path: "/es/solicitud-inmueble-existente",
-    component: _0e400cc0,
-    name: "solicitud-inmueble-existente___es"
   }, {
     path: "/es/sub-parcela",
     component: _8447feaa,
@@ -518,9 +520,25 @@ export const routerOptions = {
     component: _c69d52d0,
     name: "zona___es"
   }, {
+    path: "/es/liquidacion-inmueble-existente/:id?",
+    component: _20fe0745,
+    name: "liquidacion-inmueble-existente-id___es"
+  }, {
+    path: "/es/solicitud-inmueble-existente/:id?",
+    component: _7c6b116a,
+    name: "solicitud-inmueble-existente-id___es"
+  }, {
     path: "/es/verification-email/:verification?",
     component: _4cf18ef6,
     name: "verification-email-verification___es"
+  }, {
+    path: "/liquidacion-inmueble-existente/:id?",
+    component: _20fe0745,
+    name: "liquidacion-inmueble-existente-id___en"
+  }, {
+    path: "/solicitud-inmueble-existente/:id?",
+    component: _7c6b116a,
+    name: "solicitud-inmueble-existente-id___en"
   }, {
     path: "/verification-email/:verification?",
     component: _4cf18ef6,

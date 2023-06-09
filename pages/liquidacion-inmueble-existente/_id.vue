@@ -4,7 +4,7 @@
       <div class="creacion-container">
         <div class="divrow jspace" style="width:100%;">
           <p class="title-inscripcion-inmueble">
-            Creación de estado de solicitud
+            Creación de liquidación
           </p>
 
           <span class="title-inscripcion-inmueble">
@@ -57,6 +57,25 @@
         </div>
       </div>
 
+      <div class="flujo-container">
+        <p class="title-inscripcion-inmueble">
+          Seleccione el tipo de estado de cuenta 
+        </p>
+
+        <hr>
+
+        <div class="center" style="width: 90%;">
+          <v-autocomplete
+          v-model="flujo"
+          class="autocomplete-flujo"
+          label="Tipo de Flujo"
+          :items="flujoData"
+          item-text="descripcion"
+          item-value="id"
+          ></v-autocomplete>
+        </div>
+      </div>
+
       <div class="observaciones-container">
         <div class="jspace center" style="width: 100%; margin-bottom: 0px;">
           <p class="title-observaciones">
@@ -79,6 +98,30 @@
           class="textarea"
           v-model="observaciones"
           ></v-textarea>
+        </div>
+      </div>
+
+      <div class="inmueble-existente-container">
+        <div class="container-morado">
+          <span>
+            Inmueble
+          </span>
+        </div>
+
+        <div class="divrow center wrap" style="width:100%; gap: 30px; padding-inline:20px;">
+          <v-text-field
+          v-model="estadoData.numero"
+          disabled
+          label="Nro. Expediente"
+          class="big-textfield"
+          ></v-text-field>
+
+          <v-text-field
+          v-model="estadoData.tipoflujo.descripcion"
+          disabled
+          label="Direccion"
+          class="small-textfield"
+          ></v-text-field>
         </div>
       </div>
     </section>
@@ -168,29 +211,14 @@
 import computeds from '~/mixins/computeds'
 
 export default{
-  name: "InscripcionInmueblePage",
+  name: "LiquidacionInmueblePage",
   mixins: [computeds],
   data() {
     return{
       observaciones:'',
-      nuevoRegistro: {},
       monto_unidad_tributaria: null,
-      valor2:null,
-      nombrePropietario: '',
-      cedulaPropietario: '',
-      nacionalidadPropietario: '',
       dialog_exito: false,
-      monto_total:"72,4",
       show_observaciones: false,
-      dataCreacion:[
-        {
-          nro_recibo:"1234567890",
-          fecha:"03/03/2023",
-          propietario:"María Pera C.",
-          id_type:"V",
-          id_number:"12.345.678"
-        }
-      ],
 
       divs:[
         {
@@ -206,30 +234,54 @@ export default{
       correlativoData:[],
       tasaMultaData:[],
       bcvData:[],
+      flujoData:[],
+      estadoData: [],
     }
   },
 
   head() {
-    const title = 'Inscripcion Inmueble';
+    const title = 'Liquidacion Inmueble';
     return {
       title,
     }
   },
 
   mounted(){
-    this.getDataTasa()
+    console.log(this.$route.params)
     this.getCorrelativo()
     this.getTasaMulta()
     this.getBCV()
+    this.getFlujo()
+    const estadoId = this.$route.params.id
+    this.getEstado(estadoId)
   },
 
+  
+
   methods: {
+    getEstado(id) {
+      this.$axios.$get(`estadocuentadetalle/?estadocuenta=${id}`).then(response => {
+          this.estadoData = response
+        }).catch(error => {
+          console.error(error);
+        })
+    },
+
     multiplicarValor(index) {
       const div = this.divs[index];
       if (div.cantidad !== null) {
         div.calculo = (div.monto_unidad_tributaria * div.cantidad * 60 * this.montoBCV).toFixed(2);
       }
     },
+
+    getFlujo(){
+      this.$axios.$get('tipoflujo').then(response => {
+        this.flujoData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    
 
     getBCV() {
       this.$axios.$get('tasabcv').then(response => {
@@ -275,29 +327,21 @@ export default{
       })
     },
 
-    createEstadoCuenta(){
+    createLiquidacion(){
       const data = {
         inmueble: null,
-        flujo: null,
+        flujo: this.flujo,
         correlativo: this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,
         observacion: this.observaciones,
         detalle: this.divs,
         monto_total: this.montoTotal()
       }
-      this.$axios.$post('crearestadocuenta/', data).then(res => {
+      this.$axios.$post('crearliquidacion/', data).then(res => {
         console.log(res)
         this.$router.push('modificar-datos')
-        this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
+        this.$alert("success", {desc: "Se ha creado una liquidacion de cuenta con éxito", hash: 'knsddcssdc', title:'Creada'}) 
       }).catch(err =>{
-        console.log(err)
-      })
-    },
-
-    getDataTasa (){
-      this.$axios.$get('tasamulta').then(response => {
-        this.tasaData = response
-      }).catch(err => {
         console.log(err)
       })
     },
@@ -321,4 +365,4 @@ export default{
 }
 </script>
 
-<style src="~/assets/styles/pages/estado-cuenta-taquilla.scss" lang="scss" />
+<style src="~/assets/styles/pages/solicitud-inmueble-existente.scss" lang="scss" />

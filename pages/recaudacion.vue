@@ -100,7 +100,7 @@
           ></v-text-field>
 
           <v-btn class="btn-dollar" @click="$router.push('impuestos-pago')">
-            <v-icon>mdi-cash-multiple</v-icon>
+            <v-icon>mdi-cash-check</v-icon>
           </v-btn>
         </div>
       </div>
