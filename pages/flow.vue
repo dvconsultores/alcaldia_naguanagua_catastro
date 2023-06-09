@@ -15,7 +15,9 @@
             class="input-data-table"></v-text-field>
 
 
-          <v-timeline align="start">
+          <v-timeline align="start"
+              align-top
+              :dense="$vuetify.breakpoint.smAndDown">
             <v-timeline-item
               v-for="(item, i) in flujoData"
               :key="i"
@@ -24,11 +26,82 @@
               fill-dot
             >
               <v-card>
+                
                 <v-card-title >
-                  {{item.id}}
+                  {{item.id}} {{item.usuario_recibe_departamento}}
                 </v-card-title>
                 <v-card-text>
-                  <p>Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.</p>
+                  <v-row>
+                    <v-col>
+                      <v-card
+                        class="pa-2"
+                        outlined
+                        tile
+                      >
+                      Estado; {{item.estado_display}}
+                      </v-card>
+                    </v-col>
+                    <v-col>
+                      <v-card
+                        class="pa-2"
+                        outlined
+                        tile
+                      >
+                      Tarea: {{item.tarea_display}}
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>
+                      <v-card
+                        class="pa-2"
+                        outlined
+                        tile
+                      >
+                      Envia; {{item.usuario_envia_departamento}}
+                      </v-card>
+                    </v-col>
+                    <v-col>
+                      <v-card
+                        class="pa-2"
+                        outlined
+                        tile
+                      >
+                      Recibe: {{item.usuario_recibe_departamento}}
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>
+                      <v-card
+                        class="pa-2"
+                        outlined
+                        tile
+                      >
+                      El usuario {{item.usuario_envia_nombre}} envio la solicitud el dia {{item.envia_fecha}} 
+                      </v-card>
+                    </v-col>
+                    <v-col>
+                      <v-card
+                        class="pa-2"
+                        outlined
+                        tile
+                      >
+                      El usuario {{item.usuario_recibe_nombre}} recibio la solicitud el dia {{item.recibe_fecha}} 
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>
+                      <v-card
+                        class="pa-2"
+                        outlined
+                        tile
+                      >
+                      Observacion: {{item.observaciones}} 
+                      </v-card>
+                    </v-col>
+                  </v-row>
                   <v-btn
                     color="blue"
                     variant="outlined"

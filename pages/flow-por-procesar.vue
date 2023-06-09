@@ -7,7 +7,70 @@
             Documentos por Procesar
           </p>
 
+          <v-dialog v-model="dialog_editar" max-width="1600px">
+            <v-card id="dialog-editar-crear">
+              <v-card-title>
+                <span class="title">Procesar Documento</span>
+              </v-card-title>
 
+              <hr>
+              <div class="section1-crear">
+                <div class="datos-contribuyente-div">
+                  <div class="inputs-datos-container">
+                    <div class="radio-container">
+                      <span>
+                        Tipo de documento
+                      </span>
+                      <div>
+                        <v-radio-group v-model="defaultItem.tipo_documento" row>
+                          <v-radio label="Cedula" value="Cedula" name="radio-group"></v-radio>
+                          <v-radio label="RIF" value="RIF" name="radio-group"></v-radio>
+                          <v-radio label="Pasaporte" value="Pasaporte" name="radio-group"></v-radio>
+                        </v-radio-group>
+                      </div>
+                    </div>
+
+                    <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
+                      <v-autocomplete v-model="defaultItem.nacionalidad" :items="items2"
+                        class="autocomplete-field"></v-autocomplete>
+
+                      <v-text-field v-model="defaultItem.numero_documento" class="input-big" label="Nro de Documento"
+                        style="max-width: 490px;"></v-text-field>
+                    </div>
+
+                    <v-text-field v-model="defaultItem.nombre" class="input-big"
+                      label="Nombre / Razón Social"></v-text-field>
+
+                    <v-textarea class="input-textarea" label="Dirección"></v-textarea>
+
+                    <v-text-field v-model="defaultItem.telefono_principal" class="input-medium"
+                      label="Telefono"></v-text-field>
+
+                    <v-text-field v-model="defaultItem.telefono_secundario" class="input-medium"
+                      label="Telefono 2"></v-text-field>
+
+                    <v-text-field class="input-medium" label="Fax"></v-text-field>
+
+                    <v-text-field v-model="defaultItem.email_principal" class="input-correo"
+                      label="Correo electronico"></v-text-field>
+
+                    <v-text-field v-model="defaultItem.emaill_secundario" class="input-correo"
+                      label="Correo electronico 2"></v-text-field>
+                  </div>
+                </div>
+
+                <div class="div-btns">
+                  <v-btn @click="saveData()">
+                    Guardar
+                  </v-btn>
+
+                  <v-btn style="background-color:#ED057E!important;" @click="dialog_editar = false">
+                    Cancelar
+                  </v-btn>
+                </div>
+              </div>
+            </v-card>
+          </v-dialog>
         </div>
 
         <div class="data-table-container">
