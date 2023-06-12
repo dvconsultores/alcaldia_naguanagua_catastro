@@ -104,20 +104,20 @@
       <div class="inmueble-existente-container">
         <div class="container-morado">
           <span>
-            Inmueble
+            Estado de cuenta
           </span>
         </div>
 
         <div class="divrow center wrap" style="width:100%; gap: 30px; padding-inline:20px;">
           <v-text-field
-          v-model="estadoData.numero"
+          v-model="estadoData.estadocuenta.numero"
           disabled
           label="Nro. Expediente"
           class="big-textfield"
           ></v-text-field>
 
           <v-text-field
-          v-model="estadoData.tipoflujo.descripcion"
+          v-model="estadoDataestado.tipoflujo.descripcion"
           disabled
           label="Direccion"
           class="small-textfield"
@@ -144,7 +144,7 @@
 
         <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
           <v-autocomplete
-          v-model="div.tasa_multa_id"
+          v-model="div.tasamulta"
           class="big-autocomplete mobile-inputs"
           label="Tasa / Multa"
           :items="tasaMultaData"
@@ -165,15 +165,13 @@
           class="small-input mobile-inputs"
           label="Cantidad"
           @input="multiplicarValor(index)"
-          :value="1"
           ></v-text-field>
 
           <v-text-field
-          v-model="div.calculo"
+          v-model="div.monto_tasa"
           class="small-input mobile-inputs"
           label="Total"
           readonly
-          :value="0"
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
@@ -221,12 +219,12 @@ export default{
       show_observaciones: false,
 
       divs:[
-        {
-          tasa_multa_id: null,
-          monto_unidad_tributaria: null,
-          cantidad: 1,
-          calculo: 0,
-        }
+        // {
+        //   tasamulta: null,
+        //   monto_unidad_tributaria: null,
+        //   cantidad: 1,
+        //   monto_tasa: 0,
+        // }
       ],
 
       propietarioData:[],
@@ -253,15 +251,26 @@ export default{
     this.getBCV()
     this.getFlujo()
     const estadoId = this.$route.params.id
+    this.getEstadoDetalles(estadoId)
     this.getEstado(estadoId)
   },
 
   
 
   methods: {
-    getEstado(id) {
-      this.$axios.$get(`estadocuentadetalle/?estadocuenta=${id}`).then(response => {
+    getEstadoDetalles(id) {
+      this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${id}`).then(response => {
+          this.divs = response
+          console.log(this.divs,'jolaaa')
+        }).catch(error => {
+          console.error(error);
+        })
+    },
+
+    getEstado(id){
+      this.$axios.$get(`estadocuenta/${id}`).then(response => {
           this.estadoData = response
+          console.log(this.estadoData,'duroooo')
         }).catch(error => {
           console.error(error);
         })
@@ -270,7 +279,7 @@ export default{
     multiplicarValor(index) {
       const div = this.divs[index];
       if (div.cantidad !== null) {
-        div.calculo = (div.monto_unidad_tributaria * div.cantidad * 60 * this.montoBCV).toFixed(2);
+        div.monto_tasa = (div.monto_unidad_tributaria * div.cantidad * 60 * this.montoBCV).toFixed(2);
       }
     },
 
@@ -295,8 +304,8 @@ export default{
     montoTotal() {
       let total = 0
       for (const div of this.divs) {
-        if (div.calculo !== null) {
-          total += parseFloat(div.calculo)
+        if (div.monto_tasa !== null) {
+          total += parseFloat(div.monto_tasa)
         }
       }
       return total.toFixed(2)
@@ -304,7 +313,7 @@ export default{
 
     selectedField(index) {
       const div = this.divs[index]
-      const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasa_multa_id)
+      const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasamulta)
       div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
 
       this.multiplicarValor(index)
@@ -347,7 +356,7 @@ export default{
     },
 
     addDiv(){
-      this.divs.push({cantidad: 1, calculo: 0});
+      this.divs.push({cantidad: 1, monto_tasa: 0});
     },  
 
     removeDiv(index) {
