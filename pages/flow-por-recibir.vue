@@ -82,7 +82,7 @@ export default {
         { text: 'Operación', value: 'tipoflujo_descripcion', align: 'center' },
         { text: 'Propietario', value: 'propietario_nombre', align: 'center' },
         { text: 'Fecha Solicitud', value: 'flujo_fecha', align: 'center' },
-        { text: 'Tarea', value: 'tarea_display', align: 'center' },
+        { text: 'Estado', value: 'estado_display', align: 'center' },
         { text: '', value: 'actions1', sortable: false, align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],
@@ -106,7 +106,8 @@ export default {
   methods: {
 
     getFlujo() {
-      this.$axios.$get('flujodetalle/?estado=1&recibe_usuario='+this.permido.user_id).then(response => {
+      console.log('depto',this.permido.departamento)
+      this.$axios.$get('flujodetalle/?tarea=1&departamento_recibe='+this.permido.departamento).then(response => {
         this.flujoData = response
       }).catch(err => {
         console.log(err)
@@ -122,10 +123,14 @@ export default {
     },
     saveDevuelve() {
       const formData = new FormData()
-      formData.append('recibe_usuario', this.defaultItem.envia_usuario)
+      formData.append('departamento_recibe', this.defaultItem.departamento_envia)
+      formData.append('tarea', 7)
+      formData.append('estado', 0)
       this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", { desc: "Se ha devuelto el documento con éxito", hash: 'knsddcssdc', title: 'Devolución de Documento' })
+        
+        this.getFlujo()
         this.dialogDevuelve = false
       }).catch((err) => {
         console.log(err)
@@ -135,9 +140,11 @@ export default {
       const formData = new FormData()
       formData.append('estado', 2)
       formData.append('tarea', 3)
+      formData.append('recibe_usuario',this.permido.user_id)
       this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", { desc: "Se ha recibido el documento con éxito", hash: 'knsddcssdc', title: 'Recepción de Documento' })
+        this.getFlujo()
         this.dialogRecibe = false
       }).catch((err) => {
         console.log(err)

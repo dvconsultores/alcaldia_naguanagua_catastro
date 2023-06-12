@@ -4,13 +4,13 @@
       <div class="modificar-datos-container">
         <div class="title-morado">
           <p class="modificar-datos-title">
-            Documentos por Procesar
+            Documentos por Enviar
           </p>
 
           <v-dialog v-model="dialog_editar" max-width="1600px">
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Procesar Documento</span>
+                <span class="title">Enviar Documento</span>
               </v-card-title>
 
               <hr>
@@ -37,11 +37,11 @@
 
                     <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
                       <v-autocomplete 
-                      v-model="defaultItem.estado" 
-                      :items="itemsEstatus"
-                      item-text="text"
-                      item-value="id"
-                      label="Cambio de Estado en el Proceso"
+                      v-model="defaultItem.departamento_recibe" 
+                      :items="perfilData"
+                      item-text="nombre"
+                      item-value="nombre"
+                      label="Envia a:"
                       class="input-dialog">
                     </v-autocomplete>
                     </div>
@@ -52,15 +52,12 @@
                 </div>
 
                 <div class="div-btns">
+                  <v-btn @click="saveEstado()">
+                    Guardar
+                  </v-btn>
 
                   <v-btn style="background-color:#ED057E!important;" @click="dialog_editar = false">
                     Cancelar
-                  </v-btn>
-                  <v-btn @click="saveEstado()">
-                    Guardar
-                  </v-btn> 
-                  <v-btn @click="openFIN(defaultItem)">
-                    Finalizar Solicitud
                   </v-btn>
                 </div>
               </div>
@@ -79,11 +76,11 @@
               <v-toolbar flat class="toolbar-tabla">
                 <v-dialog v-model="dialogDevuelve" max-width="500px">
                   <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Finalizar Solicitud?</v-card-title>
-                      <span class="alerta-text" style="text-align:center;">Esta seguro de FINALIZAR la solicitud?</span>
+                    <v-card-title class="center title">¿Devolver Documento?</v-card-title>
+                      <span class="alerta-text" style="text-align:center;">El documento retornará a quien lo envio.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="saveFIN()">Si</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="saveDevuelve()">Si</v-btn>
                       <v-btn class="btn dialog-btn" text @click="dialogDevuelve = false"
                         style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
@@ -94,7 +91,7 @@
             </template>
             <template #[`item.actions1`]="{ item }">
               <v-btn class="btn-tabla" @click="editItem(item)">
-                Procesar
+                Enviar
               </v-btn>
             </template>
           </v-data-table>
@@ -108,7 +105,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "flow-por-procesarPage",
+  name: "flow-por-enviarPage",
   mixins: [computeds],
   data() {
     return {
@@ -127,21 +124,15 @@ export default {
         { text: 'Estado', value: 'estado_display', align: 'center' },
         { text: '', value: 'actions1', sortable: false, align: 'center' },
       ],
-      itemsEstatus: [
-              {id:'2', text:'Recibido'},
-              {id:'3', text:'Pendiente por Procesar'},
-              {id:'4', text:'En proceso'}, 
-              {id:'5', text:'Procesado Finalizado'}, 
-              {id:'9', text:'Fin de la Solicitud'},  ],
       flujoData: [],
+      perfilData: [],
       defaultItem: [],
+      //fecha:new Date().toISOString().replace('T', ' '), //.slice(0, 19),
       fecha:new Date().toISOString().slice(0, 19).replace('Z', ''),
-
-
     }
   },
   head() {
-    const title = 'Documentos Por Procesar';
+    const title = 'Documentos Por Enviar';
     return {
       title,
     }
@@ -149,73 +140,72 @@ export default {
 
   mounted() {
     this.getFlujo()
+    this.getDepartamento()
   },
 
   methods: {
 
     getFlujo() {
-      this.$axios.$get('flujodetalle/?tarea=3&departamento_recibe='+this.permido.departamento).then(response => {
+      console.log('fecha',this.fecha)
+      this.$axios.$get('flujodetalle/?tarea=6&departamento_recibe='+this.permido.departamento).then(response => {
         this.flujoData = response
       }).catch(err => {
         console.log(err)
       })
     },
-    openFIN(item) {
+    getDepartamento() {
+      this.$axios.$get('departamento/?nombre='+this.permido.departamento).then(response => {
+        this.perfilData = response
+        console.log(this.perfilData)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    openDevuelve(item) {
       this.defaultItem = item
       this.dialogDevuelve = true
+    },
+    openRecibe(item) {
+      this.defaultItem = item
+      this.dialogRecibe = true
     },
 
     saveEstado() {
       const formData = new FormData()
-     
-      if (this.defaultItem.estado=='5'){
-        formData.append('tarea', '6')
-        formData.append('estado','6')
-      }else{
-         formData.append('estado', this.defaultItem.estado)
-      }
-      formData.append('observaciones', this.defaultItem.observaciones)
-
-      this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
-        console.log(res.data)
-        this.$alert("success", { desc: "Se ha cambiado el estado del documento con éxito", hash: 'knsddcssdc', title: 'Cambio de Estado del proceso' })
-        this.getFlujo()
-        this.dialog_editar = false
-      }).catch((err) => {
-        console.log(err)
-      });
-    },
-    saveFIN() {
-      const formData = new FormData()
       formData.append('tarea', '8')
-      formData.append('estado','9')
-      formData.append('fin_usuario',this.permido.user_id)
-      formData.append('fin_fecha',this.fecha)
-      formData.append('observaciones', this.defaultItem.observaciones)
+      formData.append('estado','7')      
       this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
+        //this.$alert("success", { desc: "Se ha Enviado el documento con éxito", hash: 'knsddcssdc', title: 'Cambio de Estado del proceso' })
+        //this.getFlujo()
+        //this.dialog_editar = false
+      }).catch((err) => {
+        console.log(err)
+      });
 
-        const formDataNew = new FormData()
-        formDataNew.append('estado', '2')
-        this.$axios.$patch('flujo/' + this.defaultItem.id + '/', formDataNew).then((res) => {
-          console.log(res.data)
-        }).catch((err) => {
-          console.log(err)
-        });
-
-        this.$alert("success", { desc: "Se ha FINALIZADO la solicitud con éxito", hash: 'knsddcssdc', title: 'Solicitud Finalizada' })
+      const formDataNew = new FormData()
+      formDataNew.append('flujo', this.defaultItem.flujo)
+      formDataNew.append('estado',1)
+      formDataNew.append('tarea', 1)
+      formDataNew.append('departamento_envia', this.permido.departamento)
+      formDataNew.append('departamento_recibe', this.defaultItem.departamento_recibe)
+      formDataNew.append('observaciones', this.defaultItem.observaciones)
+      formDataNew.append('envia_usuario',this.permido.user_id)
+      formDataNew.append('envia_fecha',this.fecha)
+      this.$axios.$post('flujodetalle/', formDataNew).then(res => {
+        console.log(res.data)
+        this.$alert("success", { desc: "Se ha Enviado el documento con éxito", hash: 'knsddcssdc', title: 'Cambio de Estado del proceso' })
         this.getFlujo()
-        this.dialogDevuelve = false
         this.dialog_editar = false
       }).catch((err) => {
         console.log(err)
       });
+
     },
     editItem(item) {
       console.log(item)
       this.dialog_editar = true
       this.defaultItem = item
-      //this.defaultItem.id = item.id
     },
   }
 };
