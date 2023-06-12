@@ -337,10 +337,11 @@
 
   .card-liquidacion{
     display: flex;
-    overflow-y: scroll;
     justify-content: center;
     align-items: center;
-    background-color: var(--bg-ap);    
+    background-color: var(--bg-ap);
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
 
     .section1-descripcion-inmueble{
       display: flex;
@@ -579,6 +580,8 @@
       padding-inline: 10px 10px;
 
       min-height: 360px;
+      height: max-content;
+      overflow-y: visible!important;
     
       .descripcion-container{
         position: relative;
@@ -590,6 +593,8 @@
         display: grid;
         justify-items: center;
         overflow-x: hidden;
+        overflow-y: visible!important;
+        min-height: min-content!important;
     
         .title-morado{
           background-color: var(--primary);

@@ -38,14 +38,14 @@
             </span>
           </v-card> -->
 
-          <!-- <v-card class="cards-liquidacion">
+          <v-card class="cards-liquidacion">
             <v-icon class="icon-card">
               mdi-gavel
             </v-icon>
             <span class="title-card">
               Liquidación directa
             </span>
-          </v-card> -->
+          </v-card>
         </div>
       </div>
 
@@ -158,7 +158,7 @@
           <div class="container-creacion-datos">
             <div class="title-description-div">
               <p class="nombre-razon">
-                Nro. Recibo
+                Nro. Estado de Cuenta
               </p>
 
               <p class="nombre-desc">
@@ -206,14 +206,11 @@
           <hr>
 
           <div class="center" style="width: 90%;">
-            <v-autocomplete
-            v-model="flujo"
+            <v-textfield
+            v-model="selectedItem.tipoflujo.descripcion"
             class="autocomplete-flujo"
             label="Tipo de Flujo"
-            :items="flujoData"
-            item-text="descripcion"
-            item-value="id"
-            ></v-autocomplete>
+            ></v-textfield>
           </div>
         </div>
 
@@ -237,7 +234,7 @@
           <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
             <v-textarea
             class="textarea"
-            v-model="observaciones"
+            v-model="selectedItem.observaciones"
             ></v-textarea>
           </div>
         </div>
@@ -418,12 +415,12 @@ export default {
 
     createLiquidacion(){
       const data = {
-        estadocuenta: this.divs.estadocuenta.id,
-        inmueble: this.divs.estadocuenta.inmueble,
-        flujo: this.flujo,
+        estadocuenta: this.selectedItem.id,
+        inmueble: this.selectedItem.inmueble,
+        flujo: this.selectedItem.tipoflujo.id,
         // correlativo: this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,
-        observacion: this.observaciones,
+        observacion: this.selectedItem.observaciones,
         detalle: this.divs,
         monto_total: this.montoTotal()
       }
@@ -500,7 +497,7 @@ export default {
           console.error(error);
         })
 
-        this.$axios.$get(`estadocuenta/?estadocuenta_id=${item.id}`).then(response => {
+        this.$axios.$get(`estadocuenta/${item.id}`).then(response => {
           this.idEstadoCuenta = response
           console.log(this.idEstadoCuenta,'idddddddd')
 
