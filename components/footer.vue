@@ -1,7 +1,7 @@
 <template>
   <v-footer id="footer" class="no-padding">
     <span>
-      © Atila, 2022. Version Juridica 1.0.0
+      © Alcaldia Naguanagua, 2023. Version 1.0.0
     </span>
   </v-footer>
 </template>

@@ -4,119 +4,104 @@
       <div class="modificar-datos-container">
         <div class="title-morado">
           <p class="modificar-datos-title">
-             Flujo del Proceso
+            Fujos
           </p>
 
+          <v-dialog v-model="dialog_editar" max-width="1600px">
+            <v-card id="dialog-editar-crear">
+              <v-card-title>
+                <span class="title">Flujo Solicitud # {{ this.flujoId }}</span>
+              </v-card-title>
+              <v-timeline align="start" align-top :dense="$vuetify.breakpoint.smAndDown">
+                <v-timeline-item v-for="(item, i) in flujoData" :key="i" dot-color="indigo-lighten-2" icon="mdi-book-variant" fill-dot>
+                  <v-card>
 
+                    <v-card-title>
+                      {{ i+1 }} -  {{ item.departamento_recibe }}
+                    </v-card-title>
+                    <v-card-text>
+                      <v-row>
+                        <v-col>
+                          <v-card class="pa-2" outlined tile>
+                            Estado; {{ item.estado_display }}
+                          </v-card>
+                        </v-col>
+                        <v-col>
+                          <v-card class="pa-2" outlined tile>
+                            Tarea: {{ item.tarea_display }}
+                          </v-card>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col>
+                          <v-card class="pa-2" outlined tile>
+                            Envía; {{ item.departamento_envia }}
+                          </v-card>
+                        </v-col>
+                        <v-col>
+                          <v-card class="pa-2" outlined tile>
+                            Recibe: {{ item.departamento_recibe }}
+                          </v-card>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col>
+                          <v-card class="pa-2" outlined tile>
+                            El usuario {{ item.envia_usuario_nombre }} envió la solicitud el dia {{ item.envia_fecha }}
+                          </v-card>
+                        </v-col>
+                        <v-col>
+                          <v-card class="pa-2" outlined tile>
+                            El usuario {{ item.recibe_usuario_nombre }} recibió la solicitud el dia {{ item.recibe_fecha }}
+                          </v-card>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col>
+                          <v-card class="pa-2" outlined tile>
+                            Observación: {{ item.observaciones }}
+                          </v-card>
+                        </v-col>
+                      </v-row>
+                      <!--v-btn color="blue" variant="outlined">
+                        Button
+                      </v-btn-->
+                    </v-card-text>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn class="btn dialog-btn" @click="dialog_editar = false">
+                  Salir
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </div>
 
         <div class="data-table-container">
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table"></v-text-field>
 
+          <v-data-table :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
+            itemsPerPageText: 'Items por página',
+          }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
+            <template v-slot:top>
+              <v-toolbar flat class="toolbar-tabla">
 
-          <v-timeline align="start"
-              align-top
-              :dense="$vuetify.breakpoint.smAndDown">
-            <v-timeline-item
-              v-for="(item, i) in flujoData"
-              :key="i"
-              :dot-color="blue"
-              :icon="mdi-star"
-              fill-dot
-            >
-              <v-card>
-                
-                <v-card-title >
-                  {{item.id}} {{item.usuario_recibe_departamento}}
-                </v-card-title>
-                <v-card-text>
-                  <v-row>
-                    <v-col>
-                      <v-card
-                        class="pa-2"
-                        outlined
-                        tile
-                      >
-                      Estado; {{item.estado_display}}
-                      </v-card>
-                    </v-col>
-                    <v-col>
-                      <v-card
-                        class="pa-2"
-                        outlined
-                        tile
-                      >
-                      Tarea: {{item.tarea_display}}
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col>
-                      <v-card
-                        class="pa-2"
-                        outlined
-                        tile
-                      >
-                      Envia; {{item.usuario_envia_departamento}}
-                      </v-card>
-                    </v-col>
-                    <v-col>
-                      <v-card
-                        class="pa-2"
-                        outlined
-                        tile
-                      >
-                      Recibe: {{item.usuario_recibe_departamento}}
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col>
-                      <v-card
-                        class="pa-2"
-                        outlined
-                        tile
-                      >
-                      El usuario {{item.usuario_envia_nombre}} envio la solicitud el dia {{item.envia_fecha}} 
-                      </v-card>
-                    </v-col>
-                    <v-col>
-                      <v-card
-                        class="pa-2"
-                        outlined
-                        tile
-                      >
-                      El usuario {{item.usuario_recibe_nombre}} recibio la solicitud el dia {{item.recibe_fecha}} 
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col>
-                      <v-card
-                        class="pa-2"
-                        outlined
-                        tile
-                      >
-                      Observacion: {{item.observaciones}} 
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                  <v-btn
-                    color="blue"
-                    variant="outlined"
-                  >
-                    Button
-                  </v-btn>
-                </v-card-text>
-              </v-card>
-            </v-timeline-item>
-          </v-timeline>
-
-
-
-
+              </v-toolbar>
+            </template>
+            <template #[`item.actions`]="{ item }">
+              <v-btn class="btn-tabla" @click="editItem(item)">
+                Ver Flujo
+              </v-btn>
+            </template>
+          </v-data-table>
         </div>
+
+
+
       </div>
     </section>
   </div>
@@ -126,49 +111,63 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "por_recibirPage",
+  name: "flowPage",
   mixins: [computeds],
   data() {
     return {
-      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
       search: '',
-      dialogRecibe: false,
-      dialogDevuelve: false,
+      dialog_editar: false,
       headers: [
-        { text: '# Solicitud', align: 'center', value: 'flujo', },
-        { text: '# Expediente', value: 'expediente', align: 'center' },
-        { text: 'Propietario', value: 'propietario_nombre', align: 'center' },
-        { text: 'Fecha Solicitud', value: 'flujo_fecha', align: 'center' },
-        { text: '', value: 'actions1', sortable: false, align: 'center' },
-        { text: '', value: 'actions2', sortable: false, align: 'center' },
+        { text: 'Solicitud', align: 'center', value: 'id', },
+        { text: 'Tipo', value: 'pagoestadocuenta.liquidacion.tipoflujo.descripcion', align: 'center' },
+        { text: 'Inmueble', value: 'pagoestadocuenta.liquidacion.inmueble', align: 'center' },
+        { text: 'Propietario', value: 'pagoestadocuenta.liquidacion.propietario.nombre', align: 'center' },
+        { text: 'Estado', value: 'estado_display', align: 'center' },
+        { text: 'Fecha', value: 'fecha', align: 'center' },
+        { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
       flujoData: [],
-
+      propietarioData: [],
+      flujoId: null,
     }
   },
   head() {
-    const title = 'Documentos Por Recibir';
+    const title = 'Flujos';
     return {
       title,
     }
   },
 
   mounted() {
-    this.getFlujo()
+    this.getContribuyente()
   },
 
   methods: {
 
-    getFlujo() {
-      this.$axios.$get('flujodetalle').then(response => {
+    getContribuyente() {
+      this.$axios.$get('flujo/').then(response => {
+        this.propietarioData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getFlujo(item) {
+      this.$axios.$get('flujodetalle?flujo=' + item).then(response => {
         this.flujoData = response
       }).catch(err => {
         console.log(err)
       })
     },
+
+    editItem(item) {
+      this.flujoId=item.id
+      this.dialog_editar = true
+      this.getFlujo(item.id)
+    },
+
   }
 };
 </script>
 
 
-<style src="~/assets/styles/pages/flow.scss" lang="scss" />
+<style src="~/assets/styles/pages/modificar-datos.scss" lang="scss" />

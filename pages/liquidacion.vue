@@ -100,13 +100,18 @@
             disabled
             ></v-text-field>
 
-            <v-text-field 
+            <v-text-field v-if=(item.tipoflujo)
             v-model="item.tipoflujo.descripcion"
             class="medio-input mobile-input" 
             label="Tipo de estado" 
             disabled
             ></v-text-field>
-
+            <v-text-field v-else
+              class="medio-input mobile-input" 
+              label="Tipo de estado"  
+              v-model="sindatos"
+              disabled
+            ></v-text-field>
             <v-text-field 
             v-model="fechaFormateada"
             class="medio-input mobile-input" 
