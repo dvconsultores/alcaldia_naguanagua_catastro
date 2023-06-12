@@ -393,19 +393,19 @@ export default {
   },
 
   methods: {
-    multiplicarValor(index) {
-      const div = this.divs[index];
-      if (div.cantidad !== null) {
-        div.calculo = (div.monto_unidad_tributaria * div.cantidad * 60 * this.montoBCV).toFixed(2);
-      }
-    },
-
     selectedField(index) {
       const div = this.divs[index]
-      const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasa_multa_id)
+      const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasamulta)
       div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
 
       this.multiplicarValor(index)
+    },
+
+    multiplicarValor(index) {
+      const div = this.divs[index];
+      if (div.cantidad !== null) {
+        div.monto_tasa = (div.monto_unidad_tributaria * div.cantidad * 60 * this.montoBCV).toFixed(2);
+      }
     },
 
     getTasaMulta(){
