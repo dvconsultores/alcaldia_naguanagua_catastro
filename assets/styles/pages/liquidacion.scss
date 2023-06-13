@@ -329,19 +329,11 @@
 /// 
 
 
-.v-dialog{
+.dialog-liquidacion{
   background-color: var(--bg-ap);
-  // display: flex;
-  // flex-direction: column;
-  // padding-block: 50px;
-
-  .card-liquidacion{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--bg-ap);
-    max-height: calc(100vh - 64px);
-    overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: auto !important;
 
     .section1-descripcion-inmueble{
       display: flex;
@@ -349,15 +341,15 @@
       max-width: 1440px;
       width: 100%;
       margin-bottom: 20px;
-      overflow-x: hidden;
+      // overflow-x: hidden;
       margin-right: 0px!important;
       margin-left: 0px;
       gap: 10px;
       padding-bottom: 10px;
-      padding-inline: 10px 10px;
+      padding-inline: 20px;
 
-      margin-top: 300px;
-      min-height: 650px!important;
+      margin-top: 100px;
+      // min-height: 480px!important;
     
       .creacion-container{
         background-color: #fff;
@@ -572,16 +564,16 @@
       max-width: 1440px;
       width: 100%;
       margin-bottom: 50px;
-      overflow-x: hidden;
+      // overflow-x: hidden;
       margin-right: 0px!important;
       margin-left: 0px;
       gap: 10px;
       padding-bottom: 10px;
-      padding-inline: 10px 10px;
+      padding-inline: 20px;
 
-      min-height: 360px;
-      height: max-content;
-      overflow-y: visible!important;
+      // min-height: 800px;
+      // height: max-content;
+      // overflow-y: visible!important;
     
       .descripcion-container{
         position: relative;
@@ -695,6 +687,6 @@
           }
         }
       }
-    }
+    // }
   }
 }

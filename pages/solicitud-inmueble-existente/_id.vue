@@ -347,7 +347,7 @@ export default{
       const data = {
         inmueble: this.inmuebleData.id,
         flujo: this.flujo,
-        correlativo: this.numeroCorrelativo,
+        // correlativo: this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,
         observacion: this.observaciones,
         detalle: this.divs,

@@ -29,15 +29,6 @@
             </p>
           </div>
 
-          <!-- <v-card class="cards-liquidacion">
-            <v-icon class="icon-card">
-              mdi-transfer-down
-            </v-icon>
-            <span class="title-card">
-              Liquidación de Inmueble
-            </span>
-          </v-card> -->
-
           <v-card class="cards-liquidacion">
             <v-icon class="icon-card">
               mdi-gavel
@@ -91,57 +82,18 @@
               </template>
             </v-data-table>
           </div>
-
-          <!-- <div class="inputs-container">
-            <v-text-field 
-            v-model="item.numero"
-            class="medio-input mobile-input" 
-            label="Numero de estado" 
-            disabled
-            ></v-text-field>
-
-            <v-text-field v-if=(item.tipoflujo)
-            v-model="item.tipoflujo.descripcion"
-            class="medio-input mobile-input" 
-            label="Tipo de estado" 
-            disabled
-            ></v-text-field>
-            <v-text-field v-else
-              class="medio-input mobile-input" 
-              label="Tipo de estado"  
-              v-model="sindatos"
-              disabled
-            ></v-text-field>
-            <v-text-field 
-            v-model="fechaFormateada"
-            class="medio-input mobile-input" 
-            label="Fecha" 
-            disabled
-            ></v-text-field>
-
-            <v-text-field 
-            v-model="item.monto_total"
-            class="medio-input mobile-input" 
-            label="Monto Total" 
-            disabled
-            ></v-text-field>
-          </div>
-
-          <v-btn class="btn-swap" @click="redireccionarLiquidacionInmuebleExistente(item.id)">
-            <v-icon>mdi-file-check</v-icon>
-          </v-btn> -->
         </div>
       </div>
     </section>
 
     <v-dialog 
       v-model="openDialog" 
-      fullscreen
       transition="dialog-bottom-transition"
+      fullscreen
       scrollable
+      content-class="dialog-liquidacion"
       >
-      <v-card class="card-liquidacion">
-        <section class="section1-descripcion-inmueble">
+      <section class="section1-descripcion-inmueble">
         <div class="creacion-container">
           <div class="divrow jspace" style="width:100%;">
             <p class="title-inscripcion-inmueble">
@@ -198,22 +150,6 @@
           </div>
         </div>
 
-        <div class="flujo-container">
-          <p class="title-inscripcion-inmueble">
-            Seleccione el tipo de estado de cuenta 
-          </p>
-
-          <hr>
-
-          <div class="center" style="width: 90%;">
-            <v-textfield
-            v-model="selectedItem.tipoflujo.descripcion"
-            class="autocomplete-flujo"
-            label="Tipo de Flujo"
-            ></v-textfield>
-          </div>
-        </div>
-
         <div class="observaciones-container">
           <div class="jspace center" style="width: 100%; margin-bottom: 0px;">
             <p class="title-observaciones">
@@ -237,31 +173,7 @@
             v-model="selectedItem.observaciones"
             ></v-textarea>
           </div>
-        </div>
-
-        <!-- <div class="inmueble-existente-container">
-          <div class="container-morado">
-            <span>
-              Estado de cuenta
-            </span>
-          </div>
-
-          <div class="divrow center wrap" style="width:100%; gap: 30px; padding-inline:20px;">
-            <v-text-field
-            v-model="estadoData.estadocuenta.numero"
-            disabled
-            label="Nro. Expediente"
-            class="big-textfield"
-            ></v-text-field>
-
-            <v-text-field
-            v-model="estadoDataestado.tipoflujo.descripcion"
-            disabled
-            label="Direccion"
-            class="small-textfield"
-            ></v-text-field>
-          </div>
-        </div> -->
+        </div>        
       </section>
 
       <section class="section2-inscripcion-inmueble">
@@ -331,7 +243,6 @@
           </div>
         </div>
       </section>
-      </v-card>
     </v-dialog>
   </div>
 </template>
@@ -346,7 +257,6 @@ export default {
   data() {
     return{
       search:'',
-      flujoData:[],
       correlativoData:[],
       bcvData:[],
       openDialog: false,
@@ -376,7 +286,6 @@ export default {
     this.getEstadosCuentas()
     this.getBCV()
     this.getCorrelativo()
-    this.getFlujo()
     this.getTasaMulta()
   },
 
@@ -416,11 +325,10 @@ export default {
     createLiquidacion(){
       const data = {
         estadocuenta: this.selectedItem.id,
-        inmueble: this.selectedItem.inmueble,
+        inmueble: this.selectedItem.inmueble == null ? null : this.selectedItem.inmueble.id,
         flujo: this.selectedItem.tipoflujo.id,
-        // correlativo: this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,
-        observacion: this.selectedItem.observaciones,
+        observacion: this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '',
         detalle: this.divs,
         monto_total: this.montoTotal()
       }
@@ -429,14 +337,6 @@ export default {
         this.$router.push('modificar-datos')
         this.$alert("success", {desc: "Se ha creado una liquidacion con éxito", hash: 'knsddcssdc', title:'Creado'}) 
       }).catch(err =>{
-        console.log(err)
-      })
-    },
-
-    getFlujo(){
-      this.$axios.$get('tipoflujo').then(response => {
-        this.flujoData = response
-      }).catch(err => {
         console.log(err)
       })
     },
@@ -506,12 +406,8 @@ export default {
         })
     },
 
-    // redireccionarLiquidacionInmuebleExistente(estadoId) {
-    //   this.$router.push(`/liquidacion-inmueble-existente/${estadoId}`)
-    // },
-
     getEstadosCuentas(){
-      this.$axios.$get('estadocuenta/?propietario=' + this.$store.getters.getContribuyente.id).then(response => {
+      this.$axios.$get('estadocuenta/?habilitado=true&propietario=' + this.$store.getters.getContribuyente.id).then(response => {
         this.estadoCuentasData = response
         console.log(this.estadoCuentasData, 'dataa')
       
