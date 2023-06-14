@@ -120,7 +120,7 @@ export default {
       headers: [
         { text: 'Solicitud', align: 'center', value: 'id', },
         { text: 'Tipo', value: 'pagoestadocuenta.liquidacion.tipoflujo.descripcion', align: 'center' },
-        { text: 'Inmueble', value: 'pagoestadocuenta.liquidacion.inmueble', align: 'center' },
+        { text: 'Expediente', value: 'expediente', align: 'center' },
         { text: 'Propietario', value: 'pagoestadocuenta.liquidacion.propietario.nombre', align: 'center' },
         { text: 'Estado', value: 'estado_display', align: 'center' },
         { text: 'Fecha', value: 'fecha', align: 'center' },
