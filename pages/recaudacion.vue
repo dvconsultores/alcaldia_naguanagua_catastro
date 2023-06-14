@@ -88,7 +88,7 @@
         </div>
       </div>
     </section>
-
+    
     <v-dialog 
       v-model="openDialog" 
       transition="dialog-bottom-transition"
@@ -96,190 +96,192 @@
       scrollable
       content-class="dialog-recaudacion"
       >
-      <section class="section1-descripcion-inmueble">
-        <div class="propietario-container">
-          <div class="absolute-line"></div>
+      <div class="div-dialog">
+        <section class="section1-descripcion-inmueble">
+          <div class="propietario-container">
+            <div class="absolute-line"></div>
 
-          <div class="container-datos-contribuyente">
-            <div class="title-description-div">
-              <p class="nombre-razon">
-                Nombre / Razón Social
-              </p>
+            <div class="container-datos-contribuyente">
+              <div class="title-description-div">
+                <p class="nombre-razon">
+                  Nombre / Razón Social
+                </p>
 
-              <p class="nombre-desc">
-                {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
-              </p>
-            </div>
+                <p class="nombre-desc">
+                  {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
+                </p>
+              </div>
 
-            <div class="title-description-div">
-              <p class="nombre-razon">
-                CI / RIF / Pasaporte
-              </p>
+              <div class="title-description-div">
+                <p class="nombre-razon">
+                  CI / RIF / Pasaporte
+                </p>
 
-              <p class="nombre-desc">
-                {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
-              </p>
+                <p class="nombre-desc">
+                  {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="observaciones-container">
-          <div class="jspace center" style="width: 100%; margin-bottom: 0px;">
-            <p class="title-observaciones">
-              Observaciones
-            </p>
+          <div class="observaciones-container">
+            <div class="jspace center" style="width: 100%; margin-bottom: 0px;">
+              <p class="title-observaciones">
+                Observaciones
+              </p>
 
-            <v-btn class="btn-mas" v-if="show_observaciones != true" @click="show_observaciones = true">
+              <v-btn class="btn-mas" v-if="show_observaciones != true" @click="show_observaciones = true">
+                +
+              </v-btn>
+
+              <v-btn class="btn-mas" v-if="show_observaciones === true " @click="show_observaciones = false">
+                -
+              </v-btn>
+            </div>
+
+            <hr>
+
+            <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
+              <v-textarea
+              class="textarea"
+              v-model="selectedItem.observaciones"
+              ></v-textarea>
+            </div>
+          </div>
+
+          <div class="descripcion-impuestos">
+            <div class="title-morado">
+              <p class="impuestos-title">
+                Impuestos por tasas
+              </p>
+
+              <p v-if="selectedItem && selectedItem.monto_total" class="impuestos-title" style="--fw: 500; font-size: 16px;">
+                Total: {{ selectedItem.monto_total }}
+              </p>
+            </div>
+
+            <div v-if="selectedItem && selectedItem.numero && selectedItem.tipoflujo.descripcion && selectedItem.fecha && selectedItem.monto_total" class="solicitud-inputs-container">
+              <v-text-field
+              v-model="selectedItem.numero"
+              class="small-input"
+              label="#N ."
+              ></v-text-field>
+
+              <v-text-field
+              v-model="selectedItem.tipoflujo.descripcion"
+              class="big-input"
+              label="Concepto"
+              ></v-text-field>
+
+              <v-text-field
+              v-model=selectedItem.fecha
+              class="big-input"
+              label="Fecha"
+              ></v-text-field>
+
+              <v-text-field
+              v-model="selectedItem.monto_total"
+              class="small-input"
+              label="Monto Total"
+              ></v-text-field>
+            </div>
+          </div>
+
+          <div class="descripcion-container">
+            <div class="title-morado">
+              <p class="solicitud-title">
+                Tipo de pago
+              </p>
+
+              <p class="solicitud-title">
+                Monto total: {{ montoTotal() }}
+              </p>
+            </div>
+
+            <v-btn class="btns-add-remove no-shadow" @click="addDiv(index)">
               +
             </v-btn>
 
-            <v-btn class="btn-mas" v-if="show_observaciones === true " @click="show_observaciones = false">
-              -
-            </v-btn>
+            <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
+              <v-autocomplete
+              v-model="div.tipopago"
+              class="small-input mobile-inputs"
+              label="Tipo de Pago"
+              :items="tipoPagoData"
+              item-text="descripcion"
+              item-value="id"
+              ></v-autocomplete>
+
+              <v-autocomplete
+              v-model="div.bancocuenta"
+              class="small-input mobile-inputs"
+              label="Banco"
+              :items="bancoCuentaData"
+              item-text="numero"
+              item-value="id"
+              ></v-autocomplete>
+
+              <v-text-field
+              v-model="div.referencia"
+              class="small-input mobile-inputs"
+              label="Nro. Referencia"
+              ></v-text-field>
+
+              <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="5"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+              >
+                <template #activator="{ on, attrs }">
+                  <v-text-field
+                  v-model="div.fecha"
+                  class="small-input mobile-inputs"
+                  label="Fecha"
+                  append-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-model="div.fecha"
+                  label="Fecha"
+                  @input="formatoFecha()"
+                  color="blue"
+                  header-color="#810880"
+                  class="custom-date-picker"
+                ></v-date-picker>
+              </v-menu>
+
+              <v-text-field
+              v-model="div.monto"
+              class="small-input mobile-inputs"
+              label="Monto"
+              ></v-text-field>
+
+              <v-btn class="btns-add-remove"  @click="removeDiv(index)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </div>
+
+            <hr>
+
+            <div class="divrow center div-btns" style="gap:30px;">
+
+              <v-btn class="btn size-btn" @click="createPago()">
+                Guardar
+              </v-btn>
+
+              <v-btn class="btn size-btn" style="background-color:#ED057E!important;" @click="openDialog = false">
+                Cancelar
+              </v-btn>
+            </div>
           </div>
-
-          <hr>
-
-          <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
-            <v-textarea
-            class="textarea"
-            v-model="selectedItem.observaciones"
-            ></v-textarea>
-          </div>
-        </div>
-
-        <div class="descripcion-impuestos">
-          <div class="title-morado">
-            <p class="impuestos-title">
-              Impuestos por tasas
-            </p>
-
-            <p v-if="selectedItem && selectedItem.monto_total" class="impuestos-title" style="--fw: 500; font-size: 16px;">
-              Total: {{ selectedItem.monto_total }}
-            </p>
-          </div>
-
-          <div v-if="selectedItem && selectedItem.numero && selectedItem.tipoflujo.descripcion && selectedItem.fecha && selectedItem.monto_total" class="solicitud-inputs-container">
-            <v-text-field
-            v-model="selectedItem.numero"
-            class="small-input"
-            label="#N ."
-            ></v-text-field>
-
-            <v-text-field
-            v-model="selectedItem.tipoflujo.descripcion"
-            class="big-input"
-            label="Concepto"
-            ></v-text-field>
-
-            <v-text-field
-            v-model=selectedItem.fecha
-            class="big-input"
-            label="Fecha"
-            ></v-text-field>
-
-            <v-text-field
-            v-model="selectedItem.monto_total"
-            class="small-input"
-            label="Monto Total"
-            ></v-text-field>
-          </div>
-        </div>
-
-        <div class="descripcion-container">
-          <div class="title-morado">
-            <p class="solicitud-title">
-              Tipo de pago
-            </p>
-
-            <p class="solicitud-title">
-              Monto total: {{ montoTotal() }}
-            </p>
-          </div>
-
-          <v-btn class="btns-add-remove no-shadow" @click="addDiv(index)">
-            +
-          </v-btn>
-
-          <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
-            <v-autocomplete
-            v-model="div.tipopago"
-            class="small-input mobile-inputs"
-            label="Tipo de Pago"
-            :items="tipoPagoData"
-            item-text="descripcion"
-            item-value="id"
-            ></v-autocomplete>
-
-            <v-autocomplete
-            v-model="div.bancocuenta"
-            class="small-input mobile-inputs"
-            label="Banco"
-            :items="bancoCuentaData"
-            item-text="numero"
-            item-value="id"
-            ></v-autocomplete>
-
-            <v-text-field
-            v-model="div.referencia"
-            class="small-input mobile-inputs"
-            label="Nro. Referencia"
-            ></v-text-field>
-
-            <v-menu
-            v-model="menu"
-            :close-on-content-click="false"
-            :nudge-right="5"
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
-            >
-              <template #activator="{ on, attrs }">
-                <v-text-field
-                v-model="div.fecha"
-                class="small-input mobile-inputs"
-                label="Fecha"
-                append-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="div.fecha"
-                label="Fecha"
-                @input="formatoFecha()"
-                color="blue"
-                header-color="#810880"
-                class="custom-date-picker"
-              ></v-date-picker>
-            </v-menu>
-
-            <v-text-field
-            v-model="div.monto"
-            class="small-input mobile-inputs"
-            label="Monto"
-            ></v-text-field>
-
-            <v-btn class="btns-add-remove"  @click="removeDiv(index)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </div>
-
-          <hr>
-
-          <div class="divrow center div-btns" style="gap:30px;">
-
-            <v-btn class="btn size-btn" @click="createPago()">
-              Guardar
-            </v-btn>
-
-            <v-btn class="btn size-btn" style="background-color:#ED057E!important;" @click="openDialog = false">
-              Cancelar
-            </v-btn>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </v-dialog>
   </div>
 </template>

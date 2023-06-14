@@ -93,7 +93,8 @@
       scrollable
       content-class="dialog-liquidacion"
       >
-      <section class="section1-descripcion-inmueble">
+      <div class="div-dialog">
+        <section class="section1-descripcion-inmueble">
         <div class="creacion-container">
           <div class="divrow jspace" style="width:100%;">
             <p class="title-inscripcion-inmueble">
@@ -174,75 +175,76 @@
             ></v-textarea>
           </div>
         </div>        
-      </section>
+        </section>
 
-      <section class="section2-inscripcion-inmueble">
-        <div class="descripcion-container">
-          <div class="title-morado">
-            <p class="solicitud-title">
-              Items de la solicitud
-            </p>
+        <section class="section2-inscripcion-inmueble">
+          <div class="descripcion-container">
+            <div class="title-morado">
+              <p class="solicitud-title">
+                Items de la solicitud
+              </p>
 
-            <p class="solicitud-title">
-              Monto total: {{ montoTotal() }}
-            </p>
-          </div>
+              <p class="solicitud-title">
+                Monto total: {{ montoTotal() }}
+              </p>
+            </div>
 
-          <v-btn class="btns-add-remove no-shadow" @click="addDiv(index)">
-            +
-          </v-btn>
-
-          <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
-            <v-autocomplete
-            v-model="div.tasamulta"
-            class="big-autocomplete mobile-inputs"
-            label="Tasa / Multa"
-            :items="tasaMultaData"
-            item-text="descripcion"
-            item-value="id"
-            @change="selectedField(index)"
-            ></v-autocomplete>
-
-            <v-text-field
-            class="small-input mobile-inputs"
-            label="Monto UT"
-            readonly
-            v-model="div.monto_unidad_tributaria"
-            ></v-text-field>
-
-            <v-text-field
-            v-model="div.cantidad"
-            class="small-input mobile-inputs"
-            label="Cantidad"
-            @input="multiplicarValor(index)"
-            ></v-text-field>
-
-            <v-text-field
-            v-model="div.monto_tasa"
-            class="small-input mobile-inputs"
-            label="Total"
-            readonly
-            ></v-text-field>
-
-            <v-btn class="btns-add-remove"  @click="removeDiv(index)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </div>
-
-          <hr>
-
-          <div class="divrow center div-btns" style="gap:30px;">
-
-            <v-btn class="btn size-btn" @click="createLiquidacion()">
-              Guardar
+            <v-btn class="btns-add-remove no-shadow" @click="addDiv(index)">
+              +
             </v-btn>
 
-            <v-btn class="btn size-btn" style="background-color:#ED057E!important;" @click="openDialog = false">
-              Cancelar
-            </v-btn>
+            <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
+              <v-autocomplete
+              v-model="div.tasamulta"
+              class="big-autocomplete mobile-inputs"
+              label="Tasa / Multa"
+              :items="tasaMultaData"
+              item-text="descripcion"
+              item-value="id"
+              @change="selectedField(index)"
+              ></v-autocomplete>
+
+              <v-text-field
+              class="small-input mobile-inputs"
+              label="Monto UT"
+              readonly
+              v-model="div.monto_unidad_tributaria"
+              ></v-text-field>
+
+              <v-text-field
+              v-model="div.cantidad"
+              class="small-input mobile-inputs"
+              label="Cantidad"
+              @input="multiplicarValor(index)"
+              ></v-text-field>
+
+              <v-text-field
+              v-model="div.monto_tasa"
+              class="small-input mobile-inputs"
+              label="Total"
+              readonly
+              ></v-text-field>
+
+              <v-btn class="btns-add-remove"  @click="removeDiv(index)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </div>
+
+            <hr>
+
+            <div class="divrow center div-btns" style="gap:30px;">
+
+              <v-btn class="btn size-btn" @click="createLiquidacion()">
+                Guardar
+              </v-btn>
+
+              <v-btn class="btn size-btn" style="background-color:#ED057E!important;" @click="openDialog = false">
+                Cancelar
+              </v-btn>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </v-dialog>
   </div>
 </template>

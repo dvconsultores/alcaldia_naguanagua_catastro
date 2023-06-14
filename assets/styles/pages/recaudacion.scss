@@ -448,330 +448,334 @@
 .dialog-recaudacion{
   background-color: var(--bg-ap);
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   overflow: auto !important;
 
-  .section1-descripcion-inmueble{
-    display: flex;
-    flex-direction: column;
-    max-width: 1440px;
-    width: 100%;
-    margin-bottom: 20px;
-    // overflow-x: hidden;
-    margin-right: 0px!important;
-    margin-left: 0px;
-    gap: 10px;
-    padding-bottom: 10px;
-    padding-inline: 20px;
+  .div-dialog{
+    max-height: 85vh;
+    display: grid;
+    place-items: center;
 
-    margin-top: 400px;
-    // min-height: 480px!important;
-  
-    .propietario-container{
-      position: relative;
-      width: 100%;
-      border-radius: 10px;
-      padding: 10px 0px 20px 0px;
-      background-color: #fff;
-      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    .section1-descripcion-inmueble{
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow-x: hidden;
-      border: 1px solid var(--primary);
-      margin-bottom: 30px;
-  
-      .absolute-line{
-        width: 1px;
-        height: 90px;
-        background-color: var(--primary);
-        position: absolute;
-        top: 0px;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-  
-        @include media(max, 541px){
-          height: 1px;
-          width: 190px;
-        }
-      }
-  
-      .container-datos-contribuyente{
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-around;
-        gap: 10px;
-  
-        .title-description-div{
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-content: center;
-          gap: 20px;
-          height: 120px;
-          min-width: 300px;
-  
-          @include media(max, 960px){
-            min-width: 200px;
-          }
-  
-          @include media(max, 780px){
-            width: 250px;
-          }
-  
-          .nombre-razon{
-            --c:#707070;
-            text-align: center;
-            margin-bottom: 0px;
-          }
-  
-          .nombre-desc{
-            --c:var(--primary);
-            --fw: 700;
-            font-size: 22px;
-            text-align: center;
-          }
-        }
-      }
-    }
-  
-  
-    .observaciones-container{
+      max-width: 1440px;
       width: 100%;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      padding: 10px;
-      background-color: #fff;
-      box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
-      overflow-x: hidden;
       margin-bottom: 20px;
-  
-      .title-observaciones{
-        --c: var(--primary);
-        --fw: 700;
-        font-size: 22px;
-        margin-bottom: 0px;
-      }
-  
-      .btn-mas{
-        background-color: #fff;
-        box-shadow: none!important;
-        font-size: 40px!important;
-        --c:var(--primary)!important;
-      }
-  
-      hr{
-        border: solid 1px rgba(#000000,0.1);
-        width: 130%;
-        margin-left: -20px;
-      }
-  
-      .textarea{
-        border-radius: 10px;
-        padding-inline: 10px;
-        box-shadow: 0px 0px 5px 3px rgba( #000000, 0.1)!important;
-        max-width: 90%;
-      }
-  
-      .textarea:active, .textarea:focus-within{
-        border: 1px solid var(--primary)!important;
-      }
-    }
+      margin-right: 0px!important;
+      margin-left: 0px;
+      gap: 10px;
+      padding-bottom: 50px;
+      padding-inline: 20px;
     
-    .descripcion-impuestos{
-      position: relative;
-      width: 100%;
-      border-radius: 10px;
-      padding: 90px 20px 20px 0px;
-      background-color: #fff;
-      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-      display: grid;
-      justify-items: center;
-      overflow-x: hidden;
-      margin-bottom: 30px;
-
-      .title-morado{
-        background-color: var(--primary);
-        position: absolute;
-        top: 0;
+      .propietario-container{
+        position: relative;
         width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 70px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-
-        .impuestos-title{
-          --c: #fff;
-          --fw: 700;
-          margin-bottom: 0px;
-          font-size: 22px;
-        }
-      }
-
-      .solicitud-inputs-container{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        padding-inline: 10px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-        justify-content: center;
-
-        .small-input{
-          box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-          border-radius: 10px;
-          border: 1px solid var(--primary);
-          padding-inline: 10px;
-          height: 65px;
-          max-width: 200px;
-          min-width: 150px;
-
-          @include media(max, 650px){
-            max-width: 250px;
-            min-width: 250px;
-          }
-        }
-
-        .big-input{
-          box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-          border-radius: 10px;
-          border: 1px solid var(--primary);
-          padding-inline: 10px;
-          height: 65px;
-          max-width: 350px;
-          min-width: 150px;
-
-          @include media(max, 650px){
-            max-width: 250px;
-            min-width: 250px;
-          }
-        }
-      }
-    }
-
-    .descripcion-container{
-      position: relative;
-      width: 100%;
-      border-radius: 10px;
-      padding: 70px 20px 20px 0px;
-      background-color: #fff;
-      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-      display: grid;
-      justify-items: center;
-      overflow-x: hidden;
-      overflow-y: visible!important;
-      min-height: min-content!important;
-  
-      .title-morado{
-        background-color: var(--primary);
-        position: absolute;
-        top: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 60px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-  
-        .solicitud-title{
-          --c: #fff;
-          --fw: 700;
-          margin-bottom: 0px;
-          font-size: 22px;
-        }
-      }
-  
-      .btns-add-remove{
+        border-radius: 10px;
+        padding: 10px 0px 20px 0px;
         background-color: #fff;
         box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-        min-height: 65px;
-        height: 65px;
-        border-radius: 10px;
-        --c:var(--primary)!important;
-        font-size: 40px!important;
-      }
-  
-      .no-shadow{
-        box-shadow: none!important;
-        height: 30px;
-        min-height: 30px;
-        margin-top: 0px;
-        margin-right: -20px;
-        margin-bottom: 30px;
-        justify-self:flex-end;
-      }
-  
-      .solicitud-inputs-container{
-        width: 100%;
         display: flex;
-        align-items: center;
+        flex-direction: column;
         justify-content: center;
-        gap: 20px;
-        padding-inline: 10px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-  
-        @include media(max, 650px){
-          justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+        border: 1px solid var(--primary);
+        margin-bottom: 30px;
+    
+        .absolute-line{
+          width: 1px;
+          height: 90px;
+          background-color: var(--primary);
+          position: absolute;
+          top: 0px;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+    
+          @include media(max, 541px){
+            height: 1px;
+            width: 190px;
+          }
         }
-  
-        .big-autocomplete{
-          max-width: 500px;
-          box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-          border-radius: 10px;
-          border: 1px solid var(--primary);
-          padding-inline: 10px;
-          height: 65px;
-  
-          @include media(max, 1260px){
+    
+        .container-datos-contribuyente{
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: row;
+          justify-content: space-around;
+          gap: 10px;
+    
+          .title-description-div{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            gap: 20px;
+            height: 120px;
             min-width: 300px;
+    
+            @include media(max, 960px){
+              min-width: 200px;
+            }
+    
+            @include media(max, 780px){
+              width: 250px;
+            }
+    
+            .nombre-razon{
+              --c:#707070;
+              text-align: center;
+              margin-bottom: 0px;
+            }
+    
+            .nombre-desc{
+              --c:var(--primary);
+              --fw: 700;
+              font-size: 22px;
+              text-align: center;
+            }
+          }
+        }
+      }
+    
+    
+      .observaciones-container{
+        width: 100%;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 10px;
+        background-color: #fff;
+        box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
+        overflow-x: hidden;
+        margin-bottom: 20px;
+    
+        .title-observaciones{
+          --c: var(--primary);
+          --fw: 700;
+          font-size: 22px;
+          margin-bottom: 0px;
+        }
+    
+        .btn-mas{
+          background-color: #fff;
+          box-shadow: none!important;
+          font-size: 40px!important;
+          --c:var(--primary)!important;
+        }
+    
+        hr{
+          border: solid 1px rgba(#000000,0.1);
+          width: 130%;
+          margin-left: -20px;
+        }
+    
+        .textarea{
+          border-radius: 10px;
+          padding-inline: 10px;
+          box-shadow: 0px 0px 5px 3px rgba( #000000, 0.1)!important;
+          max-width: 90%;
+        }
+    
+        .textarea:active, .textarea:focus-within{
+          border: 1px solid var(--primary)!important;
+        }
+      }
+      
+      .descripcion-impuestos{
+        position: relative;
+        width: 100%;
+        border-radius: 10px;
+        padding: 90px 20px 20px 0px;
+        background-color: #fff;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        display: grid;
+        justify-items: center;
+        overflow-x: hidden;
+        margin-bottom: 30px;
+  
+        .title-morado{
+          background-color: var(--primary);
+          position: absolute;
+          top: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 70px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          padding-left: 20px;
+          padding-right: 20px;
+  
+          .impuestos-title{
+            --c: #fff;
+            --fw: 700;
+            margin-bottom: 0px;
+            font-size: 22px;
           }
         }
   
-        .small-input{
-          box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-          border-radius: 10px;
-          border: 1px solid var(--primary);
+        .solicitud-inputs-container{
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 20px;
           padding-inline: 10px;
-          height: 65px;
-          max-width: 225px;
-          min-width: 150px;
+          margin-bottom: 20px;
+          flex-wrap: wrap;
+          justify-content: center;
+  
+          .small-input{
+            box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+            border-radius: 10px;
+            border: 1px solid var(--primary);
+            padding-inline: 10px;
+            height: 65px;
+            max-width: 200px;
+            min-width: 150px;
+  
+            @include media(max, 650px){
+              max-width: 250px;
+              min-width: 250px;
+            }
+          }
+  
+          .big-input{
+            box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+            border-radius: 10px;
+            border: 1px solid var(--primary);
+            padding-inline: 10px;
+            height: 65px;
+            max-width: 350px;
+            min-width: 150px;
+  
+            @include media(max, 650px){
+              max-width: 250px;
+              min-width: 250px;
+            }
+          }
         }
       }
   
-      hr{
-        border: solid 1px rgba(#810880, 0.4);
-        width: 130%;
-        margin-left: -20px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-      }
-  
-      .div-btns{
-        max-width: 650px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-  
-        .size-btn{
-          width: 300px!important;
+      .descripcion-container{
+        position: relative;
+        width: 100%;
+        border-radius: 10px;
+        padding: 70px 20px 20px 0px;
+        background-color: #fff;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        display: grid;
+        justify-items: center;
+        overflow-x: hidden;
+        overflow-y: visible!important;
+        min-height: min-content!important;
+    
+        .title-morado{
+          background-color: var(--primary);
+          position: absolute;
+          top: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 60px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          padding-left: 20px;
+          padding-right: 20px;
+    
+          .solicitud-title{
+            --c: #fff;
+            --fw: 700;
+            margin-bottom: 0px;
+            font-size: 22px;
+          }
+        }
+    
+        .btns-add-remove{
+          background-color: #fff;
+          box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+          min-height: 65px;
+          height: 65px;
+          border-radius: 10px;
+          --c:var(--primary)!important;
+          font-size: 40px!important;
+        }
+    
+        .no-shadow{
+          box-shadow: none!important;
+          height: 30px;
+          min-height: 30px;
+          margin-top: 0px;
+          margin-right: -20px;
+          margin-bottom: 30px;
+          justify-self:flex-end;
+        }
+    
+        .solicitud-inputs-container{
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          padding-inline: 10px;
+          margin-bottom: 20px;
+          flex-wrap: wrap;
+    
+          @include media(max, 650px){
+            justify-content: center;
+          }
+    
+          .big-autocomplete{
+            max-width: 500px;
+            box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+            border-radius: 10px;
+            border: 1px solid var(--primary);
+            padding-inline: 10px;
+            height: 65px;
+    
+            @include media(max, 1260px){
+              min-width: 300px;
+            }
+          }
+    
+          .small-input{
+            box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+            border-radius: 10px;
+            border: 1px solid var(--primary);
+            padding-inline: 10px;
+            height: 65px;
+            max-width: 225px;
+            min-width: 150px;
+          }
+        }
+    
+        hr{
+          border: solid 1px rgba(#810880, 0.4);
+          width: 130%;
+          margin-left: -20px;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+    
+        .div-btns{
+          max-width: 650px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+    
+          .size-btn{
+            width: 300px!important;
+          }
         }
       }
     }
