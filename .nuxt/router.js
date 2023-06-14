@@ -6,6 +6,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 
 const _397c9650 = () => interopDefault(import('../pages/acceso.vue' /* webpackChunkName: "pages/acceso" */))
 const _36c8b099 = () => interopDefault(import('../pages/actualizacion-inmueble.vue' /* webpackChunkName: "pages/actualizacion-inmueble" */))
+const _0660347d = () => interopDefault(import('../pages/actualizacion-propietarios.vue' /* webpackChunkName: "pages/actualizacion-propietarios" */))
 const _7195851e = () => interopDefault(import('../pages/ambito.vue' /* webpackChunkName: "pages/ambito" */))
 const _743134f0 = () => interopDefault(import('../pages/avenida.vue' /* webpackChunkName: "pages/avenida" */))
 const _6c6705d6 = () => interopDefault(import('../pages/bcv.vue' /* webpackChunkName: "pages/bcv" */))
@@ -87,6 +88,10 @@ export const routerOptions = {
     path: "/actualizacion-inmueble",
     component: _36c8b099,
     name: "actualizacion-inmueble___en"
+  }, {
+    path: "/actualizacion-propietarios",
+    component: _0660347d,
+    name: "actualizacion-propietarios___en"
   }, {
     path: "/ambito",
     component: _7195851e,
@@ -327,6 +332,10 @@ export const routerOptions = {
     path: "/es/actualizacion-inmueble",
     component: _36c8b099,
     name: "actualizacion-inmueble___es"
+  }, {
+    path: "/es/actualizacion-propietarios",
+    component: _0660347d,
+    name: "actualizacion-propietarios___es"
   }, {
     path: "/es/ambito",
     component: _7195851e,

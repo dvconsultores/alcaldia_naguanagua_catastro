@@ -14,6 +14,13 @@
     "_name": "_36c8b099"
   },
   {
+    "name": "actualizacion-propietarios___en",
+    "path": "/actualizacion-propietarios",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-propietarios.vue",
+    "chunkName": "pages/actualizacion-propietarios",
+    "_name": "_0660347d"
+  },
+  {
     "name": "ambito___en",
     "path": "/ambito",
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
@@ -432,6 +439,13 @@
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-inmueble.vue",
     "chunkName": "pages/actualizacion-inmueble",
     "_name": "_36c8b099"
+  },
+  {
+    "name": "actualizacion-propietarios___es",
+    "path": "/es/actualizacion-propietarios",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-propietarios.vue",
+    "chunkName": "pages/actualizacion-propietarios",
+    "_name": "_0660347d"
   },
   {
     "name": "ambito___es",

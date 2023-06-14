@@ -294,19 +294,18 @@ export default {
 
   mounted(){
     this.getInmueble()
-    this.getInmueblePropietarios()
+    // this.getInmueblePropietarios()
   },
 
   methods: {
-    getInmueblePropietarios(){
-      this.$axios.$get('inmueble_propietarios/?propietario=' + this.$store.getters.getContribuyente.id).then(response => {
-        this.inmueblePropietariosData = response
-        console.log(this.inmueblePropietariosData, 'dataa')
-      
-      }).catch(err => {
-        console.log(err)
-      })
-    },
+    // getInmueblePropietarios(item){
+    //   this.$axios.$get(`inmueble_propietarios/inmueble=${item.id}`).then(response => {
+    //     this.inmueblePropietariosData = response
+    //     console.log(this.inmueblePropietariosData, 'dataa')
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    // },
 
     StoreExpedienteId(item) {
       this.$store.getters.getExpediente== undefined ? console.log('vacio') : console.log('lleno',this.$store.getters.getExpediente)
@@ -328,8 +327,17 @@ export default {
     },
 
     openDialog(item) {
-      this.selectedItem = { ...item }
-      this.dialog_mostrar = true
+      this.selectedItem = item
+      this.dialog_mostrar = true 
+    
+      // this.$axios.$get(`inmueble_propietarios/?inmueble=${item.id}`).then(response => {
+      //   this.inmueblePropietariosData = response
+      //   this.nombrePropietario = this.inmueblePropietariosData.propietario.nombre
+      //   console.log(this.inmueblePropietariosData, 'dataa')
+      //   this.dialog_mostrar = true
+      // }).catch(err => {
+      //   console.log(err)
+      // })
     },
   }
 };

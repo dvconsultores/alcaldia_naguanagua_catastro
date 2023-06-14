@@ -316,6 +316,12 @@
           </span>
         </div>
 
+        <div v-else-if="$route.path == '/actualizacion-propietarios'" class="divcol">
+          <span class="index-text">
+            Actualización de propietarios
+          </span>
+        </div>
+
         <div v-else class="divcol">
           <span class="index-text">
             Estado de cuenta de inmueble existente
