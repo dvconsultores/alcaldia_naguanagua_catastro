@@ -44,7 +44,7 @@
             Contribuyentes asociados al inmueble
           </p>
 
-          <div @click="openDialog = true">
+          <div @click="openDialog = true" v-if="numero_documento" >
             <v-btn id="btn-add-tabla">
               +
             </v-btn>
@@ -113,10 +113,10 @@
               Confirme los datos del contribuyente antes de asociarlo al inmueble
             </h5>
             <span class="desc-dialog">
-              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
+              {{nombrecontribuyente}}
             </span>
             <span class="desc-dialog">
-              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
+              {{nacionalidadcontribuyente}} - {{numero_documento}}
             </span>
           </div>
           <div class="center divrow" style="gap:10px;">
@@ -145,7 +145,9 @@ export default {
       inmuebleData:[],
       inmueblePropietariosData:[],
       search:'',
-
+      nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
+      nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
+      numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
       headers: [
         { text: 'Nombre', align: 'center', value: 'propietario.nombre',},
         { text: 'Nacionalidad', value: 'propietario.nacionalidad', align:'center' },
@@ -165,6 +167,7 @@ export default {
   },
 
   mounted(){
+    console.log('kdkdkdkd',this.$store.getters.getContribuyente)
     this.getInmueble()
     this.getIdInmueblePropietarios()
   },
@@ -189,20 +192,10 @@ export default {
     },
 
     agregarContribuyente(){
-      const data = {
-        inmueble: this.$store.getters.getExpediente,
-        propietario: this.$store.getters.getContribuyente,
-        // tipo_documento: this.$store.getters.getContribuyente.tipo_documento,
-        // nacionalidad: this.$store.getters.getContribuyente.nacionalidad,
-        // numero_documento: this.$store.getters.getContribuyente.numero_documento,
-        // nombre: this.$store.getters.getContribuyente.nombre,
-        // telefono_principal: this.$store.getters.getContribuyente.telefono_principal,
-        // telefono_secundario: this.$store.getters.getContribuyente.telefono_secundario,
-        // email_principal: this.$store.getters.getContribuyente.email_principal,
-        // emaill_secundario: this.$store.getters.getContribuyente.emaill_secundario,
-      }
-
-      this.$axios.$post(`inmueble_propietarios/?inmueble=${this.$store.getters.getExpediente.id}`, data).then(res => {
+      const formData = new FormData()
+      formData.append('inmueble', this.$store.getters.getExpediente.id)
+      formData.append('propietario', this.$store.getters.getContribuyente.id)
+      this.$axios.$post('CrearInmueblePropietario/', formData).then(res => {
         this.inmueblePropietariosData.push(res)
         this.$alert("success", {desc: "Se ha agregado el contribuyente con éxito", hash: 'knsddcssdc', title:'Agregado'})        
       }).catch(err => {
