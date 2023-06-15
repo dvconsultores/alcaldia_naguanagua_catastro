@@ -437,7 +437,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado una tasa con éxito", hash: 'knsddcssdc', title:'Eliminación de tasa'})   
-        const index = this.bcvData.findIndex((item) => item.id === this.defaultItem.id);
+        const index = this.bcvData.findIndex((item) => item.id === this.defaultItem.id)
         if (index !== -1) {
           this.bcvData.splice(index, 1);
         }     

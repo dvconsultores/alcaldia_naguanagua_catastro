@@ -93,7 +93,7 @@
                 </v-dialog>
               </v-toolbar>
             </template>
-            <template #[`item.actions`]="{ item }">
+            <!-- <template #[`item.actions`]="{ item }">
               <v-icon
                 color="#810880"
                 big
@@ -101,7 +101,7 @@
               >
                 mdi-delete
               </v-icon>
-            </template>
+            </template> -->
           </v-data-table>
         </div>
       </div>
@@ -142,6 +142,7 @@ export default {
   mixins: [computeds],
   data() {
     return{
+      dialogDelete: false,
       inmuebleData:[],
       inmueblePropietariosData:[],
       search:'',
@@ -204,8 +205,26 @@ export default {
 
       this.openDialog = false
     },  
-  }
 
+    // openDelete(item){
+    //   this.defaultItem = item
+    //   this.dialogDelete = true
+    // },
+
+    // deleteItem(){
+    //   this.$axios.$delete('inmueble_propietarios/?propietario='+ this.defaultItem.id + '/').then((res) => {
+    //     console.log(res.data)
+    //     this.dialogDelete = false
+    //     this.$alert("success", {desc: "Se ha eliminado con éxito", hash: 'knsddcssdc', title:'Eliminado'})   
+    //     const index = this.inmueblePropietariosData.findIndex((item) => item.id === this.defaultItem.id)
+    //     if (index !== -1) {
+    //       this.inmueblePropietariosData.splice(index, 1);
+    //     }     
+    //   }).catch((err) => {
+    //     console.log(err)
+    //   });
+    // },
+  }
 }
 </script>
 
