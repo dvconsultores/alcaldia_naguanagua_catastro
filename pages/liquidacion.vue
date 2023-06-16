@@ -15,7 +15,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
+              {{nombrecontribuyente}}
             </p>
           </div>
 
@@ -25,7 +25,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
+              {{nacionalidadcontribuyente}} - {{numero_documento}}
             </p>
           </div>
 
@@ -135,7 +135,7 @@
               </p>
 
               <p class="nombre-desc">
-                {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
+                {{ nombrecontribuyente }}
               </p>
             </div>
 
@@ -145,7 +145,7 @@
               </p>
 
               <p class="nombre-desc">
-                {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
+                {{ nacionalidadcontribuyente }} - {{ numero_documento }}
               </p>
             </div>
           </div>
@@ -274,6 +274,10 @@ export default {
       ],
 
       show_observaciones: false,
+      nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
+      nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
+      numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
+
     }
   },
 
@@ -285,6 +289,7 @@ export default {
   },
 
   mounted(){
+    this.redireccionIdVacio()
     this.getEstadosCuentas()
     this.getBCV()
     this.getCorrelativo()
@@ -301,6 +306,15 @@ export default {
   },
 
   methods: {
+    redireccionIdVacio(){
+      if(this.$store.getters.getContribuyente=='Sin Seleccionar'){
+        this.$router.push('modificar-datos')
+        this.$alert("cancel", {desc: "Debe seleccionar un contribuyente para ingresar a este modulo", hash: 'knsddcssdc', title:'Error'})
+      }else{
+        ''
+      }
+    },
+
     selectedField(index) {
       const div = this.divs[index]
       const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasamulta)

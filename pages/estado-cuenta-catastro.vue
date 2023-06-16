@@ -15,7 +15,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
+              {{ nombrecontribuyente }}
             </p>
           </div>
 
@@ -25,7 +25,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
+              {{nacionalidadcontribuyente}} - {{numero_documento}}
             </p>
           </div>
 
@@ -167,6 +167,9 @@ export default {
   data() {
     return{
       inmueblePropietariosData: [],
+      nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
+      nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
+      numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
     }
   },
 
@@ -179,10 +182,20 @@ export default {
 
   mounted(){
     this.getInmueblePropietarios()
+    this.redireccionIdVacio()
   },
 
 
   methods: {
+    redireccionIdVacio(){
+      if(this.$store.getters.getContribuyente=='Sin Seleccionar'){
+        this.$router.push('modificar-datos')
+        this.$alert("cancel", {desc: "Debe seleccionar un contribuyente para ingresar a este modulo", hash: 'knsddcssdc', title:'Error'})
+      }else{
+        ''
+      }
+    },
+
     redireccionarSolicitudInmuebleExistente(inmuebleId) {
       this.$router.push(`/solicitud-inmueble-existente/${inmuebleId}`)
     },

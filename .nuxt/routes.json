@@ -847,13 +847,6 @@
     "_name": "_c69d52d0"
   },
   {
-    "name": "liquidacion-inmueble-existente-id___es",
-    "path": "/es/liquidacion-inmueble-existente/:id?",
-    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/liquidacion-inmueble-existente/_id.vue",
-    "chunkName": "pages/liquidacion-inmueble-existente/_id",
-    "_name": "_20fe0745"
-  },
-  {
     "name": "solicitud-inmueble-existente-id___es",
     "path": "/es/solicitud-inmueble-existente/:id?",
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/solicitud-inmueble-existente/_id.vue",
@@ -866,13 +859,6 @@
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/verification-email/_verification.vue",
     "chunkName": "pages/verification-email/_verification",
     "_name": "_4cf18ef6"
-  },
-  {
-    "name": "liquidacion-inmueble-existente-id___en",
-    "path": "/liquidacion-inmueble-existente/:id?",
-    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/liquidacion-inmueble-existente/_id.vue",
-    "chunkName": "pages/liquidacion-inmueble-existente/_id",
-    "_name": "_20fe0745"
   },
   {
     "name": "solicitud-inmueble-existente-id___en",

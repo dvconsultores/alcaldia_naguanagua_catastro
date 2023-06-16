@@ -4,7 +4,7 @@
       <div class="impuestos-tasa-container">
         <div class="jspace center">
           <p class="title-impuestos-tasa">
-            Datos del inmueble: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.numero_expediente))}}
+            Datos del inmueble: {{ numero_expediente }}
           </p>
         </div>
 
@@ -157,6 +157,7 @@ export default {
       ],
 
       openDialog: false,
+      numero_expediente: this.$store.getters.getExpediente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getExpediente.numero_expediente)),
     }
   },
 
@@ -168,6 +169,7 @@ export default {
   },
 
   mounted(){
+    this.redireccionarIdInmueble()
     console.log('kdkdkdkd',this.$store.getters.getContribuyente)
     this.getInmueble()
     this.getIdInmueblePropietarios()
@@ -175,6 +177,13 @@ export default {
 
 
   methods: {
+    redireccionarIdInmueble(){
+      if(this.$store.getters.getExpediente === 'Sin Seleccionar'){
+        this.$router.push('modificar-datos')
+        this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este modulo", hash: 'knsddcssdc', title:'Error'})
+      }
+    },
+
     getInmueble() {
       this.$axios.$get('inmueble/' + this.$store.getters.getExpediente.id).then(response => {
           this.inmuebleData = response
