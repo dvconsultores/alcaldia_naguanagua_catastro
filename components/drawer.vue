@@ -36,7 +36,7 @@
                 active-class="drawer-active"
                 v-show="item.leer"
                 @click="$router.push(item.modulo)"
-              >{{ item.titulo_modulo }}
+              > <v-icon>{{ item.icono_modulo }}</v-icon> {{ item.titulo_modulo }}
               </v-list-item>
           </v-list>
           </v-expansion-panel-content>

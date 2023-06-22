@@ -139,7 +139,7 @@ export default {
         { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
       ambitoData: [],
-      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       menu: [],
       menu_opciones: [],
       defaultItem: {
