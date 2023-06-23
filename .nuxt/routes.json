@@ -21,6 +21,34 @@
     "_name": "_0660347d"
   },
   {
+    "name": "actualizar-construccion___en",
+    "path": "/actualizar-construccion",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-construccion.vue",
+    "chunkName": "pages/actualizar-construccion",
+    "_name": "_7c39ad3f"
+  },
+  {
+    "name": "actualizar-documento-propiedad___en",
+    "path": "/actualizar-documento-propiedad",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-documento-propiedad.vue",
+    "chunkName": "pages/actualizar-documento-propiedad",
+    "_name": "_4107f1e2"
+  },
+  {
+    "name": "actualizar-documentos-pendientes___en",
+    "path": "/actualizar-documentos-pendientes",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-documentos-pendientes.vue",
+    "chunkName": "pages/actualizar-documentos-pendientes",
+    "_name": "_d93c89c8"
+  },
+  {
+    "name": "actualizar-terreno___en",
+    "path": "/actualizar-terreno",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-terreno.vue",
+    "chunkName": "pages/actualizar-terreno",
+    "_name": "_c3d76ab0"
+  },
+  {
     "name": "ambito___en",
     "path": "/ambito",
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
@@ -446,6 +474,34 @@
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-propietarios.vue",
     "chunkName": "pages/actualizacion-propietarios",
     "_name": "_0660347d"
+  },
+  {
+    "name": "actualizar-construccion___es",
+    "path": "/es/actualizar-construccion",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-construccion.vue",
+    "chunkName": "pages/actualizar-construccion",
+    "_name": "_7c39ad3f"
+  },
+  {
+    "name": "actualizar-documento-propiedad___es",
+    "path": "/es/actualizar-documento-propiedad",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-documento-propiedad.vue",
+    "chunkName": "pages/actualizar-documento-propiedad",
+    "_name": "_4107f1e2"
+  },
+  {
+    "name": "actualizar-documentos-pendientes___es",
+    "path": "/es/actualizar-documentos-pendientes",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-documentos-pendientes.vue",
+    "chunkName": "pages/actualizar-documentos-pendientes",
+    "_name": "_d93c89c8"
+  },
+  {
+    "name": "actualizar-terreno___es",
+    "path": "/es/actualizar-terreno",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-terreno.vue",
+    "chunkName": "pages/actualizar-terreno",
+    "_name": "_c3d76ab0"
   },
   {
     "name": "ambito___es",

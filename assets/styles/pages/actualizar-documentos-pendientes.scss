@@ -1,0 +1,168 @@
+.section1-documentos-pendientes{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 15px 15px;
+
+  .documentos-faltante-container{
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    padding: 120px 20px 20px 20px;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    display: grid;
+    justify-items: center;
+    overflow-x: hidden;
+    margin-bottom: 30px;
+    gap: 25px;
+
+    .title-morado{
+      background-color: var(--primary);
+      position: absolute;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .documentos-faltante-title{
+        --c: #fff;
+        --fw: 700;
+        margin-bottom: 0px;
+        font-size: 22px;
+      }
+    }
+
+    .card-checkbox{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      padding-inline: 15px;
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+      background-color: #fff;
+      gap: 10px;
+      position: relative;
+
+      @include media(max, 600px){
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .span-float{
+        position: absolute;
+        top: -15px;
+        background-color: #fff;
+        border-radius: 14px!important;
+        padding-inline: 5px;
+        left: 10px;
+        color: rgba( gray, 0.7);
+        font-weight: 500!important;
+      }
+    }
+
+    .textarea-div{
+      width: 100%;
+      position: relative;
+      
+      .span-float{
+        position: absolute;
+        top: -12px;
+        background-color: #fff;
+        border-radius: 14px!important;
+        padding-inline: 5px;
+        left: 10px;
+        color: rgba( gray, 0.7);
+        font-weight: 500!important;
+      }
+
+      .textarea{
+        width: 100%;
+        border: 1px solid var(--primary);
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        padding-inline: 15px;
+      }
+    }
+  }
+
+  .btn-mobile{
+    @include media(max, 600px){
+      max-width: 200px!important;
+    }
+  }
+}
+
+
+////////Barrita transversal del input/////////
+//////////////////////////////////////////////
+
+
+.v-input__slot:before{
+  border-color: #fff!important;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before, 
+.v-text-field > .v-input__control > .v-input__slot:after {
+  width: 0%;
+}
+
+
+
+//////////////////dialog////////////////////
+/// ////////////////////
+/// 
+/// 
+
+
+.dialog-eliminar-card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+  .dialog-eliminar-card{
+    background-color: #fff;
+    height: 220px;
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    .title{
+      color:var(--primary);
+      font-weight:700!important;
+      font-size: 1.5em!important;
+    }
+
+    .alerta-text{
+      color:#707070;
+      font-size: 1.1em;
+      font-weight: 700!important;
+    }
+
+    .dialog-btn{
+      max-width: 150px!important;
+    }
+  }
+}

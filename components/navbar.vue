@@ -2,7 +2,7 @@
   <div class="header-container no-padding">
     <section class="section-header">
       <div class="divrow astart" style="margin-left: 20px;">
-        <v-icon @click="$router.push('/dashboard')">mdi-chevron-left</v-icon>
+        <v-icon @click="goBack()">mdi-chevron-left</v-icon>
 
         <div v-if="$route.path == '/dashboard'" class="divcol">
           <span class="index-text">
@@ -322,6 +322,30 @@
           </span>
         </div>
 
+        <div v-else-if="$route.path == '/actualizar-documentos-pendientes'" class="divcol">
+          <span class="index-text">
+            Actualización de Documentos Pendientes
+          </span>
+        </div>
+
+        <div v-else-if="$route.path == '/actualizar-construccion'" class="divcol">
+          <span class="index-text">
+            Actualizar Construcción
+          </span>
+        </div>
+
+        <div v-else-if="$route.path == '/actualizar-terreno'" class="divcol">
+          <span class="index-text">
+            Actualizar Terreno
+          </span>
+        </div>
+
+        <div v-else-if="$route.path == '/actualizar-documento-propiedad'" class="divcol">
+          <span class="index-text">
+            Actualizar Documento de Propieda
+          </span>
+        </div>
+
         <div v-else class="divcol">
           <span class="index-text">
             Estado de cuenta de inmueble existente
@@ -343,13 +367,13 @@
           <span class="span-saludo">
             Inmueble
           </span>
-          <span class="span-admin tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
+          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
            Expediente Nro.: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.numero_expediente))}}
           </span>
-          <span class="span-admin tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
+          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
            Urbanizacion: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.nombre_urbanizacion))}}
           </span>
-          <span class="span-admin tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
+          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
            Conjunto Residencial: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.nombre_conjunto_residencial))}}
           </span>
         </div>
@@ -358,13 +382,13 @@
           <span class="span-saludo">
            Contribuyente
           </span>
-          <span class="span-admin tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
+          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
             Tipo de Documento: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.tipo_documento))}}
           </span>
-          <span class="span-admin tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
+          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
             Número Documento: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
           </span>
-          <span class="span-admin tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
+          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
             Nombre: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
           </span>
         </div>
@@ -373,7 +397,7 @@
           <span class="span-saludo tcenter">
             ¡Hola Usuario 234!
           </span>
-          <span class="span-admin tcenter">
+          <span class="span-saludo tcenter">
             Administrador
           </span>
         </div>
@@ -395,7 +419,9 @@ export default {
     };
   },
   methods: {
-    
+    goBack() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>

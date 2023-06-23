@@ -1,0 +1,217 @@
+.section1-actualizar-documento{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 25px;
+
+  .actualizar-documento-container{
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    padding: 80px 0px 0px 0px;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 0px;
+
+    .title-morado{
+      background-color: var(--primary);
+      position: absolute;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .actualizar-documento-title{
+        --c: #fff;
+        --fw: 700;
+        margin-bottom: 0px;
+        font-size: 22px;
+      }
+    }
+
+    .div50{
+      padding: 40px 20px 40px 20px;
+      gap: 10px;
+      width: 100%;
+      @include media(max, 750px){flex-wrap: wrap;}
+
+      .input-50{
+        width: 100%;
+        box-shadow: 0px 0px 5px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        // border: 1px solid var(--primary);
+        padding-inline: 10px;
+        padding-block: 10px;
+        height: 55px;
+        min-width: 250px;
+      }
+    }
+
+    .div-card{
+      padding: 0px 20px 40px 20px;
+      gap: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+
+      @include media(max, 1225px){
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 30px;
+      }
+
+      .input-middle{
+        width: 100%;
+        min-width: 280px;
+        box-shadow: 0px 0px 5px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        padding-inline: 10px;
+        padding-block: 10px;
+        height: 55px;
+        max-width: 800px!important;
+      }
+
+      .input-300{
+        width: 100%;
+        min-width: 170px;
+        box-shadow: 0px 0px 5px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        padding-inline: 10px;
+        padding-block: 10px;
+        height: 55px;
+        max-width: 280px!important;
+      }
+
+      .border-card-title-top{
+        position: relative;
+        padding: 10px;
+        border: 2px solid var(--primary);
+        background-color: transparent;
+        border-radius: 10px;
+        display: flex;
+        gap: 10px;
+        width: max-content;
+        min-width: 280px;
+
+        .span-float{
+          position: absolute;
+          border-radius: 15px!important;
+          padding-block: 3.5px;
+          padding-inline: 10px;
+          background-color: var(--primary)!important;
+          color: #fff;
+          --fw: 700;
+          top: -22px;
+          left: 10px;
+        }
+
+        .input-date{
+          width: 100%;
+          box-shadow: 0px 0px 5px 3px rgba( #000000, 0.1)!important;
+          border-radius: 10px;
+          padding-inline: 10px;
+          padding-block: 10px;
+          height: 55px;
+          max-width: 100px;
+        }
+
+        .input-date:last-of-type{
+          border: 1px solid var(--primary);
+        }
+      }
+    }
+  }
+
+  .btn-mobile{
+    @include media(max, 600px){
+      max-width: 200px!important;
+    }
+  }
+
+
+  .delete-1200{
+    @include media(max, 1200px){
+      display: none;
+    }
+  }
+}
+
+
+////////Barrita transversal del input/////////
+//////////////////////////////////////////////
+
+
+.v-input__slot:before{
+  border-color: #fff!important;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before, 
+.v-text-field > .v-input__control > .v-input__slot:after {
+  width: 0%;
+}
+
+
+
+
+//////////////////dialog////////////////////
+/// ////////////////////
+/// 
+/// 
+
+
+.dialog-guardar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+  .guardar-card{
+    background-color: #fff;
+    height: 220px;
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    .title{
+      color:var(--primary);
+      font-weight:700!important;
+      font-size: 1.5em!important;
+    }
+
+    .alerta-text{
+      color:#707070;
+      font-size: 1.1em;
+      font-weight: 700!important;
+    }
+
+    .dialog-btn{
+      max-width: 150px!important;
+    }
+  }
+}
