@@ -222,7 +222,7 @@
 
         <div v-else-if="$route.path == '/regimen'" class="divcol">
           <span class="index-text">
-            Regimen
+            Régimen
           </span>
         </div>
 
@@ -318,7 +318,7 @@
 
         <div v-else-if="$route.path == '/actualizacion-propietarios'" class="divcol">
           <span class="index-text">
-            Actualización de propietarios
+            Actualización de Propietarios
           </span>
         </div>
 
@@ -343,6 +343,18 @@
         <div v-else-if="$route.path == '/actualizar-documento-propiedad'" class="divcol">
           <span class="index-text">
             Actualizar Documento de Propieda
+          </span>
+        </div>
+
+        <div v-else-if="$route.path == '/actualizacion-ubicacion-parcela'" class="divcol">
+          <span class="index-text">
+            Actualizar Ubicación de Parcela
+          </span>
+        </div>
+
+        <div v-else-if="$route.path == '/actualizar-valoracion-economica'" class="divcol">
+          <span class="index-text">
+            Actualizar Valoración Económica
           </span>
         </div>
 

@@ -7,10 +7,12 @@ import scrollBehavior from './router.scrollBehavior.js'
 const _397c9650 = () => interopDefault(import('../pages/acceso.vue' /* webpackChunkName: "pages/acceso" */))
 const _36c8b099 = () => interopDefault(import('../pages/actualizacion-inmueble.vue' /* webpackChunkName: "pages/actualizacion-inmueble" */))
 const _0660347d = () => interopDefault(import('../pages/actualizacion-propietarios.vue' /* webpackChunkName: "pages/actualizacion-propietarios" */))
+const _03265804 = () => interopDefault(import('../pages/actualizacion-ubicacion-parcela.vue' /* webpackChunkName: "pages/actualizacion-ubicacion-parcela" */))
 const _7c39ad3f = () => interopDefault(import('../pages/actualizar-construccion.vue' /* webpackChunkName: "pages/actualizar-construccion" */))
 const _4107f1e2 = () => interopDefault(import('../pages/actualizar-documento-propiedad.vue' /* webpackChunkName: "pages/actualizar-documento-propiedad" */))
 const _d93c89c8 = () => interopDefault(import('../pages/actualizar-documentos-pendientes.vue' /* webpackChunkName: "pages/actualizar-documentos-pendientes" */))
 const _c3d76ab0 = () => interopDefault(import('../pages/actualizar-terreno.vue' /* webpackChunkName: "pages/actualizar-terreno" */))
+const _393898c4 = () => interopDefault(import('../pages/actualizar-valoracion-economica.vue' /* webpackChunkName: "pages/actualizar-valoracion-economica" */))
 const _7195851e = () => interopDefault(import('../pages/ambito.vue' /* webpackChunkName: "pages/ambito" */))
 const _743134f0 = () => interopDefault(import('../pages/avenida.vue' /* webpackChunkName: "pages/avenida" */))
 const _6c6705d6 = () => interopDefault(import('../pages/bcv.vue' /* webpackChunkName: "pages/bcv" */))
@@ -96,6 +98,10 @@ export const routerOptions = {
     component: _0660347d,
     name: "actualizacion-propietarios___en"
   }, {
+    path: "/actualizacion-ubicacion-parcela",
+    component: _03265804,
+    name: "actualizacion-ubicacion-parcela___en"
+  }, {
     path: "/actualizar-construccion",
     component: _7c39ad3f,
     name: "actualizar-construccion___en"
@@ -111,6 +117,10 @@ export const routerOptions = {
     path: "/actualizar-terreno",
     component: _c3d76ab0,
     name: "actualizar-terreno___en"
+  }, {
+    path: "/actualizar-valoracion-economica",
+    component: _393898c4,
+    name: "actualizar-valoracion-economica___en"
   }, {
     path: "/ambito",
     component: _7195851e,
@@ -356,6 +366,10 @@ export const routerOptions = {
     component: _0660347d,
     name: "actualizacion-propietarios___es"
   }, {
+    path: "/es/actualizacion-ubicacion-parcela",
+    component: _03265804,
+    name: "actualizacion-ubicacion-parcela___es"
+  }, {
     path: "/es/actualizar-construccion",
     component: _7c39ad3f,
     name: "actualizar-construccion___es"
@@ -371,6 +385,10 @@ export const routerOptions = {
     path: "/es/actualizar-terreno",
     component: _c3d76ab0,
     name: "actualizar-terreno___es"
+  }, {
+    path: "/es/actualizar-valoracion-economica",
+    component: _393898c4,
+    name: "actualizar-valoracion-economica___es"
   }, {
     path: "/es/ambito",
     component: _7195851e,
