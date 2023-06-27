@@ -1045,3 +1045,11 @@
   --fw:700!important;
 }
 
+.v-label--active{
+  background-color: var(--bg-ap);
+  color: #000!important;
+  --fw: 500;
+  margin-top: -5px;
+  padding-inline: 10px;
+  border-radius: 15px;
+}
