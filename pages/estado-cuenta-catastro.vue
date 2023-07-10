@@ -38,14 +38,14 @@
             </span>
           </v-card>
 
-          <v-card class="cards-estado-cuenta" @click="$router.push('estado-cuenta-taquilla')">
+          <!-- <v-card class="cards-estado-cuenta" @click="$router.push('estado-cuenta-taquilla')">
             <v-icon class="icon-card">
               mdi-gavel
             </v-icon>
             <span class="title-card">
               Estado de cuenta taquilla
             </span>
-          </v-card>
+          </v-card> -->
         </div>
       </div>
 

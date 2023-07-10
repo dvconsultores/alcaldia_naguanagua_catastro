@@ -4,7 +4,7 @@
       <div class="creacion-container">
         <div class="divrow jspace" style="width:100%;">
           <p class="title-inscripcion-inmueble">
-            Creación de estado de solicitud
+            Creación de estado de cuenta
           </p>
 
           <span class="title-inscripcion-inmueble">
@@ -15,7 +15,7 @@
         <hr>
 
         <div class="container-creacion-datos">
-          <div class="title-description-div">
+          <!-- <div class="title-description-div">
             <p class="nombre-razon">
               Nro. Recibo
             </p>
@@ -23,7 +23,7 @@
             <p class="nombre-desc">
               {{numeroCorrelativo}}
             </p>
-          </div>
+          </div> -->
 
           <div class="title-description-div">
             <p class="nombre-razon">
@@ -45,7 +45,7 @@
             </p>
           </div>
 
-          <div class="title-description-div">
+          <div class="title-description-div" style="border-right: none!important;">
             <p class="nombre-razon">
               CI / RIF / Pasaporte
             </p>
@@ -59,7 +59,7 @@
 
       <div class="flujo-container">
         <p class="title-inscripcion-inmueble">
-          Seleccione el tipo de estado de cuenta 
+          Seleccione el Tipo
         </p>
 
         <hr>
@@ -131,7 +131,7 @@
 
           <v-text-field
           class="small-input mobile-inputs"
-          label="Monto UT"
+          label="Monto"
           readonly
           v-model="div.monto_unidad_tributaria"
           ></v-text-field>
@@ -142,6 +142,7 @@
           label="Cantidad"
           @input="multiplicarValor(index)"
           :value="1"
+          type="number"
           ></v-text-field>
 
           <v-text-field

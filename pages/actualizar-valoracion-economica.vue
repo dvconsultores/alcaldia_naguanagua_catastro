@@ -11,13 +11,15 @@
           <v-row>
             <v-col lg="3" md="12" class="pl-0 pr-0 divrow aend divcolmobile">
               <v-text-field
+              v-model="dataValoracionTerreno.area"
               class="input-small outlined"
               label="Área (m2)"
               ></v-text-field> 
 
               <v-autocomplete
+              v-model="tipologia"
               class="input-small outlined"
-              label="Tipología"
+              label="Uso"
               :items="dataTipologia"
               item-text="descripcion"
               item-value="id"
@@ -26,6 +28,7 @@
 
             <v-col lg="3" md="12" class="pl-0 pr-0 divrow aend divcolmobile">
               <v-autocomplete
+              v-model="fines_fiscales"
               class="input-small"
               label="Fines Fiscales"
               :items="dataFinesFiscales"
@@ -34,8 +37,11 @@
               ></v-autocomplete>  
 
               <v-text-field
+              v-model="valor_unitario"
               class="input-small outlined"
               label="Valor Unitario Bs/m2"
+              type="number"
+              hide-spin-buttons	
               ></v-text-field> 
             </v-col>
 
@@ -46,11 +52,15 @@
                 </span>
 
                 <v-text-field
+                v-model="area_factor_ajuste"
                 class="input-date"
                 label="Área (m2)"
+                type="number"
+                hide-spin-buttons	
                 ></v-text-field>
 
                 <v-autocomplete
+                v-model="forma_factor_ajuste"
                 class="input-date"
                 label="Forma"
                 :items="dataForma"
@@ -62,13 +72,19 @@
 
             <v-col lg="3" md="12" class="pl-0 pr-0 divrow aend divcolmobile">
               <v-text-field
+              type="number"
+              v-model="valor_ajustado"
               class="input-small"
               label="Valor Ajustado Bs/m2"
+              hide-spin-buttons	
               ></v-text-field> 
 
               <v-text-field
+              v-model="valor_total"
+              type="number"
               class="input-small outlined"
               label="Valor Total"
+              hide-spin-buttons	
               ></v-text-field> 
             </v-col>
           </v-row>
@@ -87,9 +103,9 @@
             <v-col lg="7" class="divrow pr-0">
               <v-text-field
               class="input-small outlined"
-              label="Tipología"
+              label="Uso"
+              :value="item.uso"
               readonly
-              :value="item.tipologia"
               ></v-text-field>
 
               <v-text-field
@@ -99,19 +115,19 @@
               :value="item.fecha_compra"
               ></v-text-field>
 
-              <v-text-field
-              class="input-small outlined"
-              label="Trimestre"
-              readonly
-              :value="item.trimestre"
-              ></v-text-field>
+              <v-card
+              class="input-small outlined center"
+              style="background: #fff;"
+              >
+                <v-checkbox readonly v-model="item.sub_utilizado" label="Sub-Utilizado"></v-checkbox>
+              </v-card>
 
-              <v-text-field
+              <!-- <v-text-field
               class="input-small outlined"
               label="Año"
               readonly
               :value="item.anio"
-              ></v-text-field>
+              ></v-text-field> -->
 
               <v-text-field
               class="input-small outlined"
@@ -148,7 +164,9 @@
                 </v-icon>
               </v-btn>
             </v-col>
+          </v-row>
 
+          <v-row>
             <v-col md="2">
               <v-text-field
               class="input-small outlined"
@@ -300,7 +318,7 @@
               <v-autocomplete
               class="input-small"
               label="Tipología"
-              v-model="tipologia"
+              v-model="uso"
               :items="dataTipologia"
               item-text="descripcion"
               item-value="id"
@@ -339,20 +357,6 @@
             <v-col lg="12" class="divrow pr-0">
               <v-text-field
               class="input-small"
-              label="Trimestre"
-              v-model="trimestre"
-              ></v-text-field>
-
-              <v-text-field
-              class="input-small"
-              label="Año"
-              v-model="anio"
-              ></v-text-field>
-            </v-col>
-
-            <v-col lg="12" class="divrow pr-0">
-              <v-text-field
-              class="input-small"
               label="Área (m2)"
               v-model="area"
               ></v-text-field> 
@@ -375,6 +379,15 @@
               class="input-small"
               label="Valor Actual Bs"
               ></v-text-field> 
+            </v-col>
+
+            <v-col lg="6" class="divrow pr-0">
+              <v-card
+              class="input-small outlined center"
+              style="background: #fff;"
+              >
+                <v-checkbox v-model="sub_utilizado" label="Sub-Utilizado"></v-checkbox>
+              </v-card>
             </v-col>
             </v-row>
           </v-container>
@@ -415,10 +428,9 @@ export default {
       show_observaciones: false,
       dataConstruccion:[
         {
-          tipologia:"",
+          uso:"",
           fecha_compra:"",
-          trimestre:"",
-          anio:"",
+          sub_utilizado: false,
           area:"",
           valor:"",
           depreciacion:"",
@@ -426,10 +438,26 @@ export default {
         },
       ],
 
+      ///data inmueble terreno
+
+      area: null,
+      area_factor_ajuste: null,
+      fines_fiscales: null,
+      forma_factor_ajuste: null,
+      id: null,
+      inmueble: null,
+      observaciones: null,
+      tipologia: null,
+      valor_ajustado: null,
+      valor_total: null,
+      valor_unitario: null,
+
       selectedDate: null,
-      dataTipologia:[],
-      dataFinesFiscales:[],
-      dataForma:[],
+      dataTipologia: [],
+      dataFinesFiscales: [],
+      dataForma: [],
+      dataValoracionTerreno:{},
+      inmuebleId: this.$store.getters.getExpediente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getExpediente.id)),
     }
   },
   head() {
@@ -443,9 +471,30 @@ export default {
     this.getTipologia()
     this.getFinesFiscales()
     this.getForma()
+    this.getInmuebleValoracionTerreno()
   },
 
   methods: {
+    getInmuebleValoracionTerreno(){
+      this.$axios.$get(`inmueble_valoracion_terreno/?inmueble=${this.inmuebleId}`).then(response => {
+        this.dataValoracionTerreno = response[0]
+        this.area = this.dataValoracionTerreno.area
+        this.area_factor_ajuste = this.dataValoracionTerreno.area_factor_ajuste
+        this.fines_fiscales = this.dataValoracionTerreno.fines_fiscales
+        this.forma_factor_ajuste = this.dataValoracionTerreno.forma_factor_ajuste
+        this.id = this.dataValoracionTerreno.id
+        this.inmueble = this.dataValoracionTerreno.inmueble
+        this.observaciones = this.dataValoracionTerreno.observaciones
+        this.tipologia = this.dataValoracionTerreno.tipologia
+        this.valor_ajustado = this.dataValoracionTerreno.valor_ajustado
+        this.valor_total = this.dataValoracionTerreno.valor_total
+        this.valor_unitario = this.dataValoracionTerreno.valor_unitario
+        console.log(this.dataValoracionTerreno.area, 'valoracion')
+      }).catch(err => {
+        console.log(err)
+      })
+    },  
+
     getTipologia(){
       this.$axios.$get('tipologia').then(response => {
         this.dataTipologia = response
@@ -472,10 +521,9 @@ export default {
 
     addDiv(){
       this.dataConstruccion.push({
-          tipologia: this.tipologia,
+          uso: this.uso,
           fecha_compra: this.fecha_compra,
-          trimestre: this.trimestre,
-          anio: this.anio,
+          sub_utilizado: this.sub_utilizado,
           area: this.area,
           valor: this.area,
           depreciacion: this.depreciacion,
@@ -490,8 +538,8 @@ export default {
 
     formatoFecha() {
       if (this.selectedDate) {
-        const formatted = moment(this.selectedDate).format('YYYY-MM-DD HH:mm:ss');
-        this.fecha_compra = formatted;
+        const formatted = moment(this.selectedDate).format('YYYY-MM-DD HH:mm:ss')
+        this.fecha_compra = formatted
       }
     },
   }
