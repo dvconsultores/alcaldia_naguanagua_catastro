@@ -10,29 +10,45 @@
 
         <div class="div-autocomplete">
           <v-autocomplete
+          v-model="dataInmuebleConstruccion.tipo"
           class="input-select"
           label="Tipo"
+          :items="dataTipoInmueble"
+          item-text="descripcion"
+          item-value="id"
           ></v-autocomplete>
         </div>
         <v-divider vertical class="purple delete-1200"></v-divider>
         <div class="div-autocomplete">
           <v-autocomplete
+          v-model="dataInmuebleConstruccion.uso_construccion"
           class="input-select input-select-no-border"
           label="Descripción de Uso"
+          :items="dataUsoConstruccion"
+          item-text="descripcion"
+          item-value="id"
           ></v-autocomplete>
         </div>
         <v-divider vertical class="purple delete-1200"></v-divider>
         <div class="div-autocomplete">
           <v-autocomplete
+          v-model="dataInmuebleConstruccion.tenencia"
           class="input-select"
           label="Tenencia"
+          :items="dataTenencia"
+          item-text="descripcion"
+          item-value="id"
           ></v-autocomplete>
         </div>
         <v-divider vertical class="purple delete-1200"></v-divider>
         <div class="div-autocomplete">
           <v-autocomplete
+          v-model="dataInmuebleConstruccion.regimen"
           class="input-select input-select-no-border"
           label="Régimen de Propiedad"
+          :items="dataRegimen"
+          item-text="descripcion"
+          item-value="id"
           ></v-autocomplete>
         </div>
       </div>
@@ -48,7 +64,7 @@
           <div v-for="(item, index) in dataTipoPared" :key="index" class="divrow center" style="gap: 10px; width: 100%;">
             <v-text-field
             class="input-select"
-            label="Tipo de Pared"
+            label="Soperte"
             :value="item.tipo_pared"
             readonly
             ></v-text-field>
@@ -60,10 +76,10 @@
           </div>
           <div class="divrow center" style="gap: 10px; width: 100%;">
             <v-autocomplete
-            v-model="tipoParedAuto"
+            v-model="soporteAuto"
             class="input-select"
             label="Tipo de Pared"
-            :items="tipoParedItems"
+            :items="soporteItems"
             ></v-autocomplete>
             <v-btn @click="addDiv" class="btn-delete">
               <v-icon>
@@ -92,7 +108,9 @@
             v-model="techoAuto"
             class="input-select"
             label="Techo"
-            :items="techoItems"
+            :items="dataTecho"
+            item-text="descripcion"
+            item-valu="id"
             ></v-autocomplete>
             <v-btn @click="addDivTecho" class="btn-delete">
               <v-icon>
@@ -121,7 +139,9 @@
             v-model="cubiertaAuto"
             class="input-select"
             label="Cubierta"
-            :items="cubiertaItems"
+            :items="dataCubierta"
+            item-text="descripcion"
+            item-valu="id"
             ></v-autocomplete>
             <v-btn @click="addDivCubierta" class="btn-delete">
               <v-icon>
@@ -141,22 +161,34 @@
 
         <div class="div-autocomplete">
           <v-autocomplete
+          v-model="dataInmuebleConstruccion.tipo_pared"
           class="input-select"
           label="Tipo de Pared"
+          :items="dataTipoPared"
+          item-text="descripcion"
+          item-valu="id"
           ></v-autocomplete>
         </div>
         <v-divider vertical class="purple delete-1200"></v-divider>
         <div class="div-autocomplete">
           <v-autocomplete
+          v-model="dataInmuebleConstruccion.acabado_pared"
           class="input-select input-select-no-border"
           label="Estado de la Pared"
+          :items="dataAcabadoPared"
+          item-text="descripcion"
+          item-valu="id"
           ></v-autocomplete>
         </div>
         <v-divider vertical class="purple delete-1200"></v-divider>
         <div class="div-autocomplete">
           <v-autocomplete
+          v-model="dataInmuebleConstruccion.conservacion"
           class="input-select"
           label="Estado de Conservación"
+          :items="dataConservacion"
+          item-text="descripcion"
+          item-valu="id"
           ></v-autocomplete>
         </div>
       </div>
@@ -169,39 +201,52 @@
         </div>
 
         <div class="div-otros-datos-autocomplete">
-          <v-autocomplete
+          <v-text-field
+          v-model="dataInmuebleConstruccion.anio_construccion"
           class="input-otros-datos"
           label="Año de Construcción"
-          ></v-autocomplete>
+          type="number"
+          ></v-text-field>
 
-          <v-autocomplete
+          <v-text-field
+          v-model="dataInmuebleConstruccion.anio_refaccion"
           class="input-otros-datos input-select-no-border"
           label="Año de Refacción"
-          ></v-autocomplete>
+          type="number"
+          ></v-text-field>
 
-          <v-autocomplete
+          <v-text-field
+          v-model="dataInmuebleConstruccion.porcentaje_refaccion"
           class="input-otros-datos"
           label="% Refacción"
-          ></v-autocomplete>
+          type="number"
+          ></v-text-field>
 
-          <v-autocomplete
+          <v-text-field
+          v-model="dataInmuebleConstruccion.edad_efectiva"
           class="input-otros-datos input-select-no-border"
           label="Edad Efectiva"
-          ></v-autocomplete>
+          type="number"
+          ></v-text-field>
 
-          <v-autocomplete
+          <v-text-field
+          v-model="dataInmuebleConstruccion.numero_niveles"
           class="input-otros-datos"
           label="Nro. de Niveles"
-          ></v-autocomplete>
+          type="number"
+          ></v-text-field>
 
-          <v-autocomplete
+          <v-text-field
+          v-model="dataInmuebleConstruccion.numero_edificaciones"
           class="input-otros-datos input-select-no-border"
           label="Nro. de Edificaciones"
-          ></v-autocomplete>
+          type="number"
+          ></v-text-field>
         </div>
 
         <div class="div-observaciones">
           <v-textarea
+          v-model="dataInmuebleConstruccion.observaciones"
           class="textarea"
           label="Observaciones"
           ></v-textarea>
@@ -223,7 +268,7 @@
         <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
           <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color:#ED057E!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -240,19 +285,32 @@ export default {
   mixins: [computeds],
   data() {
     return {  
-      dialog_confirmar: false,
-
-      tipoParedAuto: null,
-      tipoParedItems: ["Madera", "concreto"],
-      dataTipoPared:[{tipo_pared: "Concreto Armado",}],
+      soporteAuto: null,
+      soporteItems: ["Madera", "concreto"],
+      // dataTipoPared:[{tipo_pared: "Concreto Armado",}],
 
       techoAuto: null,
       techoItems: ["Madera", "Zinc"],
-      dataTecho:[{techo: "Madera",}],
+      // dataTecho:[{techo: "Madera",}],
 
       cubiertaAuto: null,
       cubiertaItems: ["Hormigon", "concreto"],
-      dataCubierta:[{tipo_pared: "Hormigon",}],
+      // dataCubierta:[{tipo_pared: "Hormigon",}],
+
+      dataTipoPared: [],
+      dataTecho: [],
+      dataCubierta: [],
+      dataTipoInmueble: [],
+      dataUsoConstruccion:[],
+      dataTenencia: [],
+      dataRegimen: [],
+      dataInmuebleConstruccion: [],
+      dataAcabadoPared: [],
+      dataConservacion: [],
+
+      btnGuardarInmuble: false,
+
+      dialog_confirmar: false,
     }
   },
   head() {
@@ -262,13 +320,113 @@ export default {
     }
   },
 
-  mounted(){
-
+  created(){
+    this.redireccionIdVacio()
+    this.getInmuebleConstruccion()
+    this.getTipoPared()
+    this.getCubierta()
+    this.getTecho()
+    this.getTipoInmueble()
+    this.getUsoConstruccion()
+    this.getTenencia()
+    this.getRegimen()
+    this.getAcabadoPared()
+    this.getConservacion()
   },
 
   methods: {
+    redireccionIdVacio(){
+      if(this.$store.getters.getExpediente =='Sin Seleccionar'){
+        this.$router.push('modificar-datos')
+        this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este modulo", hash: 'knsddcssdc', title:'Error'})
+      }else{
+        ''
+      }
+    },
+
+    getInmuebleConstruccion(){
+      this.$axios.$get('inmueble_construccion/?inmueble=' + this.$store.getters.getExpediente.id).then(response => {
+        this.dataInmuebleConstruccion = response
+        console.log(this.dataInmuebleConstruccion, 'indeindneidnaibfe')
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getConservacion(){
+      this.$axios.$get('conservacion').then(response => {
+        this.dataConservacion = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getAcabadoPared(){
+      this.$axios.$get('acabado_pared').then(response => {
+        this.dataAcabadoPared = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getRegimen(){
+      this.$axios.$get('regimen').then(response => {
+        this.dataRegimen = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getTenencia(){
+      this.$axios.$get('tipotenencia').then(response => {
+        this.dataTenencia = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getUsoConstruccion(){
+      this.$axios.$get('uso_construccion').then(response => {
+        this.dataUsoConstruccion = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getTipoInmueble(){
+      this.$axios.$get('tipoinmueble').then(response => {
+        this.dataTipoInmueble = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getTipoPared(){
+      this.$axios.$get('tipo_pared').then(response => {
+        this.dataTipoPared = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getTecho(){
+      this.$axios.$get('techo').then(response => {
+        this.dataTecho = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getCubierta(){
+      this.$axios.$get('cubierta').then(response => {
+        this.dataCubierta = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
     addDiv(){
-      this.dataTipoPared.push({tipo_pared: this.tipoParedAuto});
+      this.dataTipoPared.push({tipo_pared: this.soporteAuto});
     },  
 
     deleteItem(index) {
@@ -290,6 +448,39 @@ export default {
     deleteItemCubierta(index) {
       this.dataCubierta.splice(index, 1);
     },
+
+    saveData() {
+      this.btnGuardarInmuble = true
+
+      const formData = new FormData();
+      formData.append('numero_expediente', this.dataInmuebleConstruccion.tipo);
+      formData.append('fecha_inscripcion', this.dataInmuebleConstruccion.uso_construccion);
+      formData.append('numero_documento', this.dataInmuebleConstruccion.tenencia);
+      formData.append('status', this.dataInmuebleConstruccion.regimen);
+      formData.append('ambito', this.dataInmuebleConstruccion.tipo_pared);
+      formData.append('sector', this.dataInmuebleConstruccion.acabado_pared);
+      formData.append('manzana', this.dataInmuebleConstruccion.conservacion);
+      formData.append('parcela', this.dataInmuebleConstruccion.anio_construccion);
+      formData.append('subparcela', this.dataInmuebleConstruccion.anio_refaccion);
+      formData.append('nivel', this.dataInmuebleConstruccion.porcentaje_refaccion);
+      formData.append('unidad', this.dataInmuebleConstruccion.edad_efectiva);
+      formData.append('urbanizacion', this.dataInmuebleConstruccion.numero_niveles);
+      formData.append('urbanizacion', this.dataInmuebleConstruccion.numero_edificaciones);
+      formData.append('urbanizacion', this.dataInmuebleConstruccion.observaciones);
+
+      this.$axios.$patch(`inmueble_construccion/?inmueble=${this.$store.getters.getExpediente.id}/`, formData)
+      .then(res => {
+        console.log(res.data)
+        this.btnGuardarInmuble = false
+        this.dialog_confirmar = false
+        this.$alert("success", { desc: "Se ha guardado un inmueble con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
+      })
+      .catch(err => {
+        console.error(err)
+        this.btnGuardarInmuble = false
+        this.dialog_confirmar = false
+      });
+    }, 
   }
 };
 </script>

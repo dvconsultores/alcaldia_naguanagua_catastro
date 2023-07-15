@@ -1,6 +1,6 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-   <section class="section1-actualizacion">
+   <!-- <section class="section1-actualizacion">
     <div class="actualizacion-container">
         <p class="title-actualizacion">
           Actualización de Datos
@@ -21,9 +21,9 @@
           </v-btn>
         </div>
       </div>
-   </section>
+   </section> -->
 
-   <section class="section2-actualizacion" v-if="inmuebleEncontrado">
+   <section class="section2-actualizacion">
     <div class="datos-generales-container">
       <div class="title-morado">
         <p class="datos-generales-title">
@@ -31,23 +31,23 @@
         </p>
       </div>
 
-      <div v-for="(item,index) in datosGenerales" :key="index" class="solicitud-inputs-container">
+      <div class="solicitud-inputs-container">
         <v-text-field
-        v-model="inmueble.numero_expediente"
+        v-model="inmuebleData.numero_expediente"
         class="small-input mobile-inputs"
         label="Nro. Expediente"
         disabled
         ></v-text-field>
 
         <v-text-field
-        v-model="inmueble.fecha"
+        v-model="inmuebleData.fecha_inscripcion"
         class="small-input mobile-inputs"
         label="Fecha de inscripción"
         disabled
         ></v-text-field>
 
         <v-autocomplete
-        v-model="inmueble.tipo"
+        v-model="inmuebleData.tipo"
         class="big-autocomplete mobile-inputs"
         label="Tipo de Inmueble"
         :items="tipoInmuebleData"
@@ -56,7 +56,7 @@
         ></v-autocomplete>
 
         <v-autocomplete
-        v-model="inmueble.status"
+        v-model="inmuebleData.status"
         class="big-autocomplete mobile-inputs"
         label="Estatus Actual"
         :items="estatusInmuebleData"
@@ -73,9 +73,9 @@
           </p>
         </div>
 
-        <div v-for="(item,index) in datosDireccion" :key="index" class="direccion-inputs-container">
+        <div class="direccion-inputs-container">
           <v-autocomplete
-          v-model="inmueble.ambito"
+          v-model="inmuebleData.ambito"
           class="big-autocomplete mobile-inputs"
           label="Ambito*"
           :items="ambitoData"
@@ -84,7 +84,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.sector"
+          v-model="inmuebleData.sector"
           class="big-autocomplete mobile-inputs"
           label="Sector*"
           :items="sectorData"
@@ -93,7 +93,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.manzana"
+          v-model="inmuebleData.manzana"
           class="big-autocomplete mobile-inputs"
           label="Manzana*"
           :items="manzanaData"
@@ -102,7 +102,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.parcela"
+          v-model="inmuebleData.parcela"
           class="big-autocomplete mobile-inputs"
           label="Parcela*"
           :items="parcelaData"
@@ -111,7 +111,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.subparcela"
+          v-model="inmuebleData.subparcela"
           class="big-autocomplete mobile-inputs"
           label="Sub-Parcela*"
           :items="subParcelaData"
@@ -120,7 +120,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.nivel"
+          v-model="inmuebleData.nivel"
           class="big-autocomplete mobile-inputs"
           label="Nivel"
           :items="nivelInmuebleData"
@@ -129,7 +129,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.unidad"
+          v-model="inmuebleData.unidad"
           class="big-autocomplete mobile-inputs"
           label="Unidad"
           :items="unidadInmuebleData"
@@ -138,7 +138,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.urbanizacion"
+          v-model="inmuebleData.urbanizacion"
           class="big-autocomplete mobile-inputs"
           label="Urbanización / Barrio*"
           :items="urbanizacionData"
@@ -147,7 +147,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.calle"
+          v-model="inmuebleData.calle"
           class="big-autocomplete mobile-inputs"
           label="Calle"
           :items="calleData"
@@ -156,7 +156,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.conjunto_residencial"
+          v-model="inmuebleData.conjunto_residencial"
           class="big-autocomplete mobile-inputs"
           label="Conj. Residencial / Centro Comercial"
           :items="conjuntoResidencialData"
@@ -165,7 +165,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.edificio"
+          v-model="inmuebleData.edificio"
           class="big-autocomplete mobile-inputs"
           label="Edificio"
           :items="edificioData"
@@ -174,7 +174,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.avenida"
+          v-model="inmuebleData.avenida"
           class="big-autocomplete mobile-inputs"
           label="Avenida"
           :items="avenidaData"
@@ -183,7 +183,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.torre"
+          v-model="inmuebleData.torre"
           class="big-autocomplete mobile-inputs"
           label="Torre"
           :items="torreData"
@@ -192,31 +192,31 @@
           ></v-autocomplete>
 
           <v-text-field
-          v-model="inmueble.numero_civico"
+          v-model="inmuebleData.numero_civico"
           class="small-input mobile-inputs"
           label="Nro. Civico"
           ></v-text-field>
 
           <v-text-field
-          v-model="inmueble.numero_casa"
+          v-model="inmuebleData.numero_casa"
           class="small-input mobile-inputs"
           label="Nro. Casa"
           ></v-text-field>
 
           <v-text-field
-          v-model="inmueble.numero_piso"
+          v-model="inmuebleData.numero_piso"
           class="small-input mobile-inputs"
           label="Piso"
           ></v-text-field>
 
           <v-text-field
-          v-model="inmueble.telefono"
+          v-model="inmuebleData.telefono"
           class="small-input mobile-inputs"
           label="Telefono"
           ></v-text-field>
 
           <v-autocomplete
-          v-model="inmueble.zona"
+          v-model="inmuebleData.zona"
           class="big-autocomplete mobile-inputs"
           label="Zona(1996 / 2001)"
           :items="dataZona"
@@ -225,7 +225,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.zona"
+          v-model="inmuebleData.zona"
           class="big-autocomplete mobile-inputs"
           label="Zona(2001 / 2003)"
           :items="dataZona"
@@ -234,7 +234,7 @@
           ></v-autocomplete>
 
           <v-autocomplete
-          v-model="inmueble.zona"
+          v-model="inmuebleData.zona"
           class="big-autocomplete mobile-inputs"
           label="Zona(2004)"
           :items="dataZona"
@@ -243,75 +243,45 @@
           ></v-autocomplete>
 
           <v-textarea
-          v-model="inmueble.direccion"
+          v-model="inmuebleData.direccion"
           class="text-area-input mobile-inputs"
           label="Dirección Completa"
           ></v-textarea>
 
           <v-textarea
-          v-model="inmueble.referencia"
+          v-model="inmuebleData.referencia"
           class="text-area-input-small mobile-inputs"
           label="Referencia"
           ></v-textarea>
 
           <v-textarea
-          v-model="inmueble.observaciones"
+          v-model="inmuebleData.observaciones"
           class="text-area-input-small mobile-inputs"
           label="Observaciones"
           ></v-textarea>
         </div>
     </div>
 
-    <div class="planos-container">
-      <div class="title-morado">
-        <p class="planos-title">
-          Planos
-        </p>
-      </div>
-
-      <div class="container-fields">
-        <div>
-            <div class="title-information">
-              <span>
-                Plano
-              </span>
-            </div>
-
-            <div class="file-btn">
-              <v-file-input placeholder="Arrastre y suelte el archivo aqui">
-
-              </v-file-input>
-              <v-btn>
-                <span>Subir</span>
-              </v-btn>
-            </div>
-        </div>
-
-        <div>
-            <div class="title-information">
-              <span>
-                Plano
-              </span>
-            </div>
-
-            <div class="file-btn">
-              <v-file-input placeholder="Arrastre y suelte el archivo aqui">
-
-              </v-file-input>
-              <v-btn>
-                <span>Subir</span>
-              </v-btn>
-            </div>
-        </div>
-      </div>
-    </div>
-
     <div class="divrow center mobile-col" style="gap:20px;">
-      <v-btn class="btn btn-mobile" @click="saveData()">
+      <v-btn class="btn btn-mobile" @click="dialog_confirmar = true">
         Guardar
       </v-btn>
     </div>
    </section>
+
+   <!-- dialog -->
+
+   <v-dialog content-class="dialog-guardar" max-width="500px" v-model="dialog_confirmar" persistent>
+      <v-card class="guardar-card">
+        <v-card-title class="center title">¿Desea guardar estos cambios?</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -341,52 +311,10 @@ export default {
       torreData:[],
       dataZona:[],
       zona:["1","2","3"],
-      dialog_exito: false,
-      datosGenerales:[
-        {
-          nro_expediente:"",
-          fecha:"",
-        }
-      ],
 
-      datosDireccion:[
-        {
-          nro_civico:"",
-          nro_casa:"",
-          piso:"",
-          telefono:"",
-        }
-      ],
+      dialog_confirmar: false,
 
-      nroExpediente: '',
-      inmuebleEncontrado: null,
-      inmueble: {
-        numero_expediente: '',
-        fecha_inscripcion: '',
-        tipo: '',
-        status: '',
-        ambito: '',
-        sector: '',
-        manzana:'',
-        parcela: '',
-        subparcela: '',
-        nivel: '',
-        unidad: '',
-        urbanizacion: '',
-        calle: '',
-        conjunto_residencial: '',
-        edificio: '',
-        avenida: '',
-        torre: '',
-        numero_civico: '',
-        numero_casa: '',
-        numero_piso: '',
-        telefono: '',
-        zona: '',
-        direccion: '',
-        referencia: '',
-        observaciones: '',
-      },
+      btnGuardarInmuble: false,
     }
   },
   head() {
@@ -413,8 +341,7 @@ export default {
     this.getDataAvenida(),
     this.getDataTorre(),
     this.getDataZona(),
-    this.getDataInmueble(),
-    this.buscarPropietario()
+    this.getDataInmueble()
   },
 
   methods: {
@@ -427,7 +354,7 @@ export default {
     },
 
     getDataInmueble(){
-      this.$axios.$get('inmueble').then(response =>{
+      this.$axios.$get('inmueble/' + this.$store.getters.getExpediente.id).then(response =>{
         this.inmuebleData = response
       }).catch(err => {
         console.log(err)
@@ -554,106 +481,47 @@ export default {
         })
     },
 
-    buscarPropietario() {
-      // Filtrar la lista de inmuebleData basándose en el tipo de documento introducido
-      this.inmuebleEncontrado = this.inmuebleData.find(prop => prop.numero_expediente === this.nroExpediente);
-      
-      if (this.inmuebleEncontrado) {
-        // Se encontró un propietario con el tipo de documento especificado
-        // Aquí podrías realizar cualquier lógica adicional o cargar más datos del propietario
-        this.inmueble.numero_expediente = this.inmuebleEncontrado.numero_expediente;
-        this.inmueble.fecha_inscripcion = this.inmuebleEncontrado.fecha_inscripcion;
-        this.inmueble.tipo = this.inmuebleEncontrado.tipo;
-        this.inmueble.status = this.inmuebleEncontrado.status;
-        this.inmueble.ambito = this.inmuebleEncontrado.ambito;
-        this.inmueble.sector = this.inmuebleEncontrado.sector;
-        this.inmueble.manzana = this.inmuebleEncontrado.manzana;
-        this.inmueble.parcela = this.inmuebleEncontrado.parcela;
-        this.inmueble.subparcela = this.inmuebleEncontrado.subparcela;
-        this.inmueble.nivel = this.inmuebleEncontrado.nivel;
-        this.inmueble.unidad = this.inmuebleEncontrado.unidad;
-        this.inmueble.urbanizacion = this.inmuebleEncontrado.urbanizacion;
-        this.inmueble.calle = this.inmuebleEncontrado.calle;
-        this.inmueble.conjunto_residencial = this.inmuebleEncontrado.conjunto_residencial;
-        this.inmueble.edificio = this.inmuebleEncontrado.edificio;
-        this.inmueble.avenida = this.inmuebleEncontrado.avenida;
-        this.inmueble.torre = this.inmuebleEncontrado.torre;
-        this.inmueble.numero_civico = this.inmuebleEncontrado.numero_civico;
-        this.inmueble.numero_casa = this.inmuebleEncontrado.numero_casa;
-        this.inmueble.numero_piso = this.inmuebleEncontrado.numero_piso;
-        this.inmueble.telefono = this.inmuebleEncontrado.telefono;
-        this.inmueble.zona = this.inmuebleEncontrado.zona;
-        this.inmueble.direccion = this.inmuebleEncontrado.direccion;
-        this.inmueble.referencia = this.inmuebleEncontrado.referencia;
-        this.inmueble.observaciones = this.inmuebleEncontrado.observaciones;
-      } else {
-        // No se encontró un propietario con el tipo de documento especificado
-        // Puedes reiniciar los campos o mostrar un mensaje de error, etc.
-        this.inmueble.numero_expediente = '';
-        this.inmueble.fecha_inscripcion = '';
-        this.inmueble.numero_documento = '';
-        this.inmueble.status = '';
-        this.inmueble.ambito = '';
-        this.inmueble.sector = '';
-        this.inmueble.manzana = '';
-        this.inmueble.parcela = '';
-        this.inmueble.subparcela = '';
-        this.inmueble.nivel = '';
-        this.inmueble.unidad = '';
-        this.inmueble.urbanizacion = '';
-        this.inmueble.calle = '';
-        this.inmueble.conjunto_residencial = '';
-        this.inmueble.edificio = '';
-        this.inmueble.avenida = '';
-        this.inmueble.torre = '';
-        this.inmueble.numero_civico = '';
-        this.inmueble.numero_casa = '';
-        this.inmueble.numero_piso = '';
-        this.inmueble.telefono = '';
-        this.inmueble.zona = '';
-        this.inmueble.direccion = '';
-        this.inmueble.referencia = '';
-        this.inmueble.observaciones = '';
-        
-        // Otros campos del propietario
-      }
-    },
-
     saveData() {
-      const formData = new FormData();
-      formData.append('numero_expediente', this.inmueble.numero_expediente);
-      formData.append('fecha_inscripcion', this.inmueble.fecha_inscripcion);
-      formData.append('numero_documento', this.inmueble.numero_documento);
-      formData.append('status', this.inmueble.status);
-      formData.append('ambito', this.inmueble.ambito);
-      formData.append('sector', this.inmueble.sector);
-      formData.append('manzana', this.inmueble.manzana);
-      formData.append('parcela', this.inmueble.parcela);
-      formData.append('subparcela', this.inmueble.subparcela);
-      formData.append('nivel', this.inmueble.nivel);
-      formData.append('unidad', this.inmueble.unidad);
-      formData.append('urbanizacion', this.inmueble.urbanizacion);
-      formData.append('calle', this.inmueble.calle);
-      formData.append('conjunto_residencial', this.inmueble.conjunto_residencial);
-      formData.append('edificio', this.inmueble.edificio);
-      formData.append('avenida', this.inmueble.avenida);
-      formData.append('torre', this.inmueble.torre);
-      formData.append('numero_civico', this.inmueble.numero_civico);
-      formData.append('numero_casa', this.inmueble.numero_casa);
-      formData.append('numero_piso', this.inmueble.numero_piso);
-      formData.append('telefono', this.inmueble.telefono);
-      formData.append('zona', this.inmueble.zona);
-      formData.append('direccion', this.inmueble.direccion);
-      formData.append('referencia', this.inmueble.referencia);
-      formData.append('observaciones', this.inmueble.observaciones);
+      this.btnGuardarInmuble = true
 
-      this.$axios.$patch(`inmueble/${this.inmuebleEncontrado.id}/`, formData)
+      const formData = new FormData();
+      formData.append('numero_expediente', this.inmuebleData.numero_expediente);
+      formData.append('fecha_inscripcion', this.inmuebleData.fecha_inscripcion);
+      formData.append('numero_documento', this.inmuebleData.numero_documento);
+      formData.append('status', this.inmuebleData.status);
+      formData.append('ambito', this.inmuebleData.ambito);
+      formData.append('sector', this.inmuebleData.sector);
+      formData.append('manzana', this.inmuebleData.manzana);
+      formData.append('parcela', this.inmuebleData.parcela);
+      formData.append('subparcela', this.inmuebleData.subparcela);
+      formData.append('nivel', this.inmuebleData.nivel);
+      formData.append('unidad', this.inmuebleData.unidad);
+      formData.append('urbanizacion', this.inmuebleData.urbanizacion);
+      formData.append('calle', this.inmuebleData.calle);
+      formData.append('conjunto_residencial', this.inmuebleData.conjunto_residencial);
+      formData.append('edificio', this.inmuebleData.edificio);
+      formData.append('avenida', this.inmuebleData.avenida);
+      formData.append('torre', this.inmuebleData.torre);
+      formData.append('numero_civico', this.inmuebleData.numero_civico);
+      formData.append('numero_casa', this.inmuebleData.numero_casa);
+      formData.append('numero_piso', this.inmuebleData.numero_piso);
+      formData.append('telefono', this.inmuebleData.telefono);
+      formData.append('zona', this.inmuebleData.zona);
+      formData.append('direccion', this.inmuebleData.direccion);
+      formData.append('referencia', this.inmuebleData.referencia);
+      formData.append('observaciones', this.inmuebleData.observaciones);
+
+      this.$axios.$patch(`inmueble/${this.$store.getters.getExpediente.id}/`, formData)
       .then(res => {
-        console.log(res.data);
+        console.log(res.data)
+        this.btnGuardarInmuble = false
+        this.dialog_confirmar = false
         this.$alert("success", { desc: "Se ha editado un inmueble con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
       })
       .catch(err => {
-        console.error(err);
+        console.error(err)
+        this.btnGuardarInmuble = false
+        this.dialog_confirmar = false
       });
     }, 
   }

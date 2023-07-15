@@ -312,7 +312,7 @@
 
         <div v-else-if="$route.path == '/liquidacion'" class="divcol">
           <span class="index-text">
-            Liquidación
+            Pre-Factura
           </span>
         </div>
 
