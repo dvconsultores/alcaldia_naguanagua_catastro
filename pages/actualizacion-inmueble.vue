@@ -59,12 +59,12 @@
             ></v-text-field>
           </template>
           <v-date-picker
-            v-model="inmuebleData.fecha_inscripcion"
+            v-model="nuevaFecha"
             label="Fecha"
             color="blue"
             header-color="#810880"
             class="custom-date-picker"
-            @input="formatoFechaHabitabilidad()"
+            @input="formatoFecha()"
           ></v-date-picker>
         </v-menu>
 
@@ -309,6 +309,7 @@
 
 <script>
 import computeds from '~/mixins/computeds'
+import moment from 'moment'
 
 export default {
   name: "ActualizacionInmueblePage",
@@ -337,6 +338,9 @@ export default {
       dialog_confirmar: false,
 
       btnGuardarInmuble: false,
+
+      menu: false,
+      nuevaFecha: null,
     }
   },
   head() {
@@ -502,6 +506,12 @@ export default {
         }).catch(err => {
           console.log(err)
         })
+    },
+
+    formatoFecha() {
+      if (this.nuevaFecha) {
+        this.inmuebleData.fecha_inscripcion = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss');
+      }
     },
 
     saveData() {

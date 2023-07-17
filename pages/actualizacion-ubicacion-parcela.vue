@@ -62,15 +62,22 @@
                   <span class="span-float-2">
                     Arrastre y suelte el archivo aquí
                   </span>
-                  <v-file-input
-                  class="input-file"
+                  <v-div
+                  class="input-div"
                   prepend-icon="none"
-                  ></v-file-input>
+                  >
+                  <img v-if="dataUbicacionInmueble.imagen_inmueble" :src="imageUrlInmueble" class="preview-image"/>
+                  </v-div>
                 </v-card>
 
                 <div class="file-btn">
-                  <v-file-input placeholder="Seleccione el archivo" class="file-input"></v-file-input>
-                  <v-btn>
+                  <v-file-input 
+                  v-model="dataUbicacionInmueble.imagen_inmueble"
+                  show-size
+                  placeholder="Seleccione el archivo" class="file-input"
+                  accept="image/*"
+                  ></v-file-input>
+                  <v-btn @click="uploadImageInmueble()">
                     <span>Subir</span>
                   </v-btn>
                 </div>
@@ -121,15 +128,22 @@
                   <span class="span-float-2">
                     Arrastre y suelte el archivo aquí
                   </span>
-                  <v-file-input
-                  class="input-file"
+                  <v-div
+                  class="input-div"
                   prepend-icon="none"
-                  ></v-file-input>
+                  >
+                  <img v-if="dataUbicacionInmueble.imagen_plano" :src="imageUrlPlano" class="preview-image"/>
+                  </v-div>
                 </v-card>
 
                 <div class="file-btn">
-                  <v-file-input placeholder="Seleccione el archivo" class="file-input"></v-file-input>
-                  <v-btn>
+                  <v-file-input 
+                  v-model="dataUbicacionInmueble.imagen_plano"
+                  show-size
+                  placeholder="Seleccione el archivo" class="file-input"
+                  accept="image/*"
+                  ></v-file-input>
+                  <v-btn @click="uploadImagePlano()">
                     <span>Subir</span>
                   </v-btn>
                 </div>
@@ -180,15 +194,22 @@
                   <span class="span-float-2">
                     Arrastre y suelte el archivo aquí
                   </span>
-                  <v-file-input
-                  class="input-file"
+                  <v-div
+                  class="input-div"
                   prepend-icon="none"
-                  ></v-file-input>
+                  >
+                  <img v-if="dataUbicacionInmueble.imagan_plano_mesura" :src="imageUrlPlanoMesura" class="preview-image"/>
+                  </v-div>
                 </v-card>
 
                 <div class="file-btn">
-                  <v-file-input placeholder="Seleccione el archivo" class="file-input"></v-file-input>
-                  <v-btn>
+                  <v-file-input 
+                  v-model="dataUbicacionInmueble.imagan_plano_mesura"
+                  show-size
+                  placeholder="Seleccione el archivo" class="file-input"
+                  accept="image/*"
+                  ></v-file-input>
+                  <v-btn @click="uploadImagePlanoMesura()">
                     <span>Subir</span>
                   </v-btn>
                 </div>
@@ -317,6 +338,18 @@ export default {
     this.getInmuebleUbicacion()
   },
 
+  computed: {
+    imageUrlPlanoMesura() {
+      return URL.createObjectURL(this.dataUbicacionInmueble.imagan_plano_mesura);
+    },
+    imageUrlPlano() {
+      return URL.createObjectURL(this.dataUbicacionInmueble.imagen_plano);
+    },
+    imageUrlInmueble() {
+      return URL.createObjectURL(this.dataUbicacionInmueble.imagen_inmueble);
+    },
+  },
+
   methods: {
     redireccionIdVacio(){
       if(this.$store.getters.getExpediente =='Sin Seleccionar'){
@@ -332,32 +365,76 @@ export default {
         this.dataUbicacionInmueble = response
         this.documentoPropiedadId = this.dataUbicacionInmueble[0].id
 
-      this.norte = [
-        this.dataUbicacionInmueble.g1_norte,
-        this.dataUbicacionInmueble.g2_norte,
-        this.dataUbicacionInmueble.g3_norte,
-        this.dataUbicacionInmueble.g4_norte,
-        this.dataUbicacionInmueble.g5_norte,
-        this.dataUbicacionInmueble.g6_norte,
-        this.dataUbicacionInmueble.g7_norte,
-        this.dataUbicacionInmueble.g8_norte,
-        this.dataUbicacionInmueble.g9_norte
-      ],
-      this.este = [
-        this.dataUbicacionInmueble.g1_este,
-        this.dataUbicacionInmueble.g2_este,
-        this.dataUbicacionInmueble.g3_este,
-        this.dataUbicacionInmueble.g4_este,
-        this.dataUbicacionInmueble.g5_este,
-        this.dataUbicacionInmueble.g6_este,
-        this.dataUbicacionInmueble.g7_este,
-        this.dataUbicacionInmueble.g8_este,
-        this.dataUbicacionInmueble.g9_este,
-      ]
-
+        this.norte = [
+          this.dataUbicacionInmueble[0].g1_norte,
+          this.dataUbicacionInmueble[0].g2_norte,
+          this.dataUbicacionInmueble[0].g3_norte,
+          this.dataUbicacionInmueble[0].g4_norte,
+          this.dataUbicacionInmueble[0].g5_norte,
+          this.dataUbicacionInmueble[0].g6_norte,
+          this.dataUbicacionInmueble[0].g7_norte,
+          this.dataUbicacionInmueble[0].g8_norte,
+          this.dataUbicacionInmueble[0].g9_norte,
+        ];
+        this.este = [
+          this.dataUbicacionInmueble[0].g1_este,
+          this.dataUbicacionInmueble[0].g2_este,
+          this.dataUbicacionInmueble[0].g3_este,
+          this.dataUbicacionInmueble[0].g4_este,
+          this.dataUbicacionInmueble[0].g5_este,
+          this.dataUbicacionInmueble[0].g6_este,
+          this.dataUbicacionInmueble[0].g7_este,
+          this.dataUbicacionInmueble[0].g8_este,
+          this.dataUbicacionInmueble[0].g9_este,
+        ];
       }).catch(err => {
         console.log(err) 
       })
+    },
+
+    uploadImagePlanoMesura() {
+    const formData = new FormData();
+    formData.append('imagen_plano_mesura', this.dataUbicacionInmueble.imagan_plano_mesura)
+
+      this.$axios.$patch(`inmueble_ubicacion/?inmueble=${this.$store.getters.getExpediente.id}/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+
+    uploadImagePlano() {
+    const formData = new FormData();
+    formData.append('imagen_plano_mesura', this.dataUbicacionInmueble.imagan_plano)
+
+      this.$axios.$patch(`inmueble_ubicacion/?inmueble=${this.$store.getters.getExpediente.id}/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+
+    uploadImageInmueble() {
+    const formData = new FormData();
+    formData.append('imagen_plano_mesura', this.dataUbicacionInmueble.imagan_inmueble)
+
+      this.$axios.$patch(`inmueble_ubicacion/?inmueble=${this.$store.getters.getExpediente.id}/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(err => {
+        console.log(err)
+      });
     },
   }
 };
