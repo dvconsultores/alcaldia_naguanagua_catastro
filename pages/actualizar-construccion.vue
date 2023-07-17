@@ -61,14 +61,14 @@
         </div>
 
         <div class="div-autocomplete">
-          <div v-for="(item, index) in dataTipoPared" :key="index" class="divrow center" style="gap: 10px; width: 100%;">
+          <div v-for="(item, index) in dataConstruccionSoperte" :key="index" class="divrow center" style="gap: 10px; width: 100%;">
             <v-text-field
+            v-model="item.soporte"
             class="input-select"
             label="Soperte"
-            :value="item.tipo_pared"
             readonly
             ></v-text-field>
-            <v-btn @click="deleteItem(index)" class="btn-delete">
+            <v-btn @click="openDeleteSoporte(item)" class="btn-delete">
               <v-icon>
                 mdi-delete
               </v-icon>
@@ -76,12 +76,14 @@
           </div>
           <div class="divrow center" style="gap: 10px; width: 100%;">
             <v-autocomplete
-            v-model="soporteAuto"
+            v-model="soporteAdd"
             class="input-select"
-            label="Tipo de Pared"
-            :items="soporteItems"
+            label="Soporte"
+            :items="dataSoporte"
+            item-text="descripcion"
+            item-value="id"
             ></v-autocomplete>
-            <v-btn @click="addDiv" class="btn-delete">
+            <v-btn @click="postInmuebleConstruccionSoporte()" class="btn-delete">
               <v-icon>
                 mdi-plus
               </v-icon>
@@ -90,14 +92,14 @@
         </div>
         <v-divider vertical class="purple delete-1200"></v-divider>
         <div class="div-autocomplete">
-          <div v-for="(item, index) in dataTecho" :key="index" class="divrow center" style="gap: 10px; width: 100%;">
+          <div v-for="(item, index) in dataConstruccionTecho" :key="index" class="divrow center" style="gap: 10px; width: 100%;">
             <v-text-field
             class="input-select"
             label="Techo"
             :value="item.techo"
             readonly
             ></v-text-field>
-            <v-btn @click="deleteItemTecho(index)" class="btn-delete">
+            <v-btn @click="openDeleteTecho(item)" class="btn-delete">
               <v-icon>
                 mdi-delete
               </v-icon>
@@ -105,14 +107,14 @@
           </div>
           <div class="divrow center" style="gap: 10px; width: 100%;">
             <v-autocomplete
-            v-model="techoAuto"
+            v-model="techoAdd"
             class="input-select"
             label="Techo"
             :items="dataTecho"
             item-text="descripcion"
-            item-valu="id"
+            item-value="id"
             ></v-autocomplete>
-            <v-btn @click="addDivTecho" class="btn-delete">
+            <v-btn @click="postInmuebleConstruccionTecho()" class="btn-delete">
               <v-icon>
                 mdi-plus
               </v-icon>
@@ -121,14 +123,14 @@
         </div>
         <v-divider vertical class="purple delete-1200"></v-divider>
         <div class="div-autocomplete">
-          <div v-for="(item, index) in dataCubierta" :key="index" class="divrow center" style="gap: 10px; width: 100%;">
+          <div v-for="(item, index) in dataConstruccionCubierta" :key="index" class="divrow center" style="gap: 10px; width: 100%;">
             <v-text-field
             class="input-select"
             label="Cubierta"
             :value="item.cubierta"
             readonly
             ></v-text-field>
-            <v-btn @click="deleteItemCubierta(index)" class="btn-delete">
+            <v-btn @click="openDeleteCubierta(item)" class="btn-delete">
               <v-icon>
                 mdi-delete
               </v-icon>
@@ -136,14 +138,14 @@
           </div>
           <div class="divrow center" style="gap: 10px; width: 100%;">
             <v-autocomplete
-            v-model="cubiertaAuto"
+            v-model="cubiertaAdd"
             class="input-select"
             label="Cubierta"
             :items="dataCubierta"
             item-text="descripcion"
-            item-valu="id"
+            item-value="id"
             ></v-autocomplete>
-            <v-btn @click="addDivCubierta" class="btn-delete">
+            <v-btn @click="postInmuebleConstruccionCubierta()" class="btn-delete">
               <v-icon>
                 mdi-plus
               </v-icon>
@@ -274,6 +276,45 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="dialogDeleteSoporte" max-width="500px">
+      <v-card id="dialog-eliminar-card">
+        <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
+        <span class="alerta-text">Esta acción no se puede revertir</span>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="btn dialog-btn" text @click="confirmDeletesSoporte()">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialogDeleteSoporte = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialogDeleteTecho" max-width="500px">
+      <v-card id="dialog-eliminar-card">
+        <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
+        <span class="alerta-text">Esta acción no se puede revertir</span>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="btn dialog-btn" text @click="confirmDeleteTecho()">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialogDeleteTecho = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialogDeleteCubierta" max-width="500px">
+      <v-card id="dialog-eliminar-card">
+        <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
+        <span class="alerta-text">Esta acción no se puede revertir</span>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="btn dialog-btn" text @click="confirmDeletesCubierta()">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialogDeleteCubierta = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -285,18 +326,6 @@ export default {
   mixins: [computeds],
   data() {
     return {  
-      soporteAuto: null,
-      soporteItems: ["Madera", "concreto"],
-      // dataTipoPared:[{tipo_pared: "Concreto Armado",}],
-
-      techoAuto: null,
-      techoItems: ["Madera", "Zinc"],
-      // dataTecho:[{techo: "Madera",}],
-
-      cubiertaAuto: null,
-      cubiertaItems: ["Hormigon", "concreto"],
-      // dataCubierta:[{tipo_pared: "Hormigon",}],
-
       dataTipoPared: [],
       dataTecho: [],
       dataCubierta: [],
@@ -307,10 +336,26 @@ export default {
       dataInmuebleConstruccion: [],
       dataAcabadoPared: [],
       dataConservacion: [],
+      dataConstruccionSoperte: [],
+      dataConstruccionTecho:[],
+      dataConstruccionCubierta: [],
+      dataSoporte: [],
 
       btnGuardarInmuble: false,
 
       dialog_confirmar: false,
+      dialogDeleteSoporte: false,
+      dialogDeleteTecho: false,
+      dialogDeleteCubierta: false,
+
+      inmuebleConstruccionId: null,
+      soporteAdd: null,
+      techoAdd: null,
+      cubiertaAdd: null,
+
+      deleteSoporteItem:{},
+      deleteTechoItem: {},
+      deleteCubiertaItem: {},
     }
   },
   head() {
@@ -332,6 +377,10 @@ export default {
     this.getRegimen()
     this.getAcabadoPared()
     this.getConservacion()
+    this.getInmuebleConstruccionSoporte()
+    this.getInmuebleConstruccionTecho()
+    this.getInmuebleConstruccionCubierta()
+    this.getSoporte()
   },
 
   methods: {
@@ -347,7 +396,40 @@ export default {
     getInmuebleConstruccion(){
       this.$axios.$get('inmueble_construccion/?inmueble=' + this.$store.getters.getExpediente.id).then(response => {
         this.dataInmuebleConstruccion = response
-        console.log(this.dataInmuebleConstruccion, 'indeindneidnaibfe')
+        this.inmuebleConstruccionId = this.dataInmuebleConstruccion[0].id
+        console.log(this.dataInmuebleConstruccion.id, 'indeindneidnaibfe')
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getInmuebleConstruccionCubierta(){
+      this.$axios.$get('inmueble_construccion_cubierta').then(response => {
+        this.dataConstruccionCubierta = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getInmuebleConstruccionTecho(){
+      this.$axios.$get('inmueble_construccion_techo').then(response => {
+        this.dataConstruccionTecho = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getInmuebleConstruccionSoporte(){
+      this.$axios.$get('inmueble_construccion_soporte').then(response => {
+        this.dataConstruccionSoperte = response
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    getSoporte(){
+      this.$axios.$get('soporte').then(response => {
+        this.dataSoporte = response
       }).catch(err => {
         console.log(err) 
       })
@@ -425,48 +507,128 @@ export default {
       })
     },
 
-    addDiv(){
-      this.dataTipoPared.push({tipo_pared: this.soporteAuto});
-    },  
+    ////// datos estructurales //////
+    postInmuebleConstruccionSoporte(){
+      const formSoporte = {
+        soporte: this.soporteAdd,
+        inmueble_construccion: this.inmuebleConstruccionId,
+      }
 
-    deleteItem(index) {
-      this.dataTipoPared.splice(index, 1);
+      this.$axios.$post('inmueble_construccion_soporte/', formSoporte).then(response => {
+        this.dataConstruccionSoperte.push(response)
+        this.$alert("success", { desc: "Ha sido agregado con éxito", hash: 'knsddcssdc', title: 'Agregado' })
+      }).catch(err => {
+        console.log(err) 
+      })
     },
 
-    addDivTecho(){
-      this.dataTecho.push({techo: this.techoAuto});
-    },  
-
-    deleteItemTecho(index) {
-      this.dataTecho.splice(index, 1);
+    openDeleteSoporte(item){
+      this.deleteSoporteItem = item
+      this.dialogDeleteSoporte = true
     },
 
-    addDivCubierta(){
-      this.dataCubierta.push({cubierta: this.cubiertaAuto});
-    },  
-
-    deleteItemCubierta(index) {
-      this.dataCubierta.splice(index, 1);
+    confirmDeletesSoporte(){
+      this.$axios.$delete(`inmueble_construccion_soporte/${this.deleteSoporteItem.id}`).then((response) => {
+        console.log(response)
+        this.$alert("success", {desc: "Se ha eliminado con éxito", hash: 'knsddcssdc'})
+        this.dialogDeleteSoporte = false 
+        const index = this.dataConstruccionSoperte.findIndex(b => b.id === this.deleteSoporteItem.id)
+        if (index !== -1) {
+          this.dataConstruccionSoperte.splice(index, 1)
+        }
+      }).catch((err) => {
+        console.log(err)
+        this.dialogDeleteSoporte = false 
+      })
     },
+
+    postInmuebleConstruccionTecho(){
+      const formTecho = {
+        techo: this.techoAdd,
+        inmueble_construccion: this.inmuebleConstruccionId,
+      }
+
+      this.$axios.$post('inmueble_construccion_techo/', formTecho).then(response => {
+        this.dataConstruccionTecho.push(response)
+        this.$alert("success", { desc: "Ha sido agregado con éxito", hash: 'knsddcssdc', title: 'Agregado' })
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    openDeleteTecho(item){
+      this.deleteTechoItem = item
+      this.dialogDeleteTecho = true
+    },
+
+    confirmDeleteTecho(){
+      this.$axios.$delete(`inmueble_construccion_techo/${this.deleteTechoItem.id}`).then((response) => {
+        console.log(response)
+        this.$alert("success", {desc: "Se ha eliminado con éxito", hash: 'knsddcssdc'})
+        this.dialogDeleteTecho = false 
+        const index = this.dataConstruccionTecho.findIndex(b => b.id === this.deleteTechoItem.id)
+        if (index !== -1) {
+          this.dataConstruccionTecho.splice(index, 1)
+        }
+      }).catch((err) => {
+        console.log(err)
+        this.dialogDeleteTecho = false 
+      })
+    },
+
+    postInmuebleConstruccionCubierta(){
+      const formCubierta = {
+        cubierta: this.cubiertaAdd,
+        inmueble_construccion: this.inmuebleConstruccionId,
+      }
+
+      this.$axios.$post('inmueble_construccion_cubierta/', formCubierta).then(response => {
+        this.dataConstruccionCubierta.push(response)
+        this.$alert("success", { desc: "Ha sido agregado con éxito", hash: 'knsddcssdc', title: 'Agregado' })
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    openDeleteCubierta(item){
+      this.deleteCubiertaItem = item
+      this.dialogDeleteCubierta = true
+    },
+
+    confirmDeletesCubierta(){
+      this.$axios.$delete(`inmueble_construccion_cubierta/${this.deleteCubiertaItem.id}`).then((response) => {
+        console.log(response)
+        this.$alert("success", {desc: "Se ha eliminado con éxito", hash: 'knsddcssdc'})
+        this.dialogDeleteCubierta = false 
+        const index = this.dataConstruccionCubierta.findIndex(b => b.id === this.deleteCubiertaItem.id)
+        if (index !== -1) {
+          this.dataConstruccionCubierta.splice(index, 1)
+        }
+      }).catch((err) => {
+        console.log(err)
+        this.dialogDeleteCubierta = false 
+      })
+    },
+
 
     saveData() {
       this.btnGuardarInmuble = true
 
       const formData = new FormData();
-      formData.append('numero_expediente', this.dataInmuebleConstruccion.tipo);
-      formData.append('fecha_inscripcion', this.dataInmuebleConstruccion.uso_construccion);
-      formData.append('numero_documento', this.dataInmuebleConstruccion.tenencia);
-      formData.append('status', this.dataInmuebleConstruccion.regimen);
-      formData.append('ambito', this.dataInmuebleConstruccion.tipo_pared);
-      formData.append('sector', this.dataInmuebleConstruccion.acabado_pared);
-      formData.append('manzana', this.dataInmuebleConstruccion.conservacion);
-      formData.append('parcela', this.dataInmuebleConstruccion.anio_construccion);
-      formData.append('subparcela', this.dataInmuebleConstruccion.anio_refaccion);
-      formData.append('nivel', this.dataInmuebleConstruccion.porcentaje_refaccion);
-      formData.append('unidad', this.dataInmuebleConstruccion.edad_efectiva);
-      formData.append('urbanizacion', this.dataInmuebleConstruccion.numero_niveles);
-      formData.append('urbanizacion', this.dataInmuebleConstruccion.numero_edificaciones);
-      formData.append('urbanizacion', this.dataInmuebleConstruccion.observaciones);
+      formData.append('tipo', this.dataInmuebleConstruccion.tipo);
+      formData.append('uso_construccion', this.dataInmuebleConstruccion.uso_construccion);
+      formData.append('tenencia', this.dataInmuebleConstruccion.tenencia);
+      formData.append('regimen', this.dataInmuebleConstruccion.regimen);
+      formData.append('tipo_pared', this.dataInmuebleConstruccion.tipo_pared);
+      formData.append('acabado_pared', this.dataInmuebleConstruccion.acabado_pared);
+      formData.append('conservacion', this.dataInmuebleConstruccion.conservacion);
+      formData.append('anio_construccion', this.dataInmuebleConstruccion.anio_construccion);
+      formData.append('anio_refaccion', this.dataInmuebleConstruccion.anio_refaccion);
+      formData.append('porcentaje_refaccion', this.dataInmuebleConstruccion.porcentaje_refaccion);
+      formData.append('edad_efectiva', this.dataInmuebleConstruccion.edad_efectiva);
+      formData.append('numero_niveles', this.dataInmuebleConstruccion.numero_niveles);
+      formData.append('numero_edificaciones', this.dataInmuebleConstruccion.numero_edificaciones);
+      formData.append('observaciones', this.dataInmuebleConstruccion.observaciones);
 
       this.$axios.$patch(`inmueble_construccion/?inmueble=${this.$store.getters.getExpediente.id}/`, formData)
       .then(res => {

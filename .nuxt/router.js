@@ -80,7 +80,7 @@ Vue.use(Router)
 
 export const routerOptions = {
   mode: 'history',
-  base: '/alcaldia_catastro/',
+  base: '/',
   linkActiveClass: 'nuxt-link-active',
   linkExactActiveClass: 'nuxt-link-exact-active',
   scrollBehavior,

@@ -358,9 +358,7 @@ export default {
   methods: {
     formatoFecha() {
       if (this.fecha) {
-        // Formatear la fecha utilizando moment.js
         this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
-        // Asignar la fecha formateada al campo "fecha"
         this.fecha = this.fechaFormateada
       }
     },

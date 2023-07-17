@@ -215,3 +215,20 @@
     }
   }
 }
+
+
+
+////////////////////////////menu data-picker//////////////////
+/// 
+
+.custom-date-picker .v-picker__body {
+  background-color: #fff!important;
+
+  .active{
+    background-color: var(--bg-ap)!important;
+  }
+}
+
+.theme--dark.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus) {
+  color: #000;
+} 
