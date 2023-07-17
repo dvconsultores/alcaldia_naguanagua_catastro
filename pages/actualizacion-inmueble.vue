@@ -39,12 +39,34 @@
         disabled
         ></v-text-field>
 
-        <v-text-field
-        v-model="inmuebleData.fecha_inscripcion"
-        class="small-input mobile-inputs"
-        label="Fecha de inscripción"
-        disabled
-        ></v-text-field>
+        <v-menu
+        v-model="menu"
+        :close-on-content-click="false"
+        :nudge-right="5"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+        >
+          <template #activator="{ on, attrs }">
+            <v-text-field
+            v-model="inmuebleData.fecha_inscripcion"
+            class="small-input mobile-inputs"
+            label="Fecha de inscripción"
+            append-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="inmuebleData.fecha_inscripcion"
+            label="Fecha"
+            color="blue"
+            header-color="#810880"
+            class="custom-date-picker"
+            @input="formatoFechaHabitabilidad()"
+          ></v-date-picker>
+        </v-menu>
 
         <v-autocomplete
         v-model="inmuebleData.tipo"
@@ -215,7 +237,7 @@
           label="Telefono"
           ></v-text-field>
 
-          <v-autocomplete
+          <!-- <v-autocomplete
           v-model="inmuebleData.zona"
           class="big-autocomplete mobile-inputs"
           label="Zona(1996 / 2001)"
@@ -231,7 +253,7 @@
           :items="dataZona"
           item-text="descripcion"
           item-value="id"
-          ></v-autocomplete>
+          ></v-autocomplete> -->
 
           <v-autocomplete
           v-model="inmuebleData.zona"
@@ -342,6 +364,7 @@ export default {
     this.getDataTorre(),
     this.getDataZona(),
     this.getDataInmueble()
+    console.log(this.inmuebleData.ambito, 'ambito')
   },
 
   methods: {
@@ -486,30 +509,54 @@ export default {
 
       const formData = new FormData();
       formData.append('numero_expediente', this.inmuebleData.numero_expediente);
-      formData.append('fecha_inscripcion', this.inmuebleData.fecha_inscripcion);
-      formData.append('numero_documento', this.inmuebleData.numero_documento);
-      formData.append('status', this.inmuebleData.status);
-      formData.append('ambito', this.inmuebleData.ambito);
-      formData.append('sector', this.inmuebleData.sector);
-      formData.append('manzana', this.inmuebleData.manzana);
-      formData.append('parcela', this.inmuebleData.parcela);
-      formData.append('subparcela', this.inmuebleData.subparcela);
-      formData.append('nivel', this.inmuebleData.nivel);
-      formData.append('unidad', this.inmuebleData.unidad);
-      formData.append('urbanizacion', this.inmuebleData.urbanizacion);
-      formData.append('calle', this.inmuebleData.calle);
-      formData.append('conjunto_residencial', this.inmuebleData.conjunto_residencial);
-      formData.append('edificio', this.inmuebleData.edificio);
-      formData.append('avenida', this.inmuebleData.avenida);
-      formData.append('torre', this.inmuebleData.torre);
-      formData.append('numero_civico', this.inmuebleData.numero_civico);
-      formData.append('numero_casa', this.inmuebleData.numero_casa);
-      formData.append('numero_piso', this.inmuebleData.numero_piso);
-      formData.append('telefono', this.inmuebleData.telefono);
-      formData.append('zona', this.inmuebleData.zona);
-      formData.append('direccion', this.inmuebleData.direccion);
-      formData.append('referencia', this.inmuebleData.referencia);
-      formData.append('observaciones', this.inmuebleData.observaciones);
+      // formData.append('fecha_inscripcion', this.inmuebleData.fecha_inscripcion);
+      this.inmuebleData.fecha_inscripcion ? formData.append('status', this.inmuebleData.fecha_inscripcion):'';
+      // formData.append('numero_documento', this.inmuebleData.numero_documento);
+      this.inmuebleData.numero_documento ? formData.append('status', this.inmuebleData.numero_documento):'';
+      // formData.append('status', this.inmuebleData.status);
+      this.inmuebleData.status ? formData.append('status', this.inmuebleData.status):'';
+      // formData.append('ambito', this.inmuebleData.ambito);
+      this.inmuebleData.ambito ? formData.append('ambito', this.inmuebleData.ambito):'';
+      // formData.append('sector', this.inmuebleData.sector);
+      this.inmuebleData.sector ? formData.append('status', this.inmuebleData.sector):'';
+      // formData.append('manzana', this.inmuebleData.manzana);
+      this.inmuebleData.manzana ? formData.append('status', this.inmuebleData.manzana):'';
+      // formData.append('parcela', this.inmuebleData.parcela);
+      this.inmuebleData.parcela ? formData.append('status', this.inmuebleData.parcela):'';
+      // formData.append('subparcela', this.inmuebleData.subparcela);
+      this.inmuebleData.subparcela ? formData.append('status', this.inmuebleData.subparcela):'';
+      // formData.append('nivel', this.inmuebleData.nivel);
+      this.inmuebleData.nivel ? formData.append('status', this.inmuebleData.nivel):'';
+      // formData.append('unidad', this.inmuebleData.unidad);
+      this.inmuebleData.unidad ? formData.append('status', this.inmuebleData.unidad):'';
+      // formData.append('urbanizacion', this.inmuebleData.urbanizacion);
+      this.inmuebleData.urbanizacion ? formData.append('status', this.inmuebleData.urbanizacion):'';
+      // formData.append('calle', this.inmuebleData.calle);
+      this.inmuebleData.calle ? formData.append('status', this.inmuebleData.calle):'';
+      // formData.append('conjunto_residencial', this.inmuebleData.conjunto_residencial);
+      this.inmuebleData.conjunto_residencial ? formData.append('status', this.inmuebleData.conjunto_residencial):'';
+      // formData.append('edificio', this.inmuebleData.edificio);
+      this.inmuebleData.edificio ? formData.append('status', this.inmuebleData.edificio):'';
+      // formData.append('avenida', this.inmuebleData.avenida);
+      this.inmuebleData.avenida ? formData.append('status', this.inmuebleData.avenida):'';
+      // formData.append('torre', this.inmuebleData.torre);
+      this.inmuebleData.torre ? formData.append('status', this.inmuebleData.torre):'';
+      // formData.append('numero_civico', this.inmuebleData.numero_civico);
+      this.inmuebleData.numero_civico ? formData.append('status', this.inmuebleData.numero_civico):'';
+      // formData.append('numero_casa', this.inmuebleData.numero_casa);
+      this.inmuebleData.numero_casa ? formData.append('status', this.inmuebleData.numero_casa):'';
+      // formData.append('numero_piso', this.inmuebleData.numero_piso);
+      this.inmuebleData.numero_piso ? formData.append('status', this.inmuebleData.numero_piso):'';
+      // formData.append('telefono', this.inmuebleData.telefono);
+      this.inmuebleData.telefono ? formData.append('status', this.inmuebleData.telefono):'';
+      // formData.append('zona', this.inmuebleData.zona);
+      this.inmuebleData.zona ? formData.append('status', this.inmuebleData.zona):'';
+      // formData.append('direccion', this.inmuebleData.direccion);
+      this.inmuebleData.direccion ? formData.append('status', this.inmuebleData.direccion):'';
+      // formData.append('referencia', this.inmuebleData.referencia);
+      this.inmuebleData.referencia ? formData.append('status', this.inmuebleData.referencia):'';
+      // formData.append('observaciones', this.inmuebleData.observaciones);
+      this.inmuebleData.observaciones ? formData.append('status', this.inmuebleData.observaciones):'';
 
       this.$axios.$patch(`inmueble/${this.$store.getters.getExpediente.id}/`, formData)
       .then(res => {

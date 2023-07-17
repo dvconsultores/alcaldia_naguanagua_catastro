@@ -11,6 +11,7 @@
           <v-row>
             <v-col md="6" sm="12">
               <v-text-field
+              v-model="dataUbicacionInmueble.lindero_norte"
               class="input-middle"
               label="Norte"
               ></v-text-field> 
@@ -18,6 +19,7 @@
 
             <v-col md="6" sm="12">
               <v-text-field
+              v-model="dataUbicacionInmueble.lindero_sur"
               class="input-middle"
               label="Sur"
               ></v-text-field>  
@@ -26,6 +28,7 @@
           <v-row>
             <v-col md="6" sm="12">
               <v-text-field
+              v-model="dataUbicacionInmueble.lindero_este"
               class="input-middle"
               label="Este"
               ></v-text-field> 
@@ -33,6 +36,7 @@
 
             <v-col md="6" sm="12">
               <v-text-field
+              v-model="dataUbicacionInmueble.lindero_oeste"
               class="input-middle"
               label="Oeste"
               ></v-text-field>  
@@ -49,7 +53,7 @@
         </div>
         <div class="div-card mt-8">
           <v-row>
-            <v-col md="6" sm="12">
+            <v-col cols="12">
               <div style="width: 100%;">
                 <v-card class="card-image-upload">
                   <span class="span-float">
@@ -73,7 +77,7 @@
               </div>
             </v-col>
 
-            <v-col md="6" sm="12">
+            <!-- <v-col md="6" sm="12">
               <div style="width: 100%;">
                 <v-card class="card-image-upload">
                   <span class="span-float">
@@ -95,7 +99,66 @@
                   </v-btn>
                 </div>
               </div>
+            </v-col> -->
+          </v-row>
+        </div>
+      </div>
+
+      <div class="actualizar-ubicacion-parcela-container">
+        <div class="title-morado">
+          <p class="actualizar-ubicacion-parcela-title">
+            Imagen del Plano
+          </p>
+        </div>
+        <div class="div-card mt-8">
+          <v-row>
+            <v-col cols="12">
+              <div style="width: 100%;">
+                <v-card class="card-image-upload">
+                  <span class="span-float">
+                    Imagen - Plano 1
+                  </span>
+                  <span class="span-float-2">
+                    Arrastre y suelte el archivo aquí
+                  </span>
+                  <v-file-input
+                  class="input-file"
+                  prepend-icon="none"
+                  ></v-file-input>
+                </v-card>
+
+                <div class="file-btn">
+                  <v-file-input placeholder="Seleccione el archivo" class="file-input"></v-file-input>
+                  <v-btn>
+                    <span>Subir</span>
+                  </v-btn>
+                </div>
+              </div>
             </v-col>
+
+            <!-- <v-col md="6" sm="12">
+              <div style="width: 100%;">
+                <v-card class="card-image-upload">
+                  <span class="span-float">
+                    Imagen - Plano 2
+                  </span>
+                  <span class="span-float-2">
+                    Arrastre y suelte el archivo aquí
+                  </span>
+                  <v-file-input
+                  class="input-file"
+                  prepend-icon="none"
+                  ></v-file-input>
+                </v-card>
+
+                <div class="file-btn">
+                  <v-file-input placeholder="Seleccione el archivo" class="file-input"></v-file-input>
+                  <v-btn>
+                    <span>Subir</span>
+                  </v-btn>
+                </div>
+              </div>
+            </v-col> -->
           </v-row>
         </div>
       </div>
@@ -108,7 +171,7 @@
         </div>
         <div class="div-card mt-8">
           <v-row>
-            <v-col md="6" sm="12">
+            <v-col cols="12">
               <div style="width: 100%;">
                 <v-card class="card-image-upload">
                   <span class="span-float">
@@ -132,7 +195,7 @@
               </div>
             </v-col>
 
-            <v-col md="6" sm="12">
+            <!-- <v-col md="6" sm="12">
               <div style="width: 100%;">
                 <v-card class="card-image-upload">
                   <span class="span-float">
@@ -154,7 +217,7 @@
                   </v-btn>
                 </div>
               </div>
-            </v-col>
+            </v-col> -->
           </v-row>
         </div>
       </div>
@@ -172,6 +235,7 @@
                 {{ item.number }} Grupo
               </span>
               <v-text-field
+              v-model="norte[index]"
               class="input-middle outlined"
               label="Norte (m)"
               ></v-text-field> 
@@ -179,6 +243,7 @@
 
             <v-col md="6" sm="12">
               <v-text-field
+              v-model="este[index]"
               class="input-middle"
               label="Este (m)"
               ></v-text-field>  
@@ -221,6 +286,8 @@ export default {
     return {  
       dialog_confirmar: false,
 
+      dataUbicacionInmueble:[],
+
       dataCoordenadas:[
         { number:"1er"},
         { number:"2do"},
@@ -232,7 +299,10 @@ export default {
         { number:"8vo"},
         { number:"9no"},
         { number:"10mo"},
-      ]
+      ],
+
+      norte:[],
+      este:[],
     }
   },
   head() {
@@ -242,12 +312,53 @@ export default {
     }
   },
 
-  mounted(){
-
+  created(){
+    this.redireccionIdVacio()
+    this.getInmuebleUbicacion()
   },
 
   methods: {
-    
+    redireccionIdVacio(){
+      if(this.$store.getters.getExpediente =='Sin Seleccionar'){
+        this.$router.push('modificar-datos')
+        this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este modulo", hash: 'knsddcssdc', title:'Error'})
+      }else{
+        ''
+      }
+    },
+
+    getInmuebleUbicacion(){
+      this.$axios.$get('inmueble_ubicacion/?inmueble=' + this.$store.getters.getExpediente.id).then(response => {
+        this.dataUbicacionInmueble = response
+        this.documentoPropiedadId = this.dataUbicacionInmueble[0].id
+
+      this.norte = [
+        this.dataUbicacionInmueble.g1_norte,
+        this.dataUbicacionInmueble.g2_norte,
+        this.dataUbicacionInmueble.g3_norte,
+        this.dataUbicacionInmueble.g4_norte,
+        this.dataUbicacionInmueble.g5_norte,
+        this.dataUbicacionInmueble.g6_norte,
+        this.dataUbicacionInmueble.g7_norte,
+        this.dataUbicacionInmueble.g8_norte,
+        this.dataUbicacionInmueble.g9_norte
+      ],
+      this.este = [
+        this.dataUbicacionInmueble.g1_este,
+        this.dataUbicacionInmueble.g2_este,
+        this.dataUbicacionInmueble.g3_este,
+        this.dataUbicacionInmueble.g4_este,
+        this.dataUbicacionInmueble.g5_este,
+        this.dataUbicacionInmueble.g6_este,
+        this.dataUbicacionInmueble.g7_este,
+        this.dataUbicacionInmueble.g8_este,
+        this.dataUbicacionInmueble.g9_este,
+      ]
+
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
   }
 };
 </script>
