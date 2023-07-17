@@ -288,7 +288,7 @@
         <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
           <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color:#ED057E!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -324,6 +324,8 @@ export default {
 
       norte:[],
       este:[],
+
+      btnGuardarInmuble: false,
     }
   },
   head() {
@@ -436,6 +438,36 @@ export default {
         console.log(err)
       });
     },
+
+    saveData() {
+      this.btnGuardarInmuble = true
+
+      const formData = new FormData();
+      formData.append('lindero_norte', this.dataUbicacionInmueble.lindero_norte);
+      formData.append('lindero_este', this.dataUbicacionInmueble.lindero_este);
+      formData.append('lindero_sur', this.dataUbicacionInmueble.lindero_sur);
+      formData.append('lindero_oeste', this.dataUbicacionInmueble.lindero_oeste);
+      this.norte.forEach((value, index) => {
+        formData.append(`g${index + 1}_norte`, value);
+      });
+
+      this.este.forEach((value, index) => {
+        formData.append(`g${index + 1}_este`, value);
+      });
+
+      this.$axios.$patch(`inmueble_ubicacion/?inmueble=${this.$store.getters.getExpediente.id}/`, formData)
+      .then(res => {
+        console.log(res.data)
+        this.btnGuardarInmuble = false
+        this.dialog_confirmar = false
+        this.$alert("success", { desc: "Se ha guardado un inmueble con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
+      })
+      .catch(err => {
+        console.error(err)
+        this.btnGuardarInmuble = false
+        this.dialog_confirmar = false
+      });
+    }, 
   }
 };
 </script>
