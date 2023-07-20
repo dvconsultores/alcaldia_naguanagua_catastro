@@ -17,7 +17,7 @@
               ></v-text-field> 
 
               <v-autocomplete
-              v-model="tipologia"
+              v-model="dataValoracionTerreno.tipologia"
               class="input-small outlined"
               label="Uso"
               :items="dataTipologia"
@@ -28,7 +28,7 @@
 
             <v-col lg="3" md="12" class="pl-0 pr-0 divrow aend divcolmobile">
               <v-autocomplete
-              v-model="fines_fiscales"
+              v-model="dataValoracionTerreno.fines_fiscales"
               class="input-small"
               label="Fines Fiscales"
               :items="dataFinesFiscales"
@@ -37,7 +37,7 @@
               ></v-autocomplete>  
 
               <v-text-field
-              v-model="valor_unitario"
+              v-model="dataValoracionTerreno.valor_unitario"
               class="input-small outlined"
               label="Valor Unitario Bs/m2"
               type="number"
@@ -52,7 +52,7 @@
                 </span>
 
                 <v-text-field
-                v-model="area_factor_ajuste"
+                v-model="dataValoracionTerreno.area_factor_ajuste"
                 class="input-date"
                 label="Área (m2)"
                 type="number"
@@ -60,7 +60,7 @@
                 ></v-text-field>
 
                 <v-autocomplete
-                v-model="forma_factor_ajuste"
+                v-model="dataValoracionTerreno.forma_factor_ajuste"
                 class="input-date"
                 label="Forma"
                 :items="dataForma"
@@ -73,14 +73,14 @@
             <v-col lg="3" md="12" class="pl-0 pr-0 divrow aend divcolmobile">
               <v-text-field
               type="number"
-              v-model="valor_ajustado"
+              v-model="dataValoracionTerreno.valor_ajustado"
               class="input-small"
               label="Valor Ajustado Bs/m2"
               hide-spin-buttons	
               ></v-text-field> 
 
               <v-text-field
-              v-model="valor_total"
+              v-model="dataValoracionTerreno.valor_total"
               type="number"
               class="input-small outlined"
               label="Valor Total"
@@ -99,20 +99,20 @@
           <v-icon class="bold" color="#fff" x-large @click="dialog_crear = true">mdi-plus</v-icon>
         </div>
         <div class="div-card pt-8 wrap" style="flex-direction: column;">
-          <v-row v-for="(item, index) in dataConstruccion" :key="index" style="border-bottom: 2px solid var(--primary);">
+          <v-row v-for="(item, index) in dataValoracionConstruccion" :key="index" style="border-bottom: 2px solid var(--primary);">
             <v-col lg="7" class="divrow pr-0">
               <v-text-field
+              v-model="item.tipologia"
               class="input-small outlined"
               label="Uso"
-              :value="item.uso"
               readonly
               ></v-text-field>
 
               <v-text-field
+              v-model="item.fecha_construccion"
               class="input-small outlined"
               label="Fecha Compra"
               readonly
-              :value="item.fecha_compra"
               ></v-text-field>
 
               <v-card
@@ -130,35 +130,36 @@
               ></v-text-field> -->
 
               <v-text-field
+              v-model="item.area"
               class="input-small outlined"
               label="Área (m2)"
               readonly
-              :value="item.area"
               ></v-text-field> 
             </v-col>
 
             <v-col lg="5" class="divrow pl-0">
               <v-text-field
+              v-model="item.valor"
               class="input-small"
               label="Valor Bs/m2"
               readonly
-              :value="item.valor"
               ></v-text-field> 
 
               <v-text-field
+              v-model="item.depreciacion"
               class="input-small"
               label="Depreciación %"
               readonly
-              :value="item.depreciacion"
               ></v-text-field> 
 
               <v-text-field
+              v-model="item.valor_actual"
               class="input-small"
               label="Valor Actual Bs"
               readonly
               ></v-text-field> 
 
-              <v-btn class="btn-delete" @click="deleteItem(index)">
+              <v-btn class="btn-delete" @click="openDelete(item)">
                 <v-icon>
                   mdi-delete
                 </v-icon>
@@ -276,7 +277,7 @@
         <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
           <v-textarea
           class="textarea"
-          v-model="observaciones"
+          v-model="dataValoracionTerreno.observaciones"
           ></v-textarea>
         </div>
       </div>
@@ -296,7 +297,7 @@
         <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color: var(--primary)!important;">Si</v-btn>
           <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color:#ED057E!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -316,9 +317,9 @@
             <v-row class="center">
               <v-col lg="12" class="divrow pr-0">
               <v-autocomplete
+              v-model="new_tipologia"
               class="input-small"
               label="Tipología"
-              v-model="uso"
               :items="dataTipologia"
               item-text="descripcion"
               item-value="id"
@@ -334,7 +335,7 @@
               >
                 <template #activator="{ on, attrs }">
                   <v-text-field
-                  v-model="fecha_compra"
+                  v-model="new_fecha_construccion"
                   class="input-small"
                   label="Fecha Compra"
                   append-icon="mdi-calendar"
@@ -344,9 +345,8 @@
                   ></v-text-field>
                 </template>
                 <v-date-picker
-                  v-model="selectedDate"
+                  v-model="new_fecha_construccion"
                   label="Fecha Compra"
-                  @input="formatoFecha()"
                   color="#ff4081"
                   header-color="#810880"
                   class="custom-date-picker"
@@ -356,26 +356,27 @@
 
             <v-col lg="12" class="divrow pr-0">
               <v-text-field
+              v-model="new_area"
               class="input-small"
               label="Área (m2)"
-              v-model="area"
               ></v-text-field> 
 
               <v-text-field
+              v-model="new_valor"
               class="input-small"
               label="Valor Bs/m2"
-              v-model="valor"
               ></v-text-field> 
             </v-col>
 
             <v-col lg="12" class="divrow pr-0">
               <v-text-field
+              v-model="new_depreciacion"
               class="input-small"
               label="Depreciación %"
-              v-model="depreciacion"
               ></v-text-field> 
 
               <v-text-field
+              v-model=new_valor_actual
               class="input-small"
               label="Valor Actual Bs"
               ></v-text-field> 
@@ -386,7 +387,7 @@
               class="input-small outlined center"
               style="background: #fff;"
               >
-                <v-checkbox v-model="sub_utilizado" label="Sub-Utilizado"></v-checkbox>
+                <v-checkbox v-model="new_sub_utilizado" label="Sub-Utilizado"></v-checkbox>
               </v-card>
             </v-col>
             </v-row>
@@ -402,11 +403,27 @@
 
           <v-btn
             class="btn dialog-btn"
-            @click="addDiv()"
+            @click="postInmuebleValoracionConstruccion()"
             style="background-color:#ED057E!important;"
+            :loading="btnAddConstruccion"
           >
             Guardar
           </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- delete dialog -->
+
+    <v-dialog v-model="dialog_eliminar" max-width="500px">
+      <v-card id="dialog-eliminar-card">
+        <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
+        <span class="alerta-text">Esta acción no se puede revertir</span>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="btnconfirmDeletesTopografia dialog-btn" text @click="confirmDelete()">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialog_eliminar = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -422,6 +439,8 @@ export default {
   mixins: [computeds],
   data() {
     return {  
+      new_sub_utilizado: false,
+      dialog_eliminar: false,
       menu_fecha: false,
       dialog_crear: false,
       dialog_confirmar: false,
@@ -452,11 +471,14 @@ export default {
       valor_total: null,
       valor_unitario: null,
 
+      btnAddConstruccion: false,
+
       selectedDate: null,
       dataTipologia: [],
       dataFinesFiscales: [],
       dataForma: [],
       dataValoracionTerreno:{},
+      dataValoracionConstruccion: [],
       inmuebleId: this.$store.getters.getExpediente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getExpediente.id)),
     }
   },
@@ -467,33 +489,65 @@ export default {
     }
   },
 
-  mounted(){
+  async mounted(){
+    try {
+      await this.getInmuebleValoracionTerreno()
+      await this.getInmuebleValoracionConstruccion()
+    } catch (error) {
+      console.log(error);
+    }
+    this.getInmuebleValoracionTerreno()
+    this.getInmuebleValoracionConstruccion()
     this.getTipologia()
     this.getFinesFiscales()
     this.getForma()
-    this.getInmuebleValoracionTerreno()
   },
 
   methods: {
-    getInmuebleValoracionTerreno(){
-      this.$axios.$get(`inmueble_valoracion_terreno/?inmueble=${this.inmuebleId}`).then(response => {
-        this.dataValoracionTerreno = response[0]
-        this.area = this.dataValoracionTerreno.area
-        this.area_factor_ajuste = this.dataValoracionTerreno.area_factor_ajuste
-        this.fines_fiscales = this.dataValoracionTerreno.fines_fiscales
-        this.forma_factor_ajuste = this.dataValoracionTerreno.forma_factor_ajuste
-        this.id = this.dataValoracionTerreno.id
-        this.inmueble = this.dataValoracionTerreno.inmueble
-        this.observaciones = this.dataValoracionTerreno.observaciones
-        this.tipologia = this.dataValoracionTerreno.tipologia
-        this.valor_ajustado = this.dataValoracionTerreno.valor_ajustado
-        this.valor_total = this.dataValoracionTerreno.valor_total
-        this.valor_unitario = this.dataValoracionTerreno.valor_unitario
-        console.log(this.dataValoracionTerreno.area, 'valoracion')
+    async getInmuebleValoracionTerreno() {
+      try {
+        const response = await this.$axios.$get(`inmueble_valoracion_terreno/?inmueble=${this.inmuebleId}`);
+        this.dataValoracionTerreno = response[0];
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getInmuebleValoracionConstruccion() {
+      try {
+        if (this.dataValoracionTerreno) {
+          const response = await this.$axios.$get(`inmueble_valoracion_construccion/?inmueblevaloracionterreno=${this.dataValoracionTerreno.id}`);
+          this.dataValoracionConstruccion = response;
+          console.log(this.dataValoracionConstruccion, 'construc');
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    postInmuebleValoracionConstruccion(){
+      this.btnAddConstruccion = true
+
+      const formNewTerreno ={
+        inmueblevaloracionterreno: this.dataValoracionTerreno.id,
+        tipologia: this.new_tipologia,
+        fecha_construccion: this.new_fecha_construccion,
+        area: this.new_area,
+        valor: this.new_valor,
+        depreciacion: this.new_depreciacion,
+        valor_actual: this.new_valor_actual,
+        sub_utilizado: this.new_sub_utilizado,
+      }
+      this.$axios.$post(`inmueble_valoracion_construccion/`, formNewTerreno).then(response => {
+        this.dataValoracionConstruccion.push(response)
+        this.$alert("success", { desc: "Se ha guardado una construcción con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
+        this.btnAddConstruccion = false
+        this.dialog_crear = false
       }).catch(err => {
         console.log(err)
+        this.btnAddConstruccion = false
+        this.dialog_crear = false
       })
-    },  
+    },
 
     getTipologia(){
       this.$axios.$get('tipologia').then(response => {
@@ -519,21 +573,24 @@ export default {
       })
     },
 
-    addDiv(){
-      this.dataConstruccion.push({
-          uso: this.uso,
-          fecha_compra: this.fecha_compra,
-          sub_utilizado: this.sub_utilizado,
-          area: this.area,
-          valor: this.area,
-          depreciacion: this.depreciacion,
-      })
-
-      this.dialog_crear = false
+    openDelete(item){
+      this.deleteItem = item
+      this.dialog_eliminar = true
     },  
 
-    deleteItem(index){
-      this.dataConstruccion.splice(index, 1)
+    confirmDelete(){
+      this.$axios.$delete(`inmueble_valoracion_construccion/${this.deleteItem.id}`, this.deleteItem).then(response => {
+        console.log(response)
+        this.$alert("success", { desc: "Se ha eliminado una construcción con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
+        this.dialog_eliminar = false
+        const index = this.dataValoracionConstruccion.findIndex(b => b.id === this.deleteItem.id)
+        if (index !== -1) {
+          this.dataValoracionConstruccion.splice(index, 1)
+        }
+      }).catch(err => {
+        console.log(err)
+        this.dialog_eliminar = false
+      })
     },
 
     formatoFecha() {

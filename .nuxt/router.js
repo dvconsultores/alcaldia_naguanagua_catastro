@@ -8,6 +8,7 @@ const _397c9650 = () => interopDefault(import('../pages/acceso.vue' /* webpackCh
 const _36c8b099 = () => interopDefault(import('../pages/actualizacion-inmueble.vue' /* webpackChunkName: "pages/actualizacion-inmueble" */))
 const _0660347d = () => interopDefault(import('../pages/actualizacion-propietarios.vue' /* webpackChunkName: "pages/actualizacion-propietarios" */))
 const _03265804 = () => interopDefault(import('../pages/actualizacion-ubicacion-parcela.vue' /* webpackChunkName: "pages/actualizacion-ubicacion-parcela" */))
+const _48ba9a3b = () => interopDefault(import('../pages/actualizacion-ubicacion-parcela(sebas).vue' /* webpackChunkName: "pages/actualizacion-ubicacion-parcela(sebas)" */))
 const _7c39ad3f = () => interopDefault(import('../pages/actualizar-construccion.vue' /* webpackChunkName: "pages/actualizar-construccion" */))
 const _4107f1e2 = () => interopDefault(import('../pages/actualizar-documento-propiedad.vue' /* webpackChunkName: "pages/actualizar-documento-propiedad" */))
 const _d93c89c8 = () => interopDefault(import('../pages/actualizar-documentos-pendientes.vue' /* webpackChunkName: "pages/actualizar-documentos-pendientes" */))
@@ -101,6 +102,10 @@ export const routerOptions = {
     path: "/actualizacion-ubicacion-parcela",
     component: _03265804,
     name: "actualizacion-ubicacion-parcela___en"
+  }, {
+    path: "/actualizacion-ubicacion-parcela(sebas)",
+    component: _48ba9a3b,
+    name: "actualizacion-ubicacion-parcela(sebas)___en"
   }, {
     path: "/actualizar-construccion",
     component: _7c39ad3f,
@@ -369,6 +374,10 @@ export const routerOptions = {
     path: "/es/actualizacion-ubicacion-parcela",
     component: _03265804,
     name: "actualizacion-ubicacion-parcela___es"
+  }, {
+    path: "/es/actualizacion-ubicacion-parcela(sebas)",
+    component: _48ba9a3b,
+    name: "actualizacion-ubicacion-parcela(sebas)___es"
   }, {
     path: "/es/actualizar-construccion",
     component: _7c39ad3f,

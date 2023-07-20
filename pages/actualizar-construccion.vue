@@ -168,7 +168,7 @@
           label="Tipo de Pared"
           :items="dataTipoPared"
           item-text="descripcion"
-          item-valu="id"
+          item-value="id"
           ></v-autocomplete>
         </div>
         <v-divider vertical class="purple delete-1200"></v-divider>
@@ -179,7 +179,7 @@
           label="Estado de la Pared"
           :items="dataAcabadoPared"
           item-text="descripcion"
-          item-valu="id"
+          item-value="id"
           ></v-autocomplete>
         </div>
         <v-divider vertical class="purple delete-1200"></v-divider>
@@ -190,7 +190,7 @@
           label="Estado de Conservación"
           :items="dataConservacion"
           item-text="descripcion"
-          item-valu="id"
+          item-value="id"
           ></v-autocomplete>
         </div>
       </div>
@@ -395,7 +395,7 @@ export default {
 
     getInmuebleConstruccion(){
       this.$axios.$get('inmueble_construccion/?inmueble=' + this.$store.getters.getExpediente.id).then(response => {
-        this.dataInmuebleConstruccion = response
+        this.dataInmuebleConstruccion = response[0]
         this.inmuebleConstruccionId = this.dataInmuebleConstruccion[0].id
         console.log(this.dataInmuebleConstruccion.id, 'indeindneidnaibfe')
       }).catch(err => {
@@ -615,13 +615,13 @@ export default {
       this.btnGuardarInmuble = true
 
       const formData = new FormData();
-      formData.append('tipo', this.dataInmuebleConstruccion.tipo);
-      formData.append('uso_construccion', this.dataInmuebleConstruccion.uso_construccion);
-      formData.append('tenencia', this.dataInmuebleConstruccion.tenencia);
-      formData.append('regimen', this.dataInmuebleConstruccion.regimen);
-      formData.append('tipo_pared', this.dataInmuebleConstruccion.tipo_pared);
-      formData.append('acabado_pared', this.dataInmuebleConstruccion.acabado_pared);
-      formData.append('conservacion', this.dataInmuebleConstruccion.conservacion);
+      this.dataInmuebleConstruccion.tipo ? formData.append('tipo', this.dataInmuebleConstruccion.tipo):'';
+      this.dataInmuebleConstruccion.uso_construccion ? formData.append('uso_construccion', this.dataInmuebleConstruccion.uso_construccion):'';
+      this.dataInmuebleConstruccion.tenencia ? formData.append('tenencia', this.dataInmuebleConstruccion.tenencia):'';
+      this.dataInmuebleConstruccion.regimen ? formData.append('regimen', this.dataInmuebleConstruccion.regimen):'';
+      this.dataInmuebleConstruccion.tipo_pared ? formData.append('tipo_pared', this.dataInmuebleConstruccion.tipo_pared):'';
+      this.dataInmuebleConstruccion.acabado_pared ? formData.append('acabado_pared', this.dataInmuebleConstruccion.acabado_pared):'';
+      this.dataInmuebleConstruccion.conservacion ? formData.append('conservacion', this.dataInmuebleConstruccion.conservacion):'';
       formData.append('anio_construccion', this.dataInmuebleConstruccion.anio_construccion);
       formData.append('anio_refaccion', this.dataInmuebleConstruccion.anio_refaccion);
       formData.append('porcentaje_refaccion', this.dataInmuebleConstruccion.porcentaje_refaccion);
@@ -630,7 +630,7 @@ export default {
       formData.append('numero_edificaciones', this.dataInmuebleConstruccion.numero_edificaciones);
       formData.append('observaciones', this.dataInmuebleConstruccion.observaciones);
 
-      this.$axios.$patch(`inmueble_construccion/?inmueble=${this.$store.getters.getExpediente.id}/`, formData)
+      this.$axios.$patch(`inmueble_construccion/${this.dataInmuebleConstruccion.id}/`, formData)
       .then(res => {
         console.log(res.data)
         this.btnGuardarInmuble = false

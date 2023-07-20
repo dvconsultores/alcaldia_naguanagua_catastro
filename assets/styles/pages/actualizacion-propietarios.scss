@@ -224,7 +224,7 @@
   .card-confirmacion-dialog{
     background-color: var(--bg-ap);
     max-width: 600px;
-    height: 250px;
+    height: max-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -245,8 +245,34 @@
       font-size: 18px;
     }
 
+    .input-fecha{
+      width: 100%;
+      box-shadow: 0px 0px 3px 3px rgba( #000000, 0.1)!important;
+      border-radius: 10px;
+      border: 1px solid var(--primary);
+      padding-inline: 10px;
+      height: 65px;
+    }
+
     .btn-small{
       max-width: 150px!important;
     }
   }
 }
+
+
+
+////////////////////////////menu data-picker//////////////////
+/// 
+
+.custom-date-picker .v-picker__body {
+  background-color: #fff!important;
+
+  .active{
+    background-color: var(--bg-ap)!important;
+  }
+}
+
+.theme--dark.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus) {
+  color: #000;
+} 

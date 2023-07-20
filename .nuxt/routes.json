@@ -28,6 +28,13 @@
     "_name": "_03265804"
   },
   {
+    "name": "actualizacion-ubicacion-parcela(sebas)___en",
+    "path": "/actualizacion-ubicacion-parcela(sebas)",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-ubicacion-parcela(sebas).vue",
+    "chunkName": "pages/actualizacion-ubicacion-parcela(sebas)",
+    "_name": "_48ba9a3b"
+  },
+  {
     "name": "actualizar-construccion___en",
     "path": "/actualizar-construccion",
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-construccion.vue",
@@ -495,6 +502,13 @@
     "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-ubicacion-parcela.vue",
     "chunkName": "pages/actualizacion-ubicacion-parcela",
     "_name": "_03265804"
+  },
+  {
+    "name": "actualizacion-ubicacion-parcela(sebas)___es",
+    "path": "/es/actualizacion-ubicacion-parcela(sebas)",
+    "component": "/home/maria/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-ubicacion-parcela(sebas).vue",
+    "chunkName": "pages/actualizacion-ubicacion-parcela(sebas)",
+    "_name": "_48ba9a3b"
   },
   {
     "name": "actualizar-construccion___es",

@@ -397,7 +397,7 @@ export default{
           total += parseFloat(div.monto)
         }
       }
-      return total.toFixed(2)
+      return total
     },
 
     addDiv(){
@@ -419,7 +419,7 @@ export default{
       this.montoTotalSelectedItem = this.selectedItem ? this.selectedItem.monto_total : null
       this.montoTotalFunc = this.montoTotal()
 
-      if(this.montoTotalSelectedItem !== null && this.montoTotalSelectedItem === this.montoTotalFunc){
+      if(this.montoTotalSelectedItem !== null && this.montoTotalSelectedItem == this.montoTotalFunc){
           const data = {
           liquidacion: this.selectedItem.id,
           propietario: this.$store.getters.getContribuyente.id,

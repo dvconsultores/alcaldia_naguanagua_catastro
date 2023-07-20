@@ -119,6 +119,37 @@
               {{nacionalidadcontribuyente}} - {{numero_documento}}
             </span>
           </div>
+
+          <div>
+            <span class="desc-dialog">Ingrese la Fecha de Compra del Inmueble</span>
+            <v-menu
+            v-model="menu1"
+            :close-on-content-click="false"
+            :nudge-right="5"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+            >
+              <template #activator="{ on, attrs }">
+                <v-text-field
+                v-model="fecha_compra"
+                class="input-fecha"
+                label="Fecha de Compra"
+                append-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="fecha_compra"
+                label="Fecha de Compra"
+                color="blue"
+                header-color="#810880"
+                class="custom-date-picker"
+              ></v-date-picker>
+            </v-menu>
+          </div>
           <div class="center divrow" style="gap:10px;">
             <v-btn @click="agregarContribuyente()" class="btn btn-small">
               Agregar
@@ -142,6 +173,7 @@ export default {
   mixins: [computeds],
   data() {
     return{
+      menu1: false,
       dialogDelete: false,
       inmuebleData:[],
       inmueblePropietariosData:[],
@@ -205,6 +237,7 @@ export default {
       const formData = new FormData()
       formData.append('inmueble', this.$store.getters.getExpediente.id)
       formData.append('propietario', this.$store.getters.getContribuyente.id)
+      formData.append('fecha_compra', this.fecha_compra)
       this.$axios.$post('CrearInmueblePropietario/', formData).then(res => {
         this.inmueblePropietariosData.push(res)
         this.$alert("success", {desc: "Se ha agregado el contribuyente con éxito", hash: 'knsddcssdc', title:'Agregado'})        

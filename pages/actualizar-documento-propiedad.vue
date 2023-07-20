@@ -59,7 +59,6 @@
                 color="blue"
                 header-color="#810880"
                 class="custom-date-picker"
-                @input="formatoFechaHabitabilidad()"
               ></v-date-picker>
             </v-menu>
           </v-card>
@@ -105,7 +104,6 @@
                 color="blue"
                 header-color="#810880"
                 class="custom-date-picker"
-                @input="formatoFechaVigencia()"
               ></v-date-picker>
             </v-menu>
           </v-card>
@@ -149,7 +147,6 @@
                 color="blue"
                 header-color="#810880"
                 class="custom-date-picker"
-                @input="formatoFechaDocumento()"
               ></v-date-picker>
             </v-menu>
           </v-card>
@@ -220,7 +217,6 @@
                     color="blue"
                     header-color="#810880"
                     class="custom-date-picker"
-                    @input="formatoFechaTerreno()"
                   ></v-date-picker>
                 </v-menu>
               </v-card>
@@ -315,7 +311,6 @@
                     color="blue"
                     header-color="#810880"
                     class="custom-date-picker"
-                    @input="formatoFechaConstruccion()"
                   ></v-date-picker>
                 </v-menu>
               </v-card>
@@ -437,7 +432,6 @@
 
 <script>
 import computeds from '~/mixins/computeds'
-import moment from 'moment'
 
 export default {
   name: "actualizar-terrenoPage",
@@ -488,7 +482,7 @@ export default {
 
     getDocumentoPropiedad(){
       this.$axios.$get('inmueble_propiedad/?inmueble=' + this.$store.getters.getExpediente.id).then(response => {
-        this.dataDocumentoPropiedad = response
+        this.dataDocumentoPropiedad = response[0]
         this.documentoPropiedadId = this.dataDocumentoPropiedad[0].id
       }).catch(err => {
         console.log(err) 
@@ -519,73 +513,74 @@ export default {
       })
     },
 
-    formatoFechaHabitabilidad() {
-      if (this.dataDocumentoPropiedad.fecha_habitabilidad) {
-        this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
-        this.dataDocumentoPropiedad.fecha_habitabilidad = this.fechaFormateada
-      }
-    },
+    // formatoFechaHabitabilidad() {
+    //   if (this.dataDocumentoPropiedad.fecha_habitabilidad) {
+    //     this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
+    //     this.dataDocumentoPropiedad.fecha_habitabilidad = this.fechaFormateada
+    //   }
+    // },
 
-    formatoFechaConstruccion() {
-      if (this.dataDocumentoPropiedad.fecha_construccion) {
-        this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
-        this.dataDocumentoPropiedad.fecha_construccion = this.fechaFormateada
-      }
-    },
+    // formatoFechaConstruccion() {
+    //   if (this.dataDocumentoPropiedad.fecha_construccion) {
+    //     this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
+    //     this.dataDocumentoPropiedad.fecha_construccion = this.fechaFormateada
+    //   }
+    // },
 
-    formatoFechaDocumento() {
-      if (this.dataDocumentoPropiedad.fecha_documento) {
-        this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
-        this.dataDocumentoPropiedad.fecha_documento = this.fechaFormateada
-      }
-    },
+    // formatoFechaDocumento() {
+    //   if (this.dataDocumentoPropiedad.fecha_documento) {
+    //     this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
+    //     this.dataDocumentoPropiedad.fecha_documento = this.fechaFormateada
+    //   }
+    // },
 
-    formatoFechaTerreno() {
-      if (this.dataDocumentoPropiedad.fecha_terreno) {
-        this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
-        this.dataDocumentoPropiedad.fecha_terreno = this.fechaFormateada
-      }
-    },
+    // formatoFechaTerreno() {
+    //   if (this.dataDocumentoPropiedad.fecha_terreno) {
+    //     this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
+    //     this.dataDocumentoPropiedad.fecha_terreno = this.fechaFormateada
+    //   }
+    // },
 
-    formatoFechaVigencia() {
-      if (this.dataDocumentoPropiedad.fecha_vigencia) {
-        this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
-        this.dataDocumentoPropiedad.fecha_vigencia = this.fechaFormateada
-      }
-    },
+    // formatoFechaVigencia() {
+    //   if (this.dataDocumentoPropiedad.fecha_vigencia) {
+    //     this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
+    //     this.dataDocumentoPropiedad.fecha_vigencia = this.fechaFormateada
+    //   }
+    // },
 
     saveData() {
       this.btnGuardarInmuble = true
 
       const formData = new FormData();
-      formData.append('tipo', this.dataDocumentoPropiedad.tipo_documento);
-      formData.append('uso_construccion', this.dataDocumentoPropiedad.tipo_especial);
-      formData.append('tenencia', this.dataDocumentoPropiedad.fecha_habitabilidad);
-      formData.append('regimen', this.dataDocumentoPropiedad.tipo_tenencia);
-      formData.append('tipo_pared', this.dataDocumentoPropiedad.fecha_vigencia);
-      formData.append('acabado_pared', this.dataDocumentoPropiedad.fecha_documento);
-      formData.append('conservacion', this.dataDocumentoPropiedad.numero_documento);
-      formData.append('anio_construccion', this.dataDocumentoPropiedad.matricula_documento);
-      formData.append('anio_refaccion', this.dataDocumentoPropiedad.anio_folio_documento);
-      formData.append('porcentaje_refaccion', this.dataDocumentoPropiedad.fecha_terreno);
-      formData.append('edad_efectiva', this.dataDocumentoPropiedad.numero_terreno);
-      formData.append('numero_niveles', this.dataDocumentoPropiedad.folio_terreno);
-      formData.append('numero_edificaciones', this.dataDocumentoPropiedad.protocolo_terreno);
-      formData.append('observaciones', this.dataDocumentoPropiedad.tomo_terreno);
-      formData.append('uso_construccion', this.dataDocumentoPropiedad.area_terreno);
-      formData.append('tenencia', this.dataDocumentoPropiedad.valor_terreno);
-      formData.append('regimen', this.dataDocumentoPropiedad.fecha_construccion);
-      formData.append('tipo_pared', this.dataDocumentoPropiedad.numero_construccion);
-      formData.append('acabado_pared', this.dataDocumentoPropiedad.folio_construccion);
-      formData.append('conservacion', this.dataDocumentoPropiedad.protocolo_construccion);
-      formData.append('anio_construccion', this.dataDocumentoPropiedad.tomo_construccion);
-      formData.append('anio_refaccion', this.dataDocumentoPropiedad.area_construccion);
-      formData.append('porcentaje_refaccion', this.dataDocumentoPropiedad.lindero_norte);
-      formData.append('edad_efectiva', this.dataDocumentoPropiedad.lindero_sur);
-      formData.append('numero_niveles', this.dataDocumentoPropiedad.lindero_este);
-      formData.append('numero_edificaciones', this.dataDocumentoPropiedad.lindero_oeste);
 
-      this.$axios.$patch(`inmueble_propiedad/?inmueble=${this.$store.getters.getExpediente.id}/`, formData)
+      this.dataDocumentoPropiedad.tipo_documento ? formData.append('tipo_documento', this.dataDocumentoPropiedad.tipo_documento) : '';
+      this.dataDocumentoPropiedad.tipo_especial ? formData.append('tipo_especial', this.dataDocumentoPropiedad.tipo_especial) : '';
+      this.dataDocumentoPropiedad.fecha_habitabilidad ? formData.append('fecha_habitabilidad', this.dataDocumentoPropiedad.fecha_habitabilidad) : '';
+      this.dataDocumentoPropiedad.tipo_tenencia ? formData.append('tipo_tenencia', this.dataDocumentoPropiedad.tipo_tenencia) : '';
+      this.dataDocumentoPropiedad.fecha_vigencia ? formData.append('fecha_vigencia', this.dataDocumentoPropiedad.fecha_vigencia) : '';
+      this.dataDocumentoPropiedad.fecha_documento ? formData.append('fecha_documento', this.dataDocumentoPropiedad.fecha_documento) : '';
+      formData.append('numero_documento', this.dataDocumentoPropiedad.numero_documento);
+      formData.append('matricula_documento', this.dataDocumentoPropiedad.matricula_documento);
+      formData.append('anio_folio_documento', this.dataDocumentoPropiedad.anio_folio_documento);
+      this.dataDocumentoPropiedad.fecha_terreno ? formData.append('fecha_terreno', this.dataDocumentoPropiedad.fecha_terreno) : '';
+      formData.append('numero_terreno', this.dataDocumentoPropiedad.numero_terreno);
+      formData.append('folio_terreno', this.dataDocumentoPropiedad.folio_terreno);
+      formData.append('protocolo_terreno', this.dataDocumentoPropiedad.protocolo_terreno);
+      formData.append('tomo_terreno', this.dataDocumentoPropiedad.tomo_terreno);
+      formData.append('area_terreno', this.dataDocumentoPropiedad.area_terreno);
+      formData.append('valor_terreno', this.dataDocumentoPropiedad.valor_terreno);
+      this.dataDocumentoPropiedad.fecha_construccion ? formData.append('fecha_construccion', this.dataDocumentoPropiedad.fecha_construccion) : '';
+      formData.append('numero_construccion', this.dataDocumentoPropiedad.numero_construccion);
+      formData.append('folio_construccion', this.dataDocumentoPropiedad.folio_construccion);
+      formData.append('protocolo_construccion', this.dataDocumentoPropiedad.protocolo_construccion);
+      formData.append('tomo_construccion', this.dataDocumentoPropiedad.tomo_construccion);
+      formData.append('area_construccion', this.dataDocumentoPropiedad.area_construccion);
+      formData.append('lindero_norte', this.dataDocumentoPropiedad.lindero_norte);
+      formData.append('lindero_sur', this.dataDocumentoPropiedad.lindero_sur);
+      formData.append('lindero_este', this.dataDocumentoPropiedad.lindero_este);
+      formData.append('lindero_oeste', this.dataDocumentoPropiedad.lindero_oeste);
+
+      this.$axios.$patch(`inmueble_propiedad/${this.dataDocumentoPropiedad.id}/`, formData)
       .then(res => {
         console.log(res.data)
         this.btnGuardarInmuble = false

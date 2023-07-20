@@ -64,7 +64,7 @@
 
         <hr>
 
-        <div class="center" style="width: 90%;">
+        <div class="center" style="width: 100%;">
           <v-autocomplete
           v-model="flujo"
           class="autocomplete-flujo"
@@ -74,6 +74,75 @@
           item-value="id"
           ></v-autocomplete>
         </div>
+      </div>
+
+      <div class="tipo-container">
+        <p class="title-inscripcion-inmueble">
+          Datos del Estado
+        </p>
+
+        <hr>
+
+        <v-row>
+          <v-col lg="3" sm="6" class="center">
+            <v-autocomplete
+            v-model="tipo_estado"
+            class="input-tipo"
+            label="Tipo de Inmueble"
+            :items="dataTipoInmueble"
+            item-text="descripcion"
+            item-value="id"
+            ></v-autocomplete>
+          </v-col>
+
+          <v-col lg="3" sm="6" class="center">
+            <v-menu
+            v-model="menu1"
+            :close-on-content-click="false"
+            :nudge-right="5"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+            >
+              <template #activator="{ on, attrs }">
+                <v-text-field
+                v-model="fecha_compra_estado"
+                class="input-tipo"
+                label="Fecha de Compra"
+                append-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="fecha_compra_estado"
+                label="Fecha de Compra"
+                color="blue"
+                header-color="#810880"
+                class="custom-date-picker"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+
+          <v-col lg="3" sm="6" class="center">
+            <v-text-field
+            v-model="area_estado"
+            class="input-tipo"
+            label="Area"
+            type="number"
+            hide-spin-buttons
+            ></v-text-field>
+          </v-col>
+
+          <v-col lg="3" sm="6" class="center">
+            <v-card
+            class="card-tipo"
+            >
+              <v-checkbox v-model="habilitado_estado" label="Habilitado"></v-checkbox>
+            </v-card>
+          </v-col>
+        </v-row>
       </div>
 
       <div class="observaciones-container">
@@ -192,6 +261,7 @@ export default{
   mixins: [computeds],
   data() {
     return{
+      menu1: false,
       observaciones:'',
       nuevoRegistro: {},
       monto_unidad_tributaria: null,
@@ -227,6 +297,7 @@ export default{
       tasaMultaData:[],
       bcvData:[],
       flujoData:[],
+      dataTipoInmueble: [],
     }
   },
 
@@ -243,6 +314,7 @@ export default{
     this.getTasaMulta()
     this.getBCV()
     this.getFlujo()
+    this.getTipoInmueble()
   },
 
   // computed: {
@@ -312,6 +384,15 @@ export default{
       })
     },
 
+    getTipoInmueble(){
+      this.$axios.$get('tipoinmueble').then(response => {
+        this.dataTipoInmueble = response
+        console.log(this.dataTipoInmueble, 'dataINmueble')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
     createEstadoCuenta(){
       const data = {
         inmueble: null,
@@ -320,7 +401,11 @@ export default{
         propietario: this.$store.getters.getContribuyente.id,
         observacion: this.observaciones,
         detalle: this.divs,
-        monto_total: this.montoTotal()
+        monto_total: this.montoTotal(),
+        habilitado: this.habilitado_estado,
+        fecha_compra: this.fecha_compra_estado,
+        area: this.area_estado,
+        tipo: this.tipo_estado,
       }
       this.$axios.$post('crearestadocuenta/', data).then(res => {
         console.log(res)
@@ -353,7 +438,7 @@ export default{
       const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
       const anio = fecha.getFullYear().toString().slice(-2);
       return `${dia}/${mes}/${anio}`;
-    }
+    },
   }
 }
 </script>

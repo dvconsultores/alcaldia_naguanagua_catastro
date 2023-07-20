@@ -59,11 +59,14 @@
                   <span class="span-float">
                     Imagen - Inmueble 1
                   </span>
+                  <span class="span-float-2">
+                    Arrastre y suelte el archivo aquí
+                  </span>
                   <v-div
                   class="input-div"
                   prepend-icon="none"
                   >
-                  <img v-if="dataUbicacionInmueble.imagen_inmueble" :src="dataUbicacionInmueble.imagen_inmueble" class="preview-image"/>
+                  <img v-if="dataUbicacionInmueble.imagen_inmueble" :src="imageUrlInmueble" class="preview-image"/>
                   </v-div>
                 </v-card>
 
@@ -72,8 +75,9 @@
                   v-model="dataUbicacionInmueble.imagen_inmueble"
                   show-size
                   placeholder="Seleccione el archivo" class="file-input"
+                  accept="image/*"
                   ></v-file-input>
-                  <v-btn :loading="btnImagenInmueble" @click="uploadImageInmueble()">
+                  <v-btn @click="uploadImageInmueble()">
                     <span>Subir</span>
                   </v-btn>
                 </div>
@@ -121,11 +125,14 @@
                   <span class="span-float">
                     Imagen - Plano 1
                   </span>
+                  <span class="span-float-2">
+                    Arrastre y suelte el archivo aquí
+                  </span>
                   <v-div
                   class="input-div"
                   prepend-icon="none"
                   >
-                  <img v-if="dataUbicacionInmueble.imagen_plano" :src="dataUbicacionInmueble.imagen_plano" class="preview-image" alt="image"/>
+                  <img v-if="dataUbicacionInmueble.imagen_plano" :src="imageUrlPlano" class="preview-image"/>
                   </v-div>
                 </v-card>
 
@@ -136,7 +143,7 @@
                   placeholder="Seleccione el archivo" class="file-input"
                   accept="image/*"
                   ></v-file-input>
-                  <v-btn :loading="btnImagenPlano" @click="uploadImagePlano()">
+                  <v-btn @click="uploadImagePlano()">
                     <span>Subir</span>
                   </v-btn>
                 </div>
@@ -184,11 +191,14 @@
                   <span class="span-float">
                     Imagen - Plano de Mesura 1
                   </span>
+                  <span class="span-float-2">
+                    Arrastre y suelte el archivo aquí
+                  </span>
                   <v-div
                   class="input-div"
                   prepend-icon="none"
                   >
-                  <img v-if="dataUbicacionInmueble.imagan_plano_mesura" :src="dataUbicacionInmueble.imagan_plano_mesura" class="preview-image">
+                  <img v-if="dataUbicacionInmueble.imagan_plano_mesura" :src="imageUrlPlanoMesura" class="preview-image"/>
                   </v-div>
                 </v-card>
 
@@ -199,7 +209,7 @@
                   placeholder="Seleccione el archivo" class="file-input"
                   accept="image/*"
                   ></v-file-input>
-                  <v-btn :loading="btnImagenPlanoMesura" @click="uploadImagePlanoMesura()">
+                  <v-btn @click="uploadImagePlanoMesura()">
                     <span>Subir</span>
                   </v-btn>
                 </div>
@@ -240,13 +250,13 @@
           </p>
         </div>
         <div class="div-card pt-8 wrap" style="flex-direction: column;">
-          <v-row class="mt-3 mb-3">
+          <v-row class="mt-3 mb-3" v-for="(item,index) in dataCoordenadas" :key="index">
             <v-col md="6" sm="12" style="position: relative;">
               <span class="span-float">
-                1er Grupo
+                {{ item.number }} Grupo
               </span>
               <v-text-field
-              v-model="dataUbicacionInmueble.g1_norte"
+              v-model="norte[index]"
               class="input-middle outlined"
               label="Norte (m)"
               ></v-text-field> 
@@ -254,154 +264,7 @@
 
             <v-col md="6" sm="12">
               <v-text-field
-              v-model="dataUbicacionInmueble.g1_este"
-              class="input-middle"
-              label="Este (m)"
-              ></v-text-field>  
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-3 mb-3">
-            <v-col md="6" sm="12" style="position: relative;">
-              <span class="span-float">
-                2do Grupo
-              </span>
-              <v-text-field
-              v-model="dataUbicacionInmueble.g2_norte"
-              class="input-middle outlined"
-              label="Norte (m)"
-              ></v-text-field> 
-            </v-col>
-
-            <v-col md="6" sm="12">
-              <v-text-field
-              v-model="dataUbicacionInmueble.g2_este"
-              class="input-middle"
-              label="Este (m)"
-              ></v-text-field>  
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-3 mb-3">
-            <v-col md="6" sm="12" style="position: relative;">
-              <span class="span-float">
-                3er Grupo
-              </span>
-              <v-text-field
-              v-model="dataUbicacionInmueble.g3_norte"
-              class="input-middle outlined"
-              label="Norte (m)"
-              ></v-text-field> 
-            </v-col>
-
-            <v-col md="6" sm="12">
-              <v-text-field
-              v-model="dataUbicacionInmueble.g3_este"
-              class="input-middle"
-              label="Este (m)"
-              ></v-text-field>  
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-3 mb-3">
-            <v-col md="6" sm="12" style="position: relative;">
-              <span class="span-float">
-                4to Grupo
-              </span>
-              <v-text-field
-              v-model="dataUbicacionInmueble.g4_norte"
-              class="input-middle outlined"
-              label="Norte (m)"
-              ></v-text-field> 
-            </v-col>
-
-            <v-col md="6" sm="12">
-              <v-text-field
-              v-model="dataUbicacionInmueble.g4_este"
-              class="input-middle"
-              label="Este (m)"
-              ></v-text-field>  
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-3 mb-3">
-            <v-col md="6" sm="12" style="position: relative;">
-              <span class="span-float">
-                5to Grupo
-              </span>
-              <v-text-field
-              v-model="dataUbicacionInmueble.g5_norte"
-              class="input-middle outlined"
-              label="Norte (m)"
-              ></v-text-field> 
-            </v-col>
-
-            <v-col md="6" sm="12">
-              <v-text-field
-              v-model="dataUbicacionInmueble.g5_este"
-              class="input-middle"
-              label="Este (m)"
-              ></v-text-field>  
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-3 mb-3">
-            <v-col md="6" sm="12" style="position: relative;">
-              <span class="span-float">
-                6to Grupo
-              </span>
-              <v-text-field
-              v-model="dataUbicacionInmueble.g6_norte"
-              class="input-middle outlined"
-              label="Norte (m)"
-              ></v-text-field> 
-            </v-col>
-
-            <v-col md="6" sm="12">
-              <v-text-field
-              v-model="dataUbicacionInmueble.g6_este"
-              class="input-middle"
-              label="Este (m)"
-              ></v-text-field>  
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-3 mb-3">
-            <v-col md="6" sm="12" style="position: relative;">
-              <span class="span-float">
-                7mo Grupo
-              </span>
-              <v-text-field
-              v-model="dataUbicacionInmueble.g7_norte"
-              class="input-middle outlined"
-              label="Norte (m)"
-              ></v-text-field> 
-            </v-col>
-
-            <v-col md="6" sm="12">
-              <v-text-field
-              v-model="dataUbicacionInmueble.g7_este"
-              class="input-middle"
-              label="Este (m)"
-              ></v-text-field>  
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-3 mb-3">
-            <v-col md="6" sm="12" style="position: relative;">
-              <span class="span-float">
-                8vo Grupo
-              </span>
-              <v-text-field
-              v-model="dataUbicacionInmueble.g8_norte"
-              class="input-middle outlined"
-              label="Norte (m)"
-              ></v-text-field> 
-            </v-col>
-
-            <v-col md="6" sm="12">
-              <v-text-field
-              v-model="dataUbicacionInmueble.g8_este"
+              v-model="este[index]"
               class="input-middle"
               label="Este (m)"
               ></v-text-field>  
@@ -443,15 +306,26 @@ export default {
   data() {
     return {  
       dialog_confirmar: false,
+
       dataUbicacionInmueble:[],
+
+      dataCoordenadas:[
+        { number:"1er"},
+        { number:"2do"},
+        { number:"3er"},
+        { number:"4to"},
+        { number:"5to"},
+        { number:"6to"},
+        { number:"7mo"},
+        { number:"8vo"},
+        { number:"9no"},
+        { number:"10mo"},
+      ],
 
       norte:[],
       este:[],
 
       btnGuardarInmuble: false,
-      btnImagenPlano: false,
-      btnImagenPlanoMesura: false,
-      btnImagenInmueble: false
     }
   },
   head() {
@@ -468,22 +342,13 @@ export default {
 
   computed: {
     imageUrlPlanoMesura() {
-      if (this.dataUbicacionInmueble.imagen_plano_mesura instanceof File || this.dataUbicacionInmueble.imagen_plano_mesura instanceof Blob) {
-        return URL.createObjectURL(this.dataUbicacionInmueble.imagen_plano_mesura);
-      }
-      return null;
+      return URL.createObjectURL(this.dataUbicacionInmueble.imagan_plano_mesura);
     },
     imageUrlPlano() {
-      if (this.dataUbicacionInmueble.imagan_plano instanceof File || this.dataUbicacionInmueble.imagan_plano instanceof Blob) {
-        return URL.createObjectURL(this.dataUbicacionInmueble.imagan_plano);
-      }
-      return null;
+      return URL.createObjectURL(this.dataUbicacionInmueble.imagen_plano);
     },
     imageUrlInmueble() {
-      if (this.dataUbicacionInmueble.imagen_inmueble instanceof File || this.dataUbicacionInmueble.imagen_inmueble instanceof Blob) {
-        return URL.createObjectURL(this.dataUbicacionInmueble.imagen_inmueble);
-      }
-      return null;
+      return URL.createObjectURL(this.dataUbicacionInmueble.imagen_inmueble);
     },
   },
 
@@ -498,94 +363,79 @@ export default {
     },
 
     getInmuebleUbicacion(){
-      this.$axios.$get('inmueble_ubicacion/?inmueble=' + this.$store.getters.getExpediente.id).then(response => {
-        this.dataUbicacionInmueble = response[0]
-        console.log('dataUbicacionInmueble',this.dataUbicacionInmueble)
+      this.$axios.$get('inmueble_ubicacion/' + this.$store.getters.getExpediente.id).then(response => {
+        this.dataUbicacionInmueble = response
         this.documentoPropiedadId = this.dataUbicacionInmueble[0].id
 
-        // this.norte = [
-        //   this.dataUbicacionInmueble.g1_norte,
-        //   this.dataUbicacionInmueble.g2_norte,
-        //   this.dataUbicacionInmueble.g3_norte,
-        //   this.dataUbicacionInmueble.g4_norte,
-        //   this.dataUbicacionInmueble.g5_norte,
-        //   this.dataUbicacionInmueble.g6_norte,
-        //   this.dataUbicacionInmueble.g7_norte,
-        //   this.dataUbicacionInmueble.g8_norte,
-        //   this.dataUbicacionInmueble.g9_norte,
-        // ];
-        // this.este = [
-        //   this.dataUbicacionInmueble.g1_este,
-        //   this.dataUbicacionInmueble.g2_este,
-        //   this.dataUbicacionInmueble.g3_este,
-        //   this.dataUbicacionInmueble.g4_este,
-        //   this.dataUbicacionInmueble.g5_este,
-        //   this.dataUbicacionInmueble.g6_este,
-        //   this.dataUbicacionInmueble.g7_este,
-        //   this.dataUbicacionInmueble.g8_este,
-        //   this.dataUbicacionInmueble.g9_este,
-        // ];
+        this.norte = [
+          this.dataUbicacionInmueble[0].g1_norte,
+          this.dataUbicacionInmueble[0].g2_norte,
+          this.dataUbicacionInmueble[0].g3_norte,
+          this.dataUbicacionInmueble[0].g4_norte,
+          this.dataUbicacionInmueble[0].g5_norte,
+          this.dataUbicacionInmueble[0].g6_norte,
+          this.dataUbicacionInmueble[0].g7_norte,
+          this.dataUbicacionInmueble[0].g8_norte,
+          this.dataUbicacionInmueble[0].g9_norte,
+        ];
+        this.este = [
+          this.dataUbicacionInmueble[0].g1_este,
+          this.dataUbicacionInmueble[0].g2_este,
+          this.dataUbicacionInmueble[0].g3_este,
+          this.dataUbicacionInmueble[0].g4_este,
+          this.dataUbicacionInmueble[0].g5_este,
+          this.dataUbicacionInmueble[0].g6_este,
+          this.dataUbicacionInmueble[0].g7_este,
+          this.dataUbicacionInmueble[0].g8_este,
+          this.dataUbicacionInmueble[0].g9_este,
+        ];
       }).catch(err => {
         console.log(err) 
       })
     },
 
     uploadImagePlanoMesura() {
-    this.btnImagenPlanoMesura = true
     const formData = new FormData();
-    formData.append('imagan_plano_mesura', this.dataUbicacionInmueble.imagan_plano_mesura)
+    formData.append('imagen_plano_mesura', this.dataUbicacionInmueble.imagan_plano_mesura)
 
-      this.$axios.$patch(`inmueble_ubicacion/${this.dataUbicacionInmueble.id}/`, formData, {
+      this.$axios.$patch(`inmueble_ubicacion/${this.$store.getters.getExpediente.id}/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then(response => {
         console.log(response)
-        this.btnImagenPlanoMesura = false
-        this.$alert("success", { desc: "Imagen cargada con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
       })
       .catch(err => {
         console.log(err)
-        this.btnImagenPlanoMesura = false
       });
     },
 
     uploadImagePlano() {
-    this.btnImagenInmueble = true
-
     const formData = new FormData();
-    formData.append('imagen_plano', this.dataUbicacionInmueble.imagen_plano)
+    formData.append('imagen_plano_mesura', this.dataUbicacionInmueble.imagan_plano)
 
-      this.$axios.$patch(`inmueble_ubicacion/${this.dataUbicacionInmueble.id}/`, formData, {
+      this.$axios.$patch(`inmueble_ubicacion/${this.$store.getters.getExpediente.id}/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then(response => {
         console.log(response)
-        this.btnImagenInmueble = false
-        this.$alert("success", { desc: "Imagen cargada con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
       })
       .catch(err => {
         console.log(err)
-        this.btnImagenInmueble = false
       });
     },
 
     uploadImageInmueble() {
-    this.btnImagenInmueble = true
-
     const formData = new FormData();
-    formData.append('imagen_inmueble', this.dataUbicacionInmueble.imagen_inmueble)
+    formData.append('imagen_plano_mesura', this.dataUbicacionInmueble.imagan_inmueble)
 
-      this.$axios.$patch(`inmueble_ubicacion/${this.dataUbicacionInmueble.id}/`, formData, {
+      this.$axios.$patch(`inmueble_ubicacion/${this.$store.getters.getExpediente.id}/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then(response => {
         console.log(response)
-        this.btnImagenInmueble = false
-        this.$alert("success", { desc: "Imagen cargada con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
       })
       .catch(err => {
         console.log(err)
-        this.btnImagenInmueble = false
       });
     },
 
@@ -597,24 +447,15 @@ export default {
       formData.append('lindero_este', this.dataUbicacionInmueble.lindero_este);
       formData.append('lindero_sur', this.dataUbicacionInmueble.lindero_sur);
       formData.append('lindero_oeste', this.dataUbicacionInmueble.lindero_oeste);
-      formData.append('g1_norte', this.dataUbicacionInmueble.g1_norte);
-      formData.append('g2_norte', this.dataUbicacionInmueble.g2_norte);
-      formData.append('g3_norte', this.dataUbicacionInmueble.g3_norte);
-      formData.append('g4_norte', this.dataUbicacionInmueble.g4_norte);
-      formData.append('g5_norte', this.dataUbicacionInmueble.g5_norte);
-      formData.append('g6_norte', this.dataUbicacionInmueble.g6_norte);
-      formData.append('g7_norte', this.dataUbicacionInmueble.g7_norte);
-      formData.append('g8_norte', this.dataUbicacionInmueble.g8_norte);
-      formData.append('g1_este', this.dataUbicacionInmueble.g1_este);
-      formData.append('g2_este', this.dataUbicacionInmueble.g2_este);
-      formData.append('g3_este', this.dataUbicacionInmueble.g3_este);
-      formData.append('g4_este', this.dataUbicacionInmueble.g4_este);
-      formData.append('g5_este', this.dataUbicacionInmueble.g5_este);
-      formData.append('g6_este', this.dataUbicacionInmueble.g6_este);
-      formData.append('g7_este', this.dataUbicacionInmueble.g7_este);
-      formData.append('g8_este', this.dataUbicacionInmueble.g8_este);
-    
-      this.$axios.$patch(`inmueble_ubicacion/${this.dataUbicacionInmueble.id}/`, formData)
+      this.norte.forEach((value, index) => {
+        formData.append(`g${index + 1}_norte`, value);
+      });
+
+      this.este.forEach((value, index) => {
+        formData.append(`g${index + 1}_este`, value);
+      });
+
+      this.$axios.$patch(`inmueble_ubicacion/${this.$store.getters.getExpediente.id}/`, formData)
       .then(res => {
         console.log(res.data)
         this.btnGuardarInmuble = false
@@ -627,6 +468,36 @@ export default {
         this.dialog_confirmar = false
       });
     }, 
+
+    // saveData() {
+    //   this.btnGuardarInmuble = true
+
+    //   const formData = new FormData();
+    //   formData.append('lindero_norte', this.dataUbicacionInmueble.lindero_norte);
+    //   formData.append('lindero_este', this.dataUbicacionInmueble.lindero_este);
+    //   formData.append('lindero_sur', this.dataUbicacionInmueble.lindero_sur);
+    //   formData.append('lindero_oeste', this.dataUbicacionInmueble.lindero_oeste);
+    //   this.norte.forEach((value, index) => {
+    //     formData.append(`g${index + 1}_norte`, value);
+    //   });
+
+    //   this.este.forEach((value, index) => {
+    //     formData.append(`g${index + 1}_este`, value);
+    //   });
+
+    //   this.$axios.$patch(`inmueble_ubicacion/?inmueble=${this.$store.getters.getExpediente.id}/`, formData)
+    //   .then(res => {
+    //     console.log(res.data)
+    //     this.btnGuardarInmuble = false
+    //     this.dialog_confirmar = false
+    //     this.$alert("success", { desc: "Se ha guardado un inmueble con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
+    //   })
+    //   .catch(err => {
+    //     console.error(err)
+    //     this.btnGuardarInmuble = false
+    //     this.dialog_confirmar = false
+    //   });
+    // }, 
   }
 };
 </script>

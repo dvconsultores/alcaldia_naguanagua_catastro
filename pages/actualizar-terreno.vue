@@ -333,7 +333,7 @@ export default {
 
     getInmuebleTerreno(){
       this.$axios.$get('inmueble_terreno/?inmueble=' + this.$store.getters.getExpediente.id).then(response => {
-        this.dataInmuebleTerreno = response
+        this.dataInmuebleTerreno = response[0]
         this.inmuebleTerrenoId = this.dataInmuebleTerreno[0].id
       }).catch(err => {
         console.log(err) 
@@ -426,7 +426,7 @@ export default {
     postInmuebleTerrenoAcceso(){
       const formAcceso = {
         acceso: this.accesoAdd,
-        inmueble_terreno: this.inmuebleTerrenoId,
+        inmueble_terreno: this.dataInmuebleTerreno.id,
       }
 
       this.$axios.$post('inmueble_terreno_acceso/', formAcceso).then(response => {
@@ -460,7 +460,7 @@ export default {
     postInmuebleTerrenoTopografia(){
       const formTopografia = {
         topografia: this.topografiaAdd,
-        inmueble_terreno: this.inmuebleTerrenoId,
+        inmueble_terreno: this.dataInmuebleTerreno.id,
       }
 
       this.$axios.$post('inmueble_terreno_topografia/', formTopografia).then(response => {
@@ -494,7 +494,7 @@ export default {
     postInmuebleTerrenoUso(){
       const formAcceso = {
         uso: this.usoAdd,
-        inmueble_terreno: this.inmuebleTerrenoId,
+        inmueble_terreno: this.dataInmuebleTerreno.id,
       }
 
       this.$axios.$post('inmueble_terreno_uso/', formAcceso).then(response => {
@@ -529,13 +529,13 @@ export default {
       this.btnGuardarInmuble = true
 
       const formData = new FormData()
-      formData.append('tipo', this.dataInmuebleTerreno.forma);
-      formData.append('uso_construccion', this.dataInmuebleTerreno.ubicacion);
-      formData.append('tenencia', this.dataInmuebleTerreno.tenencia);
+      this.dataInmuebleTerreno.forma ? formData.append('forma', this.dataInmuebleTerreno.forma):'';
+      this.dataInmuebleTerreno.ubicacion ? formData.append('ubicacion', this.dataInmuebleTerreno.ubicacion) : '';
+      this.dataInmuebleTerreno.tenencia ? formData.append('tenencia', this.dataInmuebleTerreno.tenencia) : '';
       // formData.append('regimen', this.dataInmuebleTerreno.regimen);
-      formData.append('tipo_pared', this.dataInmuebleTerreno.observaciones);
+      formData.append('observaciones', this.dataInmuebleTerreno.observaciones);
 
-      this.$axios.$patch(`inmueble_terreno/?inmueble=${this.$store.getters.getExpediente.id}/`, formData)
+      this.$axios.$patch(`inmueble_terreno/${this.dataInmuebleTerreno.id}/`, formData)
       .then(res => {
         console.log(res.data)
         this.btnGuardarInmuble = false
