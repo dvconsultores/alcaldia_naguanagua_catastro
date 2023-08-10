@@ -1,0 +1,544 @@
+<template>
+  <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
+    <section class="section1-descripcion-inmueble">
+      <div class="creacion-container">
+        <div class="divrow jspace" style="width:100%;">
+          <p class="title-inscripcion-inmueble">
+            Creación de estado de cuenta
+          </p>
+
+          <span class="title-inscripcion-inmueble">
+            Tasa BCV: {{ montoBCV }}
+          </span>
+        </div>
+
+        <hr>
+
+        <div class="container-creacion-datos">
+          <!-- <div class="title-description-div">
+            <p class="nombre-razon">
+              Nro. Recibo
+            </p>
+
+            <p class="nombre-desc">
+              {{numeroCorrelativo}}
+            </p>
+          </div> -->
+
+          <div class="title-description-div">
+            <p class="nombre-razon">
+              Fecha
+            </p>
+
+            <p class="nombre-desc">
+              {{ obtenerFechaActual() }}
+            </p>
+          </div>
+
+          <div class="title-description-div">
+            <p class="nombre-razon">
+              Propietario
+            </p>
+
+            <p class="nombre-desc">
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
+            </p>
+          </div>
+
+          <div class="title-description-div" style="border-right: none!important;">
+            <p class="nombre-razon">
+              CI / RIF / Pasaporte
+            </p>
+
+            <p class="nombre-desc">
+              {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} - {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="observaciones-container">
+        <div class="jspace center" style="width: 100%; margin-bottom: 0px;">
+          <p class="title-observaciones">
+            Observaciones
+          </p>
+
+          <v-btn class="btn-mas" v-if="show_observaciones != true" @click="show_observaciones = true">
+            +
+          </v-btn>
+
+          <v-btn class="btn-mas" v-if="show_observaciones === true " @click="show_observaciones = false">
+            -
+          </v-btn>
+        </div>
+
+        <hr>
+
+        <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
+          <v-textarea
+          class="textarea"
+          v-model="observaciones"
+          ></v-textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="section2-inscripcion-inmueble">
+      <div class="descripcion-container">
+        <div class="title-morado">
+          <p class="solicitud-title">
+            Items de la solicitud
+          </p>
+
+          <p class="solicitud-title">
+            Monto total: {{ montoTotal() }}
+          </p>
+
+            <v-dialog v-model="dialog_IC" content-class="dialog-flow" fullscreen scrollable>
+              <div class="div-dialog">
+                <v-card class="dialog-flow-container">
+                  <v-card-title>
+                    <span class="title">Cálculos impuestos de inmuebles urbanos</span>
+                  </v-card-title>
+
+
+                      <v-card class="card-flow">
+                        <v-card-title class="title-flow">
+                          Cálculo del impuesto
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 4px;"> Zona </th>
+                              <th style="padding: 4px;"> Base cálculo Bs </th>
+                              <th style="padding: 4px;"> Sub Total Bs </th>
+                              <th style="padding: 4px;"> Multa Bs({{ IC_Cabecera.fmulta }}%)</th>
+                              <th style="padding: 4px;"> Recargo Bs  ({{ IC_Cabecera.frecargo }}%)</th>
+                              <th style="padding: 4px;"> Interés Bs({{ IC_Cabecera.finteres }}%)</th>
+                              <th style="padding: 4px;"> Total Bs </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="solicitud-inputs-container">
+                              <td style="padding: 4px;text-align: center;"> {{ IC_Cabecera.zona }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ IC_Cabecera.basecalculobs }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.subtotal, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.multa, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.recargo, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.interes, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.total, 2) }} </td>
+
+                            </tr>
+                          </tbody>
+                        </table>
+                      </v-card>
+
+
+                      <v-card class="card-flow">
+                        <v-card-title class="title-flow">
+                          Detalle del cálculo del impuesto
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 2px;"> Año </th>
+                              <th style="padding: 2px;"> Periodo </th>
+                              <th style="padding: 2px;"> Multa </th>
+                              <th style="padding: 2px;"> Uso </th>
+                              <th style="padding: 2px;"> Tipo </th>
+                              <th style="padding: 2px;"> Area m2 </th>
+                              <th style="padding: 2px;"> Alicuota Bs</th>
+                              <th style="padding: 2px;"> Sub Total Bs. </th>
+                              <th style="padding: 2px;"> Descuento % </th>
+                              <th style="padding: 2px;"> Total Bs.</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in IC_Detalle" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;"> {{ item.anio }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.periodo }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.multa }} </td>
+                              <td style="padding: 2px;"> {{ item.uso_descripcion }} </td>
+                              <td style="padding: 2px;"> {{ item.tipo_descripcion }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ item.area_m2 }} m2 </td>
+                              <td style="padding: 2px;text-align: right;"> {{ item.alicuota.toFixed(8) }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.sub_total, 2) }}</td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.mdescuento, 2) }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.total, 2) }} </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                     </v-card>
+
+
+                     <v-card class="card-flow">
+                        <v-card-title class="title-flow">
+                          Detalle del descuento aplicado
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 2px;"> Uso </th>
+                              <th style="padding: 2px;"> Fecha desde </th>
+                              <th style="padding: 2px;"> Fecha hasta </th>
+                              <th style="padding: 2px;"> Descripción </th>
+                              <th style="padding: 2px;"> Sub total Bs </th>
+                              <th style="padding: 2px;"> Descuento % </th>
+                              <th style="padding: 2px;"> Total Bs </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in IC_Descuento" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;text-align: left;"> {{ item.uso_descripcion }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.fechadesde }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.fechahasta }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.descripcion }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.base, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.descuento, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.total, 2)  }} </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                     </v-card>
+
+
+
+                     <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn class="btn dialog-btn" @click="dialog_IC = false">
+                          Salir
+                        </v-btn>
+                      </v-card-actions>
+                  </v-card>              
+              </div>
+            </v-dialog>
+
+        </div>
+
+        <v-btn class="btns-add-remove no-shadow" @click="addDiv(index)">
+          +
+        </v-btn>
+
+        <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
+          <v-autocomplete
+          v-model="div.tasa_multa_id"
+          class="big-autocomplete mobile-inputs"
+          label="Trámite / Servicio"
+          :items="tasaMultaData"
+          item-text="descripcion"
+          item-value="id"
+          @change="selectedField(index)"
+          :readonly="div.editable"
+          ></v-autocomplete>
+
+          <v-text-field
+          class="small-input mobile-inputs"
+          label="Monto"
+          readonly
+          v-model="div.monto_unidad_tributaria"
+          ></v-text-field>
+
+          <v-text-field
+          v-model="div.cantidad"
+          class="small-input mobile-inputs"
+          label="Cantidad"
+          @input="multiplicarValor(index)"
+          :value="1"
+          type="number"
+          :readonly="div.editable"
+          ></v-text-field>
+
+          <v-text-field
+          v-model="div.calculo"
+          class="small-input mobile-inputs"
+          label="Total"
+          readonly
+          :value="0"
+          ></v-text-field>
+
+          <v-btn class="btns-add-remove"  :disabled="div.editable"  @click="removeDiv(index)">
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
+
+          <v-btn class="btns-add-remove" :disabled="!div.editable" @click="DetalleIC()">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+
+        </div>
+
+        <hr>
+
+        <div class="divrow center div-btns" style="gap:30px;">
+
+          <v-btn class="btn size-btn" @click="createEstadoCuenta()">
+            Guardar
+          </v-btn>
+          <!-- <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
+            <template #activator="{attrs, on}">
+             
+            </template>
+            <v-card class="card-dialog-exito">
+              <v-icon @click="dialog_exito = false">mdi-close</v-icon>
+              <p class="p-dialog">¡La inscripción del inmueble se ha guardado con éxito!</p>
+            </v-card>
+          </v-dialog>
+
+          <v-btn class="btn size-btn" style="background-color:#ED057E!important;">
+            Cancelar
+          </v-btn> -->
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script>
+import computeds from '~/mixins/computeds'
+
+export default{
+  name: "InscripcionInmueblePage",
+  mixins: [computeds],
+  data() {
+    return{
+      dialog_IC: false,
+      menu1: false,
+      observaciones:'',
+      nuevoRegistro: {},
+      monto_unidad_tributaria: null,
+      valor2:null,
+      nombrePropietario: '',
+      cedulaPropietario: '',
+      nacionalidadPropietario: '',
+      dialog_exito: false,
+      monto_total:"72,4",
+      show_observaciones: false,
+      dataCreacion:[
+        {
+          nro_recibo:"1234567890",
+          fecha:"03/03/2023",
+          propietario:"María Pera C.",
+          id_type:"V",
+          id_number:"12.345.678"
+        }
+      ],
+
+      divs:[],
+
+      propietarioData:[],
+      tasaData:[],
+      correlativoData:[],
+      tasaMultaData:[],
+      bcvData:[],
+      flujoData:[],
+      dataTipoInmueble: [],
+      idflujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo)),
+      IC_Cabecera:[],
+      IC_Detalle:[],
+      IC_Descuento:[],
+      tasa_multa_id: null,
+    }
+  },
+
+  head() {
+    const title = 'Inscripcion Inmueble';
+    return {
+      title,
+    }
+  },
+
+  mounted(){
+    if (this.idflujo==''){
+      this.$router.push('estado-cuenta')
+          this.$alert("cancel", {desc: "Debe seleccionar un tipo de transacción o trámite", hash: 'knsddcssdc', title:'Error'})
+    }
+    else{
+        this.getDataTasa()
+        this.getCorrelativo()
+        this.getTasaMulta()
+        this.getBCV()
+        this.getTipoInmueble()
+        if (this.idflujo!=1)
+        {
+          if(this.$store.getters.getExpediente=='Sin Seleccionar'){
+              this.$router.push('consulta-inmueble')
+              this.$alert("cancel", {desc: "Debe seleccionar un Inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
+            }else{
+              this.getDeudaImpuesto()
+            }
+        }
+        else
+        {
+          if(this.$store.getters.getExpediente!='Sin Seleccionar'){
+            this.getDeudaImpuesto()
+          }
+        }
+      }
+  },
+
+  // computed: {
+  //   resultado(){
+  //     return this.montoTotal()
+  //   },
+  // },
+
+  methods: {
+    roundNumber(value, decimals) {
+      return parseFloat(value).toFixed(decimals);
+    },
+    DetalleIC() {
+      this.dialog_IC = true
+    },
+
+    multiplicarValor(index) {
+      const div = this.divs[index];
+      if (div.cantidad !== null) {
+        div.calculo = (div.monto_unidad_tributaria * div.cantidad * 60 * this.montoBCV).toFixed(2);
+      }
+    },
+
+    getDeudaImpuesto(){
+      const data = {
+        inmueble: this.$store.getters.getExpediente.id,
+        propietario: this.$store.getters.getContribuyente.id,
+        periodo: 4,
+      }
+      this.$axios.$post('ImpuestoInmueble/', data).then(res => {
+
+        if (res) {
+          this.IC_Cabecera=res[0].cabacera
+          this.IC_Detalle=res[0].detalle
+          this.IC_Descuento=res[0].descuento
+          this.tasa_multa_id=this.tasaMultaData.find((persona) => persona.codigo === 'IC');
+          this.divs.push({
+            tasa_multa_id: this.tasa_multa_id.id, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
+            monto_unidad_tributaria: this.IC_Cabecera.total, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
+            cantidad: 1, // Valor para cantidad (puedes reemplazarlo con el valor que desees)
+            calculo: this.IC_Cabecera.total, // Valor para calculo (puedes reemplazarlo con el valor que desees)
+            editable: true
+          });
+        }
+        else{
+
+          this.divs.push({
+            tasa_multa_id: null, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
+            monto_unidad_tributaria: null, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
+            cantidad: 1, // Valor para cantidad (puedes reemplazarlo con el valor que desees)
+            calculo: 0, // Valor para calculo (puedes reemplazarlo con el valor que desees)
+            editable: false
+          });
+        }
+        console.log('IC_Cabecera',this.IC_Cabecera)
+        console.log('IC_Detalle',this.IC_Detalle)
+        this.$alert("success", {desc: "El imueble posee impuestos por pagar. Se ha cargado la deuda con éxito.", hash: 'knsddcssdc', title:'Impuesto por pagar.'}) 
+      }).catch(err =>{
+        console.log(err)
+      })
+    },
+       
+
+    getBCV() {
+      this.$axios.$get('tasabcv').then(response => {
+          this.bcvData = response
+          this.montoBCV = this.bcvData[0].monto
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    montoTotal() {
+      let total = 0
+      for (const div of this.divs) {
+        if (div.calculo !== null) {
+          total += parseFloat(div.calculo)
+        }
+      }
+      return total.toFixed(2)
+    },
+
+    selectedField(index) {
+      const div = this.divs[index]
+      const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasa_multa_id)
+      div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
+
+      this.multiplicarValor(index)
+    },
+
+    getTasaMulta(){
+      this.$axios.$get('tasamulta').then(response => {
+        this.tasaMultaData = response
+        this.tasaMultaData.forEach((item) => {
+          item.editable = false;
+        });
+        console.log('this.tasaMultaData',this.tasaMultaData)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getCorrelativo(){
+      this.$axios.$get('correlativo').then(response => {
+        this.correlativoData = response
+        this.numeroCorrelativo = this.correlativoData[0].NumeroEstadoCuenta
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getTipoInmueble(){
+      this.$axios.$get('tipoinmueble').then(response => {
+        this.dataTipoInmueble = response
+        console.log(this.dataTipoInmueble, 'dataINmueble')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    createEstadoCuenta(){
+      const data = {
+        inmueble: this.idflujo==1?null:this.$store.getters.getExpediente.id,
+        flujo: this.idflujo,
+        correlativo: this.numeroCorrelativo,
+        propietario: this.$store.getters.getContribuyente.id,
+        observacion: this.observaciones,
+        detalle: this.divs,
+        monto_total: this.montoTotal(),
+      }
+      this.$axios.$post('crearestadocuenta/', data).then(res => {
+        console.log(res)
+        this.$router.push('modificar-datos')
+        this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
+      }).catch(err =>{
+        console.log(err)
+      })
+    },
+
+    getDataTasa (){
+      this.$axios.$get('tasamulta').then(response => {
+        this.tasaData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    addDiv(){
+      this.divs.push({cantidad: 1, calculo: 0, editable:false});
+    },  
+
+    removeDiv(index) {
+      this.divs.splice(index, 1);
+    },
+
+    obtenerFechaActual() {
+      const fecha = new Date();
+      const dia = fecha.getDate().toString().padStart(2, '0');
+      const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+      const anio = fecha.getFullYear().toString().slice(-2);
+      return `${dia}/${mes}/${anio}`;
+    },
+  }
+}
+</script>
+
+<style src="~/assets/styles/pages/estado-cuenta-detalle.scss" lang="scss" />

@@ -1,8 +1,10 @@
 export const state = () => ({
 
   user: null , //creacion de variable
-  contribuyente: undefined,//creacion de variable
-  expediente: undefined,//creacion de variable
+  contribuyente: undefined,//creacion de variable GLOBAL para Catastro
+  expediente: undefined,//creacion de variable GLOBAL para Catastro
+  flujo: undefined,//creacion de variable para usarla en creacion de estados/ de cuenta/liquidacion de catastro
+  inmueble: undefined,//creacion de variable para usarla en creacion de estados/ de cuenta/liquidacion de catastro
 
   theme: "light",
   overlay: { opacity: 0.2, color: "black" },
@@ -38,7 +40,12 @@ export const mutations = {
     state.expediente = expediente
   },
 
-
+  STORE_flujo(state, flujo) { // seteo de data
+    state.flujo = flujo
+  },
+  STORE_inmueble(state, inmueble) { // seteo de data
+    state.inmueble = inmueble
+  },
   emailVerification(state, {token, email}) {
     state.currentEmailVerification.token = token
     state.currentEmailVerification.email = email
@@ -133,7 +140,13 @@ export const actions = {
   storeExpediente({commit}, expediente) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_expediente', expediente)
   },
+  storeFlujo({commit}, flujo) { // recibe la data y la manda a store user para ser seteada
+    commit('STORE_flujo', flujo)
+  },
 
+  storeInmueble({commit}, inmueble) { // recibe la data y la manda a store user para ser seteada
+    commit('STORE_inmueble', inmueble)
+  },
 
   modalConnect() {
     const layout = this.$router.app.$children.find(data=>data.$el === document.getElementById("layout"));
@@ -184,6 +197,12 @@ export const getters = {
   getExpediente(state) { // consulta la variable
     return state.expediente == undefined ? 'Sin Seleccionar' : state.expediente
   },
+  getFlujo(state) { // consulta la variable
+    return state.flujo == undefined ? 'Sin Seleccionar' : state.flujo
+  },  
+  getInmueble(state) { // consulta la variable
+    return state.inmueble == undefined ? 'Sin Seleccionar' : state.inmueble
+  },    
 };
 
 export const modules = {

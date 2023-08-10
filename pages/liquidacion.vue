@@ -89,8 +89,10 @@
     <v-dialog 
       v-model="openDialog" 
       transition="dialog-bottom-transition"
-      fullscreen
+      fullscreenn
       scrollable
+      hide-overlay
+      persistent
       content-class="dialog-liquidacion"
       >
       <div class="div-dialog">

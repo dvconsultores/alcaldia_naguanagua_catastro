@@ -102,19 +102,19 @@
           <v-row v-for="(item, index) in dataValoracionConstruccion" :key="index" style="border-bottom: 2px solid var(--primary);">
             <v-col lg="11" class="divrow pr-0">
               <v-text-field
-              v-model="item.uso_codigo"
+              v-model="item.tipologia.codigo"
               class="input-small outlined"
               label="Uso Id"
               readonly
               ></v-text-field>
               <v-text-field
-              v-model="item.uso_descripcion"
+              v-model="item.tipologia.descripcion"
               class="input-small outlined"
               label="Uso descripción"
               readonly
               ></v-text-field>
               <v-text-field
-              v-model="item.tipo_descripcion"
+              v-model="item.tipo.descripcion"
               class="input-small outlined"
               label="Tipo Inmueble"
               readonly
@@ -122,7 +122,7 @@
               <v-text-field
               v-model="item.fecha_construccion"
               class="input-small outlined"
-              label="Fecha habitabilidad"
+              label="Fecha Compra"
               readonly
               ></v-text-field>
 
@@ -277,7 +277,7 @@
     <v-dialog content-class="dialog-agregar-construccion" max-width="1600px" v-model="dialog_crear">
       <v-card class="card-crear">
         <v-card-title>
-          <span class="title">Agregar construcción</span>
+          <span class="title">Agregar Construcción</span>
         </v-card-title>
 
         <hr>
@@ -287,7 +287,7 @@
             <v-row class="center">
               <v-col lg="12" class="divrow pr-0">
               <v-autocomplete
-              v-model="nuevoRegistro.tipologia"
+              v-model="new_tipologia"
               class="input-small"
               label="Uso"
               :items="dataTipologia"
@@ -296,7 +296,7 @@
               ></v-autocomplete>
 
               <v-autocomplete
-              v-model="nuevoRegistro.tipo"
+              v-model="new_tipo"
               class="input-small"
               label="Tipo Inmueble"
               :items="dataTipo"
@@ -314,9 +314,9 @@
               >
                 <template #activator="{ on, attrs }">
                   <v-text-field
-                  v-model="nuevoRegistro.fecha_construccion"
+                  v-model="new_fecha_construccion"
                   class="input-small"
-                  label="Fecha habitabilidad"
+                  label="Fecha Compra"
                   append-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
@@ -324,8 +324,8 @@
                   ></v-text-field>
                 </template>
                 <v-date-picker
-                  v-model="nuevoRegistro.fecha_construccion"
-                  label="Fecha habitabilidad"
+                  v-model="new_fecha_construccion"
+                  label="Fecha Compra"
                   color="#ff4081"
                   header-color="#810880"
                   class="custom-date-picker"
@@ -335,21 +335,38 @@
 
             <v-col lg="12" class="divrow pr-0">
               <v-text-field
-              v-model="nuevoRegistro.area"
+              v-model="new_area"
               class="input-small"
               label="Área (m2)"
               ></v-text-field> 
 
+              <v-text-field
+              v-model="new_valor"
+              class="input-small"
+              label="Valor Bs/m2"
+              ></v-text-field> 
             </v-col>
 
+            <v-col lg="12" class="divrow pr-0">
+              <v-text-field
+              v-model="new_depreciacion"
+              class="input-small"
+              label="Depreciación %"
+              ></v-text-field> 
 
+              <v-text-field
+              v-model=new_valor_actual
+              class="input-small"
+              label="Valor Actual Bs"
+              ></v-text-field> 
+            </v-col>
 
             <v-col lg="6" class="divrow pr-0">
               <v-card
               class="input-small outlined center"
               style="background: #fff;"
               >
-                <v-checkbox v-model="nuevoRegistro.sub_utilizado" label="Sub-Utilizado"></v-checkbox>
+                <v-checkbox v-model="new_sub_utilizado" label="Sub-Utilizado"></v-checkbox>
               </v-card>
             </v-col>
             </v-row>
@@ -443,6 +460,10 @@ export default {
       dataValoracionTerreno:{},
       dataValoracionConstruccion: [],
       inmuebleId: this.$store.getters.getExpediente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getExpediente.id)),
+      a:[],
+      b:[],
+      new_tipologia:[],
+      new_tipo:[],
       nuevoRegistro : {},
     }
   },
@@ -501,17 +522,33 @@ export default {
 
     postInmuebleValoracionConstruccion(){
       this.btnAddConstruccion = true
+      this.$axios.$get('tipologia/1/').then(response => {
+        this.a = response
+      }).catch(err => {
+        console.log(err)
+      })
+      this.$axios.$get('tipoinmueble/1/').then(response => {
+        this.b = response
+      }).catch(err => {
+        console.log(err)
+      })
+ console.log('esto',this.new_tipologia)
       const formNewTerreno ={
         inmueblevaloracionterreno: this.dataValoracionTerreno.id,
-        tipologia:  this.nuevoRegistro.tipologia,
-        tipo: this.nuevoRegistro.tipo,
+        //tipologia: this.dataTipologia.find(item => item.id === this.new_tipologia),
+        //tipologia: this.a,
+        tipologia: this.new_tipologia,
+
+        //tipo: this.dataTipo.find(item => item.id === this.new_tipo),
+        //tipo: this.b,
+        tipo: this.new_tipo,
         
-        fecha_construccion: this.nuevoRegistro.fecha_construccion,
-        area: this.nuevoRegistro.area,
-        valor: this.nuevoRegistro.valor,
-        depreciacion: this.nuevoRegistro.depreciacion,
-        valor_actual: this.nuevoRegistro.valor_actual,
-        sub_utilizado: this.nuevoRegistro.sub_utilizado,
+        fecha_construccion: this.new_fecha_construccion,
+        area: this.new_area,
+        valor: this.new_valor,
+        depreciacion: this.new_depreciacion,
+        valor_actual: this.new_valor_actual,
+        sub_utilizado: this.new_sub_utilizado,
       }
       console.log('formNewTerreno',formNewTerreno)
       this.$axios.$post('inmueble_valoracion_construccion/', formNewTerreno).then(response => {
@@ -519,7 +556,7 @@ export default {
         this.$alert("success", { desc: "Se ha guardado una construcción con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
         this.btnAddConstruccion = false
         this.dialog_crear = false
-        this.new = {}
+        this.nuevoRegistro = {}
       }).catch(err => {
         console.log(err)
         this.btnAddConstruccion = false
