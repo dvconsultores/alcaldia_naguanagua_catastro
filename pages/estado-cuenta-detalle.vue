@@ -114,9 +114,10 @@
                               <th style="padding: 4px;"> Zona </th>
                               <th style="padding: 4px;"> Base cálculo Bs </th>
                               <th style="padding: 4px;"> Sub Total Bs </th>
+                              <th style="padding: 4px;"> tBaseMultaRecargoInteres Bs </th>
                               <th style="padding: 4px;"> Multa Bs({{ IC_Cabecera.fmulta }}%)</th>
                               <th style="padding: 4px;"> Recargo Bs  ({{ IC_Cabecera.frecargo }}%)</th>
-                              <th style="padding: 4px;"> Interés Bs({{ IC_Cabecera.finteres }}%)</th>
+                              <th style="padding: 4px;"> Interés Bs</th>
                               <th style="padding: 4px;"> Total Bs </th>
                             </tr>
                           </thead>
@@ -125,10 +126,12 @@
                               <td style="padding: 4px;text-align: center;"> {{ IC_Cabecera.zona }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ IC_Cabecera.basecalculobs }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.subtotal, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.BaseMultaRecargoInteres, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.multa, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.recargo, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.interes, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.total, 2) }} </td>
+                              
 
                             </tr>
                           </tbody>
@@ -157,16 +160,16 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in IC_Detalle" :key="index" class="solicitud-inputs-container">
-                              <td style="padding: 2px;"> {{ item.anio }} </td>
-                              <td style="padding: 2px;text-align: center;"> {{ item.periodo }} </td>
-                              <td style="padding: 2px;text-align: center;"> {{ item.multa }} </td>
-                              <td style="padding: 2px;"> {{ item.uso_descripcion }} </td>
-                              <td style="padding: 2px;"> {{ item.tipo_descripcion }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ item.area_m2 }} m2 </td>
-                              <td style="padding: 2px;text-align: right;"> {{ item.alicuota.toFixed(8) }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.sub_total, 2) }}</td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.mdescuento, 2) }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.total, 2) }} </td>
+                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }"> {{ item.anio }}  </span></td>
+                              <td style="padding: 2px;text-align: center;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.periodo }} </span></td>
+                              <td style="padding: 2px;text-align: center;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.multa }} </span></td>
+                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.uso_descripcion }} </span></td>
+                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.tipo_descripcion }} </span></td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.area_m2 }} m2 </span></td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.alicuota.toFixed(8) }}</span> </td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ roundNumber(item.sub_total, 2) }}</span></td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ roundNumber(item.mdescuento, 2) }}</span> </td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ roundNumber(item.total, 2) }} </span></td>
                             </tr>
                           </tbody>
                         </table>
@@ -203,6 +206,33 @@
                         </table>
                      </v-card>
 
+                     <v-card class="card-flow">
+                        <v-card-title class="title-flow">
+                          Detalle del interés moratorio aplicado (BCV Tasas de interés activas.)
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 2px;"> Año </th>
+                              <th style="padding: 2px;"> Mes </th>
+                              <th style="padding: 2px;"> Tasa % </th>
+                              <th style="padding: 2px;"> Dias </th>
+                              <th style="padding: 2px;"> Mora Mensual Bs </th>
+                              <th style="padding: 2px;"> Total Interes Mensual Bs </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in IC_Interes" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;text-align: left;"> {{ item.anio }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.mes }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.tasa, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.dias, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.moramensual, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.interesmensual, 2)  }} </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                     </v-card>                     
 
 
                      <v-card-actions>
@@ -337,6 +367,7 @@ export default{
       IC_Cabecera:[],
       IC_Detalle:[],
       IC_Descuento:[],
+      IC_Interes:[],
       tasa_multa_id: null,
     }
   },
@@ -359,7 +390,7 @@ export default{
         this.getTasaMulta()
         this.getBCV()
         this.getTipoInmueble()
-        if (this.idflujo!=1)
+        if (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')
         {
           if(this.$store.getters.getExpediente=='Sin Seleccionar'){
               this.$router.push('consulta-inmueble')
@@ -410,6 +441,7 @@ export default{
           this.IC_Cabecera=res[0].cabacera
           this.IC_Detalle=res[0].detalle
           this.IC_Descuento=res[0].descuento
+          this.IC_Interes=res[0].interes
           this.tasa_multa_id=this.tasaMultaData.find((persona) => persona.codigo === 'IC');
           this.divs.push({
             tasa_multa_id: this.tasa_multa_id.id, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
@@ -495,9 +527,10 @@ export default{
       })
     },
 
+
     createEstadoCuenta(){
       const data = {
-        inmueble: this.idflujo==1?null:this.$store.getters.getExpediente.id,
+        inmueble: (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')? this.$store.getters.getExpediente.id : null,
         flujo: this.idflujo,
         correlativo: this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,

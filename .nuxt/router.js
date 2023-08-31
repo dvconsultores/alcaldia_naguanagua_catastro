@@ -43,10 +43,12 @@ const _2166fa7b = () => interopDefault(import('../pages/flow-por-enviar.vue' /* 
 const _0f443c63 = () => interopDefault(import('../pages/flow-por-procesar.vue' /* webpackChunkName: "pages/flow-por-procesar" */))
 const _2c9458d4 = () => interopDefault(import('../pages/flow-por-recibir.vue' /* webpackChunkName: "pages/flow-por-recibir" */))
 const _1fa7db5c = () => interopDefault(import('../pages/forma.vue' /* webpackChunkName: "pages/forma" */))
+const _be24b512 = () => interopDefault(import('../pages/IC-estado-cuenta.vue' /* webpackChunkName: "pages/IC-estado-cuenta" */))
 const _f29babc0 = () => interopDefault(import('../pages/impuestos-pago.vue' /* webpackChunkName: "pages/impuestos-pago" */))
 const _41046902 = () => interopDefault(import('../pages/inscripcion-inmueble.vue' /* webpackChunkName: "pages/inscripcion-inmueble" */))
 const _a32b6a42 = () => interopDefault(import('../pages/liquidacion.vue' /* webpackChunkName: "pages/liquidacion" */))
 const _1dc5ef9e = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
+const _2124f254 = () => interopDefault(import('../pages/maestro-patente.vue' /* webpackChunkName: "pages/maestro-patente" */))
 const _a60d722e = () => interopDefault(import('../pages/manzana.vue' /* webpackChunkName: "pages/manzana" */))
 const _249d638d = () => interopDefault(import('../pages/modificar-datos.vue' /* webpackChunkName: "pages/modificar-datos" */))
 const _f723739e = () => interopDefault(import('../pages/moneda.vue' /* webpackChunkName: "pages/moneda" */))
@@ -247,6 +249,10 @@ export const routerOptions = {
     component: _1fa7db5c,
     name: "forma___en"
   }, {
+    path: "/IC-estado-cuenta",
+    component: _be24b512,
+    name: "IC-estado-cuenta___en"
+  }, {
     path: "/impuestos-pago",
     component: _f29babc0,
     name: "impuestos-pago___en"
@@ -262,6 +268,10 @@ export const routerOptions = {
     path: "/login",
     component: _1dc5ef9e,
     name: "login___en"
+  }, {
+    path: "/maestro-patente",
+    component: _2124f254,
+    name: "maestro-patente___en"
   }, {
     path: "/manzana",
     component: _a60d722e,
@@ -531,6 +541,10 @@ export const routerOptions = {
     component: _1fa7db5c,
     name: "forma___es"
   }, {
+    path: "/es/IC-estado-cuenta",
+    component: _be24b512,
+    name: "IC-estado-cuenta___es"
+  }, {
     path: "/es/impuestos-pago",
     component: _f29babc0,
     name: "impuestos-pago___es"
@@ -546,6 +560,10 @@ export const routerOptions = {
     path: "/es/login",
     component: _1dc5ef9e,
     name: "login___es"
+  }, {
+    path: "/es/maestro-patente",
+    component: _2124f254,
+    name: "maestro-patente___es"
   }, {
     path: "/es/manzana",
     component: _a60d722e,

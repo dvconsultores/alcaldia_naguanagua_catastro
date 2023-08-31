@@ -28,7 +28,7 @@
           </span>
         </div>
 
-        <div v-else-if="$route.path == '/solicitud-inmueble-existente/' + inmuebleId" class="divcol">
+        <div v-else-if="$route.path == '/solicitud-inmueble-existente/'" class="divcol">
           <span class="index-text">
             Inscripción de inmueble
           </span>
@@ -376,7 +376,7 @@
         </v-icon> -->
 
         <div class="divcol center">
-          <span class="span-saludo">
+          <span class="span-saludo" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'"> 
             Inmueble
           </span>
           <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
@@ -407,14 +407,27 @@
 
         <div class="divcol center">
           <span class="span-saludo tcenter">
-            ¡Hola Usuario 234!
+            Hola Usuario: {{JSON.parse(JSON.stringify(this.$store.getters.getUser.username))}}
           </span>
           <span class="span-saludo tcenter">
-            Administrador
+            Departamento:
+          </span>
+          <span class="span-saludo tcenter">
+            {{JSON.parse(JSON.stringify(this.$store.getters.getUser.departamento))}}
+          </span>
+        </div>
+        <div class="divcol center">
+          <span class="span-saludo tcenter">
+            {{this.max_rate_key}}
+          </span>
+          <span class="span-saludo tcenter">
+            {{this.max_rate_value}}
+          </span>
+          <span class="span-saludo tcenter">
+            {{this.currentDateTime}}
           </span>
         </div>
       </div>
-
       
     </section>
   </div>
@@ -428,12 +441,42 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      max_rate_key:null,
+      max_rate_value:null,
+      currentDateTime: new Date().toLocaleString()
     };
+  },
+  mounted() {
+    this.scheduleGetRequest(); // Iniciar el programador al montar el componente
   },
   methods: {
     goBack() {
       this.$router.go(-1);
     },
+    async fetchData() {
+      try {
+        const response = await this.$axios.$post('/MuestraTasaNew');
+        this.max_rate_key=response.max_rate_key
+        this.max_rate_value=response.max_rate_value
+        this.currentDateTime= new Date().toLocaleString()
+        this.$store.dispatch('storeTasa', response)
+        // Procesar la respuesta aquí
+      } catch (error) {
+        console.error('Error en la solicitud GET', error);
+      }
+    },
+    scheduleGetRequest() {
+      // Realizar el primer GET después de 5 segundos
+      setTimeout(() => {
+        this.fetchData();
+
+        // Programar GETs repetitivos cada 2 horas
+        const intervalInMilliseconds = 2 * 60 * 60 * 1000;
+        setInterval(() => {
+          this.fetchData();
+        }, intervalInMilliseconds);
+      }, 5000); // 5 segundos en milisegundos
+    }
   },
 };
 </script>

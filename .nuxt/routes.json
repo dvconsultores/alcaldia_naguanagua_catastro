@@ -273,6 +273,13 @@
     "_name": "_1fa7db5c"
   },
   {
+    "name": "IC-estado-cuenta___en",
+    "path": "/IC-estado-cuenta",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/IC-estado-cuenta.vue",
+    "chunkName": "pages/IC-estado-cuenta",
+    "_name": "_be24b512"
+  },
+  {
     "name": "impuestos-pago___en",
     "path": "/impuestos-pago",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/impuestos-pago.vue",
@@ -299,6 +306,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/login.vue",
     "chunkName": "pages/login",
     "_name": "_1dc5ef9e"
+  },
+  {
+    "name": "maestro-patente___en",
+    "path": "/maestro-patente",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/maestro-patente.vue",
+    "chunkName": "pages/maestro-patente",
+    "_name": "_2124f254"
   },
   {
     "name": "manzana___en",
@@ -770,6 +784,13 @@
     "_name": "_1fa7db5c"
   },
   {
+    "name": "IC-estado-cuenta___es",
+    "path": "/es/IC-estado-cuenta",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/IC-estado-cuenta.vue",
+    "chunkName": "pages/IC-estado-cuenta",
+    "_name": "_be24b512"
+  },
+  {
     "name": "impuestos-pago___es",
     "path": "/es/impuestos-pago",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/impuestos-pago.vue",
@@ -796,6 +817,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/login.vue",
     "chunkName": "pages/login",
     "_name": "_1dc5ef9e"
+  },
+  {
+    "name": "maestro-patente___es",
+    "path": "/es/maestro-patente",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/maestro-patente.vue",
+    "chunkName": "pages/maestro-patente",
+    "_name": "_2124f254"
   },
   {
     "name": "manzana___es",

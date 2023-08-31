@@ -63,7 +63,7 @@
           label="Tipo de trámite/servicio"
           :items="flujoData"
           item-text="descripcion"
-          item-value="codigo"
+          item-value="id"
           ></v-autocomplete>
         </div>
       </div>

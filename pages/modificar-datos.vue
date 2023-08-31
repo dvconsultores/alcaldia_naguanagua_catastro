@@ -4,11 +4,11 @@
       <div class="modificar-datos-container">
         <div class="title-morado">
           <p class="modificar-datos-title">
-            Propietarios o contribuyentes
+            Contribuyentes
           </p>
 
           <v-dialog v-model="dialog" max-width="1600px">
-            <template v-slot:activator="{ on, attrs }">
+            <template v-slot:activator="{ on, attrs }" >
               <v-btn class="btn-add-tabla" v-bind="attrs" v-on="on">
                 +
               </v-btn>
@@ -23,7 +23,7 @@
               <div class="section1-crear">
                 <div class="datos-contribuyente-div">
                   <div class="inputs-datos-container">
-                    <div class="radio-container">
+                    <!--div class="radio-container">
                       <span>
                         Tipo de documento
                       </span>
@@ -34,34 +34,34 @@
                           <v-radio label="Pasaporte" value="Pasaporte" name="radio-group"></v-radio>
                         </v-radio-group>
                       </div>
-                    </div>
+                    </div-->
 
                     <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
-                      <v-autocomplete v-model="nuevoRegistro.nacionalidad" :items="items2"
-                        class="autocomplete-field"></v-autocomplete>
+                      <!--v-autocomplete v-model="nuevoRegistro.nacionalidad" :items="items2"
+                        class="autocomplete-field"></v-autocomplete-->
 
-                      <v-text-field v-model="nuevoRegistro.numero_documento" class="input-big" label="Nro de Documento"
+                      <v-text-field v-model="nuevoRegistro.numero_documento" class="input-big" label="Nro de Documento RIF"
                         style="max-width: 490px;"></v-text-field>
                     </div>
 
                     <v-text-field v-model="nuevoRegistro.nombre" class="input-big"
-                      label="Nombre / Razón Social"></v-text-field>
+                      label="Nombre / Razón social"></v-text-field>
 
-                    <v-textarea class="input-textarea" label="Dirección"></v-textarea>
+                    <v-textarea class="input-textarea" label="Dirección fiscal"></v-textarea>
 
                     <v-text-field v-model="nuevoRegistro.telefono_principal" class="input-medium"
-                      label="Telefono"></v-text-field>
+                      label="Teléfono"></v-text-field>
 
-                    <v-text-field v-model="nuevoRegistro.telefono_secundario" class="input-medium"
+                    <!--v-text-field v-model="nuevoRegistro.telefono_secundario" class="input-medium"
                       label="Telefono 2"></v-text-field>
 
-                    <v-text-field class="input-medium" label="Fax"></v-text-field>
+                    <v-text-field class="input-medium" label="Fax"></v-text-field-->
 
                     <v-text-field v-model="nuevoRegistro.email_principal" class="input-correo"
-                      label="Correo electronico"></v-text-field>
+                      label="Correo electrónico"></v-text-field>
 
-                    <v-text-field v-model="nuevoRegistro.emaill_secundario" class="input-correo"
-                      label="Correo electronico 2"></v-text-field>
+                    <!--v-text-field v-model="nuevoRegistro.emaill_secundario" class="input-correo"
+                      label="Correo electronico 2"></v-text-field-->
                   </div>
                 </div>
 
@@ -81,14 +81,14 @@
           <v-dialog v-model="dialog_editar" max-width="1600px">
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar Contribuyente</span>
+                <span class="title">Editar contribuyente</span>
               </v-card-title>
 
               <hr>
               <div class="section1-crear">
                 <div class="datos-contribuyente-div">
                   <div class="inputs-datos-container">
-                    <div class="radio-container">
+                    <!--div class="radio-container">
                       <span>
                         Tipo de documento
                       </span>
@@ -99,34 +99,34 @@
                           <v-radio label="Pasaporte" value="Pasaporte" name="radio-group"></v-radio>
                         </v-radio-group>
                       </div>
-                    </div>
+                    </div-->
 
                     <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
-                      <v-autocomplete v-model="defaultItem.nacionalidad" :items="items2"
-                        class="autocomplete-field"></v-autocomplete>
+                      <!--v-autocomplete v-model="defaultItem.nacionalidad" :items="items2"
+                        class="autocomplete-field"></v-autocomplete-->
 
-                      <v-text-field v-model="defaultItem.numero_documento" class="input-big" label="Nro de Documento"
+                      <v-text-field v-model="defaultItem.numero_documento" class="input-big" label="Nro de Documento (RIF)"
                         style="max-width: 490px;"></v-text-field>
                     </div>
 
                     <v-text-field v-model="defaultItem.nombre" class="input-big"
-                      label="Nombre / Razón Social"></v-text-field>
+                      label="Nombre / Razón social"></v-text-field>
 
-                    <v-textarea class="input-textarea" label="Dirección"></v-textarea>
+                    <v-textarea class="input-textarea" label="Dirección fiscal"></v-textarea>
 
                     <v-text-field v-model="defaultItem.telefono_principal" class="input-medium"
-                      label="Telefono"></v-text-field>
+                      label="Teléfono"></v-text-field>
 
-                    <v-text-field v-model="defaultItem.telefono_secundario" class="input-medium"
+                    <!--v-text-field v-model="defaultItem.telefono_secundario" class="input-medium"
                       label="Telefono 2"></v-text-field>
 
-                    <v-text-field class="input-medium" label="Fax"></v-text-field>
+                    <v-text-field class="input-medium" label="Fax"></v-text-field-->
 
                     <v-text-field v-model="defaultItem.email_principal" class="input-correo"
-                      label="Correo electronico"></v-text-field>
+                      label="Correo electrónico"></v-text-field>
 
-                    <v-text-field v-model="defaultItem.emaill_secundario" class="input-correo"
-                      label="Correo electronico 2"></v-text-field>
+                    <!--v-text-field v-model="defaultItem.emaill_secundario" class="input-correo"
+                      label="Correo electronico 2"></v-text-field-->
                   </div>
                 </div>
 
@@ -192,7 +192,7 @@
 
             <template #[`item.actions2`]="{ item }">
               <v-btn class="btn-tabla" @click="openSelecciona(item)">
-                Seleccionar Contribuyente
+                Seleccionar contribuyente
               </v-btn>
             </template>
           </v-data-table>
@@ -217,9 +217,9 @@ export default {
       dialogSelecciona: false,
       nuevoRegistro: {},
       headers: [
-        { text: 'Nombre', align: 'center', value: 'nombre', },
-        { text: 'Nacionalidad', value: 'nacionalidad', align: 'center' },
-        { text: 'Numero de Documento', value: 'numero_documento', align: 'center' },
+        { text: 'Nombre/Razón social', align: 'center', value: 'nombre', },
+       // { text: 'Nacionalidad', value: 'nacionalidad', align: 'center' },
+        { text: 'Número de documento RIF', value: 'numero_documento', align: 'center' },
         { text: '', value: 'actions', sortable: false, align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],

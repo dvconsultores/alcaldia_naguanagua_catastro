@@ -61,10 +61,9 @@
                   </v-tab-item>
                   <v-tab-item :value="1">
                       <div class="inputs-container">
-                        <v-text-field class="input-mostrar" label="Contribuyente"></v-text-field>
-                        <v-text-field class="input-mostrar" label="Contribuyente"></v-text-field>
-                        <v-text-field class="input-mostrar" label="Contribuyente"></v-text-field>
-                        <v-text-field class="input-mostrar" label="Contribuyente"></v-text-field>
+                        <v-text-field v-model="selectedPropietario.nacionalidad" class="input-mostrar" label="Nacionalidad"></v-text-field>
+                        <v-text-field v-model="selectedPropietario.numero_documento" class="input-mostrar" label="Número documento"></v-text-field>
+                        <v-text-field v-model="selectedPropietario.nombre" class="input-mostrar" label="Nombre"></v-text-field>
                       </div>
                       <div class="center" style="margin-top:30px;">
                         <v-btn class="btn" style="background-color:#ED057E!important; width: 200px!important;" @click="dialog_mostrar = false">
@@ -255,8 +254,13 @@ export default {
       ],
       inmuebleData: [],
       inmueblePropietariosData:[],
-
+      selectedPropietario: {
+        nombre: '',
+        numero_documento: '',
+        nacionalidad: '',
+      },
       selectedItem: {
+        id: '',
         numero_expediente: '',
         fecha_inscripcion: '',
         tipo: '',
@@ -294,18 +298,24 @@ export default {
 
   mounted(){
     this.getInmueble()
-    // this.getInmueblePropietarios()
   },
 
   methods: {
-    // getInmueblePropietarios(item){
-    //   this.$axios.$get(`inmueble_propietarios/inmueble=${item.id}`).then(response => {
-    //     this.inmueblePropietariosData = response
-    //     console.log(this.inmueblePropietariosData, 'dataa')
-    //   }).catch(err => {
-    //     console.log(err)
-    //   })
-    // },
+     getInmueblePropietarios(){
+       this.$axios.$get(`inmueble_propietarios/?inmueble=${this.selectedItem.id}`).then(response => {
+         this.inmueblePropietariosData = response[0]
+         this.selectedPropietario.nombre=this.inmueblePropietariosData.propietario.nombre
+         this.selectedPropietario.nacionalidad=this.inmueblePropietariosData.propietario.nacionalidad
+         this.selectedPropietario.numero_documento=this.inmueblePropietariosData.propietario.numero_documento
+         console.log(this.inmueblePropietariosData, 'inmueblePropietariosData')
+         console.log(this.selectedPropietario, 'selectedPropietario')
+       }).catch(err => {
+         console.log(err)
+       })
+     },
+
+
+    
 
     StoreExpedienteId(item) {
       this.$store.getters.getExpediente== undefined ? console.log('vacio') : console.log('lleno',this.$store.getters.getExpediente)
@@ -329,6 +339,7 @@ export default {
     openDialog(item) {
       this.selectedItem = item
       this.dialog_mostrar = true 
+      this.getInmueblePropietarios()
     
       // this.$axios.$get(`inmueble_propietarios/?inmueble=${item.id}`).then(response => {
       //   this.inmueblePropietariosData = response

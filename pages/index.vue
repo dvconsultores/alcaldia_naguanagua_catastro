@@ -12,7 +12,7 @@
     <img src="~/assets/sources/images/morado.png" alt="morado">
     <div class="divcol center container-login">
       <img src="~/assets/sources/logos/logo.png" alt="AlcaldiaLogo">
-      <h2>Sistema de Gestión Catastral</h2>
+      <h2>Sistema de trámites y servicios</h2>
       <div class="inputs-btns">
         <v-text-field
         v-model="email"
@@ -40,7 +40,7 @@
         </div>
 
         <v-btn @click="login()">
-          <span>Iniciar Sesión</span>
+          <span>Iniciar sesión</span>
         </v-btn>
 
         <span class="last-span">

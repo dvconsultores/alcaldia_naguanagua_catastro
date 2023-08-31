@@ -495,7 +495,7 @@ export default {
     redireccionIdVacio(){
       if(this.$store.getters.getExpediente =='Sin Seleccionar'){
         this.$router.push('consulta-inmueble')
-        this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este modulo", hash: 'knsddcssdc', title:'Error'})
+        this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
       }else{
         ''
       }

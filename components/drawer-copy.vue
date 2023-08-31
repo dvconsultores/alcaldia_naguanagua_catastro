@@ -143,7 +143,7 @@
 
       <v-btn class="btn-drawer" @click="$router.push('/')">
         <span>
-          Cerrar Sesión
+          Cerrar sesión
         </span>
       </v-btn>
     </v-navigation-drawer>
@@ -265,7 +265,7 @@
 
       <v-btn class="btn-drawer" @click="$router.push('/')">
         <span>
-          Cerrar Sesión
+          Cerrar sesión
         </span>
       </v-btn>
 

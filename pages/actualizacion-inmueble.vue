@@ -316,7 +316,7 @@ export default {
   mixins: [computeds],
   data() {
     return {      
-      inmuebleData:[], 
+      inmuebleData:{}, 
       tipoInmuebleData:[],  
       estatusInmuebleData:[],
       ambitoData:[],
@@ -568,7 +568,7 @@ export default {
       // formData.append('observaciones', this.inmuebleData.observaciones);
       this.inmuebleData.observaciones ? formData.append('status', this.inmuebleData.observaciones):'';
 
-      this.$axios.$patch(`inmueble/${this.$store.getters.getExpediente.id}/`, formData)
+      this.$axios.$patch(`inmueble/${this.$store.getters.getExpediente.id}/`, this.inmuebleData)
       .then(res => {
         console.log(res.data)
         this.btnGuardarInmuble = false

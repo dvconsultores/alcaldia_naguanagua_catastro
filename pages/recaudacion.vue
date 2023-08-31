@@ -46,7 +46,7 @@
       <div class="impuestos-tasa-container">
         <div class="jspace center">
           <p class="title-impuestos-tasa">
-            Impuestos por Liquidar
+            Documentos por liquidar
           </p>
 
           <!-- <p style="margin-bottom:0px;">
@@ -152,7 +152,7 @@
           <div class="descripcion-impuestos">
             <div class="title-morado">
               <p class="impuestos-title">
-                Impuestos por tasas
+                Documento a cancelar
               </p>
 
               <p v-if="selectedItem && selectedItem.monto_total" class="impuestos-title" style="--fw: 500; font-size: 16px;">
@@ -164,25 +164,29 @@
               <v-text-field
               v-model="selectedItem.numero"
               class="small-input"
-              label="#N ."
+              label="# Liquidación"
+              :readonly="true"
               ></v-text-field>
 
               <v-text-field
               v-model="selectedItem.tipoflujo.descripcion"
               class="big-input"
               label="Concepto"
+              :readonly="true"
               ></v-text-field>
 
               <v-text-field
               v-model=selectedItem.fecha
               class="big-input"
               label="Fecha"
+              :readonly="true"
               ></v-text-field>
 
               <v-text-field
               v-model="selectedItem.monto_total"
               class="small-input"
               label="Monto Total"
+              :readonly="true"
               ></v-text-field>
             </div>
           </div>
@@ -190,11 +194,11 @@
           <div class="descripcion-container">
             <div class="title-morado">
               <p class="solicitud-title">
-                Tipo de pago
+                Tipos de pago
               </p>
 
               <p class="solicitud-title">
-                Monto total: {{ montoTotal() }}
+                Total pagado: {{ montoTotal() }}
               </p>
             </div>
 
@@ -209,23 +213,12 @@
               label="Tipo de Pago"
               :items="tipoPagoData"
               item-text="descripcion"
-              item-value="id"
+              item-value="codigo"
+              @change="getcodigoTipoPago"
+              :disabled="div.bloqueado"
               ></v-autocomplete>
 
-              <v-autocomplete
-              v-model="div.bancocuenta"
-              class="small-input mobile-inputs"
-              label="Banco"
-              :items="bancoCuentaData"
-              item-text="numero"
-              item-value="id"
-              ></v-autocomplete>
 
-              <v-text-field
-              v-model="div.referencia"
-              class="small-input mobile-inputs"
-              label="Nro. Referencia"
-              ></v-text-field>
 
               <v-menu
               v-model="menu"
@@ -234,10 +227,11 @@
               transition="scale-transition"
               offset-y
               min-width="auto"
+              :disabled="div.bloqueado"
               >
                 <template #activator="{ on, attrs }">
                   <v-text-field
-                  v-model="div.fecha"
+                  v-model="div.fechapago"
                   class="small-input mobile-inputs"
                   label="Fecha"
                   append-icon="mdi-calendar"
@@ -247,7 +241,7 @@
                   ></v-text-field>
                 </template>
                 <v-date-picker
-                  v-model="div.fecha"
+                  v-model="div.fechapago"
                   label="Fecha"
                   @input="formatoFecha()"
                   color="blue"
@@ -260,9 +254,42 @@
               v-model="div.monto"
               class="small-input mobile-inputs"
               label="Monto"
+              :disabled="div.bloqueado"
               ></v-text-field>
 
-              <v-btn class="btns-add-remove"  @click="removeDiv(index)">
+              <v-autocomplete
+              v-model="div.bancocuenta"
+              class="small-input mobile-inputs"
+              :label="div.tipopago !== 'T' && div.tipopago !== 'D' ? '' : 'Banco'"
+              :items="bancoCuentaData"
+              item-text="banco_nombre"
+              item-value="id"
+              :disabled="(div.tipopago!=='T' && div.tipopago!=='D') ||div.bloqueado"
+              ></v-autocomplete>
+
+              <v-text-field
+              v-model="div.nro_referencia"
+              class="small-input mobile-inputs"
+              :label="div.tipopago !== 'T' && div.tipopago !== 'D'  && div.tipopago!=='N' ? '' : 'Nro. Referencia'"
+              :disabled="(div.tipopago!=='T' && div.tipopago!=='D' && div.tipopago!=='N') ||div.bloqueado"
+              ></v-text-field>
+              <v-text-field
+
+              v-model="div.nro_lote"
+              class="small-input mobile-inputs"
+              :label="div.tipopago!=='D'  ? '' : 'Nro. lote'"
+              :disabled="div.tipopago!=='D' ||div.bloqueado"
+              ></v-text-field>
+
+              <v-text-field
+              v-model="div.nro_aprobacion"
+              class="small-input mobile-inputs"
+              :label="div.tipopago!=='D'  ? '' : 'Nro. aprobación'"
+              :disabled="div.tipopago!=='D' ||div.bloqueado"
+              ></v-text-field> 
+
+
+              <v-btn class="btns-add-remove" :disabled="div.bloqueado" @click="removeDiv(index)"> 
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </div>
@@ -305,28 +332,30 @@ export default{
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
       liquidacionData:[],
+      NotaCreditoData:[],
       tipoPagoData:[],
       bancoCuentaData:[],
       openDialog: false,
       show_observaciones: false,
       bancoData:["Banesco", "Mercantil", "Provincial"],
+      PagoId: null,
+      diferencia:0,
 
-      divs:[
-        {
-          tipopago: null,
-          bancocuenta: null,
-          referencia: '',
-          fechapago: null,
-          monto: 0,
-        },
-      ],
+      divs:[{
+            tipopago: null,
+            bancocuenta: null,
+            fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
+            nro_aprobacion: '',
+            nro_lote: '',
+            nro_referencia: '',
+            monto: 0,
+          }],
 
       nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
       nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
       numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
     }
   },
-
   head() {
     const title = 'Recaudacion';
     return {
@@ -339,13 +368,55 @@ export default{
     this.getLiquidacionPropietario()
     this.getTipoPago()
     this.getBancoCuenta()
+    //this.getNotaCredito()
   },  
 
   methods: {
+    getNotaCredito(){
+      this.$axios.$get('notacredito/?saldo_gt=0&propietario=' + this.$store.getters.getContribuyente.id).then(response => {
+      if (response){
+        this.NotaCreditoData= response[0]
+
+        this.$alert("success", {desc: "El contribuyente posee la N/C Nro: "+ this.NotaCreditoData.numeronotacredito+" con saldo de Bs. "+
+        parseFloat(this.NotaCreditoData.saldo)   , hash: 'knsddcssdc', title:'Nota de crédito.'}) 
+
+        console.log(this.NotaCreditoData.saldo , this.selectedItem.monto_total )
+        this.divs=[]
+
+        this.divs.push({
+            tipopago: 'N',
+            fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
+            nro_referencia:this.NotaCreditoData.numeronotacredito,
+            monto:  parseFloat(this.NotaCreditoData.saldo) <  parseFloat(this.selectedItem.monto_total) ?  parseFloat(this.NotaCreditoData.saldo) :  parseFloat(this.selectedItem.monto_total) , 
+            bloqueado: true,
+            bancocuenta: null,
+            nro_aprobacion: '',
+            nro_lote: ''
+          });
+      }
+      else{
+        this.divs.push({
+            tipopago: null,
+            bancocuenta: null,
+            fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
+            nro_aprobacion: '',
+            nro_lote: '',
+            nro_referencia: '',
+            monto: 0,
+            bloqueado: false,
+          });
+
+      }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+
     redireccionIdVacio(){
       if(this.$store.getters.getContribuyente=='Sin Seleccionar'){
         this.$router.push('modificar-datos')
-        this.$alert("cancel", {desc: "Debe seleccionar un contribuyente para ingresar a este modulo", hash: 'knsddcssdc', title:'Error'})
+        this.$alert("cancel", {desc: "Debe seleccionar un contribuyente para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
       }else{
         ''
       }
@@ -368,6 +439,7 @@ export default{
         this.liquidacionIdData = response
         console.log(this.liquidacionIdData,'ID Liquidacion')
         this.openDialog = true
+        this.getNotaCredito()
 
       }).catch(error => {
         console.error(error);
@@ -401,7 +473,14 @@ export default{
     },
 
     addDiv(){
-      this.divs.push({monto: 0})
+      console.log('lelele',this.selectedItem.monto_total , this.montoTotal())
+      if(this.montoTotal()  < this.selectedItem.monto_total) {  
+        this.divs.push({
+          monto: 0,
+          fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
+          bloqueado: false,
+        })
+      }
     },  
 
     removeDiv(index) {
@@ -409,22 +488,26 @@ export default{
     },
 
     formatoFecha() {
-      if (this.fecha) {
+      if (this.fechapago) {
         this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
-        this.fecha = this.fechaFormateada
+        this.fechapago = this.fechaFormateada
       }
     },
 
     createPago(){
       this.montoTotalSelectedItem = this.selectedItem ? this.selectedItem.monto_total : null
+      this.montoTotalSelectedItem = parseFloat(this.montoTotalSelectedItem)
       this.montoTotalFunc = this.montoTotal()
+      this.diferencia=this.montoTotalSelectedItem-this.montoTotalFunc
 
-      if(this.montoTotalSelectedItem !== null && this.montoTotalSelectedItem == this.montoTotalFunc){
+      if(this.montoTotalSelectedItem !== null && parseFloat(this.montoTotalSelectedItem) <= this.montoTotalFunc){
           const data = {
           liquidacion: this.selectedItem.id,
           propietario: this.$store.getters.getContribuyente.id,
           observacion: this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '',
           monto: this.montoTotal(),
+          monto_cxc: this.montoTotalSelectedItem ,
+          caja: this.$store.getters.getUser.caja,
           detalle: this.divs,
         }
         this.$axios.$post('crearPago/', data).then(res => {
@@ -435,7 +518,7 @@ export default{
           console.log(err)
         })
       }else{
-        this.$alert("success", {desc: 'El "Monto Total" y el "Total" debe coincidir', hash: 'knsddcssdc', title:'Alerta'}) 
+        this.$alert("success", {desc: 'El pago es menor al total por cobrar.', hash: 'knsddcssdc', title:'Alerta'}) 
       }
     },
   }

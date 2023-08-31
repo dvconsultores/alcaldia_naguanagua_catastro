@@ -1,5 +1,5 @@
 export const state = () => ({
-
+  tasa: null,
   user: null , //creacion de variable
   contribuyente: undefined,//creacion de variable GLOBAL para Catastro
   expediente: undefined,//creacion de variable GLOBAL para Catastro
@@ -32,6 +32,9 @@ export const mutations = {
 
   STORE_USER(state, user) { // seteo de data
     state.user = user
+  },
+  STORE_tasa(state, tasa) { // seteo de data
+    state.tasa = tasa
   },
   STORE_contribuyente(state, contribuyente) { // seteo de data
     state.contribuyente = contribuyente
@@ -134,6 +137,9 @@ export const actions = {
   storeUser({commit}, user) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_USER', user)
   },
+  storeTasa({commit}, tasa) { // recibe la data y la manda a store user para ser seteada
+    commit('STORE_tasa', tasa)
+  },
   storeContribuyente({commit}, contribuyente) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_contribuyente', contribuyente)
   },
@@ -190,6 +196,9 @@ export const getters = {
   getUser(state) { // consulta la variable
     //return state.user[0]
     return state.user
+  },
+  getTasa(state) { // consulta la variable
+    return state.tasa == undefined ? 'Sin Seleccionar' : state.tasa
   },
   getContribuyente(state) { // consulta la variable
     return state.contribuyente == undefined ? 'Sin Seleccionar' : state.contribuyente
