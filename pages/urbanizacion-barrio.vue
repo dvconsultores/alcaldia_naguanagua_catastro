@@ -62,10 +62,21 @@
                         v-model="nuevoRegistro.tipo"
                         label="Tipo"
                         class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="tipo"
-                        item-value="id"
+                        :items="itemsTipo"
+                        item-text="text"
+                        item-value="value"
                       ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="nuevoRegistro.zona"
+                        class="input-dialog"
+                        label="Zona"
+                        :items="dataZona"
+                        item-text="descripcion"
+                        item-value="id"
+                        ></v-autocomplete>
+
                     </v-col>
                   </v-row>
                 </v-container>
@@ -136,10 +147,21 @@
                         v-model="defaultItem.tipo"
                         label="Tipo"
                         class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="tipo"
-                        item-value="id"
+                        :items="itemsTipo"
+                        item-text="text"
+                        item-value="value"
                       ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        v-model="defaultItem.zona"
+                        class="input-dialog"
+                        label="Zona"
+                        :items="dataZona"
+                        item-text="descripcion"
+                        item-value="id"
+                        ></v-autocomplete>
+
                     </v-col>
                   </v-row>
                 </v-container>
@@ -287,17 +309,23 @@ export default {
         { text: 'Sector', value: 'descripcion_sector', align:'center' },
         { text: 'Nombre', value: 'nombre', align:'center' },
         { text: 'Tipo', value: 'tipo', align:'center' },
+        { text: 'Zona', value: 'zona', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
 
       sectoresData: [],
       ambitoData:[],
       urbanizacionData: [],
-     
+      dataZona:[],
+      itemsTipo: [
+        { text: 'Pública', value: 'P' },
+        { text: 'Privada', value: 'R' },
+      ],    
       defaultItem: {
         ambito: '',
         sector: '',
         nombre: '',
+        zona: '',
         tipo: '',
       },
     }
@@ -312,10 +340,18 @@ export default {
   mounted(){
     this.getDataSector(),
     this.getDataAmbito(),
-    this.getDataUrbanizacion()
+    this.getDataUrbanizacion(),
+    this.getDataZona()
   },
 
   methods: {
+    getDataZona(){
+      this.$axios.$get('zona').then(response =>{
+        this.dataZona = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     getDataUrbanizacion(){
       this.$axios.$get('urbanizacion').then(response => {
           this.urbanizacionData = response
@@ -345,8 +381,8 @@ export default {
       this.$axios.$post('urbanizacion/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
-          this.urbanizacionData.push(res)
-          this.$alert("success", {desc: "Se ha creado una nueva urbanización con éxito", hash: 'knsddcssdc', title:'Creación de urbanización'})        
+          this.$alert("success", {desc: "Se ha creado una nueva urbanización con éxito", hash: 'knsddcssdc', title:'Creación de urbanización'})  
+          this.getDataUrbanizacion()       
         }).catch(err => {
           console.log(err)
         })
@@ -362,6 +398,7 @@ export default {
       this.defaultItem.sector = item.sector
       this.defaultItem.nombre = item.nombre
       this.defaultItem.tipo = item.tipo
+      this.defaultItem.zona = item.zona
     },
 
     saveData(){
@@ -370,14 +407,12 @@ export default {
       formData.append('sector', this.defaultItem.sector)
       formData.append('nombre', this.defaultItem.nombre)
       formData.append('tipo', this.defaultItem.tipo)
+      formData.append('zona', this.defaultItem.zona)
 
       this.$axios.$patch('urbanizacion/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado una urbanización con éxito", hash: 'knsddcssdc', title:'Edición de urbanización'}) 
-        const index = this.urbanizacionData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.urbanizacionData, index, { ...this.defaultItem });
-        }        
+        this.getDataUrbanizacion()       
       }).catch((err) => {
         console.log(err)
       });
@@ -395,10 +430,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado una urbanización con éxito", hash: 'knsddcssdc', title:'Eliminación de urbanización'})  
-        const index = this.urbanizacionData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.urbanizacionData.splice(index, 1);
-        }         
+        this.getDataUrbanizacion()         
       }).catch((err) => {
         console.log(err)
       });

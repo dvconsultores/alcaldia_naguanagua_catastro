@@ -237,31 +237,14 @@
           label="Telefono"
           ></v-text-field>
 
-          <!-- <v-autocomplete
-          v-model="inmuebleData.zona"
-          class="big-autocomplete mobile-inputs"
-          label="Zona(1996 / 2001)"
-          :items="dataZona"
-          item-text="descripcion"
-          item-value="id"
-          ></v-autocomplete>
-
           <v-autocomplete
-          v-model="inmuebleData.zona"
+          v-model="inmuebleData.id_zona"
           class="big-autocomplete mobile-inputs"
-          label="Zona(2001 / 2003)"
+          label="Zona"
           :items="dataZona"
           item-text="descripcion"
           item-value="id"
-          ></v-autocomplete> -->
-
-          <v-autocomplete
-          v-model="inmuebleData.zona"
-          class="big-autocomplete mobile-inputs"
-          label="Zona(2004)"
-          :items="dataZona"
-          item-text="descripcion"
-          item-value="id"
+          disabled="True"
           ></v-autocomplete>
 
           <v-textarea
@@ -333,7 +316,7 @@ export default {
       avenidaData:[],
       torreData:[],
       dataZona:[],
-      zona:["1","2","3"],
+      IdZona:null,
 
       dialog_confirmar: false,
 

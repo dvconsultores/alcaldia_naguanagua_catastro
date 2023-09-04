@@ -1,10 +1,10 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-avenida">
-      <div class="datos-avenida-container">
+    <section class="section1-regimen">
+      <div class="datos-regimen-container">
         <div class="title-morado">
-          <p class="datos-avenida-title">
-            avenida
+          <p class="datos-regimen-title">
+            Régimen
           </p>
 
           <v-dialog
@@ -22,7 +22,7 @@
             </template>
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Crear avenida</span>
+                <span class="title">Crear nuevo régimen</span>
               </v-card-title>
 
               <hr>
@@ -30,30 +30,28 @@
               <v-card-text>
                 <v-container>
                   <v-row class="center">
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
                       <v-text-field
                         v-model="nuevoRegistro.codigo"
                         label="Código"
                         class="input-dialog"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
                       <v-text-field
-                        v-model="nuevoRegistro.nombre"
-                        label="Nombre"
+                        v-model="nuevoRegistro.descripcion"
+                        label="Descripción"
                         class="input-dialog"
                       ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.tipo"
-                        label="Tipo"
-                        class="input-dialog"
-                        :items="itemsTipo"
-                        item-text="text"
-                        item-value="value"
-                      ></v-autocomplete>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -69,7 +67,7 @@
                 </v-btn>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="createAvenida()"
+                  @click="createData()"
                   style="background-color:#ED057E!important;"
                 >
                   Guardar
@@ -84,7 +82,7 @@
           >
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar avenida</span>
+                <span class="title">Editar régimen</span>
               </v-card-title>
 
               <hr>
@@ -101,26 +99,19 @@
                         v-model="defaultItem.codigo"
                         label="Código"
                         class="input-dialog"
-                        disabled
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="defaultItem.nombre"
-                        label="Nombre"
-                        class="input-dialog"
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.tipo"
-                        label="Tipo"
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="defaultItem.descripcion"
+                        label="Descripción"
                         class="input-dialog"
-                        :items="itemsTipo"
-                        item-text="text"
-                        item-value="value"
-                      ></v-autocomplete>
+                      ></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -158,7 +149,7 @@
 
           <v-data-table
             :headers="headers"
-            :items="avenidaData"
+            :items="regimenData"
             :items-per-page="10"
             :search="search"
             :footer-props="{
@@ -214,7 +205,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "avenidaPage",
+  name: "RegimenPage",
   mixins: [computeds],
   data() {
     return {  
@@ -222,53 +213,47 @@ export default {
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
-      nuevoRegistro:{},
+      nuevoRegistro: {},
       headers: [
         { text: 'Código', align: 'center', value: 'codigo',},
-        { text: 'Descripción', value: 'nombre', align:'center' },
-        { text: 'Tipo', value: 'tipo', align:'center' },
+        { text: 'Descripción', align: 'center', value: 'descripcion',},
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
-      avenidaData: [],
-      itemsTipo: [
-        { text: 'Colateral', value: '1' },
-        { text: 'Via', value: '2' },
-        { text: 'Doble Via', value: '3' },
-      ],
+      regimenData: [],
+
       defaultItem: {
         codigo: '',
-        nombre: '',
-        tipo:'',
+        descripcion: '',
         id:'',
       },
     }
   },
   head() {
-    const title = 'Avenida';
+    const title = 'Regimen';
     return {
       title,
     }
   },
 
   mounted(){
-    this.getAvenida()
+    this.getData()
   },
 
   methods: {
-    getAvenida() {
-      this.$axios.$get('avenida').then(response => {
-          this.avenidaData = response
+    getData() {
+      this.$axios.$get('regimen').then(response => {
+          this.regimenData = response
         }).catch(err => {
           console.log(err)
         })
     },
 
-    createAvenida(){
-      this.$axios.$post('avenida/', this.nuevoRegistro).then(res => {
+    createData(){
+      this.$axios.$post('regimen/', this.nuevoRegistro).then(res => {
           console.log(res.data)
           this.nuevoRegistro = {}
-          this.avenidaData.push(res)
-          this.$alert("success", {desc: "Se ha creado una nueva avenida con éxito", hash: 'knsddcssdc', title:'Creación de avenida'})        
+          this.regimenData.push(res)
+          this.$alert("success", {desc: "Se ha creado un nuevo régimen con éxito", hash: 'knsddcssdc', title:'Creado'})        
         }).catch(err => {
           console.log(err)
         })
@@ -281,23 +266,21 @@ export default {
       this.dialog_editar = true
       this.defaultItem.id = item.id
       this.defaultItem.codigo = item.codigo
-      this.defaultItem.nombre = item.nombre
-      this.defaultItem.tipo = item.tipo
+      this.defaultItem.descripcion = item.descripcion
     },
 
     saveData(){
       const formData = new FormData()
       formData.append('codigo', this.defaultItem.codigo)
-      formData.append('nombre', this.defaultItem.nombre)
-      formData.append('tipo', this.defaultItem.tipo)
+      formData.append('descripcion', this.defaultItem.descripcion)
 
-      this.$axios.$patch('avenida/'+ this.defaultItem.id + '/', formData).then((res) => {
+      this.$axios.$patch('regimen/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una avenida con éxito", hash: 'knsddcssdc', title:'Edición de avenida'}) 
-        const index = this.avenidaData.findIndex((item) => item.id === this.defaultItem.id);
+        this.$alert("success", {desc: "Se ha editado un régimen con éxito", hash: 'knsddcssdc', title:'Editado'})
+        const index = this.regimenData.findIndex((item) => item.id === this.defaultItem.id);
         if (index !== -1) {
-          this.$set(this.avenidaData, index, { ...this.defaultItem });
-        }         
+          this.$set(this.regimenData, index, { ...this.defaultItem });
+        }          
       }).catch((err) => {
         console.log(err)
       });
@@ -311,14 +294,14 @@ export default {
     },
 
     deleteItem(){
-      this.$axios.$delete('avenida/'+ this.defaultItem.id + '/').then((res) => {
+      this.$axios.$delete('regimen/'+ this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una avenida con éxito", hash: 'knsddcssdc', title:'Eliminación de avenida'})
-        const index = this.avenidaData.findIndex((item) => item.id === this.defaultItem.id);
+        this.$alert("success", {desc: "Se ha eliminado un régimen con éxito", hash: 'knsddcssdc', title:'Eliminado'})    
+        const index = this.regimenData.findIndex((item) => item.id === this.defaultItem.id);
         if (index !== -1) {
-          this.avenidaData.splice(index, 1);
-        }           
+          this.regimenData.splice(index, 1);
+        }       
       }).catch((err) => {
         console.log(err)
       });
@@ -327,4 +310,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/avenida.scss" lang="scss" />
+<style src="~/assets/styles/pages/regimen.scss" lang="scss" />

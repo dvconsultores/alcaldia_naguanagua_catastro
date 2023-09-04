@@ -57,6 +57,8 @@ const _37ad4eed = () => interopDefault(import('../pages/parcela.vue' /* webpackC
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
+const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
+const _f7520a0a = () => interopDefault(import('../pages/reporte-recaudos.vue' /* webpackChunkName: "pages/reporte-recaudos" */))
 const _17e835c0 = () => interopDefault(import('../pages/reporte-taquilla.vue' /* webpackChunkName: "pages/reporte-taquilla" */))
 const _2a000081 = () => interopDefault(import('../pages/sector.vue' /* webpackChunkName: "pages/sector" */))
 const _655bcbdc = () => interopDefault(import('../pages/servicios.vue' /* webpackChunkName: "pages/servicios" */))
@@ -304,6 +306,14 @@ export const routerOptions = {
     path: "/regimen",
     component: _422c3f54,
     name: "regimen___en"
+  }, {
+    path: "/reporte-ejemplo",
+    component: _0426c21f,
+    name: "reporte-ejemplo___en"
+  }, {
+    path: "/reporte-recaudos",
+    component: _f7520a0a,
+    name: "reporte-recaudos___en"
   }, {
     path: "/reporte-taquilla",
     component: _17e835c0,
@@ -596,6 +606,14 @@ export const routerOptions = {
     path: "/es/regimen",
     component: _422c3f54,
     name: "regimen___es"
+  }, {
+    path: "/es/reporte-ejemplo",
+    component: _0426c21f,
+    name: "reporte-ejemplo___es"
+  }, {
+    path: "/es/reporte-recaudos",
+    component: _f7520a0a,
+    name: "reporte-recaudos___es"
   }, {
     path: "/es/reporte-taquilla",
     component: _17e835c0,

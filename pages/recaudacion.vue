@@ -3,7 +3,7 @@
     <section class="section1-recaudacion">
       <div class="impuestos-container">
         <p class="title-modificar">
-          Impuestos Pendientes por Recaudar
+          Trámites o servicios pendientes por recaudar
         </p>
       </div>
 
@@ -46,7 +46,7 @@
       <div class="impuestos-tasa-container">
         <div class="jspace center">
           <p class="title-impuestos-tasa">
-            Documentos por liquidar
+            Documentos por recaudar
           </p>
 
           <!-- <p style="margin-bottom:0px;">
@@ -114,7 +114,7 @@
 
               <div class="title-description-div">
                 <p class="nombre-razon">
-                  CI / RIF / Pasaporte
+                  RIF
                 </p>
 
                 <p class="nombre-desc">

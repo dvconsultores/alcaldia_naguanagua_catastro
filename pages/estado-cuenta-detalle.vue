@@ -183,6 +183,8 @@
                         <table>
                           <thead>
                             <tr>
+                              <th style="padding: 2px;"> Año </th>
+                              <th style="padding: 2px;"> Periodo </th>
                               <th style="padding: 2px;"> Uso </th>
                               <th style="padding: 2px;"> Fecha desde </th>
                               <th style="padding: 2px;"> Fecha hasta </th>
@@ -194,6 +196,8 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in IC_Descuento" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;"> {{ item.anio }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.periodo }} </td>
                               <td style="padding: 2px;text-align: left;"> {{ item.uso_descripcion }} </td>
                               <td style="padding: 2px;text-align: center;"> {{ item.fechadesde }} </td>
                               <td style="padding: 2px;text-align: center;"> {{ item.fechahasta }} </td>

@@ -371,6 +371,20 @@
     "_name": "_422c3f54"
   },
   {
+    "name": "reporte-ejemplo___en",
+    "path": "/reporte-ejemplo",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-ejemplo.vue",
+    "chunkName": "pages/reporte-ejemplo",
+    "_name": "_0426c21f"
+  },
+  {
+    "name": "reporte-recaudos___en",
+    "path": "/reporte-recaudos",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-recaudos.vue",
+    "chunkName": "pages/reporte-recaudos",
+    "_name": "_f7520a0a"
+  },
+  {
     "name": "reporte-taquilla___en",
     "path": "/reporte-taquilla",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-taquilla.vue",
@@ -880,6 +894,20 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/regimen.vue",
     "chunkName": "pages/regimen",
     "_name": "_422c3f54"
+  },
+  {
+    "name": "reporte-ejemplo___es",
+    "path": "/es/reporte-ejemplo",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-ejemplo.vue",
+    "chunkName": "pages/reporte-ejemplo",
+    "_name": "_0426c21f"
+  },
+  {
+    "name": "reporte-recaudos___es",
+    "path": "/es/reporte-recaudos",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-recaudos.vue",
+    "chunkName": "pages/reporte-recaudos",
+    "_name": "_f7520a0a"
   },
   {
     "name": "reporte-taquilla___es",
