@@ -230,7 +230,7 @@ export default {
 
   methods: {
     imprime(){
-      this.$router.push('reporte')
+      this.$router.push('reporte-ejemplo')
     },
     filtrarPorFecha() {
     if (this.fechaFiltro) {

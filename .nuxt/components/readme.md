@@ -17,3 +17,5 @@ You can directly use them in pages and other components without the need to impo
 - `<Pagination>` | `<pagination>` (components/pagination.vue)
 - `<ModalsConfirmMsg>` | `<modals-confirm-msg>` (components/modals/confirmMsg.vue)
 - `<ModalsConnect>` | `<modals-connect>` (components/modals/connect.vue)
+- `<ReportesCVExample>` | `<reportes-c-v-example>` (components/reportes/CVExample.vue)
+- `<ReportesReporteCaja>` | `<reportes-reporte-caja>` (components/reportes/ReporteCaja.vue)

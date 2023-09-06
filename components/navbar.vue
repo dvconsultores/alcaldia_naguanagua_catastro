@@ -447,7 +447,7 @@ export default {
     };
   },
   mounted() {
-    this.scheduleGetRequest(); // Iniciar el programador al montar el componente
+    //this.scheduleGetRequest(); // Iniciar el programador al montar el componente
   },
   methods: {
     goBack() {

@@ -1,313 +1,211 @@
 <template>
-  <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-regimen">
-      <div class="datos-regimen-container">
-        <div class="title-morado">
-          <p class="datos-regimen-title">
-            Régimen
-          </p>
+    <div class="cv-outterxx" style="margin-bottom:20px; padding-left: 256px;">
+      <section class="section1-reporte-recaudosxx">
+        <div class="reporte-recaudos-containerxx">
+          <div class="reporte" ref="htmlContent" id="cv-example">
+            <div class="header">
+              <img class="logo"
+                src="/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png"
+                alt="Logo Izquierda">
+                <p class="title" style="font-size:3em;margin-bottom: 16px;">Reporte en Tamaño Carta</p>
 
-          <v-dialog
-            v-model="dialog"
-            max-width="1600px"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                class="btn-add-tabla"
-                v-bind="attrs"
-                v-on="on"
-              >
-                +
-              </v-btn>
-            </template>
-            <v-card id="dialog-editar-crear">
-              <v-card-title>
-                <span class="title">Crear nuevo régimen</span>
-              </v-card-title>
+              <img class="logo" src="/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png"
+                alt="Logo Derecha">
+            </div>
 
-              <hr>
+            <div class="content">
+              <p style="font-size:3em;margin-bottom: 16px;">Depósitos</p>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Col 1</th>
+                    <th>Col 2</th>
+                    <!-- ... Otras columnas ... -->
+                    <th>Col 9</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dato 1</td>
+                    <td>Dato 2</td>
+                    <!-- ... Otras celdas ... -->
+                    <td>Dato 9</td>
+                  </tr>
+                  <!-- ... Otras filas ... -->
+                </tbody>
+              </table>
+              <p style="font-size:3em;margin-bottom: 16px;">Tarjetas de Débito</p>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Col 1</th>
+                    <th>Col 2</th>
+                    <!-- ... Otras columnas ... -->
+                    <th>Col 11</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dato 1</td>
+                    <td>Dato 2</td>
+                    <!-- ... Otras celdas ... -->
+                    <td>Dato 11</td>
+                  </tr>
+                  <!-- ... Otras filas ... -->
+                </tbody>
+              </table>
+              <p style="font-size:3em;margin-bottom: 16px;">Transferencias</p>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Col 1</th>
+                    <th>Col 2</th>
+                    <!-- ... Otras columnas ... -->
+                    <th>Col 11</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dato 1</td>
+                    <td>Dato 2</td>
+                    <!-- ... Otras celdas ... -->
+                    <td>Dato 11</td>
+                  </tr>
+                  <!-- ... Otras filas ... -->
+                </tbody>
+              </table>
+            </div>
 
-              <v-card-text>
-                <v-container>
-                  <v-row class="center">
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="nuevoRegistro.codigo"
-                        label="Código"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="nuevoRegistro.descripcion"
-                        label="Descripción"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="dialog = false"
-                >
-                  Cancelar
-                </v-btn>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="createData()"
-                  style="background-color:#ED057E!important;"
-                >
-                  Guardar
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-
-          <v-dialog
-            v-model="dialog_editar"
-            max-width="1600px"
-          >
-            <v-card id="dialog-editar-crear">
-              <v-card-title>
-                <span class="title">Editar régimen</span>
-              </v-card-title>
-
-              <hr>
-
-              <v-card-text>
-                <v-container>
-                  <v-row class="center">
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="defaultItem.codigo"
-                        label="Código"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="defaultItem.descripcion"
-                        label="Descripción"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="dialog_editar = false"
-                >
-                  Cancelar
-                </v-btn>
-
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="saveData()"
-                  style="background-color:#ED057E!important;"
-                >
-                  Guardar
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+            <div class="footer">
+              <p>Pie de Página - Reporte Generado el {{ fecha }}</p>
+            </div>
+          </div>
+          <div class="boton-container">
+            <button @click="exportToPDF2" class="generar-boton">Generar Reporte en PDF new</button>
+          </div>
         </div>
-
-        <div class="data-table-container">
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Buscar"
-            hide-details
-            class="input-data-table"
-          ></v-text-field>
-
-          <v-data-table
-            :headers="headers"
-            :items="regimenData"
-            :items-per-page="10"
-            :search="search"
-            :footer-props="{
-              itemsPerPageText: 'Items por página',
-            }"
-            sort-by="codigo"
-            class="mytabla"
-            mobile-breakpoint="840"
-          >
-            <template v-slot:top>
-              <v-toolbar
-                flat
-                class="toolbar-tabla"
-              >  
-                <v-dialog v-model="dialogDelete" max-width="500px">
-                  <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
-                    <span class="alerta-text">Esta acción no se puede revertir</span>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-toolbar>
-            </template>
-            <template #[`item.actions`]="{ item }">
-              <v-icon
-                color="#810880"
-                big
-                @click="editItem(item)"
-              >
-                mdi-pencil
-              </v-icon>
-              <v-icon
-                color="#810880"
-                big
-                @click="openDelete(item)"
-              >
-                mdi-delete
-              </v-icon>
-            </template>
-          </v-data-table>
-        </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
 </template>
 
 <script>
-import computeds from '~/mixins/computeds'
+
+import html2pdf from "html2pdf.js";
+
 
 export default {
-  name: "RegimenPage",
-  mixins: [computeds],
-  data() {
-    return {  
-      search: '',
-      dialog: false,
-      dialog_editar: false,
-      dialogDelete: false,
-      nuevoRegistro: {},
-      headers: [
-        { text: 'Código', align: 'center', value: 'codigo',},
-        { text: 'Descripción', align: 'center', value: 'descripcion',},
-        { text: '', value: 'actions', sortable: false, align:'center' },
-      ],
-      regimenData: [],
-
-      defaultItem: {
-        codigo: '',
-        descripcion: '',
-        id:'',
-      },
-    }
-  },
-  head() {
-    const title = 'Regimen';
-    return {
-      title,
-    }
-  },
-
-  mounted(){
-    this.getData()
-  },
 
   methods: {
-    getData() {
-      this.$axios.$get('regimen').then(response => {
-          this.regimenData = response
-        }).catch(err => {
-          console.log(err)
-        })
+    exportToPDF2() {
+    html2pdf(document.getElementById("cv-example"), 
+      {
+        filename: "ReporteCaja.pdf",
+        image: { type: "jpeg", quality: 1 },
+        html2canvas: {
+          dpi: 192,
+          scale: 2,
+          letterRendering: false,
+          useCORS: true,
+        },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+        jsPDF: { unit: "mm", format: "letter", orientation: "portrait" },
+      }
+      );
+      
     },
-
-    createData(){
-      this.$axios.$post('regimen/', this.nuevoRegistro).then(res => {
-          console.log(res.data)
-          this.nuevoRegistro = {}
-          this.regimenData.push(res)
-          this.$alert("success", {desc: "Se ha creado un nuevo régimen con éxito", hash: 'knsddcssdc', title:'Creado'})        
-        }).catch(err => {
-          console.log(err)
-        })
-
-        this.dialog = false
-    },  
-
-    editItem(item){
-      console.log(item)
-      this.dialog_editar = true
-      this.defaultItem.id = item.id
-      this.defaultItem.codigo = item.codigo
-      this.defaultItem.descripcion = item.descripcion
-    },
-
-    saveData(){
-      const formData = new FormData()
-      formData.append('codigo', this.defaultItem.codigo)
-      formData.append('descripcion', this.defaultItem.descripcion)
-
-      this.$axios.$patch('regimen/'+ this.defaultItem.id + '/', formData).then((res) => {
-        console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un régimen con éxito", hash: 'knsddcssdc', title:'Editado'})
-        const index = this.regimenData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.regimenData, index, { ...this.defaultItem });
-        }          
-      }).catch((err) => {
-        console.log(err)
-      });
-
-      this.dialog_editar = false
-    },  
-
-    openDelete(item){
-      this.defaultItem = item
-      this.dialogDelete = true
-    },
-
-    deleteItem(){
-      this.$axios.$delete('regimen/'+ this.defaultItem.id + '/').then((res) => {
-        console.log(res.data)
-        this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un régimen con éxito", hash: 'knsddcssdc', title:'Eliminado'})    
-        const index = this.regimenData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.regimenData.splice(index, 1);
-        }       
-      }).catch((err) => {
-        console.log(err)
-      });
-    },
-  }
+    
+  },
 };
 </script>
 
-<style src="~/assets/styles/pages/regimen.scss" lang="scss" />
+<style>
+.cv-outter {
+  min-height: 297mm;
+  width: 210mm;
+  /* to centre page on screen*/
+  margin: 80px auto 100px auto;
+  border: 1px solid #ccc;
+}
+
+.section1-reporte-recaudos {
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
+  overflow-x: hidden;
+  margin-right: 0px !important;
+  margin-left: 0px;
+  gap: 10px;
+  padding-bottom: 10px;
+  padding-inline: 10px 10px;
+}
+
+.reporte-recaudos-container {
+  position: relative;
+  width: 100%;
+  padding-top: 120px;
+  border-radius: 10px;
+  padding: 120px 10px 20px 10px;
+  background-color: #fff;
+  box-shadow: 3px 3px 3px 3px rgba(#000000, 0.1) !important;
+  display: grid;
+  justify-items: center;
+  overflow-x: hidden;
+  margin-bottom: 30px;
+}
+
+.reporte {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 297mm;
+  width: 210mm;
+  /* to centre page on screen*/
+  margin: 80px auto 100px auto;
+  border: 1px solid #ccc;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #007bff;
+  color: white;
+}
+
+.logo {
+  width: 100px;
+  /* Ajusta el ancho según tus logotipos */
+  height: auto;
+}
+
+.title {
+  font-size: 20px !important;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.content {
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+</style>
