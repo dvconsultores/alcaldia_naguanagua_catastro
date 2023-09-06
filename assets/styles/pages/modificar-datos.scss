@@ -13,7 +13,7 @@
 
   .datos-contribuyente-div{
     background-color: #fff;
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -173,6 +173,7 @@
   }
 }
 
+
 //////////////////////////dialogsss///////////////////////////
 /// 
 
@@ -231,7 +232,7 @@
   display: flex;
   flex-direction: column;
   max-width: 1440px;
-  width: 100%;
+  width: 80%;
   overflow-x: hidden;
   margin-right: 0px!important;
   margin-left: 0px;
@@ -245,7 +246,7 @@
     width: 100%;
     padding-top: 120px;
     border-radius: 10px;
-    padding: 120px 10px 20px 10px;
+    padding: 60px 10px 20px 10px;
     background-color: #fff;
     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
     display: grid;
@@ -294,7 +295,7 @@
       }
   
       .input-data-table{
-        box-shadow: -2px 2px 3px 5px rgba( #000000, 0.1)!important;
+        box-shadow: 0px 0px 3px 3px rgba( #000000, 0.1)!important;
         padding-inline: 10px;
         border-radius: 10px;
         height: 65px;
@@ -310,13 +311,13 @@
   
       .v-data-table th{
         background-color: #fff;
-        height: 80px;
+        height: 40px;
         border-radius: 0px;
         
         span{
           color:var(--primary)!important;
           font-weight: 500!important;
-          font-size: 1.8em!important;
+          font-size: 16px!important;
           font-weight:700!important;
         }
       }
@@ -337,7 +338,8 @@
         font-family: var(--font2);
         font-size: 16px!important;
         border-bottom: solid 2px var(--primary)!important;
-        height: 80px;
+        height: 40px;
+        padding-block: 5px!important;
       }
     
       .toolbar-tabla{
@@ -502,4 +504,13 @@
 .v-text-field > .v-input__control > .v-input__slot:before, 
 .v-text-field > .v-input__control > .v-input__slot:after {
   width: 0%;
+}
+
+
+.v-input{
+  max-height: 45px!important;
+  
+  input{
+    margin-top: -7px!important;
+  }
 }

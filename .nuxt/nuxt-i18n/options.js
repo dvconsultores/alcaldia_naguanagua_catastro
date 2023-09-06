@@ -1,4 +1,4 @@
-import locale77427e78 from '../../i18n/en.js'
+import locale77427e78 from '../..\\i18n\\en.js'
 
 export const Constants = {
   COMPONENT_OPTIONS_KEY: "nuxtI18n",
@@ -20,7 +20,7 @@ export const options = {
   sortRoutes: true,
   strategy: "prefix_except_default",
   lazy: true,
-  langDir: "/home/jorge/Documentos/alcaldia_naguanagua_catastro/i18n",
+  langDir: "C:\\Users\\sebas\\OneDrive\\Documentos\\alcaldia_naguanagua_catastro\\i18n",
   rootRedirect: null,
   detectBrowserLanguage: false,
   differentDomains: false,
@@ -38,5 +38,5 @@ export const options = {
 
 export const localeMessages = {
   'en.js': () => Promise.resolve(locale77427e78),
-  'es.js': () => import('../../i18n/es.js' /* webpackChunkName: "lang-es.js" */),
+  'es.js': () => import('../..\\i18n\\es.js' /* webpackChunkName: "lang-es.js" */),
 }

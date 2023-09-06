@@ -6,6 +6,7 @@
     position: absolute;
     top: 20px;
     left: 20px;
+    width: 80px;
 
     @include media(max , 630px){
       width: 50px;
@@ -19,7 +20,7 @@
   }
 
   .container-login{
-    max-width: 450px;
+    max-width: 300px;
     padding-bottom: 100px;
 
     @include media(max, 500px){
@@ -28,10 +29,10 @@
     }
 
     img[alt="AlcaldiaLogo"]{
-      width: 250px;
+      width: 150px;
 
       @include media(max, 600px){
-        width: 150px;
+        width: 100px;
       }
     }
 
@@ -40,17 +41,17 @@
       font-weight: 700!important;
       margin: 40px 0;
       text-align: center;
-      font-size: 40px;
+      font-size: 26px;
 
       @include media(max, 600px){
-        font-size: 30px;
+        font-size: 20px;
       }
     }
 
     .inputs-btns{
       display: flex;
       flex-direction: column;
-      width: 450px;
+      width: 300px;
       align-items: center;
 
       @include media(max, 500px){
@@ -63,13 +64,17 @@
         border-radius: 1em;
         margin-bottom: 30px;
         padding: 15px 15px;
-        height: 65px;
+        height: 50px;
         display: grid;
         place-items: center;
-        width: 450px;
+        width: 300px;
 
-        @include media(max, 500px){
-          width: 300px;
+        input{
+          margin-top: -7px;
+        }
+
+        button{
+          margin-top: -7px;
         }
 
         ::after{
@@ -92,20 +97,18 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 15px;
-        width: 450px;
-
-        @include media(max, 500px){
-          max-width: 300px;
-        }
+        width: 300px;
 
         .v-input__slot{
 
           .v-label{
             font-weight: 500!important;
+            font-size: 12px;
           }
         }
         
         span{
+          font-size: 12px;
           font-weight: 500!important;
           text-align: right;
         }
@@ -113,21 +116,17 @@
 
       .v-btn{
         background-color: var(--primary);
-        margin-bottom: 30px;
-        min-height: 55px;
-        height: 55px;
+        margin-bottom: 0px;
+        min-height: 45px;
+        height: 45px;
         border-radius: 0.5em;
         box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)!important;
-        width: 450px;
+        width: 300px;
         border-radius: 50px;
-
-        @include media(max, 500px){
-          max-width: 300px;
-        }
 
         span{
           --c: #fff;
-          font-weight: 700!important;
+          font-weight: 300!important;
         }
       }
 
@@ -136,6 +135,7 @@
         text-align: center;
         font-weight: 500!important;
         margin-top: 40px;
+        font-size: .8em;
 
         a{
           font-weight: 700!important;

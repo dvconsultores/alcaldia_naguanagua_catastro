@@ -182,10 +182,10 @@
               </v-toolbar>
             </template>
             <template #[`item.actions`]="{ item }">
-              <v-icon color="#810880" big @click="editItem(item)">
+              <v-icon color="#810880" medium @click="editItem(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon color="#810880" big @click="openDelete(item)">
+              <v-icon color="#810880" medium @click="openDelete(item)">
                 mdi-delete
               </v-icon>
             </template>
