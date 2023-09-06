@@ -9,8 +9,6 @@ export { default as Navbar } from '../../components/navbar.vue'
 export { default as Pagination } from '../../components/pagination.vue'
 export { default as ModalsConfirmMsg } from '../../components/modals/confirmMsg.vue'
 export { default as ModalsConnect } from '../../components/modals/connect.vue'
-export { default as ReportesCVExample } from '../../components/reportes/CVExample.vue'
-export { default as ReportesReporteCaja } from '../../components/reportes/ReporteCaja.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

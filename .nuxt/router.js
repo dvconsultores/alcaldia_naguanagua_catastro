@@ -58,7 +58,6 @@ const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacio
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
 const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
-const _f9796660 = () => interopDefault(import('../pages/reporte-ejemplo_.vue' /* webpackChunkName: "pages/reporte-ejemplo_" */))
 const _fe89d8bc = () => interopDefault(import('../pages/reporte-ejemplo1.vue' /* webpackChunkName: "pages/reporte-ejemplo1" */))
 const _f7520a0a = () => interopDefault(import('../pages/reporte-recaudos.vue' /* webpackChunkName: "pages/reporte-recaudos" */))
 const _17e835c0 = () => interopDefault(import('../pages/reporte-taquilla.vue' /* webpackChunkName: "pages/reporte-taquilla" */))
@@ -312,10 +311,6 @@ export const routerOptions = {
     path: "/reporte-ejemplo",
     component: _0426c21f,
     name: "reporte-ejemplo___en"
-  }, {
-    path: "/reporte-ejemplo_",
-    component: _f9796660,
-    name: "reporte-ejemplo____en"
   }, {
     path: "/reporte-ejemplo1",
     component: _fe89d8bc,
@@ -620,10 +615,6 @@ export const routerOptions = {
     path: "/es/reporte-ejemplo",
     component: _0426c21f,
     name: "reporte-ejemplo___es"
-  }, {
-    path: "/es/reporte-ejemplo_",
-    component: _f9796660,
-    name: "reporte-ejemplo____es"
   }, {
     path: "/es/reporte-ejemplo1",
     component: _fe89d8bc,

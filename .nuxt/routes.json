@@ -378,13 +378,6 @@
     "_name": "_0426c21f"
   },
   {
-    "name": "reporte-ejemplo____en",
-    "path": "/reporte-ejemplo_",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-ejemplo_.vue",
-    "chunkName": "pages/reporte-ejemplo_",
-    "_name": "_f9796660"
-  },
-  {
     "name": "reporte-ejemplo1___en",
     "path": "/reporte-ejemplo1",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-ejemplo1.vue",
@@ -915,13 +908,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-ejemplo.vue",
     "chunkName": "pages/reporte-ejemplo",
     "_name": "_0426c21f"
-  },
-  {
-    "name": "reporte-ejemplo____es",
-    "path": "/es/reporte-ejemplo_",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-ejemplo_.vue",
-    "chunkName": "pages/reporte-ejemplo_",
-    "_name": "_f9796660"
   },
   {
     "name": "reporte-ejemplo1___es",

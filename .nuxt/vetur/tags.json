@@ -31,11 +31,5 @@
   },
   "ModalsConnect": {
     "description": "Auto imported from components/modals/connect.vue"
-  },
-  "ReportesCVExample": {
-    "description": "Auto imported from components/reportes/CVExample.vue"
-  },
-  "ReportesReporteCaja": {
-    "description": "Auto imported from components/reportes/ReporteCaja.vue"
   }
 }
