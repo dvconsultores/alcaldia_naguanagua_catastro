@@ -146,6 +146,7 @@
                         <table>
                           <thead>
                             <tr>
+                              <th style="padding: 2px;"> Aplica </th>
                               <th style="padding: 2px;"> Año </th>
                               <th style="padding: 2px;"> Periodo </th>
                               <th style="padding: 2px;"> Multa </th>
@@ -160,6 +161,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in IC_Detalle" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }"> {{ item.aplica }} </span></td>
                               <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }"> {{ item.anio }}  </span></td>
                               <td style="padding: 2px;text-align: center;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.periodo }} </span></td>
                               <td style="padding: 2px;text-align: center;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.multa }} </span></td>
@@ -183,6 +185,7 @@
                         <table>
                           <thead>
                             <tr>
+                              <th style="padding: 2px;"> Aplica </th>
                               <th style="padding: 2px;"> Año </th>
                               <th style="padding: 2px;"> Periodo </th>
                               <th style="padding: 2px;"> Uso </th>
@@ -196,6 +199,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in IC_Descuento" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;"> {{ item.aplica }} </td> 
                               <td style="padding: 2px;"> {{ item.anio }} </td>
                               <td style="padding: 2px;text-align: center;"> {{ item.periodo }} </td>
                               <td style="padding: 2px;text-align: left;"> {{ item.uso_descripcion }} </td>

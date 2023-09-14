@@ -135,6 +135,10 @@
         border: 1px solid var(--primary)!important;
       }
 
+      .text-right {
+        text-align: right; /* Alinea el texto a la derecha */
+      }
+
       .input-300{
         width: 100%;
         min-width: 170px;

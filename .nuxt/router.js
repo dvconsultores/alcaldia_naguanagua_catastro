@@ -78,6 +78,7 @@ const _f74ed8f8 = () => interopDefault(import('../pages/torres.vue' /* webpackCh
 const _d948c958 = () => interopDefault(import('../pages/ubicacion.vue' /* webpackChunkName: "pages/ubicacion" */))
 const _34e7ea4e = () => interopDefault(import('../pages/unidad-inmueble.vue' /* webpackChunkName: "pages/unidad-inmueble" */))
 const _2b3b74aa = () => interopDefault(import('../pages/unidad-tributaria.vue' /* webpackChunkName: "pages/unidad-tributaria" */))
+const _1a165a1b = () => interopDefault(import('../pages/upload-archivo.vue' /* webpackChunkName: "pages/upload-archivo" */))
 const _24993a24 = () => interopDefault(import('../pages/urbanizacion-barrio.vue' /* webpackChunkName: "pages/urbanizacion-barrio" */))
 const _10ef55f4 = () => interopDefault(import('../pages/uso.vue' /* webpackChunkName: "pages/uso" */))
 const _2e486083 = () => interopDefault(import('../pages/zona.vue' /* webpackChunkName: "pages/zona" */))
@@ -392,6 +393,10 @@ export const routerOptions = {
     component: _2b3b74aa,
     name: "unidad-tributaria___en"
   }, {
+    path: "/upload-archivo",
+    component: _1a165a1b,
+    name: "upload-archivo___en"
+  }, {
     path: "/urbanizacion-barrio",
     component: _24993a24,
     name: "urbanizacion-barrio___en"
@@ -695,6 +700,10 @@ export const routerOptions = {
     path: "/es/unidad-tributaria",
     component: _2b3b74aa,
     name: "unidad-tributaria___es"
+  }, {
+    path: "/es/upload-archivo",
+    component: _1a165a1b,
+    name: "upload-archivo___es"
   }, {
     path: "/es/urbanizacion-barrio",
     component: _24993a24,

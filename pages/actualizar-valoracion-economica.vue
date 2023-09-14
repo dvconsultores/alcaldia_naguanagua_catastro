@@ -9,42 +9,28 @@
         </div>
         <div class="div-card pt-8 wrap" style="flex-direction: column;">
           <v-row>
-            <v-col lg="3" md="12" class="pl-0 pr-0 divrow aend divcolmobile">
-              <v-text-field v-model="dataValoracionTerreno.area" class="input-small outlined"
-                label="Área (m2)"></v-text-field>
+            <v-col lg="11" class="divrow pr-0">
+              <v-autocomplete v-model="dataValoracionTerreno.tipo" class="input-small outlined" label="Tipo terreno"
+                :items="dataTipo" item-text="descripcion" item-value="id" readonly></v-autocomplete>
 
               <v-autocomplete v-model="dataValoracionTerreno.tipologia" class="input-small outlined" label="Uso"
-                :items="dataTipologia" item-text="descripcion" item-value="id"></v-autocomplete>
+                :items="dataTipologia" item-text="descripcion" item-value="id" readonly></v-autocomplete>
+              <v-text-field v-model="dataValoracionTerreno.uso_valor" class="input-small outlined" label="Uso valor"
+                readonly></v-text-field>
+                <v-text-field type="number" class="input-small"
+                hide-spin-buttons></v-text-field>
+              <v-text-field v-model="dataValoracionTerreno.area" class="input-small outlined"
+                label="Área (m2)" readonly></v-text-field>
+              <v-text-field v-model="dataValoracionTerreno.uso_total" type="number" class="input-small outlined"
+                label="Valor Total" hide-spin-buttons readonly></v-text-field>
             </v-col>
+            <v-col lg="1" class="divrow pl-0">
 
-            <v-col lg="3" md="12" class="pl-0 pr-0 divrow aend divcolmobile">
-              <v-autocomplete v-model="dataValoracionTerreno.fines_fiscales" class="input-small" label="Fines Fiscales"
-                :items="dataFinesFiscales" item-text="descripcion" item-value="id"></v-autocomplete>
-
-              <v-text-field v-model="dataValoracionTerreno.valor_unitario" class="input-small outlined"
-                label="Valor Unitario Bs/m2" type="number" hide-spin-buttons></v-text-field>
-            </v-col>
-
-            <v-col lg="3" md="12" class="pl-0 pr-0">
-              <v-card class="border-card-title-top">
-                <span class="span-float">
-                  Factor de Ajuste
-                </span>
-
-                <v-text-field v-model="dataValoracionTerreno.area_factor_ajuste" class="input-date" label="Área (m2)"
-                  type="number" hide-spin-buttons></v-text-field>
-
-                <v-autocomplete v-model="dataValoracionTerreno.forma_factor_ajuste" class="input-date" label="Forma"
-                  :items="dataForma" item-text="descripcion" item-value="id"></v-autocomplete>
-              </v-card>
-            </v-col>
-
-            <v-col lg="3" md="12" class="pl-0 pr-0 divrow aend divcolmobile">
-              <v-text-field type="number" v-model="dataValoracionTerreno.valor_ajustado" class="input-small"
-                label="Valor Ajustado Bs/m2" hide-spin-buttons></v-text-field>
-
-              <v-text-field v-model="dataValoracionTerreno.valor_total" type="number" class="input-small outlined"
-                label="Valor Total" hide-spin-buttons></v-text-field>
+              <v-btn class="btn-delete" @click="editTerreno()">
+                <v-icon>
+                  mdi-pencil
+                </v-icon>
+              </v-btn>
             </v-col>
           </v-row>
         </div>
@@ -61,31 +47,27 @@
           <v-row v-for="(item, index) in dataValoracionConstruccion" :key="index"
             style="border-bottom: 2px solid var(--primary);">
             <v-col lg="11" class="divrow pr-0">
-              <v-text-field v-model="item.uso_codigo" class="input-small outlined" label="Uso Id" readonly></v-text-field>
-              <v-text-field v-model="item.uso_descripcion" class="input-small outlined" label="Uso descripción"
-                readonly></v-text-field>
               <v-text-field v-model="item.tipo_descripcion" class="input-small outlined" label="Tipo Inmueble"
                 readonly></v-text-field>
-              <v-text-field v-model="item.fecha_construccion" class="input-small outlined" label="Fecha habitabilidad"
+              <v-text-field v-model="item.uso_descripcion" class="input-small outlined" label="Uso descripción"
                 readonly></v-text-field>
+              <v-text-field v-model="item.uso_valor" class="input-small outlined" label="Uso valor"
+                readonly></v-text-field>
+
 
               <v-card class="input-small outlined center" style="background: #fff;">
                 <v-checkbox readonly v-model="item.sub_utilizado" label="Sub-Utilizado"></v-checkbox>
               </v-card>
 
-              <!-- <v-text-field
-              class="input-small outlined"
-              label="Año"
-              readonly
-              :value="item.anio"
-              ></v-text-field> -->
 
-              <v-text-field v-model="item.area" class="input-small outlined" label="Área (m2)" readonly></v-text-field>
+              <v-text-field v-model="item.area" class="input-small outlined text-right" label="Área (m2)"
+                readonly></v-text-field>
+              <v-text-field :value="formatoValor(item.uso_total)" class="input-small outlined" label="Valor total"
+                readonly></v-text-field>
+
             </v-col>
 
             <v-col lg="1" class="divrow pl-0">
-
-
               <v-btn class="btn-delete" @click="openDelete(item)">
                 <v-icon>
                   mdi-delete
@@ -94,71 +76,6 @@
             </v-col>
           </v-row>
 
-
-          <!-- <v-row class="mt-3">
-            <v-col lg="5" class="divrow aend pr-0">
-              <v-autocomplete
-              class="input-small outlined"
-              label="Tipología"
-              ></v-autocomplete> 
-
-              <v-text-field
-              class="input-small outlined"
-              label="Área (m2)"
-              ></v-text-field>  
-
-              <v-text-field
-              class="input-small"
-              label="Valor Bs/m2"
-              ></v-text-field>  
-
-              <v-autocomplete
-              class="input-small"
-              label="% Depreciacion"
-              ></v-autocomplete> 
-            </v-col>
-
-            <v-col lg="3" class="pl-1 pr-1">
-              <v-card class="border-card-title-top">
-                <span class="span-float">
-                  Fecha de Compra  <sup class="bold">*</sup>
-                </span>
-
-                <v-autocomplete
-                class="input-date"
-                label="Dia"
-                ></v-autocomplete>
-
-                <v-autocomplete
-                class="input-date"
-                label="Mes"
-                ></v-autocomplete>
-
-                <v-autocomplete
-                class="input-date"
-                label="Año"
-                ></v-autocomplete>
-              </v-card>
-            </v-col>
-
-            <v-col lg="4" class="divrow aend pl-1">
-              <v-autocomplete
-              class="input-small outlined"
-              label="Trimestre"
-              ></v-autocomplete>
-
-              <v-autocomplete
-              class="input-small outlined"
-              label="Año"
-              ></v-autocomplete>
-
-              <v-btn class="btn-delete">
-                <v-icon>
-                  mdi-plus
-                </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row> -->
         </div>
       </div>
 
@@ -184,29 +101,56 @@
         </div>
       </div>
 
-      <div>
-        <v-btn class="btn btn-mobile" @click="dialog_confirmar = true">
-          Guardar
-        </v-btn>
-      </div>
+
     </section>
 
     <!-- DIALOG -->
 
-    <v-dialog content-class="dialog-guardar" max-width="500px" v-model="dialog_confirmar" persistent>
-      <v-card class="guardar-card">
-        <v-card-title class="center title">¿Desea guardar este registro?</v-card-title>
-        <span class="alerta-text">Esta acción no se puede revertir</span>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false"
-            style="background-color: var(--primary)!important;">Si</v-btn>
-          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false"
-            style="background-color:#ED057E!important;">No</v-btn>
-          <v-spacer></v-spacer>
+
+
+    <v-dialog content-class="dialog-agregar-construccion" max-width="1600px" v-model="dialog_edit_terreno">
+      <v-card class="card-crear">
+        <v-card-title>
+          <span class="title">Modificar terreno</span>
+        </v-card-title>
+
+        <hr>
+
+        <v-card-text>
+          <v-container>
+            <v-row class="center">
+              <v-col lg="12" class="divrow pr-0">
+                <v-autocomplete v-model="defaultItem.tipologia" class="input-small" label="Uso" :items="dataTipologia"
+                  item-text="descripcion" item-value="id"></v-autocomplete>
+
+                <v-autocomplete v-model="defaultItem.tipo" class="input-small" label="Tipo Inmueble" :items="dataTipo"
+                  item-text="descripcion" item-value="id"></v-autocomplete>
+
+
+              </v-col>
+
+              <v-col lg="12" class="divrow pr-0">
+                <v-text-field v-model="defaultItem.area" class="input-small" label="Área (m2)"></v-text-field>
+
+              </v-col>
+
+
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions class=center>
+          <v-btn class="btn dialog-btn" @click="dialog_edit_terreno = false">
+            Cancelar
+          </v-btn>
+
+          <v-btn class="btn dialog-btn" @click="saveTerreno()"
+            style="background-color:#ED057E!important;" :loading="btnAddTerreno">
+            Guardar
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+
 
     <v-dialog content-class="dialog-agregar-construccion" max-width="1600px" v-model="dialog_crear">
       <v-card class="card-crear">
@@ -297,36 +241,30 @@ export default {
       dialog_eliminar: false,
       menu_fecha: false,
       dialog_crear: false,
-      dialog_confirmar: false,
+      dialog_edit_terreno: false,
       show_observaciones: false,
-      dataConstruccion: [
-        {
-          uso: "",
-          fecha_compra: "",
-          sub_utilizado: false,
-          area: "",
-          valor: "",
-          depreciacion: "",
-          observaciones: "",
-        },
-      ],
+      defaultItem: {
+        tipologia: '',
+        tipo: '',
+        area: '',
+      },
 
       ///data inmueble terreno
 
-      area: null,
-      area_factor_ajuste: null,
-      fines_fiscales: null,
-      forma_factor_ajuste: null,
-      id: null,
-      inmueble: null,
-      observaciones: null,
-      tipologia: null,
-      valor_ajustado: null,
-      valor_total: null,
-      valor_unitario: null,
+      //area: null,
+      //area_factor_ajuste: null,
+      //fines_fiscales: null,
+      //forma_factor_ajuste: null,
+      //id: null,
+      //inmueble: null,
+      //observaciones: null,
+      //tipologia: null,
+      //valor_ajustado: null,
+      //valor_total: null,
+      //valor_unitario: null,
 
       btnAddConstruccion: false,
-
+      btnAddTerreno: false,
       selectedDate: null,
       dataTipologia: [],
       dataTipo: [],
@@ -361,6 +299,16 @@ export default {
   },
 
   methods: {
+    formatoValor(valor) {
+      if (isNaN(valor)) {
+        // Maneja el caso en que valor no sea un número válido
+        return "NaN";
+      }
+
+      // Formatea el valor con 6 decimales y separador de miles
+      const valorFormateado = Number(valor).toFixed(6).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return valorFormateado;
+    },
     redireccionIdVacio() {
       if (this.$store.getters.getExpediente == 'Sin Seleccionar') {
         this.$router.push('consulta-inmueble')
@@ -373,6 +321,7 @@ export default {
       try {
         const response = await this.$axios.$get(`inmueble_valoracion_terreno/?inmueble=${this.inmuebleId}`);
         this.dataValoracionTerreno = response[0];
+        console.log('this.dataValoracionTerreno',this.dataValoracionTerreno)
       } catch (err) {
         console.log(err);
       }
@@ -388,14 +337,42 @@ export default {
         console.log(err);
       }
     },
+    editTerreno() {
+      this.dialog_edit_terreno = true
+      this.defaultItem.tipologia = this.dataValoracionTerreno.tipologia
+      this.defaultItem.tipo = this.dataValoracionTerreno.tipo
+      this.defaultItem.area = this.dataValoracionTerreno.area
 
+    },
+    saveTerreno() {
+      this.btnAddTerreno = true
+      const formData = new FormData()
+      formData.append('tipologia', this.defaultItem.tipologia)
+      formData.append('tipo', this.defaultItem.tipo)
+      formData.append('area', this.defaultItem.area)
+
+
+      this.$axios.$patch('inmueble_valoracion_terreno/' + this.dataValoracionTerreno.id + '/', formData).then((res) => {
+        console.log(res.data)
+        this.$alert("success", { desc: "Se ha editado una valoracion de terreno con éxito", hash: 'knsddcssdc', title: 'Edición de valoración de terreno.' })
+        this.btnAddTerreno = false
+        this.dialog_edit_terreno = false
+        this.getInmuebleValoracionTerreno()
+      }).catch((err) => {
+        console.log(err)
+        this.btnAddTerreno = false
+        this.dialog_edit_terreno = false
+
+      });
+
+      this.dialog_editar = false
+    },
     postInmuebleValoracionConstruccion() {
       this.btnAddConstruccion = true
       const formNewTerreno = {
         inmueblevaloracionterreno: this.dataValoracionTerreno.id,
         tipologia: this.nuevoRegistro.tipologia,
         tipo: this.nuevoRegistro.tipo,
-
         fecha_construccion: this.nuevoRegistro.fecha_construccion,
         area: this.nuevoRegistro.area,
         valor: this.nuevoRegistro.valor,
@@ -409,6 +386,7 @@ export default {
         this.btnAddConstruccion = false
         this.dialog_crear = false
         this.new = {}
+        this.nuevoRegistro= {}
       }).catch(err => {
         console.log(err)
         this.btnAddConstruccion = false

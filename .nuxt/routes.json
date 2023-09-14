@@ -518,6 +518,13 @@
     "_name": "_2b3b74aa"
   },
   {
+    "name": "upload-archivo___en",
+    "path": "/upload-archivo",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/upload-archivo.vue",
+    "chunkName": "pages/upload-archivo",
+    "_name": "_1a165a1b"
+  },
+  {
     "name": "urbanizacion-barrio___en",
     "path": "/urbanizacion-barrio",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/urbanizacion-barrio.vue",
@@ -1048,6 +1055,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/unidad-tributaria.vue",
     "chunkName": "pages/unidad-tributaria",
     "_name": "_2b3b74aa"
+  },
+  {
+    "name": "upload-archivo___es",
+    "path": "/es/upload-archivo",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/upload-archivo.vue",
+    "chunkName": "pages/upload-archivo",
+    "_name": "_1a165a1b"
   },
   {
     "name": "urbanizacion-barrio___es",
