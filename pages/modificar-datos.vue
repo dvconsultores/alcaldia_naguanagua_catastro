@@ -8,7 +8,7 @@
           </p>
 
           <v-dialog v-model="dialog" max-width="1600px">
-            <template v-slot:activator="{ on, attrs }" >
+            <template v-slot:activator="{ on, attrs }">
               <v-btn class="btn-add-tabla" v-bind="attrs" v-on="on">
                 +
               </v-btn>
@@ -40,8 +40,8 @@
                       <!--v-autocomplete v-model="nuevoRegistro.nacionalidad" :items="items2"
                         class="autocomplete-field"></v-autocomplete-->
 
-                      <v-text-field v-model="nuevoRegistro.numero_documento" class="input-big" label="Nro de Documento RIF"
-                        style="max-width: 490px;"></v-text-field>
+                      <v-text-field v-model="nuevoRegistro.numero_documento" class="input-big"
+                        label="Nro de Documento RIF" style="max-width: 490px;"></v-text-field>
                     </div>
 
                     <v-text-field v-model="nuevoRegistro.nombre" class="input-big"
@@ -105,8 +105,8 @@
                       <!--v-autocomplete v-model="defaultItem.nacionalidad" :items="items2"
                         class="autocomplete-field"></v-autocomplete-->
 
-                      <v-text-field v-model="defaultItem.numero_documento" class="input-big" label="Nro de Documento (RIF)"
-                        style="max-width: 490px;"></v-text-field>
+                      <v-text-field v-model="defaultItem.numero_documento" class="input-big"
+                        label="Nro de Documento (RIF)" style="max-width: 490px;"></v-text-field>
                     </div>
 
                     <v-text-field v-model="defaultItem.nombre" class="input-big"
@@ -169,7 +169,8 @@
                 <v-dialog v-model="dialogSelecciona" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Seleccionarlo?</v-card-title>
-                      <span class="alerta-text" style="text-align:center;">Este será el contribuyente con el cual usted realizará las operaciones.</span>
+                    <span class="alerta-text" style="text-align:center;">Este será el contribuyente con el cual usted
+                      realizará las operaciones.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
@@ -218,7 +219,7 @@ export default {
       nuevoRegistro: {},
       headers: [
         { text: 'Nombre/Razón social', align: 'center', value: 'nombre', },
-       // { text: 'Nacionalidad', value: 'nacionalidad', align: 'center' },
+        // { text: 'Nacionalidad', value: 'nacionalidad', align: 'center' },
         { text: 'Número de documento RIF', value: 'numero_documento', align: 'center' },
         { text: '', value: 'actions', sortable: false, align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },
@@ -322,7 +323,7 @@ export default {
 
     StoreContribuyenteId() {
       //console.log(this.defaultItem)
-      this.$store.getters.getContribuyente== undefined ? console.log('vacio') : console.log(this.$store.getters.getContribuyente)
+      this.$store.getters.getContribuyente == undefined ? console.log('vacio') : console.log(this.$store.getters.getContribuyente)
       this.$store.dispatch('storeContribuyente', this.defaultItem)
       this.dialogSelecciona = false
     },

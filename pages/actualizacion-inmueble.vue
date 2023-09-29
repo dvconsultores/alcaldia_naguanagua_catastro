@@ -53,7 +53,7 @@
             class="small-input mobile-inputs"
             label="Fecha de inscripción"
             append-icon="mdi-calendar"
-            readonly
+            
             v-bind="attrs"
             v-on="on"
             ></v-text-field>
@@ -493,7 +493,7 @@ export default {
 
     formatoFecha() {
       if (this.nuevaFecha) {
-        this.inmuebleData.fecha_inscripcion = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss');
+        this.inmuebleData.fecha_inscripcion = moment(this.nuevaFecha).format('YYYY-MM-DD');
       }
     },
 
@@ -501,7 +501,9 @@ export default {
       this.btnGuardarInmuble = true
 
       const formData = new FormData();
-      formData.append('numero_expediente', this.inmuebleData.numero_expediente);
+      //formData.append('numero_expediente', this.inmuebleData.numero_expediente);
+      formData.append('fecha_inscripcion', this.inmuebleData.fecha_inscripcion);
+      console.log('this.inmuebleData.fecha_inscripcion',this.inmuebleData.fecha_inscripcion)
       // formData.append('fecha_inscripcion', this.inmuebleData.fecha_inscripcion);
       this.inmuebleData.fecha_inscripcion ? formData.append('status', this.inmuebleData.fecha_inscripcion):'';
       // formData.append('numero_documento', this.inmuebleData.numero_documento);

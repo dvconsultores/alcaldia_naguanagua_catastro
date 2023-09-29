@@ -1,26 +1,30 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-  <section class="section1-reporte-recaudos">
-    <div class="reporte-recaudos-container">
-      <input type="file" @change="cargarArchivo" accept=".xls, .xlsx" />
+    <section class="section1-reporte-recaudos">
+      <div class="reporte-recaudos-container">
+        <input type="file" @change="cargarArchivo" accept=".xls, .xlsx" />
 
-      <div class="boton-container">
-        <button :disabled="botonDeshabilitado" @click="subirArchivo" class="generar-boton">Subir Archivo de excel</button>
-      </div>
-      <div style="padding: 100px;">
+        <div class="boton-container">
+          <button :disabled="botonDeshabilitado" @click="subirArchivo" class="generar-boton">Subir Archivo de excel</button>
+        </div>
+        <div style="padding: 10px;">
 
-        <v-autocomplete
-                        v-model="opcionSeleccionada"
-                        label="Maestro a importar."
-                        class="input-dialog"
-                        :items="opciones"
-                        item-text="label"
-                        item-value="value"
-                      ></v-autocomplete>
-        <p>Opción seleccionada: {{ opcionSeleccionada }}</p>
+          <v-autocomplete
+                          v-model="opcionSeleccionada"
+                          label="Maestro a importar."
+                          class="input-dialog"
+                          :items="opciones"
+                          item-text="label"
+                          item-value="value"
+                        ></v-autocomplete>
+          <p>Opción seleccionada: {{ opcionSeleccionada }}</p>
+
+        </div> 
+                 <div class="boton-container">
+          <button :disabled="botonDeshabilitadoMigrar" @click="migrarArchivo" class="generar-boton">Migrar Archivo de excel</button>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
   </div>
 </template>
 
@@ -31,10 +35,21 @@ export default {
       archivoExcel: null,
       opcionSeleccionada: null,
       botonDeshabilitado: false,
+      botonDeshabilitadoMigrar: false,
       opciones: [
-        { value: 'opcion1', label: 'Opción 1' },
-        { value: 'opcion2', label: 'Opción 2' },
-        { value: 'opcion3', label: 'Opción 3' }
+        { value: 'ambito',        label: '1. Ámbito' },
+        { value: 'sector',        label: '2. Sector' },
+        { value: 'manzana',       label: '3. Manzana' },
+        { value: 'parcela',       label: '4. Parcela' },
+        { value: 'sub-parcela',   label: '5. Sub-parcela' },
+        { value: 'barrios',       label: '6. Barrios' },
+        { value: 'contribuyente', label: '7. Contribuyente' },
+        { value: 'conj_resinden', label: '8. Conjunto resindencial' },
+        { value: 'edificio',      label: '9. Edificio' },
+        { value: 'torre',         label: '10. Torre' },
+        { value: 'avenida',       label: '11. Avenida' },
+        { value: 'inmueble',      label: '12. Inmueble' },
+        { value: 'propietario',   label: '13. Propietario' }
       ],
     };
   },
@@ -59,6 +74,28 @@ export default {
         .then((response) => {
           alert('Archivo Excel subido con éxito.');
           this.botonDeshabilitado= false
+          console.log('respuesta', response)
+        })
+        .catch((error) => {
+          console.error('Error al subir el archivo Excel:', error);
+        });
+    },
+    migrarArchivo() {
+      if (!this.opcionSeleccionada) {
+        alert('Por favor, selecciona una opción válida.');
+        return;
+      }
+      this.botonDeshabilitadoMigrar= true;
+      // Crear un objeto FormData para enviar el archivo al servidor
+      const formData = new FormData();
+      formData.append('archivoExcel', this.opcionSeleccionada);
+
+      // Realizar una solicitud POST al backend de Django
+      this.$axios
+        .post('importardatosdesdeexcel', formData)
+        .then((response) => {
+          alert('Archivo Excel subido con éxito.');
+          this.botonDeshabilitadoMigrar= false
           console.log('respuesta', response)
         })
         .catch((error) => {
