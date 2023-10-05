@@ -2,10 +2,12 @@
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
     <section class="section1-reporte-recaudos">
       <div class="reporte-recaudos-container">
-        <input type="file" @change="cargarArchivo" accept=".xls, .xlsx" />
+        <!--input type="file" @change="cargarArchivo" accept=".xls, .xlsx" /-->
+        <input type="file" id="excelFile" @change="cargarArchivo" accept=".xls, .xlsx"  required>
+
 
         <div class="boton-container">
-          <button :disabled="botonDeshabilitado" @click="subirArchivo" class="generar-boton">Subir Archivo de excel</button>
+          <button :disabled="botonDeshabilitado" @click="uploadFile" class="generar-boton">Subir Archivo de excel</button>
         </div>
         <div style="padding: 10px;">
 
@@ -17,11 +19,11 @@
                           item-text="label"
                           item-value="value"
                         ></v-autocomplete>
-          <p>Opción seleccionada: {{ opcionSeleccionada }}</p>
+
 
         </div> 
                  <div class="boton-container">
-          <button :disabled="botonDeshabilitadoMigrar" @click="migrarArchivo" class="generar-boton">Migrar Archivo de excel</button>
+          <button :disabled="botonDeshabilitadoMigrar" @click="migrarArchivo" class="generar-boton">Migrar pestaña</button>
         </div>
       </div>
     </section>
@@ -37,6 +39,7 @@ export default {
       botonDeshabilitado: false,
       botonDeshabilitadoMigrar: false,
       opciones: [
+        { value: 'vaciar',   label: '0. ELIMINAR DATOS' },
         { value: 'ambito',        label: '1. Ámbito' },
         { value: 'sector',        label: '2. Sector' },
         { value: 'manzana',       label: '3. Manzana' },
@@ -48,22 +51,53 @@ export default {
         { value: 'edificio',      label: '9. Edificio' },
         { value: 'torre',         label: '10. Torre' },
         { value: 'avenida',       label: '11. Avenida' },
-        { value: 'inmueble',      label: '12. Inmueble' },
-        { value: 'propietario',   label: '13. Propietario' }
+        { value: 'calle',         label: '12. Calle' },
+        { value: 'inmueble',      label: '13. Inmueble' },
+        { value: 'propietario',   label: '14. Propietario' }
       ],
     };
   },
   methods: {
+
     cargarArchivo(event) {
       // Captura el archivo seleccionado por el usuario
       this.archivoExcel = event.target.files[0];
     },
+    uploadFile() {
+      if (!this.archivoExcel) {
+        alert('Por favor, selecciona un archivo Excel válido.');
+        return;
+      }
+      this.botonDeshabilitado= true;
+      this.botonDeshabilitadoMigrar= true;
+      const formData = new FormData();
+      formData.append('title', 'prueba');
+      formData.append('excel_file', this.archivoExcel);
+
+      this.$axios.post('upload_excel/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        console.log(response.data.message);
+        alert('Archivo Excel subido con éxito.');
+          this.botonDeshabilitado= false
+          this.botonDeshabilitadoMigrar= false;
+      })
+      .catch(error => {
+        console.error('Error al cargar el archivo Excel:', error);
+      });
+    },
+
+
     subirArchivo() {
       if (!this.archivoExcel) {
         alert('Por favor, selecciona un archivo Excel válido.');
         return;
       }
       this.botonDeshabilitado= true;
+      this.botonDeshabilitadoMigrar= true;
       // Crear un objeto FormData para enviar el archivo al servidor
       const formData = new FormData();
       formData.append('archivoExcel', this.archivoExcel);
@@ -74,6 +108,7 @@ export default {
         .then((response) => {
           alert('Archivo Excel subido con éxito.');
           this.botonDeshabilitado= false
+          this.botonDeshabilitadoMigrar= false;
           console.log('respuesta', response)
         })
         .catch((error) => {
@@ -86,6 +121,7 @@ export default {
         return;
       }
       this.botonDeshabilitadoMigrar= true;
+      this.botonDeshabilitado= true;
       // Crear un objeto FormData para enviar el archivo al servidor
       const formData = new FormData();
       formData.append('archivoExcel', this.opcionSeleccionada);
@@ -96,6 +132,7 @@ export default {
         .then((response) => {
           alert('Archivo Excel subido con éxito.');
           this.botonDeshabilitadoMigrar= false
+          this.botonDeshabilitado= false
           console.log('respuesta', response)
         })
         .catch((error) => {

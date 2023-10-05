@@ -450,6 +450,13 @@ export default {
         via_sur: '',
         via_este: '',
         via_oeste: '',
+        descripcion_ambito: '',
+        descripcion_sector: '',
+        descripcion_via_norte: '',
+        descripcion_via_sur: '',
+        descripcion_via_este: '',
+        descripcion_via_oeste: '',
+
       },
     }
   },
@@ -527,6 +534,14 @@ export default {
       this.defaultItem.via_este = item.via_este
       this.defaultItem.via_sur = item.via_sur
       this.defaultItem.via_oeste = item.via_oeste
+      this.defaultItem.descripcion_ambito = item.descripcion_ambito
+      this.defaultItem.descripcion_sector = item.descripcion_sector
+      this.defaultItem.descripcion_via_norte = item.descripcion_via_norte
+      this.defaultItem.descripcion_via_sur = item.descripcion_via_sur
+      this.defaultItem.descripcion_via_este = item.descripcion_via_este
+      this.defaultItem.descripcion_via_oeste = item.descripcion_via_oeste
+
+
     },
 
     saveData(){

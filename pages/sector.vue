@@ -237,7 +237,7 @@
                         v-model="defaultItem.clasificacion"
                         label="Clasificación"
                         class="input-dialog"
-                        :items="defaultItem.clasificacion"
+                        :items="sectoresData"
                         item-text="clasificacion"
                       ></v-autocomplete>
                     </v-col>
@@ -373,12 +373,11 @@ export default {
         { text: 'Perímetro', value: 'perimetro', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
-
       sectoresData: [],
       ambitoData:[],
-    
       defaultItem: {
         ambito: '',
+        descripcion_ambito:'',
         codigo: '',
         descripcion: '',
         clasificacion: '',
@@ -436,6 +435,7 @@ export default {
       this.defaultItem.codigo = item.codigo
       this.defaultItem.descripcion = item.descripcion
       this.defaultItem.ambito = item.ambito
+      this.defaultItem.descripcion_ambito = item.descripcion_ambito
       this.defaultItem.clasificacion = item.clasificacion
       this.defaultItem.area = item.area
       this.defaultItem.perimetro = item.perimetro

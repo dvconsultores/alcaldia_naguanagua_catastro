@@ -78,26 +78,18 @@
         </div>
 
         <div class="data-table-container">
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Buscar"
-            hide-details
-            class="input-data-table"
-          ></v-text-field>
 
-          <v-data-table
-            :headers="headers"
-            :items="inmuebleData"
-            :items-per-page="10"
-            :search="search"
-            :footer-props="{
-              itemsPerPageText: 'Items por página',
-            }"
-            sort-by="codigo"
-            class="mytabla"
-            mobile-breakpoint="840"
-          >
+          <div>
+              <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar inmueble" hide-details class="input-data-table"></v-text-field>
+              <v-btn @click="getInmueble" color="primary">Buscar inmueble</v-btn>
+            </div>
+
+
+          <v-data-table :headers="headers" :items="inmuebleData" :items-per-page="10" :search="search" :footer-props="{
+            itemsPerPageText: 'Items por página',
+          }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
+
+
             <template #[`item.actions2`]="{ item }" >
               <v-btn class="btn-tabla" @click="openDialog(item)">
                 Ver Detalle
@@ -108,114 +100,6 @@
       </div>
     </section>
 
-    <!-- <section class="section1-consulta-inmueble">
-      <div class="consulta-inmueble-container">
-        <div class="title-morado">
-          <p class="consulta-inmueble-title">
-            Inmuebles
-          </p>
-          <v-dialog
-            v-model="dialog_mostrar"
-            max-width="1600px"
-          >    
-            <div id="dialog-mostrar">
-              <v-card class="card-detalles">
-                <v-tabs v-model="activeTab">
-                  <v-tab :value="0">
-                    Datos del Inmueble
-                  </v-tab>
-                  <v-tab :value="1">
-                    Contribuyentes Asociados
-                  </v-tab>
-                </v-tabs>
-                <hr>
-                <v-tabs-items v-model="activeTab" style="background-color: #fff!important; border-radius: 10px;">
-                  <v-tab-item :value="0">
-                      <div class="inputs-container">
-                        <v-text-field v-model="selectedItem.numero_expediente" class="input-mostrar" label="Numero de expediente"></v-text-field>
-                        <v-text-field v-model="selectedItem.descripcion_tipo" class="input-mostrar" label="Tipo"></v-text-field>
-                        <v-text-field v-model="selectedItem.descripcion_status" class="input-mostrar" label="Estatus"></v-text-field>
-                        <v-text-field v-model="selectedItem.descripcion_ambito" class="input-mostrar" label="Ambito"></v-text-field>
-                        <v-text-field v-model="selectedItem.descripcion_sector" class="input-mostrar" label="Sector"></v-text-field>
-                        <v-text-field v-model="selectedItem.descripcion_manzana" class="input-mostrar" label="Manzana"></v-text-field>
-                        <v-text-field v-model="selectedItem.codigo_parcela" class="input-mostrar" label="Parcela"></v-text-field>
-                        <v-text-field v-model="selectedItem.codigo_subparcela" class="input-mostrar" label="Sub-Parcela"></v-text-field>
-                        <v-text-field v-model="selectedItem.descripcion_nivel" class="input-mostrar" label="Nivel"></v-text-field>
-                        <v-text-field v-model="selectedItem.descripcion_unidad" class="input-mostrar" label="Unidad"></v-text-field>
-                        <v-text-field v-model="selectedItem.nombre_urbanizacion" class="input-mostrar" label="Urbanización"></v-text-field>
-                        <v-text-field v-model="selectedItem.nombre_calle" class="input-mostrar" label="Calle"></v-text-field>
-                        <v-text-field v-model="selectedItem.nombre_conjunto_residencial" class="input-mostrar" label="Conjunto Residencial"></v-text-field>
-                        <v-text-field v-model="selectedItem.nombre_edificio" class="input-mostrar" label="Edificio"></v-text-field>
-                        <v-text-field v-model="selectedItem.nombre_avenida" class="input-mostrar" label="Avenida"></v-text-field>
-                        <v-text-field v-model="selectedItem.nombre_torre" class="input-mostrar" label="Torre"></v-text-field>
-                        <v-text-field v-model="selectedItem.numero_civico" class="input-mostrar" label="Nro. Civicio"></v-text-field>
-                        <v-text-field v-model="selectedItem.numero_casa" class="input-mostrar" label="Nro. Casa"></v-text-field>
-                        <v-text-field v-model="selectedItem.numero_piso" class="input-mostrar" label="Nro. Piso"></v-text-field>
-                        <v-text-field v-model="selectedItem.telefono" class="input-mostrar" label="Telefono"></v-text-field>
-                        <v-text-field v-model="selectedItem.descripcion_zona" class="input-mostrar" label="Zona"></v-text-field>
-                        <v-text-field v-model="selectedItem.direccion" class="input-mostrar" label="Dirección"></v-text-field>
-                        <v-text-field v-model="selectedItem.referencia" class="input-mostrar" label="Referencia"></v-text-field>
-                      </div>
-
-                      <div class="div-btns" @click="StoreExpedienteId(selectedItem)">
-                        <v-btn>
-                          Seleccionar Expediente
-                        </v-btn>
-                        
-                        <v-btn style="background-color:#ED057E!important;" @click="dialog_mostrar = false">
-                          Cancelar
-                        </v-btn>
-                      </div>
-                  </v-tab-item>
-                  <v-tab-item :value="1">
-                      <div class="inputs-container">
-                        <v-text-field class="input-mostrar" label="Contribuyente"></v-text-field>
-                        <v-text-field class="input-mostrar" label="Contribuyente"></v-text-field>
-                        <v-text-field class="input-mostrar" label="Contribuyente"></v-text-field>
-                        <v-text-field class="input-mostrar" label="Contribuyente"></v-text-field>
-                      </div>
-                      <div class="center" style="margin-top:30px;">
-                        <v-btn class="btn" style="background-color:#ED057E!important; width: 200px!important;" @click="dialog_mostrar = false">
-                          Cancelar
-                        </v-btn>
-                      </div>
-                  </v-tab-item>
-                </v-tabs-items>
-              </v-card>
-            </div>
-          </v-dialog>
-        </div>
-
-        <div class="data-table-container">
-          <v-text-field
-            v-model="search_propietario"
-            append-icon="mdi-magnify"
-            label="Buscar"
-            hide-details
-            class="input-data-table"
-          ></v-text-field>
-
-          <v-data-table
-            :headers="headers_propietario"
-            :items="inmueblePropietariosData"
-            :items-per-page="10"
-            :search="search_propietario"
-            :footer-props="{
-              itemsPerPageText: 'Items por página',
-            }"
-            sort-by="codigo"
-            class="mytabla"
-            mobile-breakpoint="840"
-          >
-            <template #[`item.actions2`]="{ item }" >
-              <v-btn class="btn-tabla" @click="openDialog(item)">
-                Ver Detalle
-              </v-btn>
-            </template>
-          </v-data-table>
-        </div>
-      </div>
-    </section> -->
   </div>
 </template>
 
@@ -223,14 +107,14 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "callePage",
+  name: "consulta_inmueblePage",
   mixins: [computeds],
   data() {
     return {  
       activeTab: 0,
       dialog_mostrar: false,
       search: '',
-      search_propietario:'',
+      numeroDocumento:'',
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
@@ -296,9 +180,7 @@ export default {
     }
   },
 
-  mounted(){
-    this.getInmueble()
-  },
+  //mounted(){     this.getInmueble()   },
 
   methods: {
      getInmueblePropietarios(){
@@ -327,13 +209,35 @@ export default {
       console.log(JSON.parse(JSON.stringify(this.$store.getters.getExpediente)))
       this.dialog_mostrar = false
     },
-    
+
+    getContribuyente() {
+        this.numeroDocumento=this.search
+        this.$axios.$get(`filtrar_propietarios/?numero_documento=${this.numeroDocumento}`).then(response => {
+
+        this.propietarioData = response
+        console.log(' this.propietarioData', typeof this.propietarioData)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
     getInmueble() {
-      this.$axios.$get('inmueble').then(response => {
-          this.inmuebleData = response
+
+      var idInmueble
+      this.inmuebleData=[]
+      this.numeroDocumento=this.search
+        this.$axios.$get(`filtrar_inmuebles/?numero_expediente=${this.numeroDocumento}`).then(response => {
+          idInmueble= response[0].id
+          console.log(' idInmueble', idInmueble)
+          this.$axios.$get('inmueble/'+idInmueble).then(response => {
+              this.inmuebleData = [response]
+
+            }).catch(err => {
+              console.log(err)
+            })
         }).catch(err => {
-          console.log(err)
-        })
+        console.log(err)
+      })          
     },
 
     openDialog(item) {

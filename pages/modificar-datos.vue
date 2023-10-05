@@ -145,8 +145,11 @@
         </div>
 
         <div class="data-table-container">
-          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
-            class="input-data-table"></v-text-field>
+            <div>
+              <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar contribuyente" hide-details class="input-data-table"></v-text-field>
+              <v-btn @click="getContribuyente" color="primary">Buscar contribuyente</v-btn>
+            </div>
+
 
           <v-data-table :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
@@ -211,6 +214,7 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      numeroDocumento: '',
       search: '',
       dialog: false,
       dialog_editar: false,
@@ -246,15 +250,17 @@ export default {
     }
   },
 
-  mounted() {
-    this.getContribuyente()
-  },
+  //mounted() { this.getContribuyente() },
 
   methods: {
 
     getContribuyente() {
-      this.$axios.$get('propietario').then(response => {
+      this.numeroDocumento=this.search
+        //this.$axios.$get('propietario').then(response => {
+        this.$axios.$get(`filtrar_propietarios/?numero_documento=${this.numeroDocumento}`).then(response => {
+
         this.propietarioData = response
+        console.log(' this.propietarioData', typeof this.propietarioData)
       }).catch(err => {
         console.log(err)
       })

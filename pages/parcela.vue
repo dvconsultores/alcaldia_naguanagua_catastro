@@ -295,6 +295,9 @@ export default {
         codigo: null,
         area: null,
         perimetro: null,
+        descripcion_ambito: null,
+        descripcion_sector: null,
+        codigo_manzana: null,
       },
     }
   },
@@ -369,6 +372,9 @@ export default {
       this.defaultItem.codigo = item.codigo
       this.defaultItem.area = item.area
       this.defaultItem.perimetro = item.perimetro
+      this.defaultItem.descripcion_ambito = item.descripcion_ambito
+      this.defaultItem.descripcion_sector = item.descripcion_sector
+      this.defaultItem.codigo_manzana = item.codigo_manzana
     },
 
     saveData(){
