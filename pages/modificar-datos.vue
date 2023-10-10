@@ -223,7 +223,7 @@ export default {
       nuevoRegistro: {},
       headers: [
         { text: 'Nombre/Razón social', align: 'center', value: 'nombre', },
-        // { text: 'Nacionalidad', value: 'nacionalidad', align: 'center' },
+        { text: 'Id', value: 'id', align: 'center' },
         { text: 'Número de documento RIF', value: 'numero_documento', align: 'center' },
         { text: '', value: 'actions', sortable: false, align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },

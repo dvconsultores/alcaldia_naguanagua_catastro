@@ -503,7 +503,6 @@ export default {
       const formData = new FormData();
       //formData.append('numero_expediente', this.inmuebleData.numero_expediente);
       formData.append('fecha_inscripcion', this.inmuebleData.fecha_inscripcion);
-      console.log('this.inmuebleData.fecha_inscripcion',this.inmuebleData.fecha_inscripcion)
       // formData.append('fecha_inscripcion', this.inmuebleData.fecha_inscripcion);
       this.inmuebleData.fecha_inscripcion ? formData.append('status', this.inmuebleData.fecha_inscripcion):'';
       // formData.append('numero_documento', this.inmuebleData.numero_documento);

@@ -648,7 +648,7 @@ export default{
             editable: false
           });
         }
-        this.$alert("success", {desc: "El imueble posee impuestos por pagar. Se ha cargado la deuda con éxito.", hash: 'knsddcssdc', title:'Impuesto por pagar.'}) 
+        this.$alert("success", {desc: "El inmueble posee MULTAS por pagar. Se ha cargado la deuda con éxito.", hash: 'knsddcssdc', title:'Impuesto por pagar.'}) 
       }).catch(err =>{
         console.log(err)
       })

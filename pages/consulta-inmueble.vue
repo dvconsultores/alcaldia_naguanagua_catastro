@@ -47,6 +47,11 @@
                         <v-text-field v-model="selectedItem.descripcion_zona" class="input-mostrar" label="Zona"></v-text-field>
                         <v-text-field v-model="selectedItem.direccion" class="input-mostrar" label="Dirección"></v-text-field>
                         <v-text-field v-model="selectedItem.referencia" class="input-mostrar" label="Referencia"></v-text-field>
+                        <v-text-field v-model="selectedItem.observaciones" class="input-mostrar" label="Observaciones"></v-text-field>
+                        <v-text-field v-model="selectedItem.fecha_inscripcion" class="input-mostrar" label="Fecha inscripcion"></v-text-field>
+                        <v-text-field v-model="selectedItem.anio" class="input-mostrar" label="Año"></v-text-field>
+                        <v-text-field v-model="selectedItem.codigo_periodo" class="input-mostrar" label="Período"></v-text-field>
+                        <v-text-field v-model="selectedItem.id" class="input-mostrar" label="id"></v-text-field>
                       </div>
 
                       <div class="div-btns" @click="StoreExpedienteId(selectedItem)">
@@ -170,6 +175,8 @@ export default {
         direccion: '',
         referencia: '',
         observaciones: '',
+        anio: '',
+        codigo_periodo: '',
       },
     }
   },
