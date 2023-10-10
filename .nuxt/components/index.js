@@ -1,14 +1,14 @@
-export { default as Alerts } from '../../components/alerts.vue'
-export { default as CustomeDrawer } from '../../components/custome-drawer.vue'
-export { default as DrawerCopy } from '../../components/drawer-copy.vue'
-export { default as Drawer } from '../../components/drawer.vue'
-export { default as Filters } from '../../components/filters.vue'
-export { default as Footer } from '../../components/footer.vue'
-export { default as MenuNavbar } from '../../components/menu-navbar.vue'
-export { default as Navbar } from '../../components/navbar.vue'
-export { default as Pagination } from '../../components/pagination.vue'
-export { default as ModalsConfirmMsg } from '../../components/modals/confirmMsg.vue'
-export { default as ModalsConnect } from '../../components/modals/connect.vue'
+export const Alerts = () => import('../../components/alerts.vue' /* webpackChunkName: "components/alerts" */).then(c => wrapFunctional(c.default || c))
+export const CustomeDrawer = () => import('../../components/custome-drawer.vue' /* webpackChunkName: "components/custome-drawer" */).then(c => wrapFunctional(c.default || c))
+export const DrawerCopy = () => import('../../components/drawer-copy.vue' /* webpackChunkName: "components/drawer-copy" */).then(c => wrapFunctional(c.default || c))
+export const Drawer = () => import('../../components/drawer.vue' /* webpackChunkName: "components/drawer" */).then(c => wrapFunctional(c.default || c))
+export const Filters = () => import('../../components/filters.vue' /* webpackChunkName: "components/filters" */).then(c => wrapFunctional(c.default || c))
+export const Footer = () => import('../../components/footer.vue' /* webpackChunkName: "components/footer" */).then(c => wrapFunctional(c.default || c))
+export const MenuNavbar = () => import('../../components/menu-navbar.vue' /* webpackChunkName: "components/menu-navbar" */).then(c => wrapFunctional(c.default || c))
+export const Navbar = () => import('../../components/navbar.vue' /* webpackChunkName: "components/navbar" */).then(c => wrapFunctional(c.default || c))
+export const Pagination = () => import('../../components/pagination.vue' /* webpackChunkName: "components/pagination" */).then(c => wrapFunctional(c.default || c))
+export const ModalsConfirmMsg = () => import('../../components/modals/confirmMsg.vue' /* webpackChunkName: "components/modals-confirm-msg" */).then(c => wrapFunctional(c.default || c))
+export const ModalsConnect = () => import('../../components/modals/connect.vue' /* webpackChunkName: "components/modals-connect" */).then(c => wrapFunctional(c.default || c))
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

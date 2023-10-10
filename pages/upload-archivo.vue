@@ -138,6 +138,7 @@ export default {
           this.botonDeshabilitadoMigrar= false
           this.botonDeshabilitado= false
           console.log('respuesta', response)
+          
         })
         .catch((error) => {
           console.error('Error al subir el archivo Excel:', error);
