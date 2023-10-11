@@ -39,6 +39,7 @@ export default {
       botonDeshabilitado: false,
       botonDeshabilitadoMigrar: false,
       opciones: [
+        { value: 'inicio',        label: '0. INICIO' },
         { value: 'vaciar',        label: '0. ELIMINAR TODOS LOS DATOS!!! CUIDADO!!!' },
         //{ value: 'ambito',        label: '1. Ámbito' },
         //{ value: 'sector',        label: '2. Sector' },
@@ -95,7 +96,7 @@ export default {
     },
 
 
-    subirArchivo() {
+    subirArchivo() {  // NO USAR!!!! SE REEMPLAZA POR uploadFile()
       if (!this.archivoExcel) {
         alert('Por favor, selecciona un archivo Excel válido.');
         return;
