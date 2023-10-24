@@ -21,11 +21,11 @@
 
           <div class="title-description-div">
             <p class="nombre-razon">
-              CI / RIF / Pasaporte
+              RIF
             </p>
 
             <p class="nombre-desc">
-              {{nacionalidadcontribuyente}} - {{numero_documento}}
+              {{numero_documento}}
             </p>
           </div>
 
@@ -133,8 +133,9 @@ export default {
     },
     getFlujo(){
       this.$axios.$get('tipoflujo').then(response => {
-        this.flujoData = response
-      }).catch(err => {
+        this.flujoData = response.filter(item => item.aplica === 'C');
+        console.log('this.flujoData',this.flujoData)
+      }).catch(err => { 
         console.log(err)
       })
     },

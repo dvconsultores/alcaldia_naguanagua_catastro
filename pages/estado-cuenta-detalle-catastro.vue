@@ -116,173 +116,17 @@
             </v-card>
           </v-dialog>
 
-            <v-dialog v-model="dialog_IC" content-class="dialog-flow" fullscreen scrollable>
-              <div class="div-dialog">
-                <v-card class="dialog-flow-container">
-                  <v-card-title>
-                    <span class="title">Cálculos impuestos de inmuebles urbanos</span>
-                  </v-card-title>
-
-
-                      <v-card class="card-flow">
-                        <v-card-title class="title-flow">
-                          Cálculo del impuesto
-                        </v-card-title>
-                        <table>
-                          <thead>
-                            <tr>
-                              <th style="padding: 4px;"> Zona </th>
-                              <th style="padding: 4px;"> Base cálculo Bs </th>
-                              <th style="padding: 4px;"> Sub Total Bs </th>
-                              <th style="padding: 4px;"> tBaseMultaRecargoInteres Bs </th>
-                              <th style="padding: 4px;"> Multa Bs({{ IC_Cabecera.fmulta }}%)</th>
-                              <th style="padding: 4px;"> Recargo Bs  ({{ IC_Cabecera.frecargo }}%)</th>
-                              <th style="padding: 4px;"> Interés Bs</th>
-                              <th style="padding: 4px;"> Total Bs </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr class="solicitud-inputs-container">
-                              <td style="padding: 4px;text-align: center;"> {{ IC_Cabecera.zona }} </td>
-                              <td style="padding: 4px;text-align: center;"> {{ IC_Cabecera.basecalculobs }} </td>
-                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.subtotal, 2) }} </td>
-                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.BaseMultaRecargoInteres, 2) }} </td>
-                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.multa, 2) }} </td>
-                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.recargo, 2) }} </td>
-                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.interes, 2) }} </td>
-                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.total, 2) }} </td>
-                              
-
-                            </tr>
-                          </tbody>
-                        </table>
-                      </v-card>
-
-
-                      <v-card class="card-flow">
-                        <v-card-title class="title-flow">
-                          Detalle del cálculo del impuesto
-                        </v-card-title>
-                        <table>
-                          <thead>
-                            <tr>
-                              <th style="padding: 2px;"> Aplica </th>
-                              <th style="padding: 2px;"> Año </th>
-                              <th style="padding: 2px;"> Periodo </th>
-                              <th style="padding: 2px;"> Multa </th>
-                              <th style="padding: 2px;"> Uso </th>
-                              <th style="padding: 2px;"> Tipo </th>
-                              <th style="padding: 2px;"> Area m2 </th>
-                              <th style="padding: 2px;"> Alicuota Bs</th>
-                              <th style="padding: 2px;"> Sub Total Bs. </th>
-                              <th style="padding: 2px;"> Descuento % </th>
-                              <th style="padding: 2px;"> Total Bs.</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="(item, index) in IC_Detalle" :key="index" class="solicitud-inputs-container">
-                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }"> {{ item.aplica }} </span></td>
-                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }"> {{ item.anio }}  </span></td>
-                              <td style="padding: 2px;text-align: center;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.periodo }} </span></td>
-                              <td style="padding: 2px;text-align: center;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.multa }} </span></td>
-                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.uso_descripcion }} </span></td>
-                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.tipo_descripcion }} </span></td>
-                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.area_m2 }} m2 </span></td>
-                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.alicuota.toFixed(8) }}</span> </td>
-                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ roundNumber(item.sub_total, 2) }}</span></td>
-                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ roundNumber(item.mdescuento, 2) }}</span> </td>
-                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ roundNumber(item.total, 2) }} </span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                     </v-card>
-
-
-                     <v-card class="card-flow">
-                        <v-card-title class="title-flow">
-                          Detalle del descuento aplicado
-                        </v-card-title>
-                        <table>
-                          <thead>
-                            <tr>
-                              <th style="padding: 2px;"> Aplica </th>
-                              <th style="padding: 2px;"> Año </th>
-                              <th style="padding: 2px;"> Periodo </th>
-                              <th style="padding: 2px;"> Uso </th>
-                              <th style="padding: 2px;"> Fecha desde </th>
-                              <th style="padding: 2px;"> Fecha hasta </th>
-                              <th style="padding: 2px;"> Descripción </th>
-                              <th style="padding: 2px;"> Sub total Bs </th>
-                              <th style="padding: 2px;"> Descuento % </th>
-                              <th style="padding: 2px;"> Total Bs </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="(item, index) in IC_Descuento" :key="index" class="solicitud-inputs-container">
-                              <td style="padding: 2px;"> {{ item.aplica }} </td> 
-                              <td style="padding: 2px;"> {{ item.anio }} </td>
-                              <td style="padding: 2px;text-align: center;"> {{ item.periodo }} </td>
-                              <td style="padding: 2px;text-align: left;"> {{ item.uso_descripcion }} </td>
-                              <td style="padding: 2px;text-align: center;"> {{ item.fechadesde }} </td>
-                              <td style="padding: 2px;text-align: center;"> {{ item.fechahasta }} </td>
-                              <td style="padding: 2px;text-align: center;"> {{ item.descripcion }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.base, 2)  }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.descuento, 2)  }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.total, 2)  }} </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                     </v-card>
-
-                     <v-card class="card-flow">
-                        <v-card-title class="title-flow">
-                          Detalle del interés moratorio aplicado (BCV Tasas de interés activas.)
-                        </v-card-title>
-                        <table>
-                          <thead>
-                            <tr>
-                              <th style="padding: 2px;"> Año </th>
-                              <th style="padding: 2px;"> Mes </th>
-                              <th style="padding: 2px;"> Tasa % </th>
-                              <th style="padding: 2px;"> Dias </th>
-                              <th style="padding: 2px;"> Mora Mensual Bs </th>
-                              <th style="padding: 2px;"> Total Interes Mensual Bs </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="(item, index) in IC_Interes" :key="index" class="solicitud-inputs-container">
-                              <td style="padding: 2px;text-align: left;"> {{ item.anio }} </td>
-                              <td style="padding: 2px;text-align: center;"> {{ item.mes }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.tasa, 2)  }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.dias, 2)  }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.moramensual, 2)  }} </td>
-                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.interesmensual, 2)  }} </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                     </v-card>                     
-
-
-                     <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn class="btn dialog-btn" @click="dialog_IC = false">
-                          Salir
-                        </v-btn>
-                      </v-card-actions>
-                  </v-card>              
-              </div>
-            </v-dialog>
             <v-dialog v-model="dialog_IC_MIM" content-class="dialog-flow" fullscreen scrollable>
               <div class="div-dialog">
                 <v-card class="dialog-flow-container">
                   <v-card-title>
-                    <span class="title">Cálculo Multa Inscripcion NO RESIDENCIAL</span>
+                    <span class="title">Cálculo Multa Inscripción NO RESIDENCIAL</span>
                   </v-card-title>
 
 
                       <v-card class="card-flow">
                         <v-card-title class="title-flow">
-                          Cálculo Multa Inscripcion NO RESIDENCIAL
+                          Cálculo Multa Inscripción NO RESIDENCIAL
                         </v-card-title>
                         <table>
                           <thead>
@@ -355,7 +199,7 @@
               <div class="div-dialog">
                 <v-card class="dialog-flow-container">
                   <v-card-title>
-                    <span class="title">Cálculo Multa Inscripcion RESIDENCIAL</span>
+                    <span class="title">Cálculo Multa Inscripción RESIDENCIAL</span>
                   </v-card-title>
 
 
@@ -588,9 +432,6 @@
                   </v-card>              
               </div>
             </v-dialog>
-
-
-
         </div>
 
         <v-btn class="btns-add-remove no-shadow" @click="addDiv(index)">
@@ -651,19 +492,6 @@
           <v-btn class="btn size-btn" @click="createEstadoCuenta()">
             Guardar
           </v-btn>
-          <!-- <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
-            <template #activator="{attrs, on}">
-             
-            </template>
-            <v-card class="card-dialog-exito">
-              <v-icon @click="dialog_exito = false">mdi-close</v-icon>
-              <p class="p-dialog">¡La inscripción del inmueble se ha guardado con éxito!</p>
-            </v-card>
-          </v-dialog>
-
-          <v-btn class="btn size-btn" style="background-color:#ED057E!important;">
-            Cancelar
-          </v-btn> -->
         </div>
       </div>
     </section>
@@ -672,9 +500,11 @@
 
 <script>
 import computeds from '~/mixins/computeds'
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default{
-  name: "InscripcionInmueblePage",
+  name: "estado-cuenta-detalle-catastroPage",
   mixins: [computeds],
   data() {
     return{
@@ -702,7 +532,7 @@ export default{
       bcvData:[],
       flujoData:[],
       dataTipoInmueble: [],
-      idflujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo)),
+      idflujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo.codigo)),
       IC_Cabecera:[],
       IC_Detalle:[],
       IC_Descuento:[],
@@ -718,7 +548,8 @@ export default{
       cabecera_IC_MIM:0,
       cabecera_IC_MMM:0,
       base_multa:0,
-
+      Correlativo: 0,
+      Id: 0,
     }
   },
 
@@ -731,29 +562,27 @@ export default{
 
   mounted(){
     if (this.idflujo==''){
-      this.$router.push('estado-cuenta')
+      this.$router.push('estado-cuenta-catastro')
           this.$alert("cancel", {desc: "Debe seleccionar un tipo de transacción o trámite", hash: 'knsddcssdc', title:'Error'})
     }
     else{
       this.dialogWait = true
         this.getCorrelativo()
-        this.getTasaMulta()
         this.getBCV()
-        this.getTipoInmueble()
+        this.getTipoInmueble() 
+        this.getTasaMulta()
         if (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')
         {
           if(this.$store.getters.getExpediente=='Sin Seleccionar'){
               this.$router.push('consulta-inmueble')
               this.$alert("cancel", {desc: "Debe seleccionar un Inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
             }else{
-              this.getDeudaImpuesto()
               this.getMultaImpuesto()
             }
         }
         else
         {
           if(this.$store.getters.getExpediente!='Sin Seleccionar'){
-            this.getDeudaImpuesto()
             this.getMultaImpuesto()
           }
         }
@@ -799,57 +628,15 @@ export default{
     getTasaMulta(){
       this.$axios.$get('tasamulta').then(response => {
         this.tasaMultaData = response
-        this.tasaMultaData.forEach((item) => {
-          item.editable = false;
-        });
+        //this.tasaMultaData.forEach((item) => {
+        //  item.editable = false;
+       // });
         console.log('this.tasaMultaData0',this.tasaMultaData)
       }).catch(err => {
         console.log(err)
       })
     },
-    getDeudaImpuesto(){
-      const data = {
-        inmueble: this.$store.getters.getExpediente.id,
-        propietario: this.$store.getters.getContribuyente.id,
-        periodo: 4,
-      }
-      this.$axios.$post('ImpuestoInmueble/', data).then(res => {
-
-        if (res) {
-          this.IC_Cabecera=res[0].cabacera
-          this.IC_Detalle=res[0].detalle
-          this.IC_Descuento=res[0].descuento
-          this.IC_Interes=res[0].interes
-          this.tasa_multa_id=this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
-          console.log('this.tasaMultaData1',this.tasaMultaData)
-          this.divs.push({
-            tasa_multa_id: this.tasa_multa_id.id, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
-            monto_unidad_tributaria: this.IC_Cabecera.total, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
-            cantidad: 1, // Valor para cantidad (puedes reemplazarlo con el valor que desees)
-            calculo: this.IC_Cabecera.total, // Valor para calculo (puedes reemplazarlo con el valor que desees)
-            editable: true,
-            detalle:'IC'
-          });
-        }
-        else{
-
-          this.divs.push({
-            tasa_multa_id: null, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
-            monto_unidad_tributaria: null, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
-            cantidad: 1, // Valor para cantidad (puedes reemplazarlo con el valor que desees)
-            calculo: 0, // Valor para calculo (puedes reemplazarlo con el valor que desees)
-            editable: false
-          });
-        }
-        console.log('IC_Cabecera',this.IC_Cabecera)
-        console.log('IC_Detalle',this.IC_Detalle)
-        this.$alert("success", {desc: "El imueble posee impuestos por pagar. Se ha cargado la deuda con éxito.", hash: 'knsddcssdc', title:'Impuesto por pagar.'}) 
-      }).catch(err =>{
-        console.log(err)
-      })
-    },
-
-    
+   
     getMultaImpuesto(){
       const data = {
         inmueble: this.$store.getters.getExpediente.id,
@@ -993,13 +780,15 @@ export default{
       }
       this.$axios.$post('crearestadocuenta/', data).then(res => {
         console.log(res)
+        this.Correlativo=res.documento
+        this.Id=res.id
+        this.generarPDF()
         this.$router.push('modificar-datos')
         this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
       }).catch(err =>{
         console.log(err)
       })
     },
-
 
     addDiv(){
       this.divs.push({cantidad: 1, calculo: 0, editable:false});
@@ -1015,6 +804,205 @@ export default{
       const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
       const anio = fecha.getFullYear().toString().slice(-2);
       return `${dia}/${mes}/${anio}`;
+    },
+    sumarDiasHabiles(fechaInicial, nDias) {
+      let fecha = new Date(fechaInicial);
+      let diasSumados = 0;
+
+      while (diasSumados < nDias) {
+        // Añadir un día
+        fecha.setDate(fecha.getDate() + 1);
+
+        // Verificar si el día de la semana es sábado (6) o domingo (0)
+        if (fecha.getDay() !== 6 && fecha.getDay() !== 0) {
+          diasSumados++;
+        }
+      }
+
+      return fecha;
+    },
+    formatearFecha(fecha) {
+      const dia = fecha.getDate().toString().padStart(2, '0');
+      const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+      const anio = fecha.getFullYear();
+      return `${dia}/${mes}/${anio}`;
+    },
+    generarPDF() {
+      const pdf = new jsPDF('p', 'mm', 'letter');
+
+      // Define un objeto de mapeo para traducir valores abreviados a descripciones completas
+      const tipoMapeo = {
+        'I': 'Impuesto',
+        'T': 'Tasa',
+        'M': 'Multa',
+        'O': 'Otro'
+      };
+
+      const fechaActual = new Date();
+      const dia = fechaActual.getDate().toString().padStart(2, '0'); // Obtén el día y asegúrate de tener 2 dígitos.
+      const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); // El mes comienza desde 0, por lo que sumamos 1.
+      const anio = fechaActual.getFullYear();
+      const hora = fechaActual.getHours().toString().padStart(2, '0');
+      const minutos = fechaActual.getMinutes().toString().padStart(2, '0');
+      const segundos = fechaActual.getSeconds().toString().padStart(2, '0');
+
+      const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
+
+      const img1 = new Image();
+      img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
+      const img2 = new Image();
+      img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
+
+      let startY = 55 ;
+    
+        // Establecer el tamaño de fuente para el encabezado de la tabla
+      const fontSizeTitle = 15; // Tamaño de fuente para el encabezado
+      const fontSizeHead = 8; // Tamaño de fuente para el encabezado
+      const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
+      //let pageHeight = pdf.internal.pageSize.height;
+      
+      
+      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.setFontSize(fontSizeHead);  
+      pdf.setFont("helvetica", "bold");
+      pdf.text(200, 10, `No DE CONTROL. ${this.Correlativo}`, null, null, 'right');
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(fontSizeHead+2); 
+      pdf.text(100, 20, 'REPÚBLICA BOLIVARIANA DE VENEZUELA', null, null, 'center');
+      pdf.text(100, 25, 'ESTADO CARABOBO', null, null, 'center');
+      pdf.text(100, 30, 'ALCALDÍA DEL MUNICIPIO NAGUANAGUA', null, null, 'center');
+      pdf.text(100, 35, 'DIRECCIÓN DE HACIENDA', null, null, 'center');
+      pdf.setFontSize(fontSizeHead); 
+      pdf.text(200, 50, `FECHA DE IMPRESIÓN: ${fechaConHora}`, null, null, 'right');
+
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(fontSizeTitle); 
+      pdf.text(100, 45, 'ESTADO DE CUENTA', null, null, 'center');
+      pdf.setFontSize(fontSizeHead); 
+      pdf.setFont("helvetica", "normal");
+    
+      pdf.setDrawColor(0); // Color de línea (negro en este caso)
+      pdf.setLineWidth(0.5); // Ancho de la línea (1 en este caso)
+      pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
+      startY=startY+5
+      pdf.text('R.I.F.:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)), 55, startY);
+      pdf.setFont("helvetica", "normal");
+      startY=startY+5
+      pdf.text('NOMBRE/RAZÓN SOCIAL: ', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)), 55, startY);
+      pdf.setFont("helvetica", "normal");
+      startY=startY+5
+      pdf.text('DIRECCIÓN: ', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.direccion)), 55, startY);
+      pdf.setFont("helvetica", "normal");
+      startY=startY+5
+      pdf.text('TELÉFONO:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.telefono_principal)), 55, startY);
+      pdf.setFont("helvetica", "normal");     
+      startY=startY+5
+      pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
+      startY=startY+5
+      pdf.text('OBSERVACIONES:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(this.observaciones, 55, startY);
+      pdf.setFont("helvetica", "normal");  
+      startY=startY+10 
+      pdf.text('SERVICIO O TRÁMITE:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getFlujo.descripcion)), 55, startY);
+      pdf.setFont("helvetica", "normal");
+      if(this.$store.getters.getExpediente!='Sin Seleccionar'){
+          startY=startY+5
+          pdf.text('NÚMERO DE EXPEDIENTE:', 15, startY);
+          pdf.setFont("helvetica", "bold");
+          pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getExpediente.numero_expediente)), 55, startY);
+          pdf.setFont("helvetica", "normal");
+          startY=startY+5
+          pdf.text('DIRECCIÓN INMUEBLE:', 15, startY);
+          pdf.setFont("helvetica", "bold");
+          pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getExpediente.direccion)), 55, startY);
+          pdf.setFont("helvetica", "normal");
+      }
+      startY=startY+5
+
+      pdf.setFontSize(fontSizeHead); // Establecer el tamaño de fuente solo para esta línea
+
+
+      const options = {
+        startY: startY + 2,
+        styles: { fontSize: fontSizeBody },
+        headStyles: { fontSize: fontSizeHead },
+        didParseCell: function (data) {
+          if (data.column.dataKey === 'monto_unidad_tributaria') {
+            // Formatear y justificar a la derecha con 8 decimales
+            data.cell.text(parseFloat(data.cell.text).toFixed(8));
+            data.cell.styles.halign = 'right';
+          }
+        },
+      };
+
+      const columns = ['tipo','Descripción', 'Petro', 'Cantidad', 'Monto Bs'];
+      const data = this.divs.map((item) => [
+      tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).tipo], 
+        this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).descripcion,
+        item.monto_unidad_tributaria,
+        item.cantidad,
+        item.calculo,
+      ]);
+
+      pdf.autoTable(columns, data, options);
+
+
+/*
+      pdf.autoTable({
+          head: [[ 'Descripción','Petro', 'Cantidad', 'Monto Bs' ]],
+          body: this.divs.map(item => [
+            this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).descripcion,
+            item.monto_unidad_tributaria,
+            item.cantidad,
+            item.calculo
+            
+          ]),
+          startY: startY + 2,
+          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
+          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
+
+        });
+        }
+        */
+        startY += 10 + this.divs.length * 7;
+        startY=startY+10
+
+        pdf.text('MONTO A CANCELAR (BS.):', 15, startY);
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(fontSizeTitle); 
+        pdf.text(this.montoTotal(), 55, startY);
+        pdf.setFontSize(fontSizeHead); 
+        pdf.setFont("helvetica", "normal");
+
+        startY=startY+10
+        pdf.text('Esta planilla tiene validez de '+this.$store.getters.getFlujo.vencimiento+' días. Se vence el día :'+this.formatearFecha(this.sumarDiasHabiles(fechaActual, +this.$store.getters.getFlujo.vencimiento)), 15, startY);
+        startY=startY+10
+        pdf.text('Contribuyente_________________________________________', 15, startY);
+        startY=startY+10
+        pdf.text('C.I._________________________________________________', 15, startY);
+        startY=startY+10
+        pdf.text('Firma_______________________________________________', 15, startY);
+        pdf.text('SELLO___________________________', 140, startY);
+        startY=startY+10
+        pdf.text('Fecha______________________________________________', 15, startY);
+        startY=startY+5
+        
+      
+     
+      pdf.save(`EstadoCuenta-Nro-${this.Correlativo}.pdf`);
+
     },
   }
 }

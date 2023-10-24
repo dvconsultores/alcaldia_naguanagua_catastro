@@ -147,6 +147,7 @@ export default {
         descripcion: '',
         id: '',
       },
+      accesos:null,
     }
   },
   head() {
@@ -158,7 +159,6 @@ export default {
 
   mounted() {
     this.permisos()
-
     this.getAmbito()
   },
 
@@ -167,17 +167,22 @@ export default {
       /********************************************************************************************************
         Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser
       ******************************************************************************************************* */
-
       const longitud = this.$options.name.length;
       this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
-
       // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
-      console.log(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
-
+      console.log('permiso: 1 si , 0 no:',this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) { 
+        console.log('leer:',(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        this.accesos=(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
+      }else{
+        this.$router.push('index')
+        this.$alert("cancel", {desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title:'Error'})
+      }
     },
     getAmbito() {
       this.$axios.$get('ambito').then(response => {
         this.ambitoData = response
+        console.log('this.ambitoData',this.ambitoData)
       }).catch(err => {
         console.log(err)
       })

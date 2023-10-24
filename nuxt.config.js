@@ -92,8 +92,12 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
      //baseURL: development ? 'https://develop.globaldv.tech/catastro_back/api/' : 'https://develop.globaldv.tech/catastro_back/api/',
+    // baseURL: development ? 'http://192.168.102.156:8081/api/' : 'http://192.168.102.156:8081/api/', 
+    // baseURL: development ? 'http://192.168.102.180:8081/api/' : 'http://192.168.102.180:8081/api/', 
      baseURL: development ? 'http://127.0.0.1:8081/api/' : 'http://127.0.0.1:8081/api/', 
-  },
+
+    }
+  ,
 
   // nuxt i18n documentation: https://i18n.nuxtjs.org
   /*
@@ -156,6 +160,8 @@ export default {
 
   server: {
     host: 'localhost', // default: localhost,
+   // host: '192.168.102.156',
+  //host: '192.168.102.180',
     port: '8000', // default: 3000
   },
 

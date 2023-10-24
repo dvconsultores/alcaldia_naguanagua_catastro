@@ -14,7 +14,7 @@
               Nombre / Razón Social
             </p>
 
-            <p class="nombre-desc">
+            <p class="nombre-desc"> 
               {{ nombrecontribuyente }}
             </p>
           </div>
@@ -76,7 +76,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "Estado-Cuenta-CatastroPage",
+  name: "Estado-Cuenta-HaciendaPage",
   mixins: [computeds],
   data() {
     return{
@@ -89,7 +89,7 @@ export default {
   },
 
   head() {
-    const title = 'Estado de Cuenta Catastro';
+    const title = 'Estado de Cuenta Hacienda';
     return {
       title,
     }
@@ -115,7 +115,7 @@ export default {
     redireccionarDetalle() {
       console.log('lalal',this.flujo)
       this.$store.dispatch('storeFlujo',this.flujoData.find(flujo => flujo.codigo ===this.flujo))
-      this.$router.push(`estado-cuenta-detalle-catastro`)
+      this.$router.push(`estado-cuenta-detalle-hacienda`)
     },
 
     redireccionarSolicitudInmuebleExistente(inmuebleId) {
@@ -133,7 +133,7 @@ export default {
     },
     getFlujo(){
       this.$axios.$get('tipoflujo').then(response => {
-        this.flujoData = response.filter(item => item.aplica === 'C');
+        this.flujoData = response.filter(item => item.aplica === 'I');
         console.log('this.flujoData',this.flujoData)
       }).catch(err => { 
         console.log(err)

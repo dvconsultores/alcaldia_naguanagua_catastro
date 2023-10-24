@@ -257,7 +257,7 @@
 import computeds from '~/mixins/computeds'
 
 export default{
-  name: "InscripcionInmueblePage",
+  name: "Inscripcion-InmueblePage",
   mixins: [computeds],
   data() {
     return{
@@ -302,7 +302,7 @@ export default{
   },
 
   head() {
-    const title = 'Inscripcion Inmueble';
+    const title = 'Inscripción Inmueble';
     return {
       title,
     }

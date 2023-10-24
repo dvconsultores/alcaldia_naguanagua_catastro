@@ -295,7 +295,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "BarrioPage",
+  name: "Urbanizacion-BarrioPage",
   mixins: [computeds],
   data() {
     return {  
@@ -331,7 +331,7 @@ export default {
     }
   },
   head() {
-    const title = 'Urbanizacion o Barrio';
+    const title = 'Urbanización o Barrio';
     return {
       title,
     }

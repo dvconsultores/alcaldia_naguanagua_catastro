@@ -20,7 +20,7 @@
 
 
                     <v-text-field v-model="defaultItem.flujo" class="input-big" disabled
-                      label="Numero de Solicitud"></v-text-field>
+                      label="Número de Solicitud"></v-text-field>
                       <v-text-field v-model="defaultItem.expediente" class="input-big" disabled
                       label="Expediente"></v-text-field>
                       <v-text-field v-model="defaultItem.tipoflujo_descripcion" class="input-big" disabled

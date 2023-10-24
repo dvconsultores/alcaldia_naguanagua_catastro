@@ -306,7 +306,7 @@
 
         <div v-else-if="$route.path == '/consulta-inmueble'" class="divcol">
           <span class="index-text">
-            Busqueda de inmueble
+            Búsqueda de inmueble
           </span>
         </div>
 
@@ -324,7 +324,7 @@
 
         <div v-else-if="$route.path == '/actualizar-documentos-pendientes'" class="divcol">
           <span class="index-text">
-            Actualización de Documentos Pendientes
+            Actualización de documentos pendientes
           </span>
         </div>
 
@@ -383,10 +383,7 @@
            Expediente Nro.: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.numero_expediente))}}
           </span>
           <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
-           Urbanizacion: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.nombre_urbanizacion))}}
-          </span>
-          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
-           Conjunto Residencial: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.nombre_conjunto_residencial))}}
+           Dirección: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.direccion))}}
           </span>
         </div>
 
@@ -395,10 +392,7 @@
            Contribuyente
           </span>
           <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
-            Tipo de Documento: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.tipo_documento))}}
-          </span>
-          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
-            Número Documento: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad))}} {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
+            Número Documento/RIF: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento))}}
           </span>
           <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
             Nombre: {{JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre))}}
@@ -408,6 +402,12 @@
         <div class="divcol center">
           <span class="span-saludo tcenter">
             Hola Usuario: {{JSON.parse(JSON.stringify(this.$store.getters.getUser.username))}}
+          </span>
+          <span class="span-saludo tcenter">
+            {{JSON.parse(JSON.stringify(this.$store.getters.getUser.nombre))}}
+          </span>
+          <span class="span-saludo tcenter">
+           {{JSON.parse(JSON.stringify(this.$store.getters.getUser.apellido))}}
           </span>
           <span class="span-saludo tcenter">
             Departamento:

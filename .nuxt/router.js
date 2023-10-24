@@ -23,6 +23,7 @@ const _462c72fc = () => interopDefault(import('../pages/calle.vue' /* webpackChu
 const _9e9b9cb2 = () => interopDefault(import('../pages/cedula-catastral.vue' /* webpackChunkName: "pages/cedula-catastral" */))
 const _5e20ffc2 = () => interopDefault(import('../pages/conjuntos-residenciales.vue' /* webpackChunkName: "pages/conjuntos-residenciales" */))
 const _350d6670 = () => interopDefault(import('../pages/consulta-inmueble.vue' /* webpackChunkName: "pages/consulta-inmueble" */))
+const _4aa615e2 = () => interopDefault(import('../pages/consulta-inmueble-copy.vue' /* webpackChunkName: "pages/consulta-inmueble-copy" */))
 const _22f70331 = () => interopDefault(import('../pages/consultar-propietario.vue' /* webpackChunkName: "pages/consultar-propietario" */))
 const _57841e06 = () => interopDefault(import('../pages/crear-contribuyente.vue' /* webpackChunkName: "pages/crear-contribuyente" */))
 const _1b8706c9 = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
@@ -32,8 +33,12 @@ const _39d4beec = () => interopDefault(import('../pages/edificios.vue' /* webpac
 const _541e4c87 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 const _eefaca78 = () => interopDefault(import('../pages/estado-cuenta.vue' /* webpackChunkName: "pages/estado-cuenta" */))
 const _3233eb7c = () => interopDefault(import('../pages/estado-cuenta-catastro.vue' /* webpackChunkName: "pages/estado-cuenta-catastro" */))
+const _aa1969c8 = () => interopDefault(import('../pages/estado-cuenta-catastro-old.vue' /* webpackChunkName: "pages/estado-cuenta-catastro-old" */))
 const _2691ab24 = () => interopDefault(import('../pages/estado-cuenta-detalle.vue' /* webpackChunkName: "pages/estado-cuenta-detalle" */))
-const _612e66c2 = () => interopDefault(import('../pages/estado-cuenta-taquilla.vue' /* webpackChunkName: "pages/estado-cuenta-taquilla" */))
+const _3c2779d8 = () => interopDefault(import('../pages/estado-cuenta-detalle-catastro.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-catastro" */))
+const _70f89f98 = () => interopDefault(import('../pages/estado-cuenta-detalle-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-hacienda" */))
+const _7242409e = () => interopDefault(import('../pages/estado-cuenta-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-hacienda" */))
+const _4e8d30c8 = () => interopDefault(import('../pages/estado-cuenta-taquilla-old.vue' /* webpackChunkName: "pages/estado-cuenta-taquilla-old" */))
 const _49cd7a34 = () => interopDefault(import('../pages/estatus-inmueble.vue' /* webpackChunkName: "pages/estatus-inmueble" */))
 const _41a5b15b = () => interopDefault(import('../pages/fines-fiscales.vue' /* webpackChunkName: "pages/fines-fiscales" */))
 const _74e90b09 = () => interopDefault(import('../pages/flow.vue' /* webpackChunkName: "pages/flow" */))
@@ -173,6 +178,10 @@ export const routerOptions = {
     component: _350d6670,
     name: "consulta-inmueble___en"
   }, {
+    path: "/consulta-inmueble-copy",
+    component: _4aa615e2,
+    name: "consulta-inmueble-copy___en"
+  }, {
     path: "/consultar-propietario",
     component: _22f70331,
     name: "consultar-propietario___en"
@@ -209,13 +218,29 @@ export const routerOptions = {
     component: _3233eb7c,
     name: "estado-cuenta-catastro___en"
   }, {
+    path: "/estado-cuenta-catastro-old",
+    component: _aa1969c8,
+    name: "estado-cuenta-catastro-old___en"
+  }, {
     path: "/estado-cuenta-detalle",
     component: _2691ab24,
     name: "estado-cuenta-detalle___en"
   }, {
-    path: "/estado-cuenta-taquilla",
-    component: _612e66c2,
-    name: "estado-cuenta-taquilla___en"
+    path: "/estado-cuenta-detalle-catastro",
+    component: _3c2779d8,
+    name: "estado-cuenta-detalle-catastro___en"
+  }, {
+    path: "/estado-cuenta-detalle-hacienda",
+    component: _70f89f98,
+    name: "estado-cuenta-detalle-hacienda___en"
+  }, {
+    path: "/estado-cuenta-hacienda",
+    component: _7242409e,
+    name: "estado-cuenta-hacienda___en"
+  }, {
+    path: "/estado-cuenta-taquilla-old",
+    component: _4e8d30c8,
+    name: "estado-cuenta-taquilla-old___en"
   }, {
     path: "/estatus-inmueble",
     component: _49cd7a34,
@@ -485,6 +510,10 @@ export const routerOptions = {
     component: _350d6670,
     name: "consulta-inmueble___es"
   }, {
+    path: "/es/consulta-inmueble-copy",
+    component: _4aa615e2,
+    name: "consulta-inmueble-copy___es"
+  }, {
     path: "/es/consultar-propietario",
     component: _22f70331,
     name: "consultar-propietario___es"
@@ -517,13 +546,29 @@ export const routerOptions = {
     component: _3233eb7c,
     name: "estado-cuenta-catastro___es"
   }, {
+    path: "/es/estado-cuenta-catastro-old",
+    component: _aa1969c8,
+    name: "estado-cuenta-catastro-old___es"
+  }, {
     path: "/es/estado-cuenta-detalle",
     component: _2691ab24,
     name: "estado-cuenta-detalle___es"
   }, {
-    path: "/es/estado-cuenta-taquilla",
-    component: _612e66c2,
-    name: "estado-cuenta-taquilla___es"
+    path: "/es/estado-cuenta-detalle-catastro",
+    component: _3c2779d8,
+    name: "estado-cuenta-detalle-catastro___es"
+  }, {
+    path: "/es/estado-cuenta-detalle-hacienda",
+    component: _70f89f98,
+    name: "estado-cuenta-detalle-hacienda___es"
+  }, {
+    path: "/es/estado-cuenta-hacienda",
+    component: _7242409e,
+    name: "estado-cuenta-hacienda___es"
+  }, {
+    path: "/es/estado-cuenta-taquilla-old",
+    component: _4e8d30c8,
+    name: "estado-cuenta-taquilla-old___es"
   }, {
     path: "/es/estatus-inmueble",
     component: _49cd7a34,

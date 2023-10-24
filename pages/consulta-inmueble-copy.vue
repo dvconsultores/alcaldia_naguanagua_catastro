@@ -65,41 +65,11 @@
                       </div>
                   </v-tab-item>
                   <v-tab-item :value="1">
-
-                        <div class="data-table-container">
-                            <v-data-table :headers="headers_propietario" :items="PropietariosData" :items-per-page="10"  :footer-props="{
-                              itemsPerPageText: 'Items por página',
-                            }" sort-by="nombre" class="mytabla" mobile-breakpoint="840">
-
-
-                            <template v-slot:top>
-                              <v-toolbar flat class="toolbar-tabla">
-                                <v-dialog v-model="dialogSelecciona" max-width="500px">
-                                  <v-card id="dialog-eliminar-card">
-                                    <v-card-title class="center title">¿Seleccionarlo?</v-card-title>
-                                    <span class="alerta-text" style="text-align:center;">Este será el contribuyente con el cual usted
-                                      realizará las operaciones.</span>
-                                    <v-card-actions>
-                                      <v-spacer></v-spacer>
-                                      <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
-                                      <v-btn class="btn dialog-btn" text @click="dialogSelecciona = false"
-                                        style="background-color:#ED057E!important;">No</v-btn>
-                                      <v-spacer></v-spacer>
-                                    </v-card-actions>
-                                  </v-card>
-                                </v-dialog>
-                              </v-toolbar>
-                            </template>
-
-
-                              <template #[`item.actions2`]="{ item }">
-                                <v-btn class="btn-tabla" @click="openSelecciona(item)">
-                                  Seleccionar contribuyente
-                                </v-btn>
-                              </template>
-                            </v-data-table>
-                          </div>
-
+                      <div class="inputs-container">
+                        <v-text-field v-model="selectedPropietario.nacionalidad" class="input-mostrar" label="Nacionalidad"></v-text-field>
+                        <v-text-field v-model="selectedPropietario.numero_documento" class="input-mostrar" label="Número documento"></v-text-field>
+                        <v-text-field v-model="selectedPropietario.nombre" class="input-mostrar" label="Nombre"></v-text-field>
+                      </div>
                       <div class="center" style="margin-top:30px;">
                         <v-btn class="btn" style="background-color:#ED057E!important; width: 200px!important;" @click="dialog_mostrar = false">
                           Cancelar
@@ -118,6 +88,8 @@
               <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar inmueble" hide-details class="input-data-table"></v-text-field>
               <v-btn @click="getInmueble" color="primary">Buscar inmueble</v-btn>
             </div>
+
+
           <v-data-table :headers="headers" :items="inmuebleData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
@@ -154,25 +126,23 @@ export default {
       nuevoRegistro:{},
       headers: [
         { text: 'Número de expediente', align: 'center', value: 'numero_expediente'},
-        { text: 'Dirección', value: 'direccion', align:'center' },
-        { text: 'Referencia', value: 'referencia', align:'center' },
-        { text: 'Observación', value: 'observacion', align:'center' },
+        { text: 'Urbanización', value: 'nombre_urbanizacion', align:'center' },
+        { text: 'Conjunto', value: 'nombre_conjunto_residencial', align:'center' },
+        { text: 'Status', value: 'descripcion_status', align:'center' },
+        // { text: '', value: 'actions', sortable: false, align:'center' },
         { text: '', value: 'actions2', sortable: false, align:'center' },
       ],
 
       headers_propietario: [
-        { text: 'Nombre/Razón social',          align: 'center', value: 'propietario.nombre', },
-        { text: 'Id', value: 'propietario.id',  align: 'center' },
-        { text: 'Número de documento RIF.',      value: 'propietario.numero_documento', align: 'center' },
-        { text: '', value: 'actions2', sortable: false, align: 'center' },
+        { text: 'Número de expediente', align: 'center', value: 'inmueble.numero_expediente'},
+        { text: 'Urbanización', value: 'inmueble.nombre_urbanizacion', align:'center' },
+        { text: 'Conjunto', value: 'inmueble.nombre_conjunto_residencial', align:'center' },
+        { text: 'Status', value: 'inmueble.descripcion_status', align:'center' },
+        // { text: '', value: 'actions', sortable: false, align:'center' },
+        { text: '', value: 'actions2', sortable: false, align:'center' },
       ],
       inmuebleData: [],
-      PropietariosData:[
-        {propietario:
-          {nombre:'jorge',
-          id:'88'}
-        }
-      ],
+      inmueblePropietariosData:[],
       selectedPropietario: {
         nombre: '',
         numero_documento: '',
@@ -208,17 +178,6 @@ export default {
         anio: '',
         codigo_periodo: '',
       },
-      dialogSelecciona:false,
-      defaultItem: {
-        tipo_documento: '',
-        nacionalidad: '',
-        numero_documento: '',
-        nombre: '',
-        telefono_principal: '',
-        telefono_secundario: '',
-        email_principal: '',
-        emaill_secundario: '',
-      },
     }
   },
   head() {
@@ -231,65 +190,65 @@ export default {
   //mounted(){     this.getInmueble()   },
 
   methods: {
-    openSelecciona(item) {
-      this.defaultItem = item.propietario
-      console.log('this.defaultItem',this.defaultItem)
-      this.dialogSelecciona = true
-    },
+     getInmueblePropietarios(){
+       this.$axios.$get(`inmueble_propietarios/?inmueble=${this.selectedItem.id}`).then(response => {
+         this.inmueblePropietariosData = response[0]
+         this.selectedPropietario.nombre=this.inmueblePropietariosData.propietario.nombre
+         this.selectedPropietario.nacionalidad=this.inmueblePropietariosData.propietario.nacionalidad
+         this.selectedPropietario.numero_documento=this.inmueblePropietariosData.propietario.numero_documento
+         console.log(this.inmueblePropietariosData, 'inmueblePropietariosData')
+         console.log(this.selectedPropietario, 'selectedPropietario')
+       }).catch(err => {
+         console.log(err)
+       })
+     },
 
-    StoreContribuyenteId() {
-      this.$store.getters.getContribuyente == undefined ? console.log('vacio') : console.log(this.$store.getters.getContribuyente)
-      this.$store.dispatch('storeContribuyente', this.defaultItem)
-      this.dialogSelecciona = false
-      this.StoreExpedienteId(this.selectedItem)
-    },
-     async getInmueblePropietarios() {
-      try {
-        const response = await this.$axios.$get(`inmueble_propietarios/?inmueble=${this.selectedItem.id}`);
-        this.PropietariosData = response
-         console.log('this.PropietariosData ',this.PropietariosData )
-         this.dialog_mostrar = true 
-      } catch (err) {
-        console.log(err);
-      }
-    },
+
     
 
     StoreExpedienteId(item) {
       this.$store.getters.getExpediente== undefined ? console.log('vacio') : console.log('lleno',this.$store.getters.getExpediente)
       this.$store.dispatch('storeExpediente', item)
-     //console.log('lucas1')
-     // console.log(item)
-     // console.log('lucas2')
-     // console.log(this.$store.getters.getExpediente)
-     // console.log(JSON.parse(JSON.stringify(this.$store.getters.getExpediente)))
+      console.log('lucas1')
+      console.log(item)
+      console.log('lucas2')
+      console.log(this.$store.getters.getExpediente)
+      console.log(JSON.parse(JSON.stringify(this.$store.getters.getExpediente)))
       this.dialog_mostrar = false
     },
 
-    async getInmueble() {
+    getInmueble() {
+
       var idInmueble
       this.inmuebleData=[]
       this.numeroDocumento=this.search
-      try {
-        const response = await   this.$axios.$get(`filtrar_inmuebles/?numero_expediente=${this.numeroDocumento}`)
+        this.$axios.$get(`filtrar_inmuebles/?numero_expediente=${this.numeroDocumento}`).then(response => {
           idInmueble= response[0].id
-          //console.log(' idInmueble', idInmueble)
-          const response1 = await  this.$axios.$get('inmueble/'+idInmueble)
-          this.inmuebleData = [response1]
+          console.log(' idInmueble', idInmueble)
+          this.$axios.$get('inmueble/'+idInmueble).then(response => {
+              this.inmuebleData = [response]
 
-          } catch (err) {
-        console.log(err);
-      }
+            }).catch(err => {
+              console.log(err)
+            })
+        }).catch(err => {
+        console.log(err)
+      })          
     },
 
-    async openDialog(item) {
+    openDialog(item) {
       this.selectedItem = item
-      try{
-        await this.getInmueblePropietarios();
-      } catch (error) {
-        console.log(error);
-      }
-      
+      this.dialog_mostrar = true 
+      this.getInmueblePropietarios()
+    
+      // this.$axios.$get(`inmueble_propietarios/?inmueble=${item.id}`).then(response => {
+      //   this.inmueblePropietariosData = response
+      //   this.nombrePropietario = this.inmueblePropietariosData.propietario.nombre
+      //   console.log(this.inmueblePropietariosData, 'dataa')
+      //   this.dialog_mostrar = true
+      // }).catch(err => {
+      //   console.log(err)
+      // })
     },
   }
 };

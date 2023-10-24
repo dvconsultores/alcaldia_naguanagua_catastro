@@ -224,7 +224,7 @@
 import computeds from '~/mixins/computeds'
 
 export default{
-  name:"ConsultarPage",
+  name:"Consultar-PropietarioPage",
   mixins:[computeds],
   data(){
     return{

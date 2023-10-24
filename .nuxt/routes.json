@@ -133,6 +133,13 @@
     "_name": "_350d6670"
   },
   {
+    "name": "consulta-inmueble-copy___en",
+    "path": "/consulta-inmueble-copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble-copy.vue",
+    "chunkName": "pages/consulta-inmueble-copy",
+    "_name": "_4aa615e2"
+  },
+  {
     "name": "consultar-propietario___en",
     "path": "/consultar-propietario",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario.vue",
@@ -196,6 +203,13 @@
     "_name": "_3233eb7c"
   },
   {
+    "name": "estado-cuenta-catastro-old___en",
+    "path": "/estado-cuenta-catastro-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-catastro-old.vue",
+    "chunkName": "pages/estado-cuenta-catastro-old",
+    "_name": "_aa1969c8"
+  },
+  {
     "name": "estado-cuenta-detalle___en",
     "path": "/estado-cuenta-detalle",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle.vue",
@@ -203,11 +217,32 @@
     "_name": "_2691ab24"
   },
   {
-    "name": "estado-cuenta-taquilla___en",
-    "path": "/estado-cuenta-taquilla",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-taquilla.vue",
-    "chunkName": "pages/estado-cuenta-taquilla",
-    "_name": "_612e66c2"
+    "name": "estado-cuenta-detalle-catastro___en",
+    "path": "/estado-cuenta-detalle-catastro",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-catastro.vue",
+    "chunkName": "pages/estado-cuenta-detalle-catastro",
+    "_name": "_3c2779d8"
+  },
+  {
+    "name": "estado-cuenta-detalle-hacienda___en",
+    "path": "/estado-cuenta-detalle-hacienda",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-hacienda.vue",
+    "chunkName": "pages/estado-cuenta-detalle-hacienda",
+    "_name": "_70f89f98"
+  },
+  {
+    "name": "estado-cuenta-hacienda___en",
+    "path": "/estado-cuenta-hacienda",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-hacienda.vue",
+    "chunkName": "pages/estado-cuenta-hacienda",
+    "_name": "_7242409e"
+  },
+  {
+    "name": "estado-cuenta-taquilla-old___en",
+    "path": "/estado-cuenta-taquilla-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-taquilla-old.vue",
+    "chunkName": "pages/estado-cuenta-taquilla-old",
+    "_name": "_4e8d30c8"
   },
   {
     "name": "estatus-inmueble___en",
@@ -679,6 +714,13 @@
     "_name": "_350d6670"
   },
   {
+    "name": "consulta-inmueble-copy___es",
+    "path": "/es/consulta-inmueble-copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble-copy.vue",
+    "chunkName": "pages/consulta-inmueble-copy",
+    "_name": "_4aa615e2"
+  },
+  {
     "name": "consultar-propietario___es",
     "path": "/es/consultar-propietario",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario.vue",
@@ -735,6 +777,13 @@
     "_name": "_3233eb7c"
   },
   {
+    "name": "estado-cuenta-catastro-old___es",
+    "path": "/es/estado-cuenta-catastro-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-catastro-old.vue",
+    "chunkName": "pages/estado-cuenta-catastro-old",
+    "_name": "_aa1969c8"
+  },
+  {
     "name": "estado-cuenta-detalle___es",
     "path": "/es/estado-cuenta-detalle",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle.vue",
@@ -742,11 +791,32 @@
     "_name": "_2691ab24"
   },
   {
-    "name": "estado-cuenta-taquilla___es",
-    "path": "/es/estado-cuenta-taquilla",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-taquilla.vue",
-    "chunkName": "pages/estado-cuenta-taquilla",
-    "_name": "_612e66c2"
+    "name": "estado-cuenta-detalle-catastro___es",
+    "path": "/es/estado-cuenta-detalle-catastro",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-catastro.vue",
+    "chunkName": "pages/estado-cuenta-detalle-catastro",
+    "_name": "_3c2779d8"
+  },
+  {
+    "name": "estado-cuenta-detalle-hacienda___es",
+    "path": "/es/estado-cuenta-detalle-hacienda",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-hacienda.vue",
+    "chunkName": "pages/estado-cuenta-detalle-hacienda",
+    "_name": "_70f89f98"
+  },
+  {
+    "name": "estado-cuenta-hacienda___es",
+    "path": "/es/estado-cuenta-hacienda",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-hacienda.vue",
+    "chunkName": "pages/estado-cuenta-hacienda",
+    "_name": "_7242409e"
+  },
+  {
+    "name": "estado-cuenta-taquilla-old___es",
+    "path": "/es/estado-cuenta-taquilla-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-taquilla-old.vue",
+    "chunkName": "pages/estado-cuenta-taquilla-old",
+    "_name": "_4e8d30c8"
   },
   {
     "name": "estatus-inmueble___es",

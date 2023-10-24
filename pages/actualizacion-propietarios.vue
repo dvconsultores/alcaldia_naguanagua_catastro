@@ -11,7 +11,7 @@
         <hr>
 
         <div class="inputs-container">
-          <v-text-field v-model="inmuebleData.numero_expediente" class="input-mostrar" label="Numero de expediente"></v-text-field>
+          <v-text-field v-model="inmuebleData.numero_expediente" class="input-mostrar" label="Número de expediente"></v-text-field>
           <v-text-field v-model="inmuebleData.descripcion_tipo" class="input-mostrar" label="Tipo"></v-text-field>
           <v-text-field v-model="inmuebleData.descripcion_status" class="input-mostrar" label="Estatus"></v-text-field>
           <v-text-field v-model="inmuebleData.descripcion_ambito" class="input-mostrar" label="Ambito"></v-text-field>
@@ -30,7 +30,7 @@
           <v-text-field v-model="inmuebleData.numero_civico" class="input-mostrar" label="Nro. Civicio"></v-text-field>
           <v-text-field v-model="inmuebleData.numero_casa" class="input-mostrar" label="Nro. Casa"></v-text-field>
           <v-text-field v-model="inmuebleData.numero_piso" class="input-mostrar" label="Nro. Piso"></v-text-field>
-          <v-text-field v-model="inmuebleData.telefono" class="input-mostrar" label="Telefono"></v-text-field>
+          <v-text-field v-model="inmuebleData.telefono" class="input-mostrar" label="Teléfono"></v-text-field>
           <v-text-field v-model="inmuebleData.descripcion_zona" class="input-mostrar" label="Zona"></v-text-field>
           <v-text-field v-model="inmuebleData.direccion" class="input-mostrar" label="Dirección"></v-text-field>
           <v-text-field v-model="inmuebleData.referencia" class="input-mostrar" label="Referencia"></v-text-field>
@@ -194,7 +194,7 @@ export default {
   },
 
   head() {
-    const title = 'Actualizacion de propietarios';
+    const title = 'Actualización de propietarios';
     return {
       title,
     }

@@ -215,7 +215,7 @@ export default {
       dialogDelete: false,
       nuevoRegistro: {},
       headers: [
-        { text: 'Codigo', align: 'center', value: 'codigo',},
+        { text: 'Código', align: 'center', value: 'codigo',},
         { text: 'Descripción', align: 'center', value: 'descripcion',},
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],

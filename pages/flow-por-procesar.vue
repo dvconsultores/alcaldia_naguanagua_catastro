@@ -20,7 +20,7 @@
 
 
                     <v-text-field v-model="defaultItem.flujo" class="input-big" disabled
-                      label="Numero de Solicitud"></v-text-field>
+                      label="Número de Solicitud"></v-text-field>
                       <v-text-field v-model="defaultItem.expediente" class="input-big" disabled
                       label="Expediente"></v-text-field>
                       <v-text-field v-model="defaultItem.tipoflujo_descripcion" class="input-big" disabled
@@ -156,6 +156,7 @@ export default {
     getFlujo() {
       this.$axios.$get('flujodetalle/?tarea=3&departamento_recibe='+this.permido.departamento).then(response => {
         this.flujoData = response
+        console.log('this.flujoData ',this.flujoData )
       }).catch(err => {
         console.log(err)
       })
@@ -197,7 +198,7 @@ export default {
 
         const formDataNew = new FormData()
         formDataNew.append('estado', '2')
-        this.$axios.$patch('flujo/' + this.defaultItem.id + '/', formDataNew).then((res) => {
+        this.$axios.$patch('flujo/' + this.defaultItem.flujo + '/', formDataNew).then((res) => {
           console.log(res.data)
         }).catch((err) => {
           console.log(err)

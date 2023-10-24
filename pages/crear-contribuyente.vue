@@ -75,14 +75,14 @@
                       v-model="nuevoRegistro.telefono_principal"
                       class="input-medium"
                       :value="item.telefono1"
-                      label="Telefono"
+                      label="Teléfono"
                     ></v-text-field>
 
                     <v-text-field
                       v-model="nuevoRegistro.telefono_secundario"
                       class="input-medium"
                       :value="item.telefono2"
-                      label="Telefono 2"
+                      label="Teléfono 2"
                     ></v-text-field>
 
                     <v-text-field
@@ -170,7 +170,7 @@ export default{
       headers: [
         { text: 'Nombre', align: 'center', value: 'nombre',},
         { text: 'Nacionalidad', value: 'nacionalidad', align:'center' },
-        { text: 'Numero de Documento', value: 'numero_documento', align:'center' },
+        { text: 'Número de Documento', value: 'numero_documento', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
       tipo_documento: 1,

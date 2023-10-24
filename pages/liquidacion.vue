@@ -25,7 +25,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{nacionalidadcontribuyente}} - {{numero_documento}}
+              {{numero_documento}}
             </p>
           </div>
 
@@ -100,7 +100,7 @@
         <div class="creacion-container">
           <div class="divrow jspace" style="width:100%;">
             <p class="title-inscripcion-inmueble">
-              Creación de liquidación
+              Creación de pre-factura
             </p>
 
             <span class="title-inscripcion-inmueble">
@@ -111,15 +111,7 @@
           <hr>
 
           <div class="container-creacion-datos">
-            <div class="title-description-div">
-              <p class="nombre-razon">
-                Nro. Estado de Cuenta
-              </p>
 
-              <p class="nombre-desc">
-                {{numeroCorrelativo}}
-              </p>
-            </div>
 
             <div class="title-description-div">
               <p class="nombre-razon">
@@ -254,9 +246,11 @@
 <script>
 import computeds from '~/mixins/computeds'
 import moment from 'moment'
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default {
-  name: "EstadoCuentaPage",
+  name: "LiquidacionPage",
   mixins: [computeds],
   data() {
     return{
@@ -279,12 +273,14 @@ export default {
       nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
       nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
       numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
+      Correlativo: 0,
+      Id: 0,
 
     }
   },
 
   head() {
-    const title = 'Estado de Cuenta';
+    const title = 'Pre-Factura';
     return {
       title,
     }
@@ -352,8 +348,12 @@ export default {
       }
       this.$axios.$post('crearliquidacion/', data).then(res => {
         console.log(res)
+        this.Correlativo=res.documento
+        this.Id=res.id
+        console.log('this.divs',this.divs)
+        this.generarPDF()
         this.$router.push('modificar-datos')
-        this.$alert("success", {desc: "Se ha creado una liquidacion con éxito", hash: 'knsddcssdc', title:'Creado'}) 
+        this.$alert("success", {desc: "Se ha creado una pre-factura con éxito", hash: 'knsddcssdc', title:'Creado'}) 
       }).catch(err =>{
         console.log(err)
       })
@@ -402,6 +402,197 @@ export default {
     removeDiv(index) {
       this.divs.splice(index, 1);
     },
+
+    sumarDiasHabiles(fechaInicial, nDias) {
+      let fecha = new Date(fechaInicial);
+      let diasSumados = 0;
+
+      while (diasSumados < nDias) {
+        // Añadir un día
+        fecha.setDate(fecha.getDate() + 1);
+
+        // Verificar si el día de la semana es sábado (6) o domingo (0)
+        if (fecha.getDay() !== 6 && fecha.getDay() !== 0) {
+          diasSumados++;
+        }
+      }
+
+      return fecha;
+    },
+    formatearFecha(fecha) {
+      const dia = fecha.getDate().toString().padStart(2, '0');
+      const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+      const anio = fecha.getFullYear();
+      return `${dia}/${mes}/${anio}`;
+    },
+    generarPDF() {
+      const pdf = new jsPDF('p', 'mm', 'letter');
+
+      // Define un objeto de mapeo para traducir valores abreviados a descripciones completas
+      const tipoMapeo = {
+        'I': 'Impuesto',
+        'T': 'Tasa',
+        'M': 'Multa',
+        'O': 'Otro'
+      };
+
+      const fechaActual = new Date();
+      const dia = fechaActual.getDate().toString().padStart(2, '0'); // Obtén el día y asegúrate de tener 2 dígitos.
+      const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); // El mes comienza desde 0, por lo que sumamos 1.
+      const anio = fechaActual.getFullYear();
+      const hora = fechaActual.getHours().toString().padStart(2, '0');
+      const minutos = fechaActual.getMinutes().toString().padStart(2, '0');
+      const segundos = fechaActual.getSeconds().toString().padStart(2, '0');
+
+      const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
+
+      const img1 = new Image();
+      img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
+      const img2 = new Image();
+      img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
+
+      let startY = 60 ;
+    
+        // Establecer el tamaño de fuente para el encabezado de la tabla
+      const fontSizeTitle = 15; // Tamaño de fuente para el encabezado
+      const fontSizeHead = 8; // Tamaño de fuente para el encabezado
+      const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
+      //let pageHeight = pdf.internal.pageSize.height;
+      
+      
+      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.setFontSize(fontSizeHead);  
+      pdf.setFont("helvetica", "bold");
+      pdf.text(200, 10, `No DE CONTROL. ${this.Correlativo}`, null, null, 'right');
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(fontSizeHead+2); 
+      pdf.text(100, 20, 'REPÚBLICA BOLIVARIANA DE VENEZUELA', null, null, 'center');
+      pdf.text(100, 25, 'ESTADO CARABOBO', null, null, 'center');
+      pdf.text(100, 30, 'ALCALDÍA DEL MUNICIPIO NAGUANAGUA', null, null, 'center');
+      pdf.text(100, 35, 'DIRECCIÓN DE HACIENDA', null, null, 'center');
+      pdf.setFontSize(fontSizeHead); 
+      pdf.text(200, 50, `FECHA DE IMPRESIÓN: ${fechaConHora}`, null, null, 'right');
+      pdf.text(200, 55, `ESTADO DE CUENTA: ${this.Id}`, null, null, 'right');
+
+
+
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(fontSizeTitle); 
+      pdf.text(100, 45, 'PRE-FACTURA', null, null, 'center');
+      pdf.setFontSize(fontSizeHead); 
+      pdf.setFont("helvetica", "normal");
+    
+      pdf.setDrawColor(0); // Color de línea (negro en este caso)
+      pdf.setLineWidth(0.5); // Ancho de la línea (1 en este caso)
+      pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
+      startY=startY+5
+      pdf.text('R.I.F.:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)), 55, startY);
+      pdf.setFont("helvetica", "normal");
+      startY=startY+5
+      pdf.text('NOMBRE/RAZÓN SOCIAL: ', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)), 55, startY);
+      pdf.setFont("helvetica", "normal");
+      startY=startY+5
+      pdf.text('DIRECCIÓN: ', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.direccion)), 55, startY);
+      pdf.setFont("helvetica", "normal");
+      startY=startY+5
+      pdf.text('TELÉFONO:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.telefono_principal)), 55, startY);
+      pdf.setFont("helvetica", "normal");     
+      startY=startY+5
+      pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
+      startY=startY+5
+      pdf.text('OBSERVACIONES:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '', 55, startY);
+      pdf.setFont("helvetica", "normal");  
+      startY=startY+10 
+      pdf.text('SERVICIO O TRÁMITE:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(this.selectedItem.tipoflujo.descripcion, 55, startY);
+      pdf.setFont("helvetica", "normal");
+      startY=startY+5
+
+      pdf.setFontSize(fontSizeHead); // Establecer el tamaño de fuente solo para esta línea
+
+
+      const options = {
+        startY: startY + 2,
+        styles: { fontSize: fontSizeBody },
+        headStyles: { fontSize: fontSizeHead },
+        didParseCell: function (data) {
+          if (data.column.dataKey === 'monto_unidad_tributaria') {
+            // Formatear y justificar a la derecha con 8 decimales
+            data.cell.text(parseFloat(data.cell.text).toFixed(8));
+            data.cell.styles.halign = 'right';
+          }
+        },
+      };
+
+      const columns = ['tipo','Descripción', 'Petro', 'Cantidad', 'Monto Bs'];
+      const data = this.divs.map((item) => [
+        tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).tipo], 
+        this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,
+        item.monto_unidad_tributaria,
+        item.cantidad,
+        item.monto_tasa,
+      ]);
+
+      pdf.autoTable(columns, data, options);
+
+/*
+      console.log('this.divs pdf',this.divs)
+      console.log('this.tasaMultaData pdf',this.tasaMultaData)
+      pdf.autoTable({
+          head: [[ 'Descripción','Petro', 'Cantidad', 'Monto Bs' ]],
+          body: this.divs.map(item => [
+            this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,
+            item.monto_unidad_tributaria,
+            item.cantidad,
+            item.calculo
+            
+          ]),
+          startY: startY + 2,
+          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
+          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
+
+        });
+
+ */
+        startY += 10 + this.divs.length * 7;
+        startY=startY+10
+
+        pdf.text('MONTO A CANCELAR (BS.):', 15, startY);
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(fontSizeTitle); 
+        pdf.text(this.montoTotal(), 55, startY);
+        pdf.setFontSize(fontSizeHead); 
+        pdf.setFont("helvetica", "normal");
+
+        startY=startY+10
+        pdf.text('Contribuyente_________________________________________', 15, startY);
+        startY=startY+10
+        pdf.text('C.I._________________________________________________', 15, startY);
+        startY=startY+10
+        pdf.text('Firma_______________________________________________', 15, startY);
+        pdf.text('SELLO___________________________', 140, startY);
+        startY=startY+10
+        pdf.text('Fecha______________________________________________', 15, startY);
+        startY=startY+5
+        
+      
+     
+      pdf.save(`PreFactura-Nro-${this.Correlativo}.pdf`);
+
+    },
+
 
     getEstadoDetalles(item) {
       this.selectedItem = item

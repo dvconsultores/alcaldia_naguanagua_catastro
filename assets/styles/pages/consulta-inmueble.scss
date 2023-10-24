@@ -373,6 +373,8 @@
         margin-bottom: 0px;
         font-size: 22px;
       }
+
+      
     }
 
     .torres-inputs-container{
@@ -491,6 +493,93 @@
 
 
 #dialog-mostrar{
+
+  .data-table-container{
+    width: 99%;
+
+    @include media(max, 1080px){
+      max-width: 80%;
+    }
+
+    @include media(max, 960px){
+      max-width: 99%;
+    }
+
+    @include media(max, 840px){
+      .sortable{
+        background-color: #fff;  
+
+        .v-chip__content{
+          font-size: 20px!important;
+        }
+      }
+
+      .sortable .v-chip .v-chip--clickable .v-chip--no-color .theme--dark .v-size--default{
+        color:red!important;
+      }   
+    }
+
+    .input-data-table{
+      box-shadow: -2px 2px 3px 5px rgba( #000000, 0.1)!important;
+      padding-inline: 10px;
+      border-radius: 10px;
+      height: 65px;
+
+      .v-icon{
+        color: var(--primary);
+      }
+    }
+
+    .input-data-table:active, .input-data-table:focus-within{
+      border: 1px solid var(--primary);
+    }
+
+    .v-data-table th{
+      background-color: #fff;
+      height: 80px;
+      border-radius: 0px;
+      
+      span{
+        color:var(--primary)!important;
+        font-weight: 500!important;
+        font-size: 1.8em!important;
+        font-weight:700!important;
+      }
+    }
+  
+    .v-data-table tbody tr td:first-of-type {
+      border-radius: 0px !important;
+    }
+  
+    .v-data-table tbody tr td:last-of-type {
+      border-radius: 0px !important;
+    }
+  
+    .v-data-table td{
+      background-color: #fff;
+      border-radius: 0px!important;
+      --c:#000;
+      --fw:500;
+      font-family: var(--font2);
+      font-size: 16px!important;
+      border-bottom: solid 2px var(--primary)!important;
+      height: 80px;
+    }
+  
+    .toolbar-tabla{
+      background-color: transparent!important;
+      // width: max-content;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      padding-inline: 10px;
+      position: absolute;
+      z-index: 99;
+      right: 0;
+  
+     
+    }
+  }
 
   .v-slide-group__content{
     background-color: #fff;

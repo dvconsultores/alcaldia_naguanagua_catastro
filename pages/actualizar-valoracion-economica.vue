@@ -277,7 +277,7 @@ export default {
     }
   },
   head() {
-    const title = 'Actualizar Valoracion Economica';
+    const title = 'Actualizar Valoración Económica';
     return {
       title,
     }
@@ -354,7 +354,7 @@ export default {
 
       this.$axios.$patch('inmueble_valoracion_terreno/' + this.dataValoracionTerreno.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", { desc: "Se ha editado una valoracion de terreno con éxito", hash: 'knsddcssdc', title: 'Edición de valoración de terreno.' })
+        this.$alert("success", { desc: "Se ha editado una valoración de terreno con éxito", hash: 'knsddcssdc', title: 'Edición de valoración de terreno.' })
         this.btnAddTerreno = false
         this.dialog_edit_terreno = false
         this.getInmuebleValoracionTerreno()

@@ -147,7 +147,7 @@
               <v-list-item @click="$router.push('manzana')">Manzana</v-list-item>
               <v-list-item @click="$router.push('parcela')">Parcela</v-list-item>
               <v-list-item @click="$router.push('sub-parcela')">Sub - Parcela</v-list-item>
-              <v-list-item @click="$router.push('urbanizacion-barrio')">Urbanizacion / Barrio</v-list-item>
+              <v-list-item @click="$router.push('urbanizacion-barrio')">Urbanización / Barrio</v-list-item>
               <v-list-item>Calle</v-list-item>
               <v-list-item>Avenida</v-list-item>
               <v-list-item @click="$router.push('conjuntos-residenciales')">Conjunto Residencial</v-list-item>

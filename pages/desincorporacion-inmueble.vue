@@ -129,7 +129,7 @@ export default{
   },
 
   head() {
-    const title = 'Desincorporacion Inmueble';
+    const title = 'Desincorporación Inmueble';
     return {
       title,
     }

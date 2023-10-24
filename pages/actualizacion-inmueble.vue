@@ -119,7 +119,7 @@
           class="big-autocomplete mobile-inputs"
           label="Manzana*"
           :items="manzanaData"
-          item-text="codigo"
+          item-text="Código"
           item-value="id"
           ></v-autocomplete>
 
@@ -128,7 +128,7 @@
           class="big-autocomplete mobile-inputs"
           label="Parcela*"
           :items="parcelaData"
-          item-text="codigo"
+          item-text="Código"
           item-value="id"
           ></v-autocomplete>
 
@@ -137,7 +137,7 @@
           class="big-autocomplete mobile-inputs"
           label="Sub-Parcela*"
           :items="subParcelaData"
-          item-text="codigo"
+          item-text="Código"
           item-value="id"
           ></v-autocomplete>
 
@@ -234,7 +234,7 @@
           <v-text-field
           v-model="inmuebleData.telefono"
           class="small-input mobile-inputs"
-          label="Telefono"
+          label="Teléfono"
           ></v-text-field>
 
           <v-autocomplete
@@ -327,7 +327,7 @@ export default {
     }
   },
   head() {
-    const title = 'Actualizacion Inmueble';
+    const title = 'Actualización Inmueble';
     return {
       title,
     }

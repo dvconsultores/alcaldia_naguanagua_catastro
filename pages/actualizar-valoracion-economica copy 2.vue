@@ -468,7 +468,7 @@ export default {
     }
   },
   head() {
-    const title = 'Actualizar Valoracion Economica';
+    const title = 'Actualizar Valoración Económica';
     return {
       title,
     }

@@ -35,7 +35,7 @@
 import computeds from '~/mixins/computeds'
 
 export default{
-  name: "DesincorporacionInmueblePlanillaPage",
+  name: "Planilla-DesincorporacionPage",
   mixins:[computeds],
   data(){
     return{
@@ -44,7 +44,7 @@ export default{
   },
 
   head() {
-    const title = 'Desincorporacion Inmueble planilla';
+    const title = 'Desincorporación Inmueble planilla';
     return {
       title,
     }

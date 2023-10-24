@@ -256,6 +256,10 @@ export default {
 
     getContribuyente() {
       this.numeroDocumento=this.search
+      if (this.search.trim() == '') {
+        this.$alert("success", { desc: "Debe colocar un número de RIF o un nombre válido.", hash: 'knsddcssdc', title: 'Advertencia' })
+
+      }else{
         //this.$axios.$get('propietario').then(response => {
         this.$axios.$get(`filtrar_propietarios/?numero_documento=${this.numeroDocumento}`).then(response => {
 
@@ -264,6 +268,7 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+      }
     },
 
     createContribuyente() {

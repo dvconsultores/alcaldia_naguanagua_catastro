@@ -210,7 +210,7 @@ export default{
   },
 
   head() {
-    const title = 'Inscripcion Inmueble';
+    const title = 'Inscripción Inmueble';
     return {
       title,
     }

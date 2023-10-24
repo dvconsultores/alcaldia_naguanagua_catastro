@@ -502,6 +502,8 @@ export default {
         this.dataUbicacionInmueble = response[0]
         console.log('dataUbicacionInmueble',this.dataUbicacionInmueble)
         this.documentoPropiedadId = this.dataUbicacionInmueble[0].id
+        
+
 
         // this.norte = [
         //   this.dataUbicacionInmueble.g1_norte,
