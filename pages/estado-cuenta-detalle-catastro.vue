@@ -8,7 +8,7 @@
           </p>
 
           <span class="title-inscripcion-inmueble">
-            Tasa BCV: {{ montoBCV }}
+            Petro Bs.: {{ montoBCV }}
           </span>
         </div>
 
@@ -566,11 +566,11 @@ export default{
           this.$alert("cancel", {desc: "Debe seleccionar un tipo de transacción o trámite", hash: 'knsddcssdc', title:'Error'})
     }
     else{
-      this.dialogWait = true
-        this.getCorrelativo()
-        this.getBCV()
-        this.getTipoInmueble() 
+        this.dialogWait = true
         this.getTasaMulta()
+        this.getBCV()
+        this.getTipoInmueble()
+        
         if (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')
         {
           if(this.$store.getters.getExpediente=='Sin Seleccionar'){
@@ -742,20 +742,11 @@ export default{
     selectedField(index) {
       const div = this.divs[index]
       const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasa_multa_id)
-      div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
+      if (tasa_encontrada) {
+        div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria;
+      }
 
       this.multiplicarValor(index)
-    },
-
-
-
-    getCorrelativo(){
-      this.$axios.$get('correlativo').then(response => {
-        this.correlativoData = response
-        this.numeroCorrelativo = this.correlativoData[0].NumeroEstadoCuenta
-      }).catch(err => {
-        console.log(err)
-      })
     },
 
     getTipoInmueble(){
@@ -772,7 +763,7 @@ export default{
       const data = {
         inmueble: (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')? this.$store.getters.getExpediente.id : null,
         flujo: this.idflujo,
-        correlativo: this.numeroCorrelativo,
+        //correlativo: this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,
         observacion: this.observaciones,
         detalle: this.divs,

@@ -15,7 +15,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{nombrecontribuyente}}
+              {{ nombrecontribuyente }}
             </p>
           </div>
 
@@ -25,7 +25,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{numero_documento}}
+              {{ numero_documento }}
             </p>
           </div>
 
@@ -55,26 +55,13 @@
 
         <div class="dataInmuebles-container divrow">
           <div class="data-table-container">
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Buscar"
-              hide-details
-              class="input-data-table"
-            ></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
+              class="input-data-table"></v-text-field>
 
-            <v-data-table
-              :headers="headers"
-              :items="estadoCuentasData"
-              :items-per-page="10"
-              :search="search"
+            <v-data-table :headers="headers" :items="estadoCuentasData" :items-per-page="10" :search="search"
               :footer-props="{
                 itemsPerPageText: 'Items por página',
-              }"
-              sort-by="codigo"
-              class="mytabla"
-              mobile-breakpoint="840"
-            >
+              }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
               <template #[`item.actions`]="{ item }">
                 <v-btn class="btn-liquidar" @click="getEstadoDetalles(item)">
                   <v-icon>mdi-file-check</v-icon>
@@ -86,89 +73,79 @@
       </div>
     </section>
 
-    <v-dialog 
-      v-model="openDialog" 
-      transition="dialog-bottom-transition"
-      fullscreenn
-      scrollable
-      hide-overlay
-      persistent
-      content-class="dialog-liquidacion"
-      >
+    <v-dialog v-model="openDialog" transition="dialog-bottom-transition" fullscreenn scrollable hide-overlay persistent
+      content-class="dialog-liquidacion">
       <div class="div-dialog">
         <section class="section1-descripcion-inmueble">
-        <div class="creacion-container">
-          <div class="divrow jspace" style="width:100%;">
-            <p class="title-inscripcion-inmueble">
-              Creación de pre-factura
-            </p>
-
-            <span class="title-inscripcion-inmueble">
-              Tasa BCV: {{ montoBCV }}
-            </span>
-          </div>
-
-          <hr>
-
-          <div class="container-creacion-datos">
-
-
-            <div class="title-description-div">
-              <p class="nombre-razon">
-                Fecha
+          <div class="creacion-container">
+            <div class="divrow jspace" style="width:100%;">
+              <p class="title-inscripcion-inmueble">
+                Creación de pre-factura
               </p>
 
-              <p class="nombre-desc">
-                {{ obtenerFechaActual() }}
-              </p>
+              <span class="title-inscripcion-inmueble">
+                Tasa BCV: {{ montoBCV }}
+              </span>
             </div>
 
-            <div class="title-description-div">
-              <p class="nombre-razon">
-                Propietario
+            <hr>
+
+            <div class="container-creacion-datos">
+
+
+              <div class="title-description-div">
+                <p class="nombre-razon">
+                  Fecha
+                </p>
+
+                <p class="nombre-desc">
+                  {{ obtenerFechaActual() }}
+                </p>
+              </div>
+
+              <div class="title-description-div">
+                <p class="nombre-razon">
+                  Propietario
+                </p>
+
+                <p class="nombre-desc">
+                  {{ nombrecontribuyente }}
+                </p>
+              </div>
+
+              <div class="title-description-div">
+                <p class="nombre-razon">
+                  CI / RIF / Pasaporte
+                </p>
+
+                <p class="nombre-desc">
+                  {{ nacionalidadcontribuyente }} - {{ numero_documento }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="observaciones-container">
+            <div class="jspace center" style="width: 100%; margin-bottom: 0px;">
+              <p class="title-observaciones">
+                Observaciones
               </p>
 
-              <p class="nombre-desc">
-                {{ nombrecontribuyente }}
-              </p>
+              <v-btn class="btn-mas" v-if="show_observaciones != true" @click="show_observaciones = true">
+                +
+              </v-btn>
+
+              <v-btn class="btn-mas" v-if="show_observaciones === true" @click="show_observaciones = false">
+                -
+              </v-btn>
             </div>
 
-            <div class="title-description-div">
-              <p class="nombre-razon">
-                CI / RIF / Pasaporte
-              </p>
+            <hr>
 
-              <p class="nombre-desc">
-                {{ nacionalidadcontribuyente }} - {{ numero_documento }}
-              </p>
+            <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
+              <v-textarea class="textarea" v-model="selectedItem.observaciones"></v-textarea>
             </div>
           </div>
-        </div>
-
-        <div class="observaciones-container">
-          <div class="jspace center" style="width: 100%; margin-bottom: 0px;">
-            <p class="title-observaciones">
-              Observaciones
-            </p>
-
-            <v-btn class="btn-mas" v-if="show_observaciones != true" @click="show_observaciones = true">
-              +
-            </v-btn>
-
-            <v-btn class="btn-mas" v-if="show_observaciones === true " @click="show_observaciones = false">
-              -
-            </v-btn>
-          </div>
-
-          <hr>
-
-          <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
-            <v-textarea
-            class="textarea"
-            v-model="selectedItem.observaciones"
-            ></v-textarea>
-          </div>
-        </div>        
         </section>
 
         <section class="section2-inscripcion-inmueble">
@@ -187,39 +164,21 @@
               +
             </v-btn>
 
-            <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
-              <v-autocomplete
-              v-model="div.tasamulta"
-              class="big-autocomplete mobile-inputs"
-              label="Tasa / Multa"
-              :items="tasaMultaData"
-              item-text="descripcion"
-              item-value="id"
-              @change="selectedField(index)"
-              ></v-autocomplete>
+            <div v-for="(div, index) in divs" :key="index" class="solicitud-inputs-container">
+              <v-autocomplete v-model="div.tasamulta" class="big-autocomplete mobile-inputs" label="Tasa / Multa"
+                :items="tasaMultaData" item-text="descripcion" item-value="id"
+                @change="selectedField(index)"></v-autocomplete>
 
-              <v-text-field
-              class="small-input mobile-inputs"
-              label="Monto UT"
-              readonly
-              v-model="div.monto_unidad_tributaria"
-              ></v-text-field>
+              <v-text-field class="small-input mobile-inputs" label="Monto UT" readonly
+                v-model="div.monto_unidad_tributaria"></v-text-field>
 
-              <v-text-field
-              v-model="div.cantidad"
-              class="small-input mobile-inputs"
-              label="Cantidad"
-              @input="multiplicarValor(index)"
-              ></v-text-field>
+              <v-text-field v-model="div.cantidad" class="small-input mobile-inputs" label="Cantidad"
+                @input="multiplicarValor(index)"></v-text-field>
 
-              <v-text-field
-              v-model="div.monto_tasa"
-              class="small-input mobile-inputs"
-              label="Total"
-              readonly
-              ></v-text-field>
+              <v-text-field v-model="div.monto_tasa" class="small-input mobile-inputs" label="Total"
+                readonly></v-text-field>
 
-              <v-btn class="btns-add-remove"  @click="removeDiv(index)">
+              <v-btn class="btns-add-remove" @click="removeDiv(index)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </div>
@@ -253,26 +212,27 @@ export default {
   name: "LiquidacionPage",
   mixins: [computeds],
   data() {
-    return{
-      search:'',
-      correlativoData:[],
-      bcvData:[],
+    return {
+      search: '',
+      correlativoData: [],
+      bcvData: [],
       openDialog: false,
-      divs:[],
+      divs: [],
       estadoCuentasData: [],
-      tasaMultaData:[],
+      tasaMultaData: [],
       headers: [
-        { text: '#Nro', align: 'center', value: 'numero',},
-        { text: 'Tipo de Flujo', value: 'tipoflujo.descripcion', align:'center' },
-        { text: 'Fecha', value: 'fecha', align:'center' },
-        { text: 'Total', value: 'monto_total', align:'center' },
-        { text: '', value: 'actions', sortable: false, align:'center' },
+        { text: '#Nro', align: 'center', value: 'numero', },
+        { text: 'Tipo de Flujo', value: 'tipoflujo.descripcion', align: 'center' },
+        { text: 'Dias', value: 'tipoflujo.vencimiento', align: 'center' },
+        { text: 'Fecha', value: 'fecha', align: 'center' },
+        { text: 'Total', value: 'monto_total', align: 'center' },
+        { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
 
       show_observaciones: false,
-      nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
-      nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
-      numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
+      nombrecontribuyente: this.$store.getters.getContribuyente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
+      nacionalidadcontribuyente: this.$store.getters.getContribuyente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
+      numero_documento: this.$store.getters.getContribuyente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
       Correlativo: 0,
       Id: 0,
 
@@ -286,7 +246,7 @@ export default {
     }
   },
 
-  mounted(){
+  mounted() {
     this.redireccionIdVacio()
     this.getEstadosCuentas()
     this.getBCV()
@@ -294,7 +254,7 @@ export default {
     this.getTasaMulta()
   },
 
-  computed:{
+  computed: {
     fechaFormateada() {
       if (moment(this.estadoCuentasData.fecha).isValid()) {
         return moment(this.estadoCuentasData.fecha).format('YYYY-MM-DD')
@@ -304,11 +264,11 @@ export default {
   },
 
   methods: {
-    redireccionIdVacio(){
-      if(this.$store.getters.getContribuyente=='Sin Seleccionar'){
+    redireccionIdVacio() {
+      if (this.$store.getters.getContribuyente == 'Sin Seleccionar') {
         this.$router.push('modificar-datos')
-        this.$alert("cancel", {desc: "Debe seleccionar un contribuyente para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
-      }else{
+        this.$alert("cancel", { desc: "Debe seleccionar un contribuyente para ingresar a este módulo", hash: 'knsddcssdc', title: 'Error' })
+      } else {
         ''
       }
     },
@@ -328,7 +288,7 @@ export default {
       }
     },
 
-    getTasaMulta(){
+    getTasaMulta() {
       this.$axios.$get('tasamulta').then(response => {
         this.tasaMultaData = response
       }).catch(err => {
@@ -336,7 +296,7 @@ export default {
       })
     },
 
-    createLiquidacion(){
+    createLiquidacion() {
       const data = {
         estadocuenta: this.selectedItem.id,
         inmueble: this.selectedItem.inmueble == null ? null : this.selectedItem.inmueble.id,
@@ -348,13 +308,14 @@ export default {
       }
       this.$axios.$post('crearliquidacion/', data).then(res => {
         console.log(res)
-        this.Correlativo=res.documento
-        this.Id=res.id
-        console.log('this.divs',this.divs)
+        this.Correlativo = res.documento
+        this.IdEdoCuenta = res.idedocuenta
+        this.Id = res.id
+        console.log('this.divs', this.divs)
         this.generarPDF()
         this.$router.push('modificar-datos')
-        this.$alert("success", {desc: "Se ha creado una pre-factura con éxito", hash: 'knsddcssdc', title:'Creado'}) 
-      }).catch(err =>{
+        this.$alert("success", { desc: "Se ha creado una pre-factura con éxito", hash: 'knsddcssdc', title: 'Creado' })
+      }).catch(err => {
         console.log(err)
       })
     },
@@ -367,7 +328,7 @@ export default {
       return `${dia}/${mes}/${anio}`;
     },
 
-    getCorrelativo(){
+    getCorrelativo() {
       this.$axios.$get('correlativo').then(response => {
         this.correlativoData = response
         this.numeroCorrelativo = this.correlativoData[0].NumeroEstadoCuenta
@@ -378,11 +339,11 @@ export default {
 
     getBCV() {
       this.$axios.$get('tasabcv').then(response => {
-          this.bcvData = response
-          this.montoBCV = this.bcvData[0].monto
-        }).catch(err => {
-          console.log(err)
-        })
+        this.bcvData = response
+        this.montoBCV = this.bcvData[0].monto
+      }).catch(err => {
+        console.log(err)
+      })
     },
 
     montoTotal() {
@@ -395,9 +356,9 @@ export default {
       return total.toFixed(2)
     },
 
-    addDiv(){
-      this.divs.push({cantidad: 1, monto_tasa: 0});
-    },  
+    addDiv() {
+      this.divs.push({ cantidad: 1, monto_tasa: 0 });
+    },
 
     removeDiv(index) {
       this.divs.splice(index, 1);
@@ -451,74 +412,74 @@ export default {
       const img2 = new Image();
       img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
 
-      let startY = 60 ;
-    
-        // Establecer el tamaño de fuente para el encabezado de la tabla
+      let startY = 60;
+
+      // Establecer el tamaño de fuente para el encabezado de la tabla
       const fontSizeTitle = 15; // Tamaño de fuente para el encabezado
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
       const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
       //let pageHeight = pdf.internal.pageSize.height;
-      
-      
+
+
       pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
       pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
-      pdf.setFontSize(fontSizeHead);  
+      pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE CONTROL. ${this.Correlativo}`, null, null, 'right');
       pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(fontSizeHead+2); 
+      pdf.setFontSize(fontSizeHead + 2);
       pdf.text(100, 20, 'REPÚBLICA BOLIVARIANA DE VENEZUELA', null, null, 'center');
       pdf.text(100, 25, 'ESTADO CARABOBO', null, null, 'center');
       pdf.text(100, 30, 'ALCALDÍA DEL MUNICIPIO NAGUANAGUA', null, null, 'center');
       pdf.text(100, 35, 'DIRECCIÓN DE HACIENDA', null, null, 'center');
-      pdf.setFontSize(fontSizeHead); 
+      pdf.setFontSize(fontSizeHead);
       pdf.text(200, 50, `FECHA DE IMPRESIÓN: ${fechaConHora}`, null, null, 'right');
-      pdf.text(200, 55, `ESTADO DE CUENTA: ${this.Id}`, null, null, 'right');
+      pdf.text(200, 55, `ESTADO DE CUENTA: ${this.IdEdoCuenta}`, null, null, 'right');
 
 
 
       pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(fontSizeTitle); 
+      pdf.setFontSize(fontSizeTitle);
       pdf.text(100, 45, 'PRE-FACTURA', null, null, 'center');
-      pdf.setFontSize(fontSizeHead); 
+      pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "normal");
-    
+
       pdf.setDrawColor(0); // Color de línea (negro en este caso)
       pdf.setLineWidth(0.5); // Ancho de la línea (1 en este caso)
       pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
-      startY=startY+5
+      startY = startY + 5
       pdf.text('R.I.F.:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)), 55, startY);
       pdf.setFont("helvetica", "normal");
-      startY=startY+5
+      startY = startY + 5
       pdf.text('NOMBRE/RAZÓN SOCIAL: ', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)), 55, startY);
       pdf.setFont("helvetica", "normal");
-      startY=startY+5
+      startY = startY + 5
       pdf.text('DIRECCIÓN: ', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.direccion)), 55, startY);
       pdf.setFont("helvetica", "normal");
-      startY=startY+5
+      startY = startY + 5
       pdf.text('TELÉFONO:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.telefono_principal)), 55, startY);
-      pdf.setFont("helvetica", "normal");     
-      startY=startY+5
+      pdf.setFont("helvetica", "normal");
+      startY = startY + 5
       pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
-      startY=startY+5
+      startY = startY + 5
       pdf.text('OBSERVACIONES:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '', 55, startY);
-      pdf.setFont("helvetica", "normal");  
-      startY=startY+10 
+      pdf.setFont("helvetica", "normal");
+      startY = startY + 10
       pdf.text('SERVICIO O TRÁMITE:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(this.selectedItem.tipoflujo.descripcion, 55, startY);
       pdf.setFont("helvetica", "normal");
-      startY=startY+5
+      startY = startY + 5
 
       pdf.setFontSize(fontSizeHead); // Establecer el tamaño de fuente solo para esta línea
 
@@ -536,9 +497,9 @@ export default {
         },
       };
 
-      const columns = ['tipo','Descripción', 'Petro', 'Cantidad', 'Monto Bs'];
+      const columns = ['tipo', 'Descripción', 'Petro', 'Cantidad', 'Monto Bs'];
       const data = this.divs.map((item) => [
-        tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).tipo], 
+        tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).tipo],
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,
         item.monto_unidad_tributaria,
         item.cantidad,
@@ -547,48 +508,48 @@ export default {
 
       pdf.autoTable(columns, data, options);
 
-/*
-      console.log('this.divs pdf',this.divs)
-      console.log('this.tasaMultaData pdf',this.tasaMultaData)
-      pdf.autoTable({
-          head: [[ 'Descripción','Petro', 'Cantidad', 'Monto Bs' ]],
-          body: this.divs.map(item => [
-            this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,
-            item.monto_unidad_tributaria,
-            item.cantidad,
-            item.calculo
-            
-          ]),
-          startY: startY + 2,
-          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
-          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-
-        });
-
- */
-        startY += 10 + this.divs.length * 7;
-        startY=startY+10
-
-        pdf.text('MONTO A CANCELAR (BS.):', 15, startY);
-        pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(fontSizeTitle); 
-        pdf.text(this.montoTotal(), 55, startY);
-        pdf.setFontSize(fontSizeHead); 
-        pdf.setFont("helvetica", "normal");
-
-        startY=startY+10
-        pdf.text('Contribuyente_________________________________________', 15, startY);
-        startY=startY+10
-        pdf.text('C.I._________________________________________________', 15, startY);
-        startY=startY+10
-        pdf.text('Firma_______________________________________________', 15, startY);
-        pdf.text('SELLO___________________________', 140, startY);
-        startY=startY+10
-        pdf.text('Fecha______________________________________________', 15, startY);
-        startY=startY+5
-        
+      /*
+            console.log('this.divs pdf',this.divs)
+            console.log('this.tasaMultaData pdf',this.tasaMultaData)
+            pdf.autoTable({
+                head: [[ 'Descripción','Petro', 'Cantidad', 'Monto Bs' ]],
+                body: this.divs.map(item => [
+                  this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,
+                  item.monto_unidad_tributaria,
+                  item.cantidad,
+                  item.calculo
+                  
+                ]),
+                startY: startY + 2,
+                styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
+                headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
       
-     
+              });
+      
+       */
+      startY += 10 + this.divs.length * 7;
+      startY = startY + 10
+
+      pdf.text('MONTO A CANCELAR (BS.):', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(fontSizeTitle);
+      pdf.text(this.montoTotal(), 55, startY);
+      pdf.setFontSize(fontSizeHead);
+      pdf.setFont("helvetica", "normal");
+
+      startY = startY + 10
+      pdf.text('Contribuyente_________________________________________', 15, startY);
+      startY = startY + 10
+      pdf.text('C.I._________________________________________________', 15, startY);
+      startY = startY + 10
+      pdf.text('Firma_______________________________________________', 15, startY);
+      pdf.text('SELLO___________________________', 140, startY);
+      startY = startY + 10
+      pdf.text('Fecha______________________________________________', 15, startY);
+      startY = startY + 5
+
+
+
       pdf.save(`PreFactura-Nro-${this.Correlativo}.pdf`);
 
     },
@@ -596,30 +557,45 @@ export default {
 
     getEstadoDetalles(item) {
       this.selectedItem = item
+      const fechaActual = new Date();
+      fechaActual.setHours(0, 0, 0, 0); // Establece la hora en 00:00:00
 
-      this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${item.id}`).then(response => {
-          this.divs = response
-          console.log(this.divs,'jolaaa')
-          this.openDialog = true
+      this.$axios.$get(`estadocuenta/${item.id}`).then(response => {
+        this.idEstadoCuenta = response
+        console.log('this.idEstadoCuenta',this.idEstadoCuenta)
+        console.log('this.idEstadoCuenta.tipoflujo.vencimiento',this.idEstadoCuenta.tipoflujo.vencimiento)
+        console.log('this.idEstadoCuenta.fecha',this.idEstadoCuenta.fecha)
+        console.log((this.sumarDiasHabiles(this.idEstadoCuenta.fecha,this.idEstadoCuenta.tipoflujo.vencimiento))>= (fechaActual),
+        (this.sumarDiasHabiles(this.idEstadoCuenta.fecha,this.idEstadoCuenta.tipoflujo.vencimiento)),(fechaActual))
+        if((this.sumarDiasHabiles(this.idEstadoCuenta.fecha,this.idEstadoCuenta.tipoflujo.vencimiento))>= (fechaActual)){
+          this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${item.id}`).then(response => {
+            this.divs = response
+            console.log(this.divs, 'jolaaa')
+            this.openDialog = true
 
-        }).catch(error => {
-          console.error(error);
-        })
+          }).catch(error => {
+            console.error(error);
+          })            
+        }else{
+          this.$alert("cancel", { desc: "Estado de cuenta vencido", hash: 'knsddcssdc', title: 'Error' })
 
-        this.$axios.$get(`estadocuenta/${item.id}`).then(response => {
-          this.idEstadoCuenta = response
-          console.log(this.idEstadoCuenta,'idddddddd')
+        }        
 
-        }).catch(error => {
-          console.error(error);
-        })
+
+
+
+
+      }).catch(error => {
+        console.error(error);
+      })
+
     },
 
-    getEstadosCuentas(){
+    getEstadosCuentas() {
       this.$axios.$get('estadocuenta/?habilitado=true&propietario=' + this.$store.getters.getContribuyente.id).then(response => {
         this.estadoCuentasData = response
         console.log(this.estadoCuentasData, 'dataa')
-      
+
       }).catch(err => {
         console.log(err)
       })

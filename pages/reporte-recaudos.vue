@@ -399,6 +399,7 @@ export default {
 
       // Guardar el PDF
       pdf.save('reporte.pdf');
+      
     },
     generarPDF1() {
       const pdf = new jsPDF('p', 'mm', 'letter');
@@ -853,7 +854,14 @@ export default {
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
         pdf.text(80, startY, this.cajasTotalesNotaCredito[caja].total.toFixed(2), null, null, 'right');
       }
-      pdf.save(`Cuadre detallado de caja a la fecha  ${this.fechaFiltro}.pdf`);
+      const nombreArchivoPDF = `Cuadre detallado de caja a la fecha ${this.fechaFiltro}.pdf`;
+
+      pdf.save(nombreArchivoPDF);
+      
+      //const newWindow = window.open();
+      //newWindow.document.open();
+      //newWindow.document.write('<iframe width="100%" height="100%" src="${nombreArchivoPDF}"></iframe>');
+      //newWindow.document.close();
 
     },
     imprime(){

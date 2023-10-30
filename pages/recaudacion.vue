@@ -198,7 +198,7 @@
               </p>
 
               <p class="solicitud-title">
-                Total pagado: {{ montoTotal() }}
+                Total pagado: {{ montoTotal() }}  {{ MensajeNotaCredito }}
               </p>
             </div>
 
@@ -214,7 +214,6 @@
               :items="tipoPagoData"
               item-text="descripcion"
               item-value="codigo"
-              @change="getcodigoTipoPago"
               :disabled="div.bloqueado"
               ></v-autocomplete>
 
@@ -251,12 +250,25 @@
               </v-menu>
 
               <v-text-field
+              @click="openDialogMonto"
               v-model="div.monto"
               class="small-input mobile-inputs"
               label="Monto"
               :disabled="div.bloqueado"
               ></v-text-field>
-
+              <v-dialog v-model="dialog" max-width="400px">
+                <v-card>
+                  <v-card-title>
+                    Introduce un valor numérico
+                  </v-card-title>
+                  <v-card-text>
+                    <v-text-field v-model="div.monto" label="Valor Numérico" solo style="font-size: 40px;" inputmode="numeric"></v-text-field>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn @click="saveValue" color="primary">Ok</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
               <v-autocomplete
                 v-model="div.bancocuenta"
                 class="small-input mobile-inputs"
@@ -339,6 +351,7 @@ export default{
       tipoPagoData:[],
       bancoCuentaData:[],
       openDialog: false,
+      dialog: false,
       show_observaciones: false,
       bancoData:["Banesco", "Mercantil", "Provincial"],
       PagoId: null,
@@ -352,7 +365,7 @@ export default{
             nro_aprobacion: '',
             nro_lote: '',
             nro_referencia: '',
-            monto: 0,
+            monto: 1,
           }],
 
       nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
@@ -360,6 +373,8 @@ export default{
       numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
       Correlativo: 0,
       Id: 0,
+      MensajeNotaCredito:'',
+      selectedItem:{},
     }
   },
   head() {
@@ -374,21 +389,30 @@ export default{
     this.getLiquidacionPropietario()
     this.getTipoPago()
     this.getBancoCuenta()
-    //this.getNotaCredito()
   },  
 
   methods: {
+    openDialogMonto() {
+      this.dialog = true;
+    },
+    closeDialog() {
+      this.dialog = false;
+    },
+    saveValue() {
+      // Aquí puedes realizar alguna acción con el valor numérico (this.numero)
+      this.dialog = false;
+    },
     getNotaCredito(){
+      this.divs=[]
       this.$axios.$get('notacredito/?saldo_gt=0&propietario=' + this.$store.getters.getContribuyente.id).then(response => {
-      if (response){
+      if (response[0]){
+        
         this.NotaCreditoData= response[0]
-
+        console.log('entro nc',this.NotaCreditoData)
         this.$alert("success", {desc: "El contribuyente posee la N/C Nro: "+ this.NotaCreditoData.numeronotacredito+" con saldo de Bs. "+
         parseFloat(this.NotaCreditoData.saldo)   , hash: 'knsddcssdc', title:'Nota de crédito.'}) 
 
         console.log(this.NotaCreditoData.saldo , this.selectedItem.monto_total )
-        this.divs=[]
-
         this.divs.push({
             tipopago: 'N',
             fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
@@ -408,7 +432,7 @@ export default{
             nro_aprobacion: '',
             nro_lote: '',
             nro_referencia: '',
-            monto: 0,
+            monto: this.selectedItem.monto_total,
             bloqueado: false,
           });
 
@@ -488,6 +512,10 @@ export default{
       for (const div of this.divs) {
         if (div.monto !== null) {
           total += parseFloat(div.monto)
+
+          if (total>this.selectedItem.monto_total){
+            this.MensajeNotaCredito='Se generará una NOTA DE CREDITO';
+          }
         }
       }
       return total
@@ -508,11 +536,14 @@ export default{
       console.log('ultimoRegistro',ultimoRegistro.tipopago)
       this.valido=false   
 
+      if(this.montoTotal()  == this.selectedItem.monto_total){
+        this.$alert("success", {desc: "El pago está completo.", hash: 'knsddcssdc', title:'Error'})
+      }
       if(this.montoTotal()  < this.selectedItem.monto_total){
         this.valido=true
       }
       if(ultimoRegistro.tipopago==null){
-        this.$alert("success", {desc: "Debe coocar un tipo de pago", hash: 'knsddcssdc', title:'Error'})
+        this.$alert("success", {desc: "Debe colocar un tipo de pago", hash: 'knsddcssdc', title:'Error'})
         this.valido=false 
       }
       if(this.valido) {  
@@ -531,6 +562,21 @@ export default{
 
     removeDiv(index) {
       this.divs.splice(index, 1)
+     if (this.divs.length==0) {
+
+        this.divs.push({
+            tipopago: null,
+            bancocuenta: null,
+            fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
+            nro_aprobacion: '',
+            nro_lote: '',
+            nro_referencia: '',
+            monto: this.selectedItem.monto_total-this.montoTotal(),
+            bloqueado: false,
+          })
+
+     }
+
     },
     sumarDiasHabiles(fechaInicial, nDias) {
       let fecha = new Date(fechaInicial);
@@ -689,7 +735,7 @@ export default{
       const data = this.divs.map((item) => [
         this.tipoPagoData.find((tipopago) => tipopago.codigo === item.tipopago).descripcion,
         item.fechapago,
-        item.tipopago =='E' ? '' : this.bancoCuentaData.find((bancocuenta) => bancocuenta.id === item.bancocuenta).banco_nombre,
+        item.tipopago === 'E' || item.tipopago === 'N' ? '' : this.bancoCuentaData.find((bancocuenta) => bancocuenta.id === item.bancocuenta).banco_nombre,
         item.nro_referencia,
         item.monto,
       ]);
@@ -739,6 +785,10 @@ export default{
       this.diferencia=this.montoTotalSelectedItem-this.montoTotalFunc
 
       if(this.montoTotalSelectedItem !== null && parseFloat(this.montoTotalSelectedItem) <= this.montoTotalFunc){
+
+        if (this.montoTotalFunc>this.montoTotalSelectedItem){
+          this.$alert("success", {desc: "Se creará una NOTA DE CREDITO a favor del contribuyente", hash: 'knsddcssdc', title:'NOTA DE CREDITO'})
+          }
           const data = {
           liquidacion: this.selectedItem.id,
           propietario: this.$store.getters.getContribuyente.id,
@@ -747,21 +797,21 @@ export default{
           monto_cxc: this.montoTotalSelectedItem ,
           caja: this.$store.getters.getUser.caja,
           detalle: this.divs,
-        }
-        this.$axios.$post('crearPago/', data).then(res => {
-          console.log('backend creapago:',res)
-          console.log('data para pdf:',data)
-          this.Correlativo=res.documento
-          this.Id=res.notacredito.notacredito
-          console.log('this.divs',this.divs)
-          console.log('backend Correlativo:',this.Correlativo)
-          console.log('backend notacredito:',this.Id)
-          this.generarPDF()
-          this.$router.push('modificar-datos')
-          this.$alert("success", {desc: "Se ha registrado un pago con éxito", hash: 'knsddcssdc', title:'Creado'}) 
-        }).catch(err =>{
-          console.log(err)
-        })
+          }
+          this.$axios.$post('crearPago/', data).then(res => {
+            console.log('backend creapago:',res)
+            console.log('data para pdf:',data)
+            this.Correlativo=res.documento
+            //this.Id=res.notacredito.notacredito
+            console.log('this.divs',this.divs)
+            console.log('backend Correlativo:',this.Correlativo)
+            //console.log('backend notacredito:',this.Id)
+            this.generarPDF()
+            this.$router.push('modificar-datos')
+            this.$alert("success", {desc: "Se ha registrado un pago con éxito", hash: 'knsddcssdc', title:'Creado'}) 
+          }).catch(err =>{
+            console.log(err)
+          })
       }else{
         this.$alert("success", {desc: 'El pago es menor al total por cobrar.', hash: 'knsddcssdc', title:'Alerta'}) 
       }

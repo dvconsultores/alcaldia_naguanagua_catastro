@@ -72,7 +72,17 @@ export default {
       title,
     }
   },
+  mounted(){
+    this.reset()
+  },
   methods: {
+    reset () {
+      this.$store.dispatch('storeUser', undefined)
+      //this.$store.dispatch('storeContribuyente', undefined)
+      //this.$store.dispatch('storeExpediente', undefined)
+      //this.$store.dispatch('storeFlujo',undefined)
+    },
+
     login () {
       this.isLoading = true; // Mostrar el modal de carga
       this.$axios.$post('signin/', {

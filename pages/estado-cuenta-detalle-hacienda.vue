@@ -8,7 +8,7 @@
           </p>
 
           <span class="title-inscripcion-inmueble">
-            Tasa BCV: {{ montoBCV }}
+            Petro Bs.: {{ montoBCV }}
           </span>
         </div>
 
@@ -516,7 +516,9 @@ export default{
     selectedField(index) {
       const div = this.divs[index]
       const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasa_multa_id)
-      div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria
+      if (tasa_encontrada) {
+        div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria;
+      }
 
       this.multiplicarValor(index)
     },
