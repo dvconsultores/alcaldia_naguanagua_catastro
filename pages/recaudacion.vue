@@ -14,9 +14,7 @@
           </span>
         </div>
 
-        <div
-        class="absolute-line"
-        ></div>
+        <div class="absolute-line"></div>
 
         <div class="container-datos-contribuyente">
           <div class="title-description-div">
@@ -25,7 +23,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{nombrecontribuyente}}
+              {{ nombrecontribuyente }}
             </p>
           </div>
 
@@ -35,7 +33,7 @@
             </p>
 
             <p class="nombre-desc">
-              {{nacionalidadcontribuyente}} - {{numero_documento}}
+              {{ nacionalidadcontribuyente }} - {{ numero_documento }}
             </p>
           </div>
         </div>
@@ -58,26 +56,12 @@
 
         <div class="data-liquidacion-container divrow">
           <div class="data-table-container">
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Buscar"
-              hide-details
-              class="input-data-table"
-            ></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
+              class="input-data-table"></v-text-field>
 
-            <v-data-table
-              :headers="headers"
-              :items="liquidacionData"
-              :items-per-page="10"
-              :search="search"
-              :footer-props="{
-                itemsPerPageText: 'Items por página',
-              }"
-              sort-by="codigo"
-              class="mytabla"
-              mobile-breakpoint="840"
-            >
+            <v-data-table :headers="headers" :items="liquidacionData" :items-per-page="10" :search="search" :footer-props="{
+              itemsPerPageText: 'Items por página',
+            }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
               <template #[`item.actions`]="{ item }">
                 <v-btn class="btn-liquidar" @click="getLiquidacionId(item)">
                   <v-icon>mdi-cash-check</v-icon>
@@ -88,14 +72,9 @@
         </div>
       </div>
     </section>
-    
-    <v-dialog 
-      v-model="openDialog" 
-      transition="dialog-bottom-transition"
-      fullscreen
-      scrollable
-      content-class="dialog-recaudacion"
-      >
+
+    <v-dialog v-model="openDialog" transition="dialog-bottom-transition" fullscreen scrollable
+      content-class="dialog-recaudacion">
       <div class="div-dialog">
         <section class="section1-descripcion-inmueble">
           <div class="propietario-container">
@@ -108,7 +87,7 @@
                 </p>
 
                 <p class="nombre-desc">
-                  {{nombrecontribuyente}}
+                  {{ nombrecontribuyente }}
                 </p>
               </div>
 
@@ -118,7 +97,7 @@
                 </p>
 
                 <p class="nombre-desc">
-                  {{nacionalidadcontribuyente}} - {{numero_documento}}
+                  {{ nacionalidadcontribuyente }} - {{ numero_documento }}
                 </p>
               </div>
             </div>
@@ -134,7 +113,7 @@
                 +
               </v-btn>
 
-              <v-btn class="btn-mas" v-if="show_observaciones === true " @click="show_observaciones = false">
+              <v-btn class="btn-mas" v-if="show_observaciones === true" @click="show_observaciones = false">
                 -
               </v-btn>
             </div>
@@ -142,10 +121,7 @@
             <hr>
 
             <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
-              <v-textarea
-              class="textarea"
-              v-model="selectedItem.observaciones"
-              ></v-textarea>
+              <v-textarea class="textarea" v-model="selectedItem.observaciones"></v-textarea>
             </div>
           </div>
 
@@ -155,39 +131,25 @@
                 Documento a cancelar
               </p>
 
-              <p v-if="selectedItem && selectedItem.monto_total" class="impuestos-title" style="--fw: 500; font-size: 16px;">
+              <p v-if="selectedItem && selectedItem.monto_total" class="impuestos-title"
+                style="--fw: 500; font-size: 16px;">
                 Total: {{ selectedItem.monto_total }}
               </p>
             </div>
 
-            <div v-if="selectedItem && selectedItem.numero && selectedItem.tipoflujo.descripcion && selectedItem.fecha && selectedItem.monto_total" class="solicitud-inputs-container">
-              <v-text-field
-              v-model="selectedItem.numero"
-              class="small-input"
-              label="# Liquidación"
-              :readonly="true"
-              ></v-text-field>
+            <div
+              v-if="selectedItem && selectedItem.numero && selectedItem.tipoflujo.descripcion && selectedItem.fecha && selectedItem.monto_total"
+              class="solicitud-inputs-container">
+              <v-text-field v-model="selectedItem.numero" class="small-input" label="# Liquidación"
+                :readonly="true"></v-text-field>
 
-              <v-text-field
-              v-model="selectedItem.tipoflujo.descripcion"
-              class="big-input"
-              label="Concepto"
-              :readonly="true"
-              ></v-text-field>
+              <v-text-field v-model="selectedItem.tipoflujo.descripcion" class="big-input" label="Concepto"
+                :readonly="true"></v-text-field>
 
-              <v-text-field
-              v-model=selectedItem.fecha
-              class="big-input"
-              label="Fecha"
-              :readonly="true"
-              ></v-text-field>
+              <v-text-field v-model=selectedItem.fecha class="big-input" label="Fecha" :readonly="true"></v-text-field>
 
-              <v-text-field
-              v-model="selectedItem.monto_total"
-              class="small-input"
-              label="Monto Total"
-              :readonly="true"
-              ></v-text-field>
+              <v-text-field v-model="selectedItem.monto_total" class="small-input" label="Monto Total"
+                :readonly="true"></v-text-field>
             </div>
           </div>
 
@@ -198,7 +160,7 @@
               </p>
 
               <p class="solicitud-title">
-                Total pagado: {{ montoTotal() }}  {{ MensajeNotaCredito }}
+                Total pagado: {{ montoTotal() }} {{ MensajeNotaCredito }}
               </p>
             </div>
 
@@ -206,102 +168,105 @@
               +
             </v-btn>
 
-            <div v-for="(div,index) in divs" :key="index" class="solicitud-inputs-container">
-              <v-autocomplete
-              v-model="div.tipopago"
-              class="small-input mobile-inputs"
-              label="Tipo de Pago"
-              :items="tipoPagoData"
-              item-text="descripcion"
-              item-value="codigo"
-              :disabled="div.bloqueado"
-              ></v-autocomplete>
+            <div v-for="(div, index) in divs" :key="index" class="solicitud-inputs-container">
+              <v-autocomplete v-model="div.tipopago" class="small-input mobile-inputs" label="Tipo de Pago"
+                :items="tipoPagoData" item-text="descripcion" item-value="codigo" :disabled="div.bloqueado"
+                @change="mostrarVentanaNueva(div.tipopago)"></v-autocomplete>
+
+              <v-dialog v-model="mostrarVentana" max-width="1600px">
+                <v-card id="dialog-editar-crear">
+                  <v-card-title>
+                    <span class="title">TRANSFERENCIAS</span>
+                  </v-card-title>
+
+                  <hr>
+
+                  <v-card-text>
+                    <v-container>
+                      <v-row class="center">
+
+                        <v-col cols="12" sm="6" md="4">
+                          <v-autocomplete v-model="div.bancocuenta" class="small-input mobile-inputs"
+                            :label="div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'P' ? '' : 'Banco'"
+                            :items="bancoCuentaData" item-text="banco_nombre" item-value="id"
+                            :disabled="(div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'P') || div.bloqueado"
+                            @change="filtrarCorridasBancarias(div.bancocuenta)"
+                            ></v-autocomplete>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+
+                    <div class="data-table-container">
+                      <v-text-field v-model="searchTransferencia" append-icon="mdi-magnify" label="Buscar" hide-details
+                        class="input-data-table"></v-text-field>
+                      <v-data-table :headers="headersCorridasBancarias" :items="filtrocorridasbancariasData"
+                        :search="searchTransferencia" :items-per-page="5" :footer-props="{
+                          itemsPerPageText: 'Items por página',
+                        }" sort-by="nombre" class="mytabla" mobile-breakpoint="840">
 
 
+                        | <template #[`item.actions`]="{ item }">
+                          <v-btn class="btn-tabla" @click="div.fechapago=item.fecha;div.monto=item.monto;div.nro_referencia=item.referencia;mostrarVentana = false">
+                            Seleccionar Transferencia
+                          </v-btn>
+                        </template>
+                      </v-data-table>
+                    </div>
+                  </v-card-text>
 
-              <v-menu
-              v-model="menu"
-              :close-on-content-click="false"
-              :nudge-right="5"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-              :disabled="div.bloqueado"
-              >
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="btn dialog-btn" @click="mostrarVentana = false">
+                      Cerrar
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+
+              <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="5" transition="scale-transition"
+                offset-y min-width="auto" :disabled="div.bloqueado">
                 <template #activator="{ on, attrs }">
-                  <v-text-field
-                  v-model="div.fechapago"
-                  class="small-input mobile-inputs"
-                  label="Fecha"
-                  append-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                  ></v-text-field>
+                  <v-text-field v-model="div.fechapago" class="small-input mobile-inputs" label="Fecha"
+                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                 </template>
-                <v-date-picker
-                  v-model="div.fechapago"
-                  label="Fecha"
-                  @input="formatoFecha()"
-                  color="blue"
-                  header-color="#810880"
-                  class="custom-date-picker"
-                ></v-date-picker>
+                <v-date-picker v-model="div.fechapago" label="Fecha" @input="formatoFecha()" color="blue"
+                  header-color="#810880" class="custom-date-picker"></v-date-picker>
               </v-menu>
 
-              <v-text-field
-              @click="openDialogMonto"
-              v-model="div.monto"
-              class="small-input mobile-inputs"
-              label="Monto"
-              :disabled="div.bloqueado"
-              ></v-text-field>
+              <v-text-field @click="openDialogMonto" v-model="div.monto" class="small-input mobile-inputs" label="Monto"
+                :disabled="div.bloqueado"></v-text-field>
               <v-dialog v-model="dialog" max-width="400px">
                 <v-card>
                   <v-card-title>
                     Introduce un valor numérico
                   </v-card-title>
                   <v-card-text>
-                    <v-text-field v-model="div.monto" label="Valor Numérico" solo style="font-size: 40px;" inputmode="numeric"></v-text-field>
+                    <v-text-field v-model="div.monto" label="Valor Numérico" solo style="font-size: 40px;"
+                      inputmode="numeric"></v-text-field>
                   </v-card-text>
                   <v-card-actions>
                     <v-btn @click="saveValue" color="primary">Ok</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-              <v-autocomplete
-                v-model="div.bancocuenta"
-                class="small-input mobile-inputs"
-                :label="div.tipopago !== 'T' && div.tipopago !== 'D'  && div.tipopago!=='P'? '' : 'Banco'"
-                :items="bancoCuentaData"
-                item-text="banco_nombre"
-                item-value="id"
-                :disabled="(div.tipopago!=='T' && div.tipopago!=='D' && div.tipopago!=='P') ||div.bloqueado"
-              ></v-autocomplete>
+              <v-autocomplete v-model="div.bancocuenta" class="small-input mobile-inputs"
+                :label="div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'P' ? '' : 'Banco'"
+                :items="bancoCuentaData" item-text="banco_nombre" item-value="id"
+                :disabled="(div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'P') || div.bloqueado"></v-autocomplete>
 
-              <v-text-field
-              v-model="div.nro_referencia"
-              class="small-input mobile-inputs"
-              :label="div.tipopago !== 'T' && div.tipopago !== 'D'  && div.tipopago!=='N'  && div.tipopago!=='P'? '' : 'Nro. Referencia'"
-              :disabled="(div.tipopago!=='T' && div.tipopago!=='D' && div.tipopago!=='N' && div.tipopago!=='P') ||div.bloqueado"
-              ></v-text-field>
-              <v-text-field
+              <v-text-field v-model="div.nro_referencia" class="small-input mobile-inputs"
+                :label="div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'N' && div.tipopago !== 'P' ? '' : 'Nro. Referencia'"
+                :disabled="(div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'N' && div.tipopago !== 'P') || div.bloqueado"></v-text-field>
+              <v-text-field v-model="div.nro_lote" class="small-input mobile-inputs"
+                :label="div.tipopago !== 'D' ? '' : 'Nro. lote'"
+                :disabled="div.tipopago !== 'D' || div.bloqueado"></v-text-field>
 
-              v-model="div.nro_lote"
-              class="small-input mobile-inputs"
-              :label="div.tipopago!=='D'  ? '' : 'Nro. lote'"
-              :disabled="div.tipopago!=='D' ||div.bloqueado"
-              ></v-text-field>
-
-              <v-text-field
-              v-model="div.nro_aprobacion"
-              class="small-input mobile-inputs"
-              :label="div.tipopago!=='D'  ? '' : 'Nro. aprobación'"
-              :disabled="div.tipopago!=='D' ||div.bloqueado"
-              ></v-text-field> 
+              <v-text-field v-model="div.nro_aprobacion" class="small-input mobile-inputs"
+                :label="div.tipopago !== 'D' ? '' : 'Nro. aprobación'"
+                :disabled="div.tipopago !== 'D' || div.bloqueado"></v-text-field>
 
 
-              <v-btn class="btns-add-remove" :disabled="div.bloqueado" @click="removeDiv(index)"> 
+              <v-btn class="btns-add-remove" :disabled="div.bloqueado" @click="removeDiv(index)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </div>
@@ -322,6 +287,7 @@
         </section>
       </div>
     </v-dialog>
+
   </div>
 </template>
 
@@ -331,50 +297,61 @@ import moment from 'moment'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-export default{
+export default {
   name: "RecaudacionPage",
-  mixins:[computeds],
-  data(){
-    return{
+  mixins: [computeds],
+  data() {
+    return {
       menu: false,
-      search:'',
+      search: '',
+      searchTransferencia: '',
       headers: [
-        { text: '#Nro', align: 'center', value: 'numero',},
-        { text: 'Tipo de Flujo', value: 'tipoflujo.descripcion', align:'center' },
-        { text: 'Fecha', value: 'fecha', align:'center' },
-        { text: 'Total', value: 'monto_total', align:'center' },
-        { text: '', value: 'actions', sortable: false, align:'center' },
+        { text: '#Nro', align: 'center', value: 'numero', },
+        { text: 'Tipo de Flujo', value: 'tipoflujo.descripcion', align: 'center' },
+        { text: 'Fecha', value: 'fecha', align: 'center' },
+        { text: 'Total', value: 'monto_total', align: 'center' },
+        { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
-      liquidacionData:[],
-      liquidacionDetalleData:[],
-      NotaCreditoData:[],
-      tipoPagoData:[],
-      bancoCuentaData:[],
+      headersCorridasBancarias: [
+        { text: 'Fecha', align: 'center', value: 'fecha', },
+        { text: 'referencia', value: 'referencia', align: 'center' },
+        { text: 'Descripción', value: 'descripcion', align: 'center' },
+        { text: 'Monto', value: 'monto', align: 'center' },
+        { text: '', value: 'actions', sortable: false, align: 'center' },
+      ],
+      liquidacionData: [],
+      liquidacionDetalleData: [],
+      NotaCreditoData: [],
+      tipoPagoData: [],
+      bancoCuentaData: [],
+      corridasbancariasData: [],
+      filtrocorridasbancariasData: [],
       openDialog: false,
       dialog: false,
       show_observaciones: false,
-      bancoData:["Banesco", "Mercantil", "Provincial"],
+      bancoData: ["Banesco", "Mercantil", "Provincial"],
       PagoId: null,
-      diferencia:0,
-      valido:false,
+      diferencia: 0,
+      valido: false,
 
-      divs:[{
-            tipopago: null,
-            bancocuenta: null,
-            fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
-            nro_aprobacion: '',
-            nro_lote: '',
-            nro_referencia: '',
-            monto: 1,
-          }],
+      divs: [{
+        tipopago: null,
+        bancocuenta: null,
+        fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
+        nro_aprobacion: '',
+        nro_lote: '',
+        nro_referencia: '',
+        monto: 1,
+      }],
 
-      nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
-      nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
-      numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
+      nombrecontribuyente: this.$store.getters.getContribuyente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
+      nacionalidadcontribuyente: this.$store.getters.getContribuyente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
+      numero_documento: this.$store.getters.getContribuyente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
       Correlativo: 0,
       Id: 0,
-      MensajeNotaCredito:'',
-      selectedItem:{},
+      MensajeNotaCredito: '',
+      selectedItem: {},
+      mostrarVentana: false,
     }
   },
   head() {
@@ -384,14 +361,34 @@ export default{
     }
   },
 
-  mounted(){
+  mounted() {
     this.redireccionIdVacio()
     this.getLiquidacionPropietario()
     this.getTipoPago()
     this.getBancoCuenta()
-  },  
+    this.getCorridasBancarias()
+  },
 
   methods: {
+    filtrarCorridasBancarias(idbancocuenta) {
+    if (idbancocuenta) {
+      this.filtrocorridasbancariasData = this.corridasbancariasData.filter((registro) => {
+        return registro.bancocuenta === idbancocuenta;
+      });
+    } else {
+      this.filtrocorridasbancariasData = this.corridasbancariasData;
+    }
+  },
+    mostrarVentanaNueva(tipopago) {
+      console.log('tipopago', tipopago)
+      // Verifica si "codigo" es igual a "T"
+      if (tipopago === "T") {
+        this.filtrocorridasbancariasData=[]
+        this.mostrarVentana = true;
+      } else {
+        this.mostrarVentana = false;
+      }
+    },
     openDialogMonto() {
       this.dialog = true;
     },
@@ -402,33 +399,35 @@ export default{
       // Aquí puedes realizar alguna acción con el valor numérico (this.numero)
       this.dialog = false;
     },
-    getNotaCredito(){
-      this.divs=[]
+    getNotaCredito() {
+      this.divs = []
       this.$axios.$get('notacredito/?saldo_gt=0&propietario=' + this.$store.getters.getContribuyente.id).then(response => {
-      if (response[0]){
-        
-        this.NotaCreditoData= response[0]
-        console.log('entro nc',this.NotaCreditoData)
-        this.$alert("success", {desc: "El contribuyente posee la N/C Nro: "+ this.NotaCreditoData.numeronotacredito+" con saldo de Bs. "+
-        parseFloat(this.NotaCreditoData.saldo)   , hash: 'knsddcssdc', title:'Nota de crédito.'}) 
+        if (response[0]) {
 
-        console.log(this.NotaCreditoData.saldo , this.selectedItem.monto_total )
-        this.divs.push({
+          this.NotaCreditoData = response[0]
+          console.log('entro nc', this.NotaCreditoData)
+          this.$alert("success", {
+            desc: "El contribuyente posee la N/C Nro: " + this.NotaCreditoData.numeronotacredito + " con saldo de Bs. " +
+              parseFloat(this.NotaCreditoData.saldo), hash: 'knsddcssdc', title: 'Nota de crédito.'
+          })
+
+          console.log(this.NotaCreditoData.saldo, this.selectedItem.monto_total)
+          this.divs.push({
             tipopago: 'N',
-            fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
-            nro_referencia:this.NotaCreditoData.numeronotacredito,
-            monto:  parseFloat(this.NotaCreditoData.saldo) <  parseFloat(this.selectedItem.monto_total) ?  parseFloat(this.NotaCreditoData.saldo) :  parseFloat(this.selectedItem.monto_total) , 
+            fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
+            nro_referencia: this.NotaCreditoData.numeronotacredito,
+            monto: parseFloat(this.NotaCreditoData.saldo) < parseFloat(this.selectedItem.monto_total) ? parseFloat(this.NotaCreditoData.saldo) : parseFloat(this.selectedItem.monto_total),
             bloqueado: true,
             bancocuenta: null,
             nro_aprobacion: '',
             nro_lote: ''
           });
-      }
-      else{
-        this.divs.push({
+        }
+        else {
+          this.divs.push({
             tipopago: null,
             bancocuenta: null,
-            fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
+            fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
             nro_aprobacion: '',
             nro_lote: '',
             nro_referencia: '',
@@ -436,49 +435,57 @@ export default{
             bloqueado: false,
           });
 
-      }
+        }
       }).catch(err => {
         console.log(err)
       })
     },
 
 
-    redireccionIdVacio(){
-      if(this.$store.getters.getContribuyente=='Sin Seleccionar'){
+    redireccionIdVacio() {
+      if (this.$store.getters.getContribuyente == 'Sin Seleccionar') {
         this.$router.push('modificar-datos')
-        this.$alert("cancel", {desc: "Debe seleccionar un contribuyente para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
-      }else{
+        this.$alert("cancel", { desc: "Debe seleccionar un contribuyente para ingresar a este módulo", hash: 'knsddcssdc', title: 'Error' })
+      } else {
         ''
       }
     },
 
-    getLiquidacionPropietario(){
+    getLiquidacionPropietario() {
       this.$axios.$get('liquidacion/?habilitado=true&propietario=' + this.$store.getters.getContribuyente.id).then(response => {
         this.liquidacionData = response
         console.log(this.liquidacionData, 'dataa')
-      
+
       }).catch(err => {
         console.log(err)
       })
     },
+    getCorridasBancarias() {
+      this.$axios.$get('corridasbancarias/?situado=T').then(response => {
+        this.corridasbancariasData = response
+        console.log(this.corridasbancariasData, 'dataa')
 
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     getLiquidacionId(item) {
       this.selectedItem = item
-      console.log('this.selectedItem ',this.selectedItem )
-      if (this.divs.monto==0){
-        this.divs.monto=this.selectedItem.monto_total
+      console.log('this.selectedItem ', this.selectedItem)
+      if (this.divs.monto == 0) {
+        this.divs.monto = this.selectedItem.monto_total
       }
 
       this.$axios.$get(`liquidacion/${item.id}`).then(response => {
         this.liquidacionIdData = response
-        console.log(this.liquidacionIdData,'ID Liquidacion')
+        console.log(this.liquidacionIdData, 'ID Liquidacion')
         this.openDialog = true
         this.getNotaCredito()
 
 
         this.$axios.$get(`liquidaciondetalle/?liquidacion_id=${this.liquidacionIdData.id}`).then(response => {
           this.liquidacionDetalleData = response
-          console.log('liquidacionDetalleData',this.liquidacionDetalleData)
+          console.log('liquidacionDetalleData', this.liquidacionDetalleData)
           this.getTasaMulta()
 
         }).catch(error => {
@@ -491,7 +498,7 @@ export default{
       })
     },
 
-    getTipoPago(){
+    getTipoPago() {
       this.$axios.$get('tipopago').then(response => {
         this.tipoPagoData = response
       }).catch(error => {
@@ -499,7 +506,7 @@ export default{
       })
     },
 
-    getBancoCuenta(){
+    getBancoCuenta() {
       this.$axios.$get('bancocuenta').then(response => {
         this.bancoCuentaData = response
       }).catch(error => {
@@ -513,15 +520,15 @@ export default{
         if (div.monto !== null) {
           total += parseFloat(div.monto)
 
-          if (total>this.selectedItem.monto_total){
-            this.MensajeNotaCredito='Se generará una NOTA DE CREDITO';
+          if (total > this.selectedItem.monto_total) {
+            this.MensajeNotaCredito = 'Se generará una NOTA DE CREDITO';
           }
         }
       }
       return total
     },
 
-    getTasaMulta(){
+    getTasaMulta() {
       this.$axios.$get('tasamulta').then(response => {
         this.tasaMultaData = response
       }).catch(err => {
@@ -529,53 +536,53 @@ export default{
       })
     },
 
-    addDiv(){
-      console.log('lelele',this.selectedItem.monto_total , this.montoTotal())
+    addDiv() {
+      console.log('lelele', this.selectedItem.monto_total, this.montoTotal())
       const ultimoRegistro = this.divs[this.divs.length - 1]; // Obtener el último registro
 
-      console.log('ultimoRegistro',ultimoRegistro.tipopago)
-      this.valido=false   
+      console.log('ultimoRegistro', ultimoRegistro.tipopago)
+      this.valido = false
 
-      if(this.montoTotal()  == this.selectedItem.monto_total){
-        this.$alert("success", {desc: "El pago está completo.", hash: 'knsddcssdc', title:'Error'})
+      if (this.montoTotal() == this.selectedItem.monto_total) {
+        this.$alert("success", { desc: "El pago está completo.", hash: 'knsddcssdc', title: 'Error' })
       }
-      if(this.montoTotal()  < this.selectedItem.monto_total){
-        this.valido=true
+      if (this.montoTotal() < this.selectedItem.monto_total) {
+        this.valido = true
       }
-      if(ultimoRegistro.tipopago==null){
-        this.$alert("success", {desc: "Debe colocar un tipo de pago", hash: 'knsddcssdc', title:'Error'})
-        this.valido=false 
+      if (ultimoRegistro.tipopago == null) {
+        this.$alert("success", { desc: "Debe colocar un tipo de pago", hash: 'knsddcssdc', title: 'Error' })
+        this.valido = false
       }
-      if(this.valido) {  
+      if (this.valido) {
         this.divs.push({
           tipopago: null,
           bancocuenta: null,
-          fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
+          fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
           nro_aprobacion: '',
           nro_lote: '',
           nro_referencia: '',
-          monto: this.selectedItem.monto_total-this.montoTotal(),
+          monto: this.selectedItem.monto_total - this.montoTotal(),
           bloqueado: false,
         })
       }
-    },  
+    },
 
     removeDiv(index) {
       this.divs.splice(index, 1)
-     if (this.divs.length==0) {
+      if (this.divs.length == 0) {
 
         this.divs.push({
-            tipopago: null,
-            bancocuenta: null,
-            fechapago: new Date().toISOString().substr(0, 10) ,// Formato ISO para la fecha
-            nro_aprobacion: '',
-            nro_lote: '',
-            nro_referencia: '',
-            monto: this.selectedItem.monto_total-this.montoTotal(),
-            bloqueado: false,
-          })
+          tipopago: null,
+          bancocuenta: null,
+          fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
+          nro_aprobacion: '',
+          nro_lote: '',
+          nro_referencia: '',
+          monto: this.selectedItem.monto_total - this.montoTotal(),
+          bloqueado: false,
+        })
 
-     }
+      }
 
     },
     sumarDiasHabiles(fechaInicial, nDias) {
@@ -623,71 +630,71 @@ export default{
       const img2 = new Image();
       img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
 
-      let startY = 55 ;
-    
-        // Establecer el tamaño de fuente para el encabezado de la tabla
+      let startY = 55;
+
+      // Establecer el tamaño de fuente para el encabezado de la tabla
       const fontSizeTitle = 15; // Tamaño de fuente para el encabezado
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
       const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
       //let pageHeight = pdf.internal.pageSize.height;
-      
-      
+
+
       pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
       pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
-      pdf.setFontSize(fontSizeHead);  
+      pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE PLANILLA. ${this.Correlativo}`, null, null, 'right');
       pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(fontSizeHead+2); 
+      pdf.setFontSize(fontSizeHead + 2);
       pdf.text(100, 20, 'REPÚBLICA BOLIVARIANA DE VENEZUELA', null, null, 'center');
       pdf.text(100, 25, 'ESTADO CARABOBO', null, null, 'center');
       pdf.text(100, 30, 'ALCALDÍA DEL MUNICIPIO NAGUANAGUA', null, null, 'center');
       pdf.text(100, 35, 'R.I.F.: G-20004231-1', null, null, 'center');
-      pdf.setFontSize(fontSizeHead); 
+      pdf.setFontSize(fontSizeHead);
       pdf.text(200, 50, `FECHA DE IMPRESIÓN: ${fechaConHora}`, null, null, 'right');
 
       pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(fontSizeTitle); 
+      pdf.setFontSize(fontSizeTitle);
       pdf.text(100, 45, 'PLANILLA', null, null, 'center');
-      pdf.setFontSize(fontSizeHead); 
+      pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "normal");
-    
+
       pdf.setDrawColor(0); // Color de línea (negro en este caso)
       pdf.setLineWidth(0.5); // Ancho de la línea (1 en este caso)
       pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
-      startY=startY+5
+      startY = startY + 5
       pdf.text('R.I.F.:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)), 55, startY);
       pdf.setFont("helvetica", "normal");
-      startY=startY+5
+      startY = startY + 5
       pdf.text('NOMBRE/RAZÓN SOCIAL: ', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)), 55, startY);
       pdf.setFont("helvetica", "normal");
-      startY=startY+5
+      startY = startY + 5
       pdf.text('DIRECCIÓN: ', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.direccion)), 55, startY);
       pdf.setFont("helvetica", "normal");
-      startY=startY+5
+      startY = startY + 5
       pdf.text('TELÉFONO:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.telefono_principal)), 55, startY);
-      pdf.setFont("helvetica", "normal");     
-      startY=startY+5
+      pdf.setFont("helvetica", "normal");
+      startY = startY + 5
       pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
-      startY=startY+5
+      startY = startY + 5
       pdf.text('OBSERVACIONES:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '', 55, startY);
-      pdf.setFont("helvetica", "normal");  
-      startY=startY+10 
+      pdf.setFont("helvetica", "normal");
+      startY = startY + 10
       pdf.text('SERVICIO O TRÁMITE:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(this.liquidacionIdData.tipoflujo.descripcion, 55, startY);
       pdf.setFont("helvetica", "normal");
-      startY=startY+10
+      startY = startY + 10
       pdf.text('Nro. DOCUMENTO:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(this.liquidacionIdData.numero.toString(), 55, startY);
@@ -697,22 +704,22 @@ export default{
 
 
       pdf.autoTable({
-          head: [['tipo','Descripción', 'Petro', 'Cantidad', 'Monto Bs']],
-          body: this.liquidacionDetalleData.map((item) => [
-            tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).tipo], 
-            this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,
-            item.monto_unidad_tributaria,
-            item.cantidad,
-            item.monto_tasa,
-            
-          ]),
-          startY: startY + 2,
-          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
-          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
+        head: [['tipo', 'Descripción', 'Petro', 'Cantidad', 'Monto Bs']],
+        body: this.liquidacionDetalleData.map((item) => [
+          tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).tipo],
+          this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,
+          item.monto_unidad_tributaria,
+          item.cantidad,
+          item.monto_tasa,
+
+        ]),
+        startY: startY + 2,
+        styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
+        headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
 
       });
       startY += 10 + this.liquidacionDetalleData.length * 7;
-      startY=startY+5 
+      startY = startY + 5
       pdf.setFont("helvetica", "bold");
       pdf.text('DETALLE DE PAGO:', 15, startY);
       pdf.setFont("helvetica", "normal");
@@ -731,7 +738,7 @@ export default{
         },
       };
 
-      const columns = ['Tipo','Fecha Pago', 'Banco/Cuenta', 'Nro Referencia', 'Monto Bs'];
+      const columns = ['Tipo', 'Fecha Pago', 'Banco/Cuenta', 'Nro Referencia', 'Monto Bs'];
       const data = this.divs.map((item) => [
         this.tipoPagoData.find((tipopago) => tipopago.codigo === item.tipopago).descripcion,
         item.fechapago,
@@ -741,36 +748,65 @@ export default{
       ]);
       pdf.autoTable(columns, data, options);
 
-        startY += 10 + this.divs.length * 7;
-        startY=startY+10
+      startY += 10 + this.divs.length * 7;
+      startY = startY + 10
 
-        pdf.text('MONTO X COBRAR (BS.):', 15, startY);
-        pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(fontSizeTitle); 
-        pdf.text(this.montoTotalSelectedItem.toString(), 55, startY);
-        pdf.setFontSize(fontSizeHead); 
-        pdf.setFont("helvetica", "normal");
-        startY=startY+5
-        pdf.text('MONTO CANCELADO (BS.):', 15, startY);
-        pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(fontSizeTitle); 
-        pdf.text(this.montoTotal().toString(), 55, startY);
-        pdf.setFontSize(fontSizeHead); 
-        pdf.setFont("helvetica", "normal");
-        startY=startY+5
-        pdf.text('FUNCIONARIO:', 15, startY);
-        pdf.setFont("helvetica", "bold");
-        pdf.text(this.$store.getters.getUser.apellido+', '+this.$store.getters.getUser.nombre, 55, startY);
-        pdf.setFont("helvetica", "normal");
-        startY=startY+5
-        pdf.text('NRO. CAJA:', 15, startY);
-        pdf.setFont("helvetica", "bold");
-        pdf.text(this.$store.getters.getUser.caja.toString(), 55, startY);
-        pdf.setFont("helvetica", "normal");
+      pdf.text('MONTO X COBRAR (BS.):', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(fontSizeTitle);
+      pdf.text(this.montoTotalSelectedItem.toString(), 55, startY);
+      pdf.setFontSize(fontSizeHead);
+      pdf.setFont("helvetica", "normal");
+      startY = startY + 5
+      pdf.text('MONTO CANCELADO (BS.):', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(fontSizeTitle);
+      pdf.text(this.montoTotal().toString(), 55, startY);
+      pdf.setFontSize(fontSizeHead);
+      pdf.setFont("helvetica", "normal");
+      startY = startY + 5
+      pdf.text('FUNCIONARIO:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(this.$store.getters.getUser.apellido + ', ' + this.$store.getters.getUser.nombre, 55, startY);
+      pdf.setFont("helvetica", "normal");
+      startY = startY + 5
+      pdf.text('NRO. CAJA:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(this.$store.getters.getUser.caja.toString(), 55, startY);
+      pdf.setFont("helvetica", "normal");
 
       pdf.save(`Planilla-Nro-${this.Correlativo}.pdf`);
 
+      this.uploadPDF(pdf);
     },
+
+    uploadPDF(pdf) {
+      const formData = new FormData();
+      formData.append('ReportePdf', new Blob([pdf.output('blob')], { type: 'application/pdf' }), `Planilla-Nro-${this.Correlativo}.pdf`);
+      this.$axios.$patch(`pagoestadocuenta/${this.Id}/`, formData, {
+        headers: { 'Content-Type': 'application/pdf' },
+      })
+        .then(response => {
+          console.log(response)
+          this.getPDF()
+        })
+        .catch(err => {
+          console.log(err)
+        });
+    },
+    getPDF() {
+      this.$axios
+        .$get(`pagoestadocuenta/${this.Id}/`)
+        .then(response => {
+          console.log('response', response.ReportePdf)
+          const pdfData = response.ReportePdf;
+          window.open(pdfData, "_blank").focus();
+        })
+        .catch(error => {
+          console.error('Error al obtener el PDF:', error);
+        });
+    },
+
     formatoFecha() {
       if (this.fechapago) {
         this.fechaFormateada = moment(this.nuevaFecha).format('YYYY-MM-DD HH:mm:ss')
@@ -778,42 +814,43 @@ export default{
       }
     },
 
-    createPago(){
+    createPago() {
       this.montoTotalSelectedItem = this.selectedItem ? this.selectedItem.monto_total : null
       this.montoTotalSelectedItem = parseFloat(this.montoTotalSelectedItem)
       this.montoTotalFunc = this.montoTotal()
-      this.diferencia=this.montoTotalSelectedItem-this.montoTotalFunc
+      this.diferencia = this.montoTotalSelectedItem - this.montoTotalFunc
 
-      if(this.montoTotalSelectedItem !== null && parseFloat(this.montoTotalSelectedItem) <= this.montoTotalFunc){
+      if (this.montoTotalSelectedItem !== null && parseFloat(this.montoTotalSelectedItem) <= this.montoTotalFunc) {
 
-        if (this.montoTotalFunc>this.montoTotalSelectedItem){
-          this.$alert("success", {desc: "Se creará una NOTA DE CREDITO a favor del contribuyente", hash: 'knsddcssdc', title:'NOTA DE CREDITO'})
-          }
-          const data = {
+        if (this.montoTotalFunc > this.montoTotalSelectedItem) {
+          this.$alert("success", { desc: "Se creará una NOTA DE CREDITO a favor del contribuyente", hash: 'knsddcssdc', title: 'NOTA DE CREDITO' })
+        }
+        const data = {
           liquidacion: this.selectedItem.id,
           propietario: this.$store.getters.getContribuyente.id,
           observacion: this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '',
           monto: this.montoTotal(),
-          monto_cxc: this.montoTotalSelectedItem ,
+          monto_cxc: this.montoTotalSelectedItem,
           caja: this.$store.getters.getUser.caja,
           detalle: this.divs,
-          }
-          this.$axios.$post('crearPago/', data).then(res => {
-            console.log('backend creapago:',res)
-            console.log('data para pdf:',data)
-            this.Correlativo=res.documento
-            //this.Id=res.notacredito.notacredito
-            console.log('this.divs',this.divs)
-            console.log('backend Correlativo:',this.Correlativo)
-            //console.log('backend notacredito:',this.Id)
-            this.generarPDF()
-            this.$router.push('modificar-datos')
-            this.$alert("success", {desc: "Se ha registrado un pago con éxito", hash: 'knsddcssdc', title:'Creado'}) 
-          }).catch(err =>{
-            console.log(err)
-          })
-      }else{
-        this.$alert("success", {desc: 'El pago es menor al total por cobrar.', hash: 'knsddcssdc', title:'Alerta'}) 
+        }
+        this.$axios.$post('crearPago/', data).then(res => {
+          console.log('backend creapago:', res)
+          console.log('data para pdf:', data)
+          this.Correlativo = res.documento
+          this.Id = res.id
+          //this.Id=res.notacredito.notacredito
+          console.log('this.divs', this.divs)
+          console.log('backend Correlativo:', this.Correlativo)
+          //console.log('backend notacredito:',this.Id)
+          this.generarPDF()
+          this.$router.push('modificar-datos')
+          this.$alert("success", { desc: "Se ha registrado un pago con éxito", hash: 'knsddcssdc', title: 'Creado' })
+        }).catch(err => {
+          console.log(err)
+        })
+      } else {
+        this.$alert("success", { desc: 'El pago es menor al total por cobrar.', hash: 'knsddcssdc', title: 'Alerta' })
       }
     },
   }

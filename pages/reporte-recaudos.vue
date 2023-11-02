@@ -103,7 +103,7 @@
         </div>
 
         <div class="data-table-container">
-          <v-btn class="btn dialog-btn" text @click="generarPDF()">Genera reportei</v-btn>
+          <v-btn class="btn dialog-btn" text @click="generarPDF()">Genera reporte</v-btn>
 
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table">
@@ -695,7 +695,7 @@ export default {
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotales) {
-        if (startY + this.cajasTotales[caja].recaudos.length * 10 + 10 > pageHeight) {
+        if (startY + this.cajasTotales[caja].recaudos.length * 7 + 10 > pageHeight) {
           pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
           startY = 10;
         }
@@ -713,7 +713,7 @@ export default {
           headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
 
         });
-        startY += 10 + this.cajasTotales[caja].recaudos.length * 8;
+        startY += 10 + this.cajasTotales[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
         pdf.text(80, startY , this.cajasTotales[caja].total.toFixed(2), null, null, 'right');
       }
@@ -726,7 +726,7 @@ export default {
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotalesDebito) {
-        if (startY + this.cajasTotalesDebito[caja].recaudos.length * 10 + 10 > pageHeight) {
+        if (startY + this.cajasTotalesDebito[caja].recaudos.length * 7 + 10 > pageHeight) {
           pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
           startY = 10;
         }
@@ -762,7 +762,7 @@ export default {
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotalesTransferencia) {
-        if (startY + this.cajasTotalesTransferencia[caja].recaudos.length * 10 + 10 > pageHeight) {
+        if (startY + this.cajasTotalesTransferencia[caja].recaudos.length * 7 + 10 > pageHeight) {
           pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
           startY = 10;
         }
@@ -796,9 +796,9 @@ export default {
         startY = startY+1
         pageHeight = pdf.internal.pageSize.height;
       }
-      
+
       for (const caja in this.cajasTotalesDeposito) {
-        if (startY + this.cajasTotalesDeposito[caja].recaudos.length * 10 + 10 > pageHeight) {
+        if (startY + this.cajasTotalesDeposito[caja].recaudos.length * 7 + 10 > pageHeight) {
           pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
           startY = 10;
         }
@@ -832,7 +832,7 @@ export default {
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotalesNotaCredito) {
-        if (startY + this.cajasTotalesNotaCredito[caja].recaudos.length * 10 + 10 > pageHeight) {
+        if (startY + this.cajasTotalesNotaCredito[caja].recaudos.length * 7 + 10 > pageHeight) {
           pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
           startY = 10;
         }

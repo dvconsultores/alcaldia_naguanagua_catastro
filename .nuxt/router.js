@@ -62,6 +62,7 @@ const _37ad4eed = () => interopDefault(import('../pages/parcela.vue' /* webpackC
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
+const _d47f4554 = () => interopDefault(import('../pages/reporte-corridasbancarias.vue' /* webpackChunkName: "pages/reporte-corridasbancarias" */))
 const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
 const _fe89d8bc = () => interopDefault(import('../pages/reporte-ejemplo1.vue' /* webpackChunkName: "pages/reporte-ejemplo1" */))
 const _f7520a0a = () => interopDefault(import('../pages/reporte-recaudos.vue' /* webpackChunkName: "pages/reporte-recaudos" */))
@@ -84,6 +85,7 @@ const _d948c958 = () => interopDefault(import('../pages/ubicacion.vue' /* webpac
 const _34e7ea4e = () => interopDefault(import('../pages/unidad-inmueble.vue' /* webpackChunkName: "pages/unidad-inmueble" */))
 const _2b3b74aa = () => interopDefault(import('../pages/unidad-tributaria.vue' /* webpackChunkName: "pages/unidad-tributaria" */))
 const _1a165a1b = () => interopDefault(import('../pages/upload-archivo.vue' /* webpackChunkName: "pages/upload-archivo" */))
+const _065529c9 = () => interopDefault(import('../pages/upload-corrida.vue' /* webpackChunkName: "pages/upload-corrida" */))
 const _24993a24 = () => interopDefault(import('../pages/urbanizacion-barrio.vue' /* webpackChunkName: "pages/urbanizacion-barrio" */))
 const _10ef55f4 = () => interopDefault(import('../pages/uso.vue' /* webpackChunkName: "pages/uso" */))
 const _2e486083 = () => interopDefault(import('../pages/zona.vue' /* webpackChunkName: "pages/zona" */))
@@ -334,6 +336,10 @@ export const routerOptions = {
     component: _422c3f54,
     name: "regimen___en"
   }, {
+    path: "/reporte-corridasbancarias",
+    component: _d47f4554,
+    name: "reporte-corridasbancarias___en"
+  }, {
     path: "/reporte-ejemplo",
     component: _0426c21f,
     name: "reporte-ejemplo___en"
@@ -421,6 +427,10 @@ export const routerOptions = {
     path: "/upload-archivo",
     component: _1a165a1b,
     name: "upload-archivo___en"
+  }, {
+    path: "/upload-corrida",
+    component: _065529c9,
+    name: "upload-corrida___en"
   }, {
     path: "/urbanizacion-barrio",
     component: _24993a24,
@@ -662,6 +672,10 @@ export const routerOptions = {
     component: _422c3f54,
     name: "regimen___es"
   }, {
+    path: "/es/reporte-corridasbancarias",
+    component: _d47f4554,
+    name: "reporte-corridasbancarias___es"
+  }, {
     path: "/es/reporte-ejemplo",
     component: _0426c21f,
     name: "reporte-ejemplo___es"
@@ -749,6 +763,10 @@ export const routerOptions = {
     path: "/es/upload-archivo",
     component: _1a165a1b,
     name: "upload-archivo___es"
+  }, {
+    path: "/es/upload-corrida",
+    component: _065529c9,
+    name: "upload-corrida___es"
   }, {
     path: "/es/urbanizacion-barrio",
     component: _24993a24,

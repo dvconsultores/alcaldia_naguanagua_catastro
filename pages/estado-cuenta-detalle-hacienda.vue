@@ -782,6 +782,35 @@ export default{
      
       pdf.save(`EstadoCuenta-Nro-${this.Correlativo}.pdf`);
 
+      this.uploadPDF(pdf);
+
+    },
+
+    uploadPDF(pdf) {
+    const formData = new FormData();
+    formData.append('ReportePdf', new Blob([pdf.output('blob')], { type: 'application/pdf' }), `EstadoCuenta-Nro-${this.Correlativo}.pdf`);
+      this.$axios.$patch(`estadocuenta/${this.Id}/`, formData, {
+        headers: { 'Content-Type': 'application/pdf' },
+      })
+      .then(response => {
+        console.log(response)
+        this.getPDF()
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    getPDF() {
+      this.$axios
+        .$get(`estadocuenta/${this.Id}/`)
+        .then(response => {
+          console.log('response',response.ReportePdf)
+          const pdfData = response.ReportePdf;
+          window.open(pdfData, "_blank").focus();
+        })
+        .catch(error => {
+          console.error('Error al obtener el PDF:', error);
+        });
     },
   }
 }

@@ -13,7 +13,7 @@
 
           <v-autocomplete
                           v-model="opcionSeleccionada"
-                          label="Maestro a importar."
+                          label="Banco a importar."
                           class="input-dialog"
                           :items="opciones"
                           item-text="label"
@@ -39,26 +39,12 @@ export default {
       botonDeshabilitado: false,
       botonDeshabilitadoMigrar: false,
       opciones: [
-        { value: 'inicio',        label: '0. INICIO' },
-        { value: 'vaciar',        label: '0. ELIMINAR TODOS LOS DATOS!!! CUIDADO!!!' },
-        //{ value: 'ambito',        label: '1. Ámbito' },
-        //{ value: 'sector',        label: '2. Sector' },
-        //{ value: 'manzana',       label: '3. Manzana' },
-        //{ value: 'parcela',       label: '4. Parcela' },
-        //{ value: 'sub-parcela',   label: '5. Sub-parcela' },
-        //{ value: 'barrios',       label: '6. Barrios' },
-        { value: 'contribuyente', label: '7. Contribuyente' },
-        //{ value: 'conj_resinden', label: '8. Conjunto resindencial' },
-        //{ value: 'edificio',      label: '9. Edificio' },
-        //{ value: 'torre',         label: '10. Torre' },
-        //{ value: 'avenida',       label: '11. Avenida' },
-        //{ value: 'calle',         label: '12. Calle' },
-        { value: 'inmueble',      label: '13. Inmueble' },
-        { value: 'propietario',   label: '14. Propietario' },
-        { value: 'ult_pago',          label: '15. Ultimo Pago' },
-        { value: 'tipologia',         label: '16. Tipologia' },
-        { value: 'val_terreno',       label: '17. Val. terreno' },
-        { value: 'val_construccion',  label: '18. Val. construcción' },
+        { value: 'bnc',       label: '1. BNC Banco Nacional de Crédito' },
+        { value: 'bfc',       label: '2. BFC Banco Fondo Común' },
+        { value: 'bancaribe', label: '3. BANCARIBE' },
+        { value: 'cien',      label: '4. 100% Banco' },
+        { value: 'banesco',   label: '5. BANESCO' },
+        { value: 'venezuela', label: '6. Banco de Venezuela' },
       ],
     };
   },
@@ -76,7 +62,7 @@ export default {
       this.botonDeshabilitado= true;
       this.botonDeshabilitadoMigrar= true;
       const formData = new FormData();
-      formData.append('title', 'prueba');
+      formData.append('title', 'CorridaBancaria');
       formData.append('excel_file', this.archivoExcel);
 
       this.$axios.post('upload_excel/', formData, {
@@ -96,30 +82,6 @@ export default {
     },
 
 
-    subirArchivo() {  // NO USAR!!!! SE REEMPLAZA POR uploadFile()
-      if (!this.archivoExcel) {
-        alert('Por favor, selecciona un archivo Excel válido.');
-        return;
-      }
-      this.botonDeshabilitado= true;
-      this.botonDeshabilitadoMigrar= true;
-      // Crear un objeto FormData para enviar el archivo al servidor
-      const formData = new FormData();
-      formData.append('archivoExcel', this.archivoExcel);
-
-      // Realizar una solicitud POST al backend de Django
-      this.$axios
-        .post('subir-archivo-excel2/', formData)
-        .then((response) => {
-          alert('Archivo Excel subido con éxito.');
-          this.botonDeshabilitado= false
-          this.botonDeshabilitadoMigrar= false;
-          console.log('respuesta', response)
-        })
-        .catch((error) => {
-          console.error('Error al subir el archivo Excel:', error);
-        });
-    },
     migrarArchivo() {
       if (!this.opcionSeleccionada) {
         alert('Por favor, selecciona una opción válida.');
@@ -129,7 +91,7 @@ export default {
       this.botonDeshabilitado= true;
       // Crear un objeto FormData para enviar el archivo al servidor
       const formData = new FormData();
-      formData.append('archivoExcel', 'prueba');
+      formData.append('archivoExcel', 'CorridaBancaria');
       formData.append('opcion', this.opcionSeleccionada);
 
       // Realizar una solicitud POST al backend de Django

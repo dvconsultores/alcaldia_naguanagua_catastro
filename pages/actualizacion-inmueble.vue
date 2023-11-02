@@ -238,13 +238,30 @@
           ></v-text-field>
 
           <v-autocomplete
-          v-model="inmuebleData.id_zona"
+          v-model="inmuebleData.zona"
           class="big-autocomplete mobile-inputs"
           label="Zona"
           :items="dataZona"
           item-text="descripcion"
           item-value="id"
-          disabled="True"
+          :disabled="!accesos.borrar"
+          ></v-autocomplete>
+
+          <v-text-field
+          v-model="inmuebleData.anio"
+          class="small-input mobile-inputs"
+          label="Año inicio deuda"
+          :disabled="!accesos.borrar"
+          ></v-text-field>
+
+          <v-autocomplete
+          v-model="inmuebleData.periodo" 
+          class="big-autocomplete mobile-inputs"
+          label="Periodo inicio deuda*"
+          :items="periodoData"
+          item-text="periodo"
+          item-value="id"
+          :disabled="!accesos.borrar"
           ></v-autocomplete>
 
           <v-textarea
@@ -295,7 +312,7 @@ import computeds from '~/mixins/computeds'
 import moment from 'moment'
 
 export default {
-  name: "ActualizacionInmueblePage",
+  name: "Actualizacion-InmueblePage",
   mixins: [computeds],
   data() {
     return {      
@@ -311,19 +328,19 @@ export default {
       unidadInmuebleData:[],
       urbanizacionData:[],
       calleData:[],
+      periodoData:[],
       conjuntoResidencialData:[],
       edificioData:[],
       avenidaData:[],
       torreData:[],
       dataZona:[],
       IdZona:null,
-
       dialog_confirmar: false,
-
       btnGuardarInmuble: false,
-
       menu: false,
       nuevaFecha: null,
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
+      accesos:{},
     }
   },
   head() {
@@ -334,6 +351,7 @@ export default {
   },
 
   mounted(){
+    this.permisos(),
     this.getDataTipo(),
     this.getDataEstatus(),
     this.getDataAmbito(),
@@ -345,6 +363,7 @@ export default {
     this.getDataUnidad(),
     this.getDataUrbanizacion(),
     this.getDataCalle(),
+    this.getDataPeriodo(),
     this.getDataConjunto(),
     this.getDataEdificio(),
     this.getDataAvenida(),
@@ -355,6 +374,23 @@ export default {
   },
 
   methods: {
+    permisos() {
+      /********************************************************************************************************
+        Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser
+      ******************************************************************************************************* */
+      const longitud = this.$options.name.length;
+      this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
+      // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
+      console.log('permiso: 1 si , 0 no:',this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) { 
+        console.log('leer:',(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        this.accesos=(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
+        //console.log('this.accesos.borrar',this.accesos.borrar)
+      }else{
+        this.$router.push('index')
+        this.$alert("cancel", {desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title:'Error'})
+      }
+    },
     getDataZona(){
       this.$axios.$get('zona').then(response =>{
         this.dataZona = response
@@ -414,6 +450,13 @@ export default {
     getDataCalle(){
       this.$axios.$get('calle').then(response => {
           this.calleData = response
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+    getDataPeriodo(){
+      this.$axios.$get('ic_periodo/?aplica=C').then(response => {
+          this.periodoData = response
         }).catch(err => {
           console.log(err)
         })
@@ -511,6 +554,8 @@ export default {
       this.inmuebleData.status ? formData.append('status', this.inmuebleData.status):'';
       // formData.append('ambito', this.inmuebleData.ambito);
       this.inmuebleData.ambito ? formData.append('ambito', this.inmuebleData.ambito):'';
+      this.inmuebleData.anio ? formData.append('anio', this.inmuebleData.anio):'';
+      this.inmuebleData.periodo ? formData.append('periodo', this.inmuebleData.periodo):'';
       // formData.append('sector', this.inmuebleData.sector);
       this.inmuebleData.sector ? formData.append('status', this.inmuebleData.sector):'';
       // formData.append('manzana', this.inmuebleData.manzana);

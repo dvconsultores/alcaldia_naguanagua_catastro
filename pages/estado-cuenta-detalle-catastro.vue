@@ -774,7 +774,7 @@ export default{
         this.Correlativo=res.documento
         this.Id=res.id
         this.generarPDF()
-        this.$router.push('modificar-datos')
+        //this.$router.push('modificar-datos')
         this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
       }).catch(err =>{
         console.log(err)
@@ -992,8 +992,36 @@ export default{
         
       
      
-      pdf.save(`EstadoCuenta-Nro-${this.Correlativo}.pdf`);
+        pdf.save(`EstadoCuenta-Nro-${this.Correlativo}.pdf`);
+        this.uploadPDF(pdf);
 
+    },
+    
+    uploadPDF(pdf) {
+    const formData = new FormData();
+    formData.append('ReportePdf', new Blob([pdf.output('blob')], { type: 'application/pdf' }), `EstadoCuenta-Nro-${this.Correlativo}.pdf`);
+      this.$axios.$patch(`estadocuenta/${this.Id}/`, formData, {
+        headers: { 'Content-Type': 'application/pdf' },
+      })
+      .then(response => {
+        this.getPDF() 
+        console.log(response)
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    getPDF() {
+      this.$axios
+        .$get(`estadocuenta/${this.Id}/`)
+        .then(response => {
+          console.log('response',response.ReportePdf)
+          const pdfData = response.ReportePdf;
+          window.open(pdfData, "_blank").focus();
+        })
+        .catch(error => {
+          console.error('Error al obtener el PDF:', error);
+        });
     },
   }
 }
