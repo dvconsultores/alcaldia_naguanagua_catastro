@@ -59,6 +59,7 @@ export default {
         { value: 'tipologia',         label: '16. Tipologia' },
         { value: 'val_terreno',       label: '17. Val. terreno' },
         { value: 'val_construccion',  label: '18. Val. construcción' },
+        { value: 'tasas',  label: '19. Tasa de Interes' },
       ],
     };
   },

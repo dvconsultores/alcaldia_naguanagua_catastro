@@ -1,58 +1,5 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <!-- <section class="section1-sector">
-      <div class="sector-container">
-        <p class="title-sector">
-          Agregar nuevo Sector
-        </p>
-
-        <hr>
-
-        <div class="textfield-search-container">
-          <v-autocomplete
-          v-model="newItem.ambito"
-          class="autocomplete-small"
-          label="Ambito*"
-          :items="items_ambito"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.codigo"
-          class="autocomplete-small"
-          label="Código*"
-          ></v-autocomplete>
-
-          <v-text-field
-          v-model="newItem.nombre"
-          class="inputs-consulta"
-          label="Nombre*"
-          ></v-text-field>
-
-          <v-autocomplete
-          v-model="newItem.clasificacion"
-          class="autocomplete-small"
-          label="Clasificación*"
-          ></v-autocomplete>
-
-          <v-text-field
-          v-model="newItem.area"
-          class="inputs-consulta"
-          label="Area*"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="newItem.perimetro"
-          class="inputs-consulta"
-          label="Perímetro*"
-          ></v-text-field>
-
-          <v-btn class="btn-buscar" @click="addItem">
-            Agregar
-          </v-btn>           
-        </div>
-      </div>
-    </section> -->
-
     <section class="section2-sector">
       <div class="datos-sectores-container">
         <div class="title-morado">
@@ -60,16 +7,9 @@
             Patentes
           </p>
 
-          <v-dialog
-            v-model="dialog"
-            max-width="1600px"
-          >
+          <v-dialog v-model="dialog" max-width="1600px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                class="btn-add-tabla"
-                v-bind="attrs"
-                v-on="on"
-              >
+              <v-btn class="btn-add-tabla" v-bind="attrs" v-on="on">
                 +
               </v-btn>
             </template>
@@ -83,77 +23,64 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-autocomplete
-                        v-model="nuevoRegistro.ambito"
-                        label="Propietario"
-                        class="input-dialog"
-                        :items="propietarioData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.codigo" label="Código" class="input-dialog"></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="nuevoRegistro.codigo"
-                        label="Código"
-                        class="input-dialog"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete v-model="nuevoRegistro.propietario" label="Propietario" class="input-dialog"
+                        :items="propietarioData" item-text="nombre" item-value="id"></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="nuevoRegistro.descripcion"
-                        label="Descripción"
-                        class="input-dialog"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.tipo_patente" label="Tipo Patente"
+                        class="input-dialog"></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-autocomplete
-                        v-model="nuevoRegistro.clasificacion"
-                        label="Clasificación"
-                        class="input-dialog"
-                        :items="ae_patenteData"
-                        item-text="clasificacion"
-                      ></v-autocomplete>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.numero_documento_representante" label="RIF Representante"
+                        class="input-dialog"></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="nuevoRegistro.area"
-                        label="Área"
-                        class="input-dialog"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.nombre_representante" label="Nombre Representante"
+                        class="input-dialog"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.cargo_representante" label="Cargo Representante"
+                        class="input-dialog"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.telefono" label="Teléfono Representante"
+                        class="input-dialog"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete v-model="nuevoRegistro.periodo" label="Periodo" class="input-dialog"
+                        :items="periodoData" item-text="periodo" item-value="id"></v-autocomplete>
                     </v-col>
 
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="nuevoRegistro.perimetro"
-                        label="Perímetro"
-                        class="input-dialog"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.anio" label="Año" class="input-dialog"></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.horario_desde" label="horario desde"
+                        class="input-dialog"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.horario_hasta" label="horario hasta"
+                        class="input-dialog"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.nro_inmuebles" label="nro inmuebles"
+                        class="input-dialog"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.nro_solicitud" label="nro solicitud"
+                        class="input-dialog"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.nro_tomo" label="nro tomo" class="input-dialog"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="nuevoRegistro.habilitado" label="habilitado"
+                        class="input-dialog"></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -161,27 +88,17 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="dialog = false"
-                >
+                <v-btn class="btn dialog-btn" @click="dialog = false">
                   Cancelar
                 </v-btn>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="createSector()"
-                  style="background-color:#ED057E!important;"
-                >
+                <v-btn class="btn dialog-btn" @click="createPatente()" style="background-color:#ED057E!important;">
                   Guardar
                 </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
 
-          <v-dialog
-            v-model="dialog_editar"
-            max-width="1600px"
-          >
+          <v-dialog v-model="dialog_editar" max-width="1600px">
             <v-card id="dialog-editar-crear">
               <v-card-title>
                 <span class="title">Editar patente</span>
@@ -192,77 +109,27 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-autocomplete
-                        v-model="defaultItem.propietario"
-                        label="Propietario"
-                        class="input-dialog"
-                        :items="propietarioData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete v-model="defaultItem.propietario" label="Propietario" class="input-dialog"
+                        :items="propietarioData" item-text="nombre" item-value="id"></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="defaultItem.codigo"
-                        label="Código"
-                        class="input-dialog"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="defaultItem.codigo" label="Código" class="input-dialog"></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="defaultItem.descripcion"
-                        label="Descripción"
-                        class="input-dialog"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="defaultItem.descripcion" label="Descripción"
+                        class="input-dialog"></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-autocomplete
-                        v-model="defaultItem.clasificacion"
-                        label="Clasificación"
-                        class="input-dialog"
-                        :items="defaultItem.clasificacion"
-                        item-text="clasificacion"
-                      ></v-autocomplete>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete v-model="defaultItem.clasificacion" label="Clasificación" class="input-dialog"
+                        :items="defaultItem.clasificacion" item-text="clasificacion"></v-autocomplete>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="defaultItem.area"
-                        label="Área"
-                        class="input-dialog"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="defaultItem.area" label="Área" class="input-dialog"></v-text-field>
                     </v-col>
 
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="defaultItem.perimetro"
-                        label="Perímetro"
-                        class="input-dialog"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field v-model="defaultItem.perimetro" label="Perímetro" class="input-dialog"></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -270,17 +137,10 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="dialog_editar = false"
-                >
+                <v-btn class="btn dialog-btn" @click="dialog_editar = false">
                   Cancelar
                 </v-btn>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="saveData()"
-                  style="background-color:#ED057E!important;"
-                >
+                <v-btn class="btn dialog-btn" @click="saveData()" style="background-color:#ED057E!important;">
                   Guardar
                 </v-btn>
               </v-card-actions>
@@ -289,31 +149,14 @@
         </div>
 
         <div class="data-table-container">
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Buscar"
-            hide-details
-            class="input-data-table"
-          ></v-text-field>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
+            class="input-data-table"></v-text-field>
 
-          <v-data-table
-            :headers="headers"
-            :items="ae_patenteData"
-            :items-per-page="10"
-            :search="search"
-            :footer-props="{
-              itemsPerPageText: 'Items por página',
-            }"
-            sort-by="codigo"
-            class="mytabla"
-            mobile-breakpoint="840"
-          >
+          <v-data-table :headers="headers" :items="ae_patenteData" :items-per-page="10" :search="search" :footer-props="{
+            itemsPerPageText: 'Items por página',
+          }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
-              <v-toolbar
-                flat
-                class="toolbar-tabla"
-              >  
+              <v-toolbar flat class="toolbar-tabla">
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
@@ -321,7 +164,8 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false"
+                        style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -329,18 +173,10 @@
               </v-toolbar>
             </template>
             <template #[`item.actions`]="{ item }">
-              <v-icon
-                color="#810880"
-                big
-                @click="editItem(item)"
-              >
+              <v-icon color="#810880" big @click="editItem(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon
-                color="#810880"
-                big
-                @click="openDelete(item)"
-              >
+              <v-icon color="#810880" big @click="openDelete(item)">
                 mdi-delete
               </v-icon>
             </template>
@@ -358,41 +194,41 @@ export default {
   name: "Maestro-PatentePage",
   mixins: [computeds],
   data() {
-    return {  
+    return {
       search: '',
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
-      nuevoRegistro:{},
+      nuevoRegistro: {},
       headers: [
-        { text: 'tipo', align: 'start', value: 'tipo_patente'},
-        { text: 'numero', align: 'start', value: 'numero'},
-        { text: 'Razon economica', align: 'start', value: 'propietario_nombre'},
-        { text: 'RIF', align: 'start', value: 'propietario_numero'},
-        { text: 'Documento representante', align: 'start', value: 'numero_documento_representante'},
-        { text: 'nombre representante', align: 'start', value: 'nombre_representante'},
-        { text: '', value: 'actions', sortable: false, align:'center' },
+        { text: 'tipo', align: 'start', value: 'tipo_patente' },
+        { text: 'numero', align: 'start', value: 'numero' },
+        { text: 'Razon economica', align: 'start', value: 'propietario_nombre' },
+        { text: 'RIF', align: 'start', value: 'propietario_numero' },
+        { text: 'Documento representante', align: 'start', value: 'numero_documento_representante' },
+        { text: 'nombre representante', align: 'start', value: 'nombre_representante' },
+        { text: '', value: 'actions', sortable: false, align: 'center' },
 
       ],
-    TIPO_PATENTE : (
+      TIPO_PATENTE: (
         ('T', 'Temporal'),
         ('D', 'Definitiva'),
         ('G', 'Genérica')
-    ),
+      ),
       ae_patenteData: [],
-      propietariosData:[],
-    
+      propietarioData: [],
+
       defaultItem: {
         numero: '',
         propietario: '',
-        tipo_patente : '',
-        numero_documento_representante  : '',
-        nombre_representante : '',
+        tipo_patente: '',
+        numero_documento_representante: '',
+        nombre_representante: '',
         cargo_representante: '',
         telefono: '',
         periodo: '',
         anio: '',
-        horario_desde : '',
+        horario_desde: '',
         horario_hasta: '',
         nro_inmuebles: '',
         nro_solicitud: '',
@@ -408,42 +244,50 @@ export default {
     }
   },
 
-  mounted(){
-    this.getDataSector(),
-    this.getDataAmbito()
+  mounted() {
+    this.getDataPatente()
+    this.getDataPropietario()
+    this.getDataPeriodo()
   },
 
   methods: {
-    getDataAmbito() {
+    getDataPeriodo() {
+      this.$axios.$get('ic_periodo/?aplica=A').then(response => {
+        this.periodoData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getDataPropietario() {
       this.$axios.$get('propietario').then(response => {
-          this.propietarioData = response
-        }).catch(err => {
-          console.log(err)
-        })
+        this.propietarioData = response
+      }).catch(err => {
+        console.log(err)
+      })
     },
 
-    getDataSector() {
+    getDataPatente() {
       this.$axios.$get('ae_patente').then(response => {
-          this.ae_patenteData = response
-        }).catch(err => {
-          console.log(err)
-        })
+        this.ae_patenteData = response
+      }).catch(err => {
+        console.log(err)
+      })
     },
 
-    createSector(){
+    createPatente() {
       this.$axios.$post('ae_patente/', this.nuevoRegistro).then(res => {
-          console.log(res.data)
-          this.nuevoRegistro = {}
-          this.ae_patenteData.push(res)
-          this.$alert("success", {desc: "Se ha creado un nuevo sector con éxito", hash: 'knsddcssdc', title:'Creación de Sector'})        
-        }).catch(err => {
-          console.log(err)
-        })
+        console.log(res.data)
+        this.nuevoRegistro = {}
+        this.ae_patenteData.push(res)
+        this.$alert("success", { desc: "Se ha creado una nueva patente con éxito", hash: 'knsddcssdc', title: 'Creación de Patente' })
+      }).catch(err => {
+        console.log(err)
+      })
 
-        this.dialog = false
-    },  
+      this.dialog = false
+    },
 
-    editItem(item){
+    editItem(item) {
       console.log(item)
       this.dialog_editar = true
       this.defaultItem.id = item.id
@@ -455,7 +299,7 @@ export default {
       this.defaultItem.perimetro = item.perimetro
     },
 
-    saveData(){
+    saveData() {
       const formData = new FormData()
       formData.append('codigo', this.defaultItem.codigo)
       formData.append('descripcion', this.defaultItem.descripcion)
@@ -465,34 +309,34 @@ export default {
       formData.append('perimetro', this.defaultItem.perimetro)
 
 
-      this.$axios.$patch('ae_patente/'+ this.defaultItem.id + '/', formData).then((res) => {
+      this.$axios.$patch('ae_patente/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado un sector con éxito", hash: 'knsddcssdc', title:'Edición de sector'})
+        this.$alert("success", { desc: "Se ha editado una Patente con éxito", hash: 'knsddcssdc', title: 'Edición de patente' })
         const index = this.ae_patenteData.findIndex((item) => item.id === this.defaultItem.id);
         if (index !== -1) {
           this.$set(this.ae_patenteData, index, { ...this.defaultItem });
-        }         
+        }
       }).catch((err) => {
         console.log(err)
       });
 
       this.dialog_editar = false
-    },  
+    },
 
-    openDelete(item){
+    openDelete(item) {
       this.defaultItem = item
       this.dialogDelete = true
     },
 
-    deleteItem(){
-      this.$axios.$delete('ae_patente/'+ this.defaultItem.id + '/').then((res) => {
+    deleteItem() {
+      this.$axios.$delete('ae_patente/' + this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado un sector con éxito", hash: 'knsddcssdc', title:'Eliminación de Sector'}) 
+        this.$alert("success", { desc: "Se ha eliminado una Patente con éxito", hash: 'knsddcssdc', title: 'Eliminación de patente' })
         const index = this.ae_patenteData.findIndex((item) => item.id === this.defaultItem.id);
         if (index !== -1) {
           this.ae_patenteData.splice(index, 1);
-        }          
+        }
       }).catch((err) => {
         console.log(err)
       });

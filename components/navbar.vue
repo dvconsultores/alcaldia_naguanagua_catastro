@@ -377,7 +377,7 @@
 
         <div class="divcol center">
           <span class="span-saludo" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'"> 
-            Inmueble
+            Inmueble Zona : {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.zona))}}
           </span>
           <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
            Expediente Nro.: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.numero_expediente))}}

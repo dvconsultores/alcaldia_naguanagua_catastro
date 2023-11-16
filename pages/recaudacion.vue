@@ -7,7 +7,7 @@
         </p>
       </div>
 
-      <div class="datos-contribuyente-container">
+      <div class="datos-recaudos-container">
         <div class="container-morado">
           <span>
             Datos del Contribuyente

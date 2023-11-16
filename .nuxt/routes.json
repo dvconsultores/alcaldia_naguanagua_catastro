@@ -133,11 +133,11 @@
     "_name": "_350d6670"
   },
   {
-    "name": "consulta-inmueble-copy___en",
-    "path": "/consulta-inmueble-copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble-copy.vue",
-    "chunkName": "pages/consulta-inmueble-copy",
-    "_name": "_4aa615e2"
+    "name": "consulta-inmueble-old___en",
+    "path": "/consulta-inmueble-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble-old.vue",
+    "chunkName": "pages/consulta-inmueble-old",
+    "_name": "_bed63f6c"
   },
   {
     "name": "consultar-propietario___en",
@@ -383,6 +383,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/parcela.vue",
     "chunkName": "pages/parcela",
     "_name": "_37ad4eed"
+  },
+  {
+    "name": "patente___en",
+    "path": "/patente",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/patente.vue",
+    "chunkName": "pages/patente",
+    "_name": "_19efbef2"
   },
   {
     "name": "planilla-desincorporacion___en",
@@ -728,11 +735,11 @@
     "_name": "_350d6670"
   },
   {
-    "name": "consulta-inmueble-copy___es",
-    "path": "/es/consulta-inmueble-copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble-copy.vue",
-    "chunkName": "pages/consulta-inmueble-copy",
-    "_name": "_4aa615e2"
+    "name": "consulta-inmueble-old___es",
+    "path": "/es/consulta-inmueble-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble-old.vue",
+    "chunkName": "pages/consulta-inmueble-old",
+    "_name": "_bed63f6c"
   },
   {
     "name": "consultar-propietario___es",
@@ -971,6 +978,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/parcela.vue",
     "chunkName": "pages/parcela",
     "_name": "_37ad4eed"
+  },
+  {
+    "name": "patente___es",
+    "path": "/es/patente",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/patente.vue",
+    "chunkName": "pages/patente",
+    "_name": "_19efbef2"
   },
   {
     "name": "planilla-desincorporacion___es",

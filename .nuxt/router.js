@@ -23,7 +23,7 @@ const _462c72fc = () => interopDefault(import('../pages/calle.vue' /* webpackChu
 const _9e9b9cb2 = () => interopDefault(import('../pages/cedula-catastral.vue' /* webpackChunkName: "pages/cedula-catastral" */))
 const _5e20ffc2 = () => interopDefault(import('../pages/conjuntos-residenciales.vue' /* webpackChunkName: "pages/conjuntos-residenciales" */))
 const _350d6670 = () => interopDefault(import('../pages/consulta-inmueble.vue' /* webpackChunkName: "pages/consulta-inmueble" */))
-const _4aa615e2 = () => interopDefault(import('../pages/consulta-inmueble-copy.vue' /* webpackChunkName: "pages/consulta-inmueble-copy" */))
+const _bed63f6c = () => interopDefault(import('../pages/consulta-inmueble-old.vue' /* webpackChunkName: "pages/consulta-inmueble-old" */))
 const _22f70331 = () => interopDefault(import('../pages/consultar-propietario.vue' /* webpackChunkName: "pages/consultar-propietario" */))
 const _57841e06 = () => interopDefault(import('../pages/crear-contribuyente.vue' /* webpackChunkName: "pages/crear-contribuyente" */))
 const _1b8706c9 = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
@@ -59,6 +59,7 @@ const _249d638d = () => interopDefault(import('../pages/modificar-datos.vue' /* 
 const _f723739e = () => interopDefault(import('../pages/moneda.vue' /* webpackChunkName: "pages/moneda" */))
 const _dbec6d2e = () => interopDefault(import('../pages/nivel-inmueble.vue' /* webpackChunkName: "pages/nivel-inmueble" */))
 const _37ad4eed = () => interopDefault(import('../pages/parcela.vue' /* webpackChunkName: "pages/parcela" */))
+const _19efbef2 = () => interopDefault(import('../pages/patente.vue' /* webpackChunkName: "pages/patente" */))
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
@@ -180,9 +181,9 @@ export const routerOptions = {
     component: _350d6670,
     name: "consulta-inmueble___en"
   }, {
-    path: "/consulta-inmueble-copy",
-    component: _4aa615e2,
-    name: "consulta-inmueble-copy___en"
+    path: "/consulta-inmueble-old",
+    component: _bed63f6c,
+    name: "consulta-inmueble-old___en"
   }, {
     path: "/consultar-propietario",
     component: _22f70331,
@@ -323,6 +324,10 @@ export const routerOptions = {
     path: "/parcela",
     component: _37ad4eed,
     name: "parcela___en"
+  }, {
+    path: "/patente",
+    component: _19efbef2,
+    name: "patente___en"
   }, {
     path: "/planilla-desincorporacion",
     component: _44e0d9a3,
@@ -520,9 +525,9 @@ export const routerOptions = {
     component: _350d6670,
     name: "consulta-inmueble___es"
   }, {
-    path: "/es/consulta-inmueble-copy",
-    component: _4aa615e2,
-    name: "consulta-inmueble-copy___es"
+    path: "/es/consulta-inmueble-old",
+    component: _bed63f6c,
+    name: "consulta-inmueble-old___es"
   }, {
     path: "/es/consultar-propietario",
     component: _22f70331,
@@ -659,6 +664,10 @@ export const routerOptions = {
     path: "/es/parcela",
     component: _37ad4eed,
     name: "parcela___es"
+  }, {
+    path: "/es/patente",
+    component: _19efbef2,
+    name: "patente___es"
   }, {
     path: "/es/planilla-desincorporacion",
     component: _44e0d9a3,
