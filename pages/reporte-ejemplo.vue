@@ -164,14 +164,14 @@ export default {
       const pdf = new jsPDF('p', 'in', 'letter'); // Tamaño carta: 8.5x11 pulgadas
 
       // Agregar el encabezado con dos logotipos y un título centrado
-      const img1 = new Image();
-      img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
-      const img2 = new Image();
-      img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
+      //const img1 = new Image();
+      //img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
+      //const img2 = new Image();
+      //img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
       const title = 'Reporte PDF';
 
-      pdf.addImage(img1, 'PNG', 0.5, 0.5, 2, 0.5); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 7, 0.5, 2, 0.5); // Logotipo derecho
+      //pdf.addImage(img1, 'PNG', 0.5, 0.5, 2, 0.5); // Logotipo izquierdo
+      //pdf.addImage(img2, 'PNG', 7, 0.5, 2, 0.5); // Logotipo derecho
       pdf.setFontSize(16);
       pdf.text(4.25, 1.25, title, null, null, 'center'); // Título centrado
 

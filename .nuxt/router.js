@@ -52,6 +52,7 @@ const _be24b512 = () => interopDefault(import('../pages/IC-estado-cuenta.vue' /*
 const _f29babc0 = () => interopDefault(import('../pages/impuestos-pago.vue' /* webpackChunkName: "pages/impuestos-pago" */))
 const _41046902 = () => interopDefault(import('../pages/inscripcion-inmueble.vue' /* webpackChunkName: "pages/inscripcion-inmueble" */))
 const _a32b6a42 = () => interopDefault(import('../pages/liquidacion.vue' /* webpackChunkName: "pages/liquidacion" */))
+const _16cbbcee = () => interopDefault(import('../pages/liquidacion-multiple.vue' /* webpackChunkName: "pages/liquidacion-multiple" */))
 const _1dc5ef9e = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _2124f254 = () => interopDefault(import('../pages/maestro-patente.vue' /* webpackChunkName: "pages/maestro-patente" */))
 const _a60d722e = () => interopDefault(import('../pages/manzana.vue' /* webpackChunkName: "pages/manzana" */))
@@ -62,6 +63,9 @@ const _37ad4eed = () => interopDefault(import('../pages/parcela.vue' /* webpackC
 const _19efbef2 = () => interopDefault(import('../pages/patente.vue' /* webpackChunkName: "pages/patente" */))
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
+const _5a615ad2 = () => interopDefault(import('../pages/recaudacion-multiple.vue' /* webpackChunkName: "pages/recaudacion-multiple" */))
+const _f234e280 = () => interopDefault(import('../pages/recaudacion-multiple-copy.vue' /* webpackChunkName: "pages/recaudacion-multiple-copy" */))
+const _0df12498 = () => interopDefault(import('../pages/recaudacion-multiple -old.vue' /* webpackChunkName: "pages/recaudacion-multiple -old" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
 const _d47f4554 = () => interopDefault(import('../pages/reporte-corridasbancarias.vue' /* webpackChunkName: "pages/reporte-corridasbancarias" */))
 const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
@@ -297,6 +301,10 @@ export const routerOptions = {
     component: _a32b6a42,
     name: "liquidacion___en"
   }, {
+    path: "/liquidacion-multiple",
+    component: _16cbbcee,
+    name: "liquidacion-multiple___en"
+  }, {
     path: "/login",
     component: _1dc5ef9e,
     name: "login___en"
@@ -336,6 +344,18 @@ export const routerOptions = {
     path: "/recaudacion",
     component: _d076870a,
     name: "recaudacion___en"
+  }, {
+    path: "/recaudacion-multiple",
+    component: _5a615ad2,
+    name: "recaudacion-multiple___en"
+  }, {
+    path: "/recaudacion-multiple-copy",
+    component: _f234e280,
+    name: "recaudacion-multiple-copy___en"
+  }, {
+    path: "/recaudacion-multiple%20-old",
+    component: _0df12498,
+    name: "recaudacion-multiple -old___en"
   }, {
     path: "/regimen",
     component: _422c3f54,
@@ -637,6 +657,10 @@ export const routerOptions = {
     component: _a32b6a42,
     name: "liquidacion___es"
   }, {
+    path: "/es/liquidacion-multiple",
+    component: _16cbbcee,
+    name: "liquidacion-multiple___es"
+  }, {
     path: "/es/login",
     component: _1dc5ef9e,
     name: "login___es"
@@ -676,6 +700,18 @@ export const routerOptions = {
     path: "/es/recaudacion",
     component: _d076870a,
     name: "recaudacion___es"
+  }, {
+    path: "/es/recaudacion-multiple",
+    component: _5a615ad2,
+    name: "recaudacion-multiple___es"
+  }, {
+    path: "/es/recaudacion-multiple-copy",
+    component: _f234e280,
+    name: "recaudacion-multiple-copy___es"
+  }, {
+    path: "/es/recaudacion-multiple%20-old",
+    component: _0df12498,
+    name: "recaudacion-multiple -old___es"
   }, {
     path: "/es/regimen",
     component: _422c3f54,

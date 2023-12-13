@@ -168,19 +168,20 @@
               +
             </v-btn>
 
-            <div v-for="(div, index) in divs" :key="index" class="solicitud-inputs-container">
+            <div v-for="(div, index) in divs" :key="index" 
+            class="solicitud-inputs-container2">
               <v-autocomplete v-model="div.tipopago" class="small-input mobile-inputs" label="Tipo de Pago"
                 :items="tipoPagoData" item-text="descripcion" item-value="codigo" :disabled="div.bloqueado"
                 @change="mostrarVentanaNueva(div.tipopago)"></v-autocomplete>
+
+
 
               <v-dialog v-model="mostrarVentana" max-width="1600px">
                 <v-card id="dialog-editar-crear">
                   <v-card-title>
                     <span class="title">TRANSFERENCIAS</span>
                   </v-card-title>
-
                   <hr>
-
                   <v-card-text>
                     <v-container>
                       <v-row class="center">
@@ -190,12 +191,10 @@
                             :label="div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'P' ? '' : 'Banco'"
                             :items="bancoCuentaData" item-text="banco_nombre" item-value="id"
                             :disabled="(div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'P') || div.bloqueado"
-                            @change="filtrarCorridasBancarias(div.bancocuenta)"
-                            ></v-autocomplete>
+                            @change="filtrarCorridasBancarias(div.bancocuenta)"></v-autocomplete>
                         </v-col>
                       </v-row>
                     </v-container>
-
                     <div class="data-table-container">
                       <v-text-field v-model="searchTransferencia" append-icon="mdi-magnify" label="Buscar" hide-details
                         class="input-data-table"></v-text-field>
@@ -203,17 +202,15 @@
                         :search="searchTransferencia" :items-per-page="5" :footer-props="{
                           itemsPerPageText: 'Items por página',
                         }" sort-by="nombre" class="mytabla" mobile-breakpoint="840">
-
-
                         | <template #[`item.actions`]="{ item }">
-                          <v-btn class="btn-tabla" @click="div.fechapago=item.fecha;div.monto=item.monto;div.nro_referencia=item.referencia;mostrarVentana = false">
+                          <v-btn class="btn-tabla"
+                            @click="div.fechapago = item.fecha; div.monto = item.monto; div.nro_referencia = item.referencia; mostrarVentana = false">
                             Seleccionar Transferencia
                           </v-btn>
                         </template>
                       </v-data-table>
                     </div>
                   </v-card-text>
-
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn class="btn dialog-btn" @click="mostrarVentana = false">
@@ -222,6 +219,16 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+
+
+
+
+
+
+
+
+
+
 
               <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="5" transition="scale-transition"
                 offset-y min-width="auto" :disabled="div.bloqueado">
@@ -232,7 +239,6 @@
                 <v-date-picker v-model="div.fechapago" label="Fecha" @input="formatoFecha()" color="blue"
                   header-color="#810880" class="custom-date-picker"></v-date-picker>
               </v-menu>
-
               <v-text-field @click="openDialogMonto" v-model="div.monto" class="small-input mobile-inputs" label="Monto"
                 :disabled="div.bloqueado"></v-text-field>
               <v-dialog v-model="dialog" max-width="400px">
@@ -253,26 +259,20 @@
                 :label="div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'P' ? '' : 'Banco'"
                 :items="bancoCuentaData" item-text="banco_nombre" item-value="id"
                 :disabled="(div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'P') || div.bloqueado"></v-autocomplete>
-
               <v-text-field v-model="div.nro_referencia" class="small-input mobile-inputs"
                 :label="div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'N' && div.tipopago !== 'P' ? '' : 'Nro. Referencia'"
                 :disabled="(div.tipopago !== 'T' && div.tipopago !== 'D' && div.tipopago !== 'N' && div.tipopago !== 'P') || div.bloqueado"></v-text-field>
               <v-text-field v-model="div.nro_lote" class="small-input mobile-inputs"
                 :label="div.tipopago !== 'D' ? '' : 'Nro. lote'"
                 :disabled="div.tipopago !== 'D' || div.bloqueado"></v-text-field>
-
               <v-text-field v-model="div.nro_aprobacion" class="small-input mobile-inputs"
                 :label="div.tipopago !== 'D' ? '' : 'Nro. aprobación'"
                 :disabled="div.tipopago !== 'D' || div.bloqueado"></v-text-field>
-
-
               <v-btn class="btns-add-remove" :disabled="div.bloqueado" @click="removeDiv(index)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </div>
-
             <hr>
-
             <div class="divrow center div-btns" style="gap:30px;">
 
               <v-btn class="btn size-btn" @click="createPago()">
@@ -371,19 +371,19 @@ export default {
 
   methods: {
     filtrarCorridasBancarias(idbancocuenta) {
-    if (idbancocuenta) {
-      this.filtrocorridasbancariasData = this.corridasbancariasData.filter((registro) => {
-        return registro.bancocuenta === idbancocuenta;
-      });
-    } else {
-      this.filtrocorridasbancariasData = this.corridasbancariasData;
-    }
-  },
+      if (idbancocuenta) {
+        this.filtrocorridasbancariasData = this.corridasbancariasData.filter((registro) => {
+          return registro.bancocuenta === idbancocuenta;
+        });
+      } else {
+        this.filtrocorridasbancariasData = this.corridasbancariasData;
+      }
+    },
     mostrarVentanaNueva(tipopago) {
       console.log('tipopago', tipopago)
       // Verifica si "codigo" es igual a "T"
       if (tipopago === "T") {
-        this.filtrocorridasbancariasData=[]
+        this.filtrocorridasbancariasData = []
         this.mostrarVentana = true;
       } else {
         this.mostrarVentana = false;
@@ -625,10 +625,10 @@ export default {
 
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
 
-      const img1 = new Image();
-      img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
-      const img2 = new Image();
-      img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
+      //const img1 = new Image();
+      //img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
+      //const img2 = new Image();
+      //img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
 
       let startY = 55;
 
@@ -639,8 +639,8 @@ export default {
       //let pageHeight = pdf.internal.pageSize.height;
 
 
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      //pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      //pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE PLANILLA. ${this.Correlativo}`, null, null, 'right');

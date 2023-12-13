@@ -655,10 +655,10 @@ export default {
     },
     generarPDF() {
       const pdf = new jsPDF('p', 'mm', 'letter');
-      const img1 = new Image();
-      img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
-      const img2 = new Image();
-      img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
+      //const img1 = new Image();
+      //img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
+      //const img2 = new Image();
+      //img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
       const title = `Cuadre detallado de caja a la fecha  ${this.fechaFiltro}`;
         // Establecer el tamaño de fuente para el encabezado de la tabla
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
@@ -666,8 +666,8 @@ export default {
       let pageHeight = pdf.internal.pageSize.height;
       let startY = 60 ;
 
-      pdf.addImage(img1, 'PNG', 10, 10, 30, 30); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 160, 10, 40, 30); // Logotipo derecho
+      //pdf.addImage(img1, 'PNG', 10, 10, 30, 30); // Logotipo izquierdo
+      //pdf.addImage(img2, 'PNG', 160, 10, 40, 30); // Logotipo derecho
       pdf.setFontSize(16);
       pdf.text(100, 40, title, null, null, 'center');
       pdf.setFontSize(fontSizeHead); // Establecer el tamaño de fuente solo para esta línea

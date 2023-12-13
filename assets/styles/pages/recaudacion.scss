@@ -721,7 +721,7 @@
           justify-self:flex-end;
         }
     
-        .solicitud-inputs-container{
+        .solicitud-inputs-container2{
           width: 100%;
           display: flex;
           align-items: center;
@@ -734,7 +734,15 @@
           @include media(max, 650px){
             justify-content: center;
           }
-    
+ 
+          
+
+
+
+
+
+
+
           #dialog-editar-crear{
             background-color: #fff;
             border-radius: 10px;
@@ -773,7 +781,25 @@
             .input-dialog:active, .input-dialog:focus-within{
               border: 1px solid var(--primary);
             }
+
           }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           .big-autocomplete{
             max-width: 500px;

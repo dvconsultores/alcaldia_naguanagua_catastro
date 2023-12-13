@@ -336,6 +336,13 @@
     "_name": "_a32b6a42"
   },
   {
+    "name": "liquidacion-multiple___en",
+    "path": "/liquidacion-multiple",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/liquidacion-multiple.vue",
+    "chunkName": "pages/liquidacion-multiple",
+    "_name": "_16cbbcee"
+  },
+  {
     "name": "login___en",
     "path": "/login",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/login.vue",
@@ -404,6 +411,27 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion.vue",
     "chunkName": "pages/recaudacion",
     "_name": "_d076870a"
+  },
+  {
+    "name": "recaudacion-multiple___en",
+    "path": "/recaudacion-multiple",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple.vue",
+    "chunkName": "pages/recaudacion-multiple",
+    "_name": "_5a615ad2"
+  },
+  {
+    "name": "recaudacion-multiple-copy___en",
+    "path": "/recaudacion-multiple-copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple-copy.vue",
+    "chunkName": "pages/recaudacion-multiple-copy",
+    "_name": "_f234e280"
+  },
+  {
+    "name": "recaudacion-multiple -old___en",
+    "path": "/recaudacion-multiple%20-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple -old.vue",
+    "chunkName": "pages/recaudacion-multiple -old",
+    "_name": "_0df12498"
   },
   {
     "name": "regimen___en",
@@ -931,6 +959,13 @@
     "_name": "_a32b6a42"
   },
   {
+    "name": "liquidacion-multiple___es",
+    "path": "/es/liquidacion-multiple",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/liquidacion-multiple.vue",
+    "chunkName": "pages/liquidacion-multiple",
+    "_name": "_16cbbcee"
+  },
+  {
     "name": "login___es",
     "path": "/es/login",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/login.vue",
@@ -999,6 +1034,27 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion.vue",
     "chunkName": "pages/recaudacion",
     "_name": "_d076870a"
+  },
+  {
+    "name": "recaudacion-multiple___es",
+    "path": "/es/recaudacion-multiple",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple.vue",
+    "chunkName": "pages/recaudacion-multiple",
+    "_name": "_5a615ad2"
+  },
+  {
+    "name": "recaudacion-multiple-copy___es",
+    "path": "/es/recaudacion-multiple-copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple-copy.vue",
+    "chunkName": "pages/recaudacion-multiple-copy",
+    "_name": "_f234e280"
+  },
+  {
+    "name": "recaudacion-multiple -old___es",
+    "path": "/es/recaudacion-multiple%20-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple -old.vue",
+    "chunkName": "pages/recaudacion-multiple -old",
+    "_name": "_0df12498"
   },
   {
     "name": "regimen___es",
