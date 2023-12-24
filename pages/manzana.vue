@@ -470,7 +470,7 @@ export default {
   mounted(){
     this.getDataSector(),
     this.getDataAmbito(),
-    this.getDataManzana(),
+    this.getDataManzana()
     this.getCalle()
   },
 
@@ -559,10 +559,7 @@ export default {
       this.$axios.$patch('manzana/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado una manzana con éxito", hash: 'knsddcssdc', title:'Edición de manzana'})
-        const index = this.sectoresManzana.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.sectoresManzana, index, { ...this.defaultItem });
-        }          
+        this.getDataManzana()          
       }).catch((err) => {
         console.log(err)
       });
@@ -580,10 +577,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado una manzana con éxito", hash: 'knsddcssdc', title:'Eliminación de Manzana'}) 
-        const index = this.sectoresManzana.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.sectoresManzana.splice(index, 1);
-        }          
+        this.getDataManzana()        
       }).catch((err) => {
         console.log(err)
       });

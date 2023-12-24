@@ -168,6 +168,26 @@
         </section>
       </div>
     </v-dialog>
+    <v-dialog
+            v-model="dialogWait"
+            hide-overlay
+            persistent
+            width="300"
+          >
+            <v-card
+              color="primary"
+              dark
+            >
+              <v-card-text>
+                Por favor espere
+                <v-progress-linear
+                  indeterminate
+                  color="white"
+                  class="mb-0"
+                ></v-progress-linear>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
   </div>
 </template>
 
@@ -178,7 +198,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 export default {
-  name: "LiquidacionPage",
+  name: "liquidacion-multiplePage",
   mixins: [computeds],
   data() {
     return {
@@ -207,23 +227,27 @@ export default {
       numero_documento: '',
       Correlativo: 0,
       Id: 0,
+      dialogWait: false,
+
 
     }
   },
 
   head() {
-    const title = 'Pre-Factura';
+    const title = 'Pre-Factura Múltiple';
     return {
       title,
     }
   },
 
-  mounted() {
+  async mounted() {
+    this.dialogWait = true
     //this.redireccionIdVacio()
-    this.getEstadosCuentas()
-    this.getBCV()
-    this.getCorrelativo()
-    this.getTasaMulta()
+    await this.getEstadosCuentas()
+    await this.getBCV()
+    await this.getCorrelativo()
+    await this.getTasaMulta()
+    this.dialogWait = false
   },
 
   computed: {
@@ -236,6 +260,15 @@ export default {
   },
 
   methods: {
+    async getCorrelativo() {
+      try {
+        const response = await this.$axios.$get('correlativo');
+        this.CorrelativoData = response
+        console.log('CorrelativoData',this.CorrelativoData)
+      } catch (err) {
+        console.log(err);
+      }
+    },
     numeroFormateado(numero) {
       // Convertir a número si es una cadena
       const numeroComoNumero = typeof numero === 'string' ? parseFloat(numero) : numero;
@@ -274,15 +307,17 @@ export default {
       }
     },
 
-    getTasaMulta() {
-      this.$axios.$get('tasamulta').then(response => {
+    async getTasaMulta(){
+    try {
+        const response = await this.$axios.$get('tasamulta');
         this.tasaMultaData = response
-      }).catch(err => {
-        console.log(err)
-      })
+        console.log('this.tasaMultaData0',this.tasaMultaData)
+      } catch (err) {
+        console.log(err);
+      }
     },
 
-    createLiquidacion() {
+    async createLiquidacion() {
       const data = {
         estadocuenta: this.selectedItem.id,
         inmueble: this.selectedItem.inmueble == null ? null : this.selectedItem.inmueble.id,
@@ -292,18 +327,21 @@ export default {
         detalle: this.divs,
         monto_total: this.montoTotal()
       }
-      this.$axios.$post('crearliquidacion/', data).then(res => {
+      try {
+        this.dialogWait = true
+        const res = await this.$axios.$post('crearliquidacion/', data)
         console.log(res)
         this.Correlativo = res.documento
         this.IdEdoCuenta = res.idedocuenta
         this.Id = res.id
         console.log('this.divs', this.divs)
-        this.generarPDF()
+        await this.generarPDF()
         this.$router.push('liquidacion-multiple')
         //this.$alert("success", { desc: "Se ha creado una pre-factura con éxito", hash: 'knsddcssdc', title: 'Creado' })
-      }).catch(err => {
-        console.log(err)
-      })
+        this.dialogWait = false
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     obtenerFechaActual() {
@@ -314,22 +352,14 @@ export default {
       return `${dia}/${mes}/${anio}`;
     },
 
-    getCorrelativo() {
-      this.$axios.$get('correlativo').then(response => {
-        this.correlativoData = response
-        this.numeroCorrelativo = this.correlativoData[0].NumeroEstadoCuenta
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-
-    getBCV() {
-      this.$axios.$get('tasabcv').then(response => {
-        this.bcvData = response
-        this.montoBCV = this.bcvData[0].monto
-      }).catch(err => {
-        console.log(err)
-      })
+    async getBCV() {
+      try {
+        const response = await this.$axios.$get('unidadtributaria/')
+          this.bcvData = response
+          this.montoBCV = this.bcvData[0].monto
+        } catch (err) {
+        console.log(err);
+      }
     },
 
     montoTotal() {
@@ -372,7 +402,7 @@ export default {
       const anio = fecha.getFullYear();
       return `${dia}/${mes}/${anio}`;
     },
-    generarPDF() {
+    async generarPDF() {
       const pdf = new jsPDF('p', 'mm', 'letter');
 
       // Define un objeto de mapeo para traducir valores abreviados a descripciones completas
@@ -393,11 +423,20 @@ export default {
 
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
 
-      //const img1 = new Image();
-      //img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
-      //const img2 = new Image();
-      //img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
-
+      const img1 = new Image();
+      const img2 = new Image();
+      var ruta1=this.CorrelativoData[0].Logo1;
+      if (ruta1.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
+      }
+      var ruta2=this.CorrelativoData[0].Logo2;
+      if (ruta2.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
+      }
+      img1.src = ruta1;
+      img2.src = ruta2;
       let startY = 60;
 
       // Establecer el tamaño de fuente para el encabezado de la tabla
@@ -407,8 +446,8 @@ export default {
       //let pageHeight = pdf.internal.pageSize.height;
 
 
-      //pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      //pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE CONTROL. ${this.Correlativo}`, null, null, 'right');
@@ -523,111 +562,102 @@ export default {
 
     },
 
-    uploadPDF(pdf) {
-    const formData = new FormData();
-    formData.append('ReportePdf', new Blob([pdf.output('blob')], { type: 'application/pdf' }), `PreFactura-Nro-${this.Correlativo}.pdf`);
-      this.$axios.$patch(`liquidacion/${this.Id}/`, formData, {
-        headers: { 'Content-Type': 'application/pdf' },
-      })
-      .then(response => {
-        console.log(response)
-        this.getPDF()
-      })
-      .catch(err => {
-        console.log(err)
-      });
-    },
-    getPDF() {
-      this.$axios
-        .$get(`liquidacion/${this.Id}/`)
-        .then(response => {
-          console.log('response',response.ReportePdf)
-          const pdfData = response.ReportePdf;
-          window.open(pdfData, "_blank").focus();
+    async uploadPDF(pdf) {
+      const formData = new FormData();
+      formData.append('ReportePdf', new Blob([pdf.output('blob')], { type: 'application/pdf' }), `PreFactura-Nro-${this.Correlativo}.pdf`);
+      try {
+        const response = await this.$axios.$patch(`liquidacion/${this.Id}/`, formData, {
+          headers: { 'Content-Type': 'application/pdf' },
         })
-        .catch(error => {
-          console.error('Error al obtener el PDF:', error);
-        });
+        console.log(response)
+        await this.getPDF()
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getPDF() {
+      try {
+        const response = await this.$axios.$get(`liquidacion/${this.Id}/`)
+        console.log('response', response.ReportePdf)
+        var pdfData = response.ReportePdf;
+        if (pdfData.includes("catastro_back")) {
+          // Concatenar "/catastro_back"
+          pdfData = pdfData.replace("catastro_back", "catastro_back/catastro_back");
+        }
+        window.open(pdfData, "_blank").focus();
+      } catch (err) {
+        console.log(err);
+      }
     },
 
-    getEstadoDetalles(item) {
+    async getEstadoDetalles(item) {
       this.selectedItem = item
-      console.log('this.selectedItem ',this.selectedItem )
-      this.nombrecontribuyente= item.propietario.nombre
-      this.nacionalidadcontribuyente= item.propietario.nacionalidad
-      this.numero_documento= item.propietario.numero_documento 
-
-
+      console.log('this.selectedItem ', this.selectedItem)
+      this.nombrecontribuyente = item.propietario.nombre
+      this.nacionalidadcontribuyente = item.propietario.nacionalidad
+      this.numero_documento = item.propietario.numero_documento
       const fechaActual = new Date();
       fechaActual.setHours(0, 0, 0, 0); // Establece la hora en 00:00:00
-
-      this.$axios.$get(`estadocuenta/${item.id}`).then(response => {
+      try {
+        const response = await this.$axios.$get(`estadocuenta/${item.id}`)
         this.idEstadoCuenta = response
-        console.log('this.idEstadoCuenta',this.idEstadoCuenta)
-        console.log('this.idEstadoCuenta.tipoflujo.vencimiento',this.idEstadoCuenta.tipoflujo.vencimiento)
-        console.log('this.idEstadoCuenta.fecha',this.idEstadoCuenta.fecha)
-        console.log((this.sumarDiasHabiles(this.idEstadoCuenta.fecha,this.idEstadoCuenta.tipoflujo.vencimiento))>= (fechaActual),
-        (this.sumarDiasHabiles(this.idEstadoCuenta.fecha,this.idEstadoCuenta.tipoflujo.vencimiento)),(fechaActual))
-        if((this.sumarDiasHabiles(this.idEstadoCuenta.fecha,this.idEstadoCuenta.tipoflujo.vencimiento))>= (fechaActual)){
-          this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${item.id}`).then(response => {
-            this.divs = response
+        console.log('this.idEstadoCuenta', this.idEstadoCuenta)
+        console.log('this.idEstadoCuenta.tipoflujo.vencimiento', this.idEstadoCuenta.tipoflujo.vencimiento)
+        console.log('this.idEstadoCuenta.fecha', this.idEstadoCuenta.fecha)
+        console.log((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo.vencimiento)) >= (fechaActual),
+          (this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo.vencimiento)), (fechaActual))
+        if ((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo.vencimiento)) >= (fechaActual)) {
+          try {
+            const response2 = await this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${item.id}`)
+            this.divs = response2
             console.log(this.divs, 'jolaaa')
             this.openDialog = true
-
-          }).catch(error => {
-            console.error(error);
-          })            
-        }else{
+          } catch (err) {
+            console.log(err);
+          }
+        } else {
           this.$alert("cancel", { desc: "Estado de cuenta vencido", hash: 'knsddcssdc', title: 'Error' })
-
-        }        
-
-
-
-
-
-      }).catch(error => {
-        console.error(error);
-      })
-
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
 
-    getEstadoDetallesFast(item) {
+    async getEstadoDetallesFast(item) {
       this.selectedItem = item
-      console.log('this.selectedItem ',this.selectedItem )
-      this.nombrecontribuyente= item.propietario.nombre
-      this.nacionalidadcontribuyente= item.propietario.nacionalidad
-      this.numero_documento= item.propietario.numero_documento 
-
-
+      console.log('this.selectedItem ', this.selectedItem)
+      this.nombrecontribuyente = item.propietario.nombre
+      this.nacionalidadcontribuyente = item.propietario.nacionalidad
+      this.numero_documento = item.propietario.numero_documento
       const fechaActual = new Date();
       fechaActual.setHours(0, 0, 0, 0); // Establece la hora en 00:00:00
-
-      this.$axios.$get(`estadocuenta/${item.id}`).then(response => {
+      try {
+        const response = await this.$axios.$get(`estadocuenta/${item.id}`)
         this.idEstadoCuenta = response
-        if((this.sumarDiasHabiles(this.idEstadoCuenta.fecha,this.idEstadoCuenta.tipoflujo.vencimiento))>= (fechaActual)){
-          this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${item.id}`).then(response => {
-            this.divs = response
-            this.createLiquidacion()
-
-          }).catch(error => {
-            console.error(error);
-          })            
-        }else{
+        if ((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo.vencimiento)) >= (fechaActual)) {
+          try {
+            const response2 = await this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${item.id}`)
+            this.divs = response2
+            await this.createLiquidacion()
+          } catch (err) {
+            console.log(err);
+          }
+        } else {
           this.$alert("cancel", { desc: "Estado de cuenta vencido", hash: 'knsddcssdc', title: 'Error' })
-        }        
-      }).catch(error => {
-        console.error(error);
-      })
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
-    getEstadosCuentas() {
-      this.$axios.$get('estadocuenta/?habilitado=true').then(response => {
+
+    async getEstadosCuentas() {
+      try {
+        const response = await this.$axios.$get('estadocuenta/?habilitado=true')
         this.estadoCuentasData = response
         console.log(this.estadoCuentasData, 'dataa')
-
-      }).catch(err => {
-        console.log(err)
-      })
+      } catch (err) {
+        console.log(err);
+      }
     },
   }
 

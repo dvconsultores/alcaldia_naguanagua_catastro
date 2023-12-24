@@ -277,10 +277,7 @@ export default {
       this.$axios.$patch('nivelinmueble/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado un nivel de inmueble con éxito", hash: 'knsddcssdc', title:'Editado'})
-        const index = this.nivelInmuebleData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.nivelInmuebleData, index, { ...this.defaultItem });
-        }            
+        this.getData()            
       }).catch((err) => {
         console.log(err)
       });
@@ -298,10 +295,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado un nivel de inmueble con éxito", hash: 'knsddcssdc', title:'Eliminado'}) 
-        const index = this.nivelInmuebleData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.nivelInmuebleData.splice(index, 1);
-        }          
+        this.getData()          
       }).catch((err) => {
         console.log(err)
       });

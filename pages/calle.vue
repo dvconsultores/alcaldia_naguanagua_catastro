@@ -50,9 +50,9 @@
                         v-model="nuevoRegistro.tipo"
                         label="Tipo"
                         class="input-dialog"
-                        :items="calleData"
-                        item-text="tipo"
-                        item-value="id"
+                        :items="itemsTipo"
+                        item-text="text"
+                        item-value="value"
                       ></v-autocomplete>
                     </v-col>
                   </v-row>
@@ -117,9 +117,9 @@
                         v-model="defaultItem.tipo"
                         label="Tipo"
                         class="input-dialog"
-                        :items="calleData"
-                        item-text="tipo"
-                        item-value="id"
+                        :items="itemsTipo"
+                        item-text="text"
+                        item-value="value"
                       ></v-autocomplete>
                     </v-col>
                   </v-row>
@@ -230,6 +230,12 @@ export default {
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
       calleData: [],
+      itemsTipo: [
+        { text: 'Una Via', value: '1' },
+        { text: 'Doble Via', value: '2' },
+        { text: 'Colateral', value: '3' },
+        { text: 'Arterial', value: '4' },
+      ],
 
       defaultItem: {
         codigo: '',
@@ -290,10 +296,7 @@ export default {
       this.$axios.$patch('calle/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado una calle con éxito", hash: 'knsddcssdc', title:'Edición de calle'})
-        const index = this.calleData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.calleData, index, { ...this.defaultItem });
-        }         
+        this.getCalle()        
       }).catch((err) => {
         console.log(err)
       });
@@ -311,10 +314,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado una calle con éxito", hash: 'knsddcssdc', title:'Eliminación de calle'}) 
-        const index = this.calleData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.calleData.splice(index, 1);
-        }        
+        this.getCalle()        
       }).catch((err) => {
         console.log(err)
       });

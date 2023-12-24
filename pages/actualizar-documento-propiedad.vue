@@ -356,6 +356,7 @@
 
             <v-col cols="3">
               <v-text-field 
+              v-model="dataDocumentoPropiedad.valor_construccion"
               class="input-300" label="Valor"></v-text-field>
             </v-col>
           </v-row>
@@ -575,6 +576,7 @@ export default {
       formData.append('protocolo_construccion', this.dataDocumentoPropiedad.protocolo_construccion);
       formData.append('tomo_construccion', this.dataDocumentoPropiedad.tomo_construccion);
       formData.append('area_construccion', this.dataDocumentoPropiedad.area_construccion);
+      formData.append('valor_construccion', this.dataDocumentoPropiedad.valor_construccion);
       formData.append('lindero_norte', this.dataDocumentoPropiedad.lindero_norte);
       formData.append('lindero_sur', this.dataDocumentoPropiedad.lindero_sur);
       formData.append('lindero_este', this.dataDocumentoPropiedad.lindero_este);

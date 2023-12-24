@@ -15,16 +15,6 @@
         <hr>
 
         <div class="container-creacion-datos">
-          <!-- <div class="title-description-div">
-            <p class="nombre-razon">
-              Nro. Recibo
-            </p>
-
-            <p class="nombre-desc">
-              {{numeroCorrelativo}}
-            </p>
-          </div> -->
-
           <div class="title-description-div">
             <p class="nombre-razon">
               Fecha
@@ -106,7 +96,7 @@
               dark
             >
               <v-card-text>
-                Por favor espere
+                Por favor espere!!!
                 <v-progress-linear
                   indeterminate
                   color="white"
@@ -494,6 +484,7 @@
           </v-btn>
         </div>
       </div>
+      
     </section>
   </div>
 </template>
@@ -508,7 +499,7 @@ export default{
   mixins: [computeds],
   data() {
     return{
-      dialogWait: false,
+      dialogWait: true,
       dialog_IC: false,
       dialog_IC_MIU: false,
       dialog_IC_MMU: false,
@@ -550,26 +541,28 @@ export default{
       base_multa:0,
       Correlativo: 0,
       Id: 0,
+      CorrelativoData: [],
     }
   },
 
   head() {
-    const title = 'Inscripción Inmueble';
+    const title = 'Estado de cuenta  catastro detalle';
     return {
       title,
     }
   },
 
-  mounted(){
+  async mounted(){
     if (this.idflujo==''){
       this.$router.push('estado-cuenta-catastro')
           this.$alert("cancel", {desc: "Debe seleccionar un tipo de transacción o trámite", hash: 'knsddcssdc', title:'Error'})
     }
-    else{
-        this.dialogWait = true
-        this.getTasaMulta()
-        this.getBCV()
-        this.getTipoInmueble()
+    else{this.dialogWait = true
+        await this.getCorrelativo();
+        console.log('dialogWait',this.dialogWait)
+        await this.getTasaMulta()
+        await this.getBCV()
+        await this.getTipoInmueble()
         
         if (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')
         {
@@ -577,16 +570,17 @@ export default{
               this.$router.push('consulta-inmueble')
               this.$alert("cancel", {desc: "Debe seleccionar un Inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
             }else{
-              this.getMultaImpuesto()
+              await this.getMultaImpuesto()
             }
         }
         else
         {
           if(this.$store.getters.getExpediente!='Sin Seleccionar'){
-            this.getMultaImpuesto()
+            await this.getMultaImpuesto()
           }
         }
-        this.dialogWait = false
+        this.dialogWait = false 
+        console.log('dialogWait',this.dialogWait)
       }
   },
 
@@ -597,9 +591,20 @@ export default{
   // },
 
   methods: {
+    async getCorrelativo() {
+      try {
+        const response = await this.$axios.$get('correlativo');
+        this.CorrelativoData = response
+        console.log('CorrelativoData',this.CorrelativoData)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     roundNumber(value, decimals) {
       return parseFloat(value).toFixed(decimals);
     },
+
     DetalleIC(id) {
       console.log('ID',id)
       if (id=='IC'){
@@ -625,24 +630,26 @@ export default{
         div.calculo = (div.monto_unidad_tributaria * div.cantidad  * this.montoBCV).toFixed(2);
       }
     },
-    getTasaMulta(){
-      this.$axios.$get('tasamulta').then(response => {
+   async getTasaMulta(){
+    try {
+        const response = await   this.$axios.$get('tasamulta');
         this.tasaMultaData = response
         //this.tasaMultaData.forEach((item) => {
         //  item.editable = false;
        // });
         console.log('this.tasaMultaData0',this.tasaMultaData)
-      }).catch(err => {
-        console.log(err)
-      })
+      } catch (err) {
+        console.log(err);
+      }
     },
    
-    getMultaImpuesto(){
+    async getMultaImpuesto(){
       const data = {
         inmueble: this.$store.getters.getExpediente.id,
         propietario: this.$store.getters.getContribuyente.id,
       }
-      this.$axios.$post('MultaInmueble/', data).then(res => {
+      try {
+        const res = await  this.$axios.$post('MultaInmueble/', data)
         if (res) {
           this.IC_MIU=res[0].data_IC_MIU
           //this.IC_MMU=res[0].data_IC_MMU
@@ -715,18 +722,19 @@ export default{
           });
         }
         this.$alert("success", {desc: "El inmueble posee MULTAS por pagar. Se ha cargado la deuda con éxito.", hash: 'knsddcssdc', title:'Impuesto por pagar.'}) 
-      }).catch(err =>{
-        console.log(err)
-      })
+      } catch (err) {
+        console.log(err);
+      }
     },
 
-    getBCV() {
-      this.$axios.$get('unidadtributaria/').then(response => {
+    async getBCV() {
+      try {
+        const response = await this.$axios.$get('unidadtributaria/')
           this.bcvData = response
           this.montoBCV = this.bcvData[0].monto
-        }).catch(err => {
-          console.log(err)
-        })
+        } catch (err) {
+        console.log(err);
+      }
     },
 
     montoTotal() {
@@ -749,17 +757,18 @@ export default{
       this.multiplicarValor(index)
     },
 
-    getTipoInmueble(){
-      this.$axios.$get('tipoinmueble').then(response => {
+    async getTipoInmueble(){
+      try {
+        const response = await this.$axios.$get('tipoinmueble')
         this.dataTipoInmueble = response
         //console.log(this.dataTipoInmueble, 'dataINmueble')
-      }).catch(err => {
-        console.log(err)
-      })
+      } catch (err) {
+        console.log(err);
+      }
     },
 
 
-    createEstadoCuenta(){
+    async createEstadoCuenta(){    
       const data = {
         inmueble: (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')? this.$store.getters.getExpediente.id : null,
         flujo: this.idflujo,
@@ -769,16 +778,19 @@ export default{
         detalle: this.divs,
         monto_total: this.montoTotal(),
       }
-      this.$axios.$post('crearestadocuenta/', data).then(res => {
+      try {
+        this.dialogWait = true
+        const res = await this.$axios.$post('crearestadocuenta/', data)
         console.log(res)
         this.Correlativo=res.documento
         this.Id=res.id
         this.generarPDF()
+        this.dialogWait = false
         //this.$router.push('modificar-datos')
         this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
-      }).catch(err =>{
-        console.log(err)
-      })
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     addDiv(){
@@ -818,7 +830,7 @@ export default{
       const anio = fecha.getFullYear();
       return `${dia}/${mes}/${anio}`;
     },
-    generarPDF() {
+    async generarPDF() {
       const pdf = new jsPDF('p', 'mm', 'letter');
 
       // Define un objeto de mapeo para traducir valores abreviados a descripciones completas
@@ -839,10 +851,28 @@ export default{
 
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
 
-      //const img1 = new Image();
-      //img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
-      //const img2 = new Image();
-      //img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
+      const img1 = new Image();
+      const img2 = new Image();
+      var ruta1=this.CorrelativoData[0].Logo1;
+      if (ruta1.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
+      }
+      var ruta2=this.CorrelativoData[0].Logo2;
+      if (ruta2.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
+      }
+      img1.src = ruta1;
+      img2.src = ruta2;
+
+      img1.onload = function () {
+        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+        img2.onload = function () {
+          pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+        };
+      };
+
 
       let startY = 55 ;
     
@@ -853,8 +883,8 @@ export default{
       //let pageHeight = pdf.internal.pageSize.height;
       
       
-      //pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      //pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);  
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE CONTROL. ${this.Correlativo}`, null, null, 'right');
@@ -997,31 +1027,33 @@ export default{
 
     },
     
-    uploadPDF(pdf) {
-    const formData = new FormData();
-    formData.append('ReportePdf', new Blob([pdf.output('blob')], { type: 'application/pdf' }), `EstadoCuenta-Nro-${this.Correlativo}.pdf`);
-      this.$axios.$patch(`estadocuenta/${this.Id}/`, formData, {
-        headers: { 'Content-Type': 'application/pdf' },
-      })
-      .then(response => {
-        this.getPDF() 
-        console.log(response)
-      })
-      .catch(err => {
-        console.log(err)
-      });
-    },
-    getPDF() {
-      this.$axios
-        .$get(`estadocuenta/${this.Id}/`)
-        .then(response => {
-          console.log('response',response.ReportePdf)
-          const pdfData = response.ReportePdf;
-          window.open(pdfData, "_blank").focus();
+    async uploadPDF(pdf) {
+      const formData = new FormData();
+      formData.append('ReportePdf', new Blob([pdf.output('blob')], { type: 'application/pdf' }), `EstadoCuenta-Nro-${this.Correlativo}.pdf`);
+      try {
+        const response = await this.$axios.$patch(`estadocuenta/${this.Id}/`, formData, {
+          headers: { 'Content-Type': 'application/pdf' },
         })
-        .catch(error => {
-          console.error('Error al obtener el PDF:', error);
-        });
+        console.log(response)
+        await this.getPDF()
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getPDF() {
+      try {
+        const response = await this.$axios.$get(`estadocuenta/${this.Id}/`)
+       
+          console.log('response',response.ReportePdf)
+          var pdfData = response.ReportePdf;
+          if (pdfData.includes("catastro_back")) {
+              // Concatenar "/catastro_back"
+              pdfData = pdfData.replace("catastro_back", "catastro_back/catastro_back");
+            }
+          window.open(pdfData, "_blank").focus();
+        } catch (err) {
+          console.error('Error al obtener el PDF:', err);
+        }
     },
   }
 }

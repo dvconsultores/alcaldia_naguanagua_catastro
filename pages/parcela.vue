@@ -350,6 +350,7 @@ export default {
     },
 
     createParcela(){
+      console.log('nuevoRegistro',this.nuevoRegistro)
       this.$axios.$post('parcela/', this.nuevoRegistro).then(res => {
         console.log(res.data)
         this.nuevoRegistro = {}
@@ -385,15 +386,10 @@ export default {
       formData.append('area', this.defaultItem.area)
       formData.append('perimetro', this.defaultItem.perimetro)
       formData.append('sector', this.defaultItem.sector)
-
-
       this.$axios.$patch('parcela/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado una parcela con éxito", hash: 'knsddcssdc', title:'Edición de parcela'})  
-        const index = this.dataParcela.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.dataParcela, index, { ...this.defaultItem });
-        }       
+        this.getDataParcela()       
       }).catch((err) => {
         console.log(err)
       });
@@ -411,10 +407,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado una parcela con éxito", hash: 'knsddcssdc', title:'Eliminación de Parcela'})
-        const index = this.dataParcela.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.dataParcela.splice(index, 1);
-        }             
+        this.getDataParcela()            
       }).catch((err) => {
         console.log(err)
       });

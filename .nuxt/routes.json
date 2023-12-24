@@ -126,6 +126,13 @@
     "_name": "_5e20ffc2"
   },
   {
+    "name": "consulta-contribuyente___en",
+    "path": "/consulta-contribuyente",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-contribuyente.vue",
+    "chunkName": "pages/consulta-contribuyente",
+    "_name": "_2b4bf01a"
+  },
+  {
     "name": "consulta-inmueble___en",
     "path": "/consulta-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble.vue",
@@ -140,11 +147,11 @@
     "_name": "_bed63f6c"
   },
   {
-    "name": "consultar-propietario___en",
-    "path": "/consultar-propietario",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario.vue",
-    "chunkName": "pages/consultar-propietario",
-    "_name": "_22f70331"
+    "name": "consultar-propietario-old___en",
+    "path": "/consultar-propietario-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario-old.vue",
+    "chunkName": "pages/consultar-propietario-old",
+    "_name": "_12f0348b"
   },
   {
     "name": "crear-contribuyente___en",
@@ -173,6 +180,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/desincorporacion-inmueble.vue",
     "chunkName": "pages/desincorporacion-inmueble",
     "_name": "_3fe333e3"
+  },
+  {
+    "name": "desincorporacion-propietarios___en",
+    "path": "/desincorporacion-propietarios",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/desincorporacion-propietarios.vue",
+    "chunkName": "pages/desincorporacion-propietarios",
+    "_name": "_2c9402c7"
   },
   {
     "name": "edificios___en",
@@ -756,6 +770,13 @@
     "_name": "_5e20ffc2"
   },
   {
+    "name": "consulta-contribuyente___es",
+    "path": "/es/consulta-contribuyente",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-contribuyente.vue",
+    "chunkName": "pages/consulta-contribuyente",
+    "_name": "_2b4bf01a"
+  },
+  {
     "name": "consulta-inmueble___es",
     "path": "/es/consulta-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble.vue",
@@ -770,11 +791,11 @@
     "_name": "_bed63f6c"
   },
   {
-    "name": "consultar-propietario___es",
-    "path": "/es/consultar-propietario",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario.vue",
-    "chunkName": "pages/consultar-propietario",
-    "_name": "_22f70331"
+    "name": "consultar-propietario-old___es",
+    "path": "/es/consultar-propietario-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario-old.vue",
+    "chunkName": "pages/consultar-propietario-old",
+    "_name": "_12f0348b"
   },
   {
     "name": "crear-contribuyente___es",
@@ -803,6 +824,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/desincorporacion-inmueble.vue",
     "chunkName": "pages/desincorporacion-inmueble",
     "_name": "_3fe333e3"
+  },
+  {
+    "name": "desincorporacion-propietarios___es",
+    "path": "/es/desincorporacion-propietarios",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/desincorporacion-propietarios.vue",
+    "chunkName": "pages/desincorporacion-propietarios",
+    "_name": "_2c9402c7"
   },
   {
     "name": "edificios___es",

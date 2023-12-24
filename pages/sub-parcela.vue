@@ -422,10 +422,7 @@ export default {
       this.$axios.$patch('subparcela/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado una sub-parcela con éxito", hash: 'knsddcssdc', title:'Edición de sub-parcela'})
-        const index = this.dataSubParcela.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.dataSubParcela, index, { ...this.defaultItem });
-        }          
+        this.getDataSubParcela()          
       }).catch((err) => {
         console.log(err)
       });
@@ -443,10 +440,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado una sub-parcela con éxito", hash: 'knsddcssdc', title:'Eliminación de Sub-Parcela'})  
-        const index = this.dataSubParcela.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.dataSubParcela.splice(index, 1);
-        }        
+        this.getDataSubParcela()       
       }).catch((err) => {
         console.log(err)
       });

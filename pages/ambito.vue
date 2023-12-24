@@ -222,10 +222,7 @@ export default {
       this.$axios.$patch('ambito/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", { desc: "Se ha editado un ambito con éxito", hash: 'knsddcssdc', title: 'Edición de Ambito' })
-        const index = this.ambitoData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.ambitoData, index, { ...this.defaultItem });
-        }
+        this.getAmbito()
       }).catch((err) => {
         console.log(err)
       });
@@ -243,10 +240,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", { desc: "Se ha eliminado un ambito con éxito", hash: 'knsddcssdc', title: 'Eliminación de Ambito' })
-        const index = this.ambitoData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.ambitoData.splice(index, 1);
-        }
+        this.getAmbito()
       }).catch((err) => {
         console.log(err)
       });

@@ -352,6 +352,7 @@ export default {
       MensajeNotaCredito: '',
       selectedItem: {},
       mostrarVentana: false,
+      correlativoData: [],
     }
   },
   head() {
@@ -367,9 +368,18 @@ export default {
     this.getTipoPago()
     this.getBancoCuenta()
     this.getCorridasBancarias()
+    this.getCorrelativo()
+
   },
 
   methods: {
+    getCorrelativo() {
+      this.$axios.$get('correlativo').then(response => {
+        this.correlativoData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     filtrarCorridasBancarias(idbancocuenta) {
       if (idbancocuenta) {
         this.filtrocorridasbancariasData = this.corridasbancariasData.filter((registro) => {
@@ -625,10 +635,27 @@ export default {
 
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
 
-      //const img1 = new Image();
-      //img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
-      //const img2 = new Image();
-      //img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
+      const img1 = new Image();
+      const img2 = new Image();
+      var ruta1=this.CorrelativoData[0].Logo1;
+      if (ruta1.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
+      }
+      var ruta2=this.CorrelativoData[0].Logo2;
+      if (ruta2.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
+      }
+      img1.src = ruta1;
+      img2.src = ruta2; 
+
+      img1.onload = function () {
+        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+        img2.onload = function () {
+          pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+        };
+      };
 
       let startY = 55;
 
@@ -639,8 +666,8 @@ export default {
       //let pageHeight = pdf.internal.pageSize.height;
 
 
-      //pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      //pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE PLANILLA. ${this.Correlativo}`, null, null, 'right');
@@ -799,7 +826,11 @@ export default {
         .$get(`pagoestadocuenta/${this.Id}/`)
         .then(response => {
           console.log('response', response.ReportePdf)
-          const pdfData = response.ReportePdf;
+          var pdfData = response.ReportePdf;
+          if (pdfData.includes("catastro_back")) {
+              // Concatenar "/catastro_back"
+              pdfData = pdfData.replace("catastro_back", "catastro_back/catastro_back");
+            }
           window.open(pdfData, "_blank").focus();
         })
         .catch(error => {

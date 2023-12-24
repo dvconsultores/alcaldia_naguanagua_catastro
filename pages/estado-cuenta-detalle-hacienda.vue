@@ -15,16 +15,6 @@
         <hr>
 
         <div class="container-creacion-datos">
-          <!-- <div class="title-description-div">
-            <p class="nombre-razon">
-              Nro. Recibo
-            </p>
-
-            <p class="nombre-desc">
-              {{numeroCorrelativo}}
-            </p>
-          </div> -->
-
           <div class="title-description-div">
             <p class="nombre-razon">
               Fecha
@@ -387,30 +377,38 @@ export default{
     }
   },
 
-  mounted(){
-    if (this.idflujo==''){
+  async mounted() {
+    if (this.idflujo == '') {
       this.$router.push('estado-cuenta-hacienda')
-          this.$alert("cancel", {desc: "Debe seleccionar un tipo de transacción o trámite", hash: 'knsddcssdc', title:'Error'})
+      this.$alert("cancel", { desc: "Debe seleccionar un tipo de transacción o trámite", hash: 'knsddcssdc', title: 'Error' })
     }
-    else{
+    else {
       this.dialogWait = true
-        this.getCorrelativo()
-        this.getTasaMulta()
-        this.getBCV()
-        this.getTipoInmueble()
-        if(this.$store.getters.getExpediente=='Sin Seleccionar'){
-            this.$router.push('consulta-inmueble')
-            this.$alert("cancel", {desc: "Debe seleccionar un Inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
-        }else{
-            
-            this.getDeudaImpuesto()
-        }
-        this.dialogWait = false
+      await this.getCorrelativo()
+      await this.getTasaMulta()
+      await this.getBCV()
+      await this.getTipoInmueble()
+      if (this.$store.getters.getExpediente == 'Sin Seleccionar') {
+        this.$router.push('consulta-inmueble')
+        this.$alert("cancel", { desc: "Debe seleccionar un Inmueble para ingresar a este módulo", hash: 'knsddcssdc', title: 'Error' })
+      } else {
+        await this.getDeudaImpuesto()
       }
+      this.dialogWait = false
+    }
   },
 
 
   methods: {
+    async getCorrelativo() {
+      try {
+        const response = await this.$axios.$get('correlativo');
+        this.CorrelativoData = response
+        console.log('CorrelativoData',this.CorrelativoData)
+      } catch (err) {
+        console.log(err);
+      }
+    },
     roundNumber(value, decimals) {
       return parseFloat(value).toFixed(decimals);
     },
@@ -428,30 +426,27 @@ export default{
         div.calculo = (div.monto_unidad_tributaria * div.cantidad  * this.montoBCV).toFixed(2);
       }
     },
-    getTasaMulta(){
-      this.$axios.$get('tasamulta').then(response => {
+    async getTasaMulta(){
+    try {
+        const response = await   this.$axios.$get('tasamulta');
         this.tasaMultaData = response
-        this.tasaMultaData.forEach((item) => {
-          item.editable = false;
-        });
         console.log('this.tasaMultaData0',this.tasaMultaData)
-      }).catch(err => {
-        console.log(err)
-      })
+      } catch (err) {
+        console.log(err);
+      }
     },
-    getDeudaImpuesto(){
+    async getDeudaImpuesto() {
       const data = {
         inmueble: this.$store.getters.getExpediente.id,
         propietario: this.$store.getters.getContribuyente.id,
         periodo: 4,
       }
-      this.$axios.$post('ImpuestoInmueble/', data).then(res => {
-
-
+      try {
+        const res = await this.$axios.$post('ImpuestoInmueble/', data)
         if (res) {
-          this.IC_Cabecera=res[0].cabacera
-          if (res[0].cabacera.flujo){
-            this.$alert("success", {desc: "El imueble posee impuestos por pagar pero tiene un proceso en catastro por terminar.", hash: 'knsddcssdc', title:'Impuesto por pagar.'}) 
+          this.IC_Cabecera = res[0].cabacera
+          if (res[0].cabacera.flujo) {
+            this.$alert("success", { desc: "El imueble posee impuestos por pagar pero tiene un proceso en catastro por terminar.", hash: 'knsddcssdc', title: 'Impuesto por pagar.' })
             this.divs.push({
               tasa_multa_id: null, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
               monto_unidad_tributaria: null, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
@@ -459,26 +454,26 @@ export default{
               calculo: 0, // Valor para calculo (puedes reemplazarlo con el valor que desees)
               editable: false
             });
-          }else{
-            this.IC_Cabecera=res[0].cabacera
-            this.IC_Detalle=res[0].detalle
-            this.IC_Descuento=res[0].descuento
-            this.IC_Interes=res[0].interes
-            this.tasa_multa_id=this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
-            console.log('this.tasaMultaData1',this.tasaMultaData)
+          } else {
+            this.IC_Cabecera = res[0].cabacera
+            this.IC_Detalle = res[0].detalle
+            this.IC_Descuento = res[0].descuento
+            this.IC_Interes = res[0].interes
+            this.tasa_multa_id = this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
+            console.log('this.tasaMultaData1', this.tasaMultaData)
             this.divs.push({
               tasa_multa_id: this.tasa_multa_id.id, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
               monto_unidad_tributaria: this.IC_Cabecera.total, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
               cantidad: 1, // Valor para cantidad (puedes reemplazarlo con el valor que desees)
               calculo: this.IC_Cabecera.total, // Valor para calculo (puedes reemplazarlo con el valor que desees)
               editable: true,
-              detalle:'IC'
+              detalle: 'IC'
             });
-            this.$alert("success", {desc: "El imueble posee impuestos por pagar. Se ha cargado la deuda con éxito.", hash: 'knsddcssdc', title:'Impuesto por pagar.'}) 
+            this.$alert("success", { desc: "El imueble posee impuestos por pagar. Se ha cargado la deuda con éxito.", hash: 'knsddcssdc', title: 'Impuesto por pagar.' })
 
+          }
         }
-        }
-        else{
+        else {
           this.divs.push({
             tasa_multa_id: null, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
             monto_unidad_tributaria: null, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
@@ -487,20 +482,19 @@ export default{
             editable: false
           });
         }
-      }).catch(err =>{
-        console.log(err)
-      })
+      } catch (err) {
+        console.log(err);
+      }
     },
 
-
-
-    getBCV() {
-      this.$axios.$get('unidadtributaria/').then(response => {
+    async getBCV() {
+      try {
+        const response = await this.$axios.$get('unidadtributaria/')
           this.bcvData = response
           this.montoBCV = this.bcvData[0].monto
-        }).catch(err => {
-          console.log(err)
-        })
+        } catch (err) {
+        console.log(err);
+      }
     },
 
     montoTotal() {
@@ -525,46 +519,70 @@ export default{
 
 
 
-    getCorrelativo(){
-      this.$axios.$get('correlativo').then(response => {
-        this.correlativoData = response
-        this.numeroCorrelativo = this.correlativoData[0].NumeroEstadoCuenta
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-
-    getTipoInmueble(){
-      this.$axios.$get('tipoinmueble').then(response => {
+    async getTipoInmueble(){
+      try {
+        const response = await this.$axios.$get('tipoinmueble')
         this.dataTipoInmueble = response
         //console.log(this.dataTipoInmueble, 'dataINmueble')
-      }).catch(err => {
-        console.log(err)
-      })
+      } catch (err) {
+        console.log(err);
+      }
     },
 
 
-    createEstadoCuenta(){
+    async createEstadoCuenta(){
       const data = {
         inmueble: (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')? this.$store.getters.getExpediente.id : null,
         flujo: this.idflujo,
-        correlativo: this.numeroCorrelativo,
+        correlativo: 0,
         propietario: this.$store.getters.getContribuyente.id,
         observacion: this.observaciones,
         detalle: this.divs,
         monto_total: this.montoTotal(),
       }
-      this.$axios.$post('crearestadocuenta/', data).then(res => {
+      try {
+        this.dialogWait = true
+        const res = await this.$axios.$post('crearestadocuenta/', data)
         console.log('crearestadocuenta',res)
         this.Correlativo=res.documento
         this.Id=res.id
+        console.log('IC_Cabecera',this.IC_Cabecera)
+        console.log('idflujo',this.idflujo)
+        if (this.IC_Cabecera!=[] && this.idflujo=='4'){  // solo ejecuta si se genereo un calculo de impuesto de inmueble uranos (flujo=4)
+           this.createEstadoCuentaDetalleImpuestoInmueble()
+        }
+
+       
+        this.IC_Cabecera=[]
+        this.IC_Detalle=[]
+        this.IC_Descuento=[]
+        this.IC_Interes=[]     
         this.generarPDF()
-        
+        this.dialogWait = false
         this.$router.push('modificar-datos')
         this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
-      }).catch(err =>{
-        console.log(err)
-      })
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+
+    async createEstadoCuentaDetalleImpuestoInmueble(){
+      const data = {
+        estadocuenta:this.Id,
+        cabecera:this.IC_Cabecera ,
+        detalle:this.IC_Detalle ,
+        descuento:this.IC_Descuento ,
+        interes:this.IC_Interes,
+      }
+      try {
+        this.dialogWait = true
+        const res = await this.$axios.$post('ImpuestoInmuebleDetalle/', data)
+        console.log('ImpuestoInmuebleDetalle',res)
+        this.dialogWait = false
+      } catch (err) {
+        console.log(err);
+      }
     },
 
 
@@ -606,7 +624,7 @@ export default{
       const anio = fecha.getFullYear();
       return `${dia}/${mes}/${anio}`;
     },
-    generarPDF() {
+    async generarPDF() {
       const pdf = new jsPDF('p', 'mm', 'letter');
 
       // Define un objeto de mapeo para traducir valores abreviados a descripciones completas
@@ -627,11 +645,27 @@ export default{
 
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
 
-      //const img1 = new Image();
-      //img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
+      const img1 = new Image();
+      const img2 = new Image();
+      var ruta1=this.CorrelativoData[0].Logo1;
+      if (ruta1.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
+      }
+      var ruta2=this.CorrelativoData[0].Logo2;
+      if (ruta2.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back"); 
+      }
+      img1.src = ruta1;
+      img2.src = ruta2;
 
-      //const img2 = new Image();
-      //img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
+      img1.onload = function () {
+        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+        img2.onload = function () {
+          pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+        };
+      };
 
       let startY = 55 ; 
     
@@ -642,8 +676,8 @@ export default{
       //let pageHeight = pdf.internal.pageSize.height;
       
       
-      //pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      //pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);  
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE CONTROL. ${this.Correlativo}`, null, null, 'right');
@@ -787,31 +821,32 @@ export default{
 
     },
 
-    uploadPDF(pdf) {
-    const formData = new FormData();
-    formData.append('ReportePdf', new Blob([pdf.output('blob')], { type: 'application/pdf' }), `EstadoCuenta-Nro-${this.Correlativo}.pdf`);
-      this.$axios.$patch(`estadocuenta/${this.Id}/`, formData, {
-        headers: { 'Content-Type': 'application/pdf' },
-      })
-      .then(response => {
-        console.log(response)
-        this.getPDF()
-      })
-      .catch(err => {
-        console.log(err)
-      });
-    },
-    getPDF() {
-      this.$axios
-        .$get(`estadocuenta/${this.Id}/`)
-        .then(response => {
-          console.log('response',response.ReportePdf)
-          const pdfData = response.ReportePdf;
-          window.open(pdfData, "_blank").focus();
+    async uploadPDF(pdf) {
+      const formData = new FormData();
+      formData.append('ReportePdf', new Blob([pdf.output('blob')], { type: 'application/pdf' }), `EstadoCuenta-Nro-${this.Correlativo}.pdf`);
+      try {
+        const response = await this.$axios.$patch(`estadocuenta/${this.Id}/`, formData, {
+          headers: { 'Content-Type': 'application/pdf' },
         })
-        .catch(error => {
-          console.error('Error al obtener el PDF:', error);
-        });
+        console.log(response)
+        await this.getPDF()
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getPDF() {
+      try {
+        const response = await this.$axios.$get(`estadocuenta/${this.Id}/`)
+        console.log('response', response.ReportePdf)
+        var pdfData = response.ReportePdf;
+        if (pdfData.includes("catastro_back")) {
+          // Concatenar "/catastro_back"
+          pdfData = pdfData.replace("catastro_back", "catastro_back/catastro_back");
+        }
+        window.open(pdfData, "_blank").focus();
+      } catch (err) {
+        console.error('Error al obtener el PDF:', err);
+      }
     },
   }
 }

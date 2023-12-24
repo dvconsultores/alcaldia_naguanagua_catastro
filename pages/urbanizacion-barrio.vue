@@ -52,6 +52,13 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
+                        v-model="nuevoRegistro.codigo"
+                        label="Código"
+                        class="input-dialog"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
                         v-model="nuevoRegistro.nombre"
                         label="Nombre"
                         class="input-dialog"
@@ -134,6 +141,13 @@
                         item-text="descripcion"
                         item-value="id"
                       ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="defaultItem.codigo"
+                        label="Código"
+                        class="input-dialog"
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -307,6 +321,7 @@ export default {
       headers: [
         { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
         { text: 'Sector', value: 'descripcion_sector', align:'center' },
+        { text: 'Código', value: 'codigo', align:'center' },
         { text: 'Nombre', value: 'nombre', align:'center' },
         { text: 'Tipo', value: 'tipo', align:'center' },
         { text: 'Zona', value: 'zona', align:'center' },
@@ -324,6 +339,7 @@ export default {
       defaultItem: {
         ambito: '',
         sector: '',
+        codigo: '',
         nombre: '',
         zona: '',
         tipo: '',
@@ -397,6 +413,7 @@ export default {
       this.defaultItem.ambito = item.ambito
       this.defaultItem.sector = item.sector
       this.defaultItem.nombre = item.nombre
+      this.defaultItem.codigo = item.codigo
       this.defaultItem.tipo = item.tipo
       this.defaultItem.zona = item.zona
     },
@@ -405,7 +422,9 @@ export default {
       const formData = new FormData()
       formData.append('ambito', this.defaultItem.ambito)
       formData.append('sector', this.defaultItem.sector)
+      formData.append('codigo', this.defaultItem.codigo)
       formData.append('nombre', this.defaultItem.nombre)
+
       formData.append('tipo', this.defaultItem.tipo)
       formData.append('zona', this.defaultItem.zona)
 

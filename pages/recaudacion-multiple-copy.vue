@@ -873,7 +873,11 @@ export default {
         .$get(`pagoestadocuenta/${this.IdPago}/`)
         .then(response => {
           console.log('response', response.ReportePdf)
-          const pdfData = response.ReportePdf;
+          var pdfData = response.ReportePdf;
+          if (pdfData.includes("catastro_back")) {
+              // Concatenar "/catastro_back"
+              pdfData = pdfData.replace("catastro_back", "catastro_back/catastro_back");
+            }
           window.open(pdfData, "_blank").focus();
         })
         .catch(error => {

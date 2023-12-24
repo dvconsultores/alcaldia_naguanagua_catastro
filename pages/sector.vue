@@ -394,7 +394,7 @@ export default {
   },
 
   mounted(){
-    this.getDataSector(),
+    this.getDataSector()
     this.getDataAmbito()
   },
 
@@ -454,10 +454,7 @@ export default {
       this.$axios.$patch('sector/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado un sector con éxito", hash: 'knsddcssdc', title:'Edición de sector'})
-        const index = this.sectoresData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.sectoresData, index, { ...this.defaultItem });
-        }         
+        this.getDataSector()        
       }).catch((err) => {
         console.log(err)
       });
@@ -475,10 +472,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado un sector con éxito", hash: 'knsddcssdc', title:'Eliminación de Sector'}) 
-        const index = this.sectoresData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.sectoresData.splice(index, 1);
-        }          
+        this.getDataSector()         
       }).catch((err) => {
         console.log(err)
       });

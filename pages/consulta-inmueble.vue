@@ -4,7 +4,7 @@
       <div class="consulta-inmueble-container">
         <div class="title-morado">
           <p class="consulta-inmueble-title">
-            Inmuebles
+            CONSULTA Inmuebles
           </p>
           <v-dialog v-model="dialog_mostrar" max-width="1600px">
             <div id="dialog-mostrar">
@@ -142,9 +142,9 @@
         <div class="data-table-container">
 
           <div>
-            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar inmueble" hide-details
-              class="input-data-table"></v-text-field>
-            <v-btn @click="getInmueble" color="primary">Buscar inmueble</v-btn>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar INMUEBLE por número de expediente" hide-details
+              class="input-data-table" @keyup.enter="getInmueble"></v-text-field>
+            <!--v-btn @click="getInmueble" color="primary">Buscar INMUEBLE</v-btn-->
           </div>
           <v-data-table :headers="headers" :items="inmuebleData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
@@ -160,7 +160,26 @@
         </div>
       </div>
     </section>
-
+    <v-dialog
+            v-model="dialogWait"
+            hide-overlay
+            persistent
+            width="300"
+          >
+            <v-card
+              color="primary"
+              dark
+            >
+              <v-card-text>
+                Por favor espere!!!
+                <v-progress-linear
+                  indeterminate
+                  color="white"
+                  class="mb-0"
+                ></v-progress-linear>
+              </v-card-text>
+            </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -168,13 +187,14 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "consulta_inmueblePage",
+  name: "consulta-inmueblePage",
   mixins: [computeds],
   data() {
     return {
+      dialogWait : false,
       activeTab: 0,
       dialog_mostrar: false,
-      search: '',
+      search: this.$store.getters.getExpediente=='Sin Seleccionar'?'':this.$store.getters.getExpediente.numero_expediente,
       numeroDocumento: '',
       dialog: false,
       dialog_editar: false,
@@ -276,9 +296,11 @@ export default {
     },
     async getInmueblePropietarios() {
       try {
+        this.dialogWait = true
         const response = await this.$axios.$get(`inmueble_propietarios/?inmueble=${this.selectedItem.id}`);
         this.PropietariosData = response
         console.log('this.PropietariosData ', this.PropietariosData)
+        this.dialogWait = false
         this.dialog_mostrar = true
       } catch (err) {
         console.log(err);
@@ -301,15 +323,25 @@ export default {
       var idInmueble
       this.inmuebleData = []
       this.numeroDocumento = this.search
-      try {
-        const response = await this.$axios.$get(`filtrar_inmuebles/?numero_expediente=${this.numeroDocumento}`)
-        idInmueble = response[0].id
-        //console.log(' idInmueble', idInmueble)
-        const response1 = await this.$axios.$get('inmueble/' + idInmueble)
-        this.inmuebleData = [response1]
+      if (this.search.trim() == '') {
+        this.$alert("cancel", { desc: "Debe colocar un número de expediente válido.", hash: 'knsddcssdc', title: 'Advertencia' })
 
-      } catch (err) {
-        console.log(err);
+      }else{
+        try {
+          this.dialogWait = true
+          const response = await this.$axios.$get(`filtrar_inmuebles/?numero_expediente=${this.numeroDocumento}`)
+          if (response.length>0){
+            idInmueble = response[0].id
+            const response1 = await this.$axios.$get('inmueble/' + idInmueble)
+            this.inmuebleData = [response1]
+            this.dialogWait = false
+          }else{
+            this.dialogWait = false
+            this.$alert("cancel", { desc: "No se encontraron expedientes.", hash: 'knsddcssdc', title: 'Advertencia' })
+          }
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
 

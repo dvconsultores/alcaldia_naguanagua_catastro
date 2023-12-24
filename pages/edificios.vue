@@ -62,7 +62,7 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-autocomplete
-                        v-model="nuevoRegistro.conjunto_residencial"
+                        v-model="nuevoRegistro.conjuntoresidencial"
                         label="Nombre del Conjunto"
                         class="input-dialog"
                         :items="conjuntoData"
@@ -147,7 +147,7 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-autocomplete
-                        v-model="defaultItem.conjunto_residencial"
+                        v-model="defaultItem.conjuntoresidencial"
                         label="Nombre del Conjunto"
                         class="input-dialog"
                         :items="conjuntoData"
@@ -282,7 +282,7 @@ export default {
         ambito: '',
         sector: '',
         urbanizacion: '',
-        conjunto_residencial: '',
+        conjuntoresidencial: '',
         nombre: '',
       },
     }
@@ -364,7 +364,7 @@ export default {
       this.defaultItem.ambito = item.ambito
       this.defaultItem.sector = item.sector
       this.defaultItem.urbanizacion = item.urbanizacion
-      this.defaultItem.conjunto_residencial = item.conjunto_residencial
+      this.defaultItem.conjuntoresidencial = item.conjuntoresidencial
       this.defaultItem.nombre = item.nombre
     },
 
@@ -373,16 +373,13 @@ export default {
       formData.append('ambito', this.defaultItem.ambito)
       formData.append('sector', this.defaultItem.sector)
       formData.append('urbanizacion', this.defaultItem.urbanizacion)
-      formData.append('conjunto', this.defaultItem.conjunto_residencial)
+      formData.append('conjuntoresidencial', this.defaultItem.conjuntoresidencial)
       formData.append('nombre', this.defaultItem.nombre)
 
       this.$axios.$patch('edificio/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado un edificio con éxito", hash: 'knsddcssdc', title:'Edición de edificio'})
-        const index = this.edificiosData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.edificiosData, index, { ...this.defaultItem });
-        }          
+        this.getDataEdificio()         
       }).catch((err) => {
         console.log(err)
       });
@@ -400,10 +397,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado un edificio con éxito", hash: 'knsddcssdc', title:'Eliminación de edificio'})
-        const index = this.edificiosData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.edificiosData.splice(index, 1);
-        }          
+        this.getDataEdificio()         
       }).catch((err) => {
         console.log(err)
       });

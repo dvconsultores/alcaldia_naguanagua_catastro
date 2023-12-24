@@ -4,7 +4,7 @@
       <div class="modificar-datos-container">
         <div class="title-morado">
           <p class="modificar-datos-title">
-            Contribuyentes
+            FICHA Contribuyentes
           </p>
 
           <v-dialog v-model="dialog" max-width="1600px">
@@ -144,63 +144,61 @@
           </v-dialog>
         </div>
 
-        <div class="data-table-container">
-            <div>
-              <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar contribuyente" hide-details class="input-data-table"></v-text-field>
-              <v-btn @click="getContribuyente" color="primary">Buscar contribuyente</v-btn>
-            </div>
+          <div class="data-table-container">
+              <div>
+                <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar contribuyente" hide-details class="input-data-table" @keyup.enter="getContribuyente"></v-text-field>
+                <!--v-btn @click="getContribuyente" color="primary">Buscar contribuyente</v-btn-->
+              </div>
+            <v-data-table :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
+              itemsPerPageText: 'Items por página',
+            }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
+              <template v-slot:top>
+                <v-toolbar flat class="toolbar-tabla">
+                  <v-dialog v-model="dialogDelete" max-width="500px">
+                    <v-card id="dialog-eliminar-card">
+                      <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
+                      <span class="alerta-text">Esta acción no se puede revertir</span>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
+                        <v-btn class="btn dialog-btn" text @click="dialogDelete = false"
+                          style="background-color:#ED057E!important;">No</v-btn>
+                        <v-spacer></v-spacer>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <v-dialog v-model="dialogSelecciona" max-width="500px">
+                    <v-card id="dialog-eliminar-card">
+                      <v-card-title class="center title">¿Seleccionarlo?</v-card-title>
+                      <span class="alerta-text" style="text-align:center;">Este será el contribuyente con el cual usted
+                        realizará las operaciones.</span>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
+                        <v-btn class="btn dialog-btn" text @click="dialogSelecciona = false"
+                          style="background-color:#ED057E!important;">No</v-btn>
+                        <v-spacer></v-spacer>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </v-toolbar>
+              </template>
+              <template #[`item.actions`]="{ item }">
+                <v-icon color="#810880" big @click="editItem(item)">
+                  mdi-pencil
+                </v-icon>
+                <v-icon color="#810880" big @click="openDelete(item)">
+                  mdi-delete
+                </v-icon>
+              </template>
 
-
-          <v-data-table :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
-            itemsPerPageText: 'Items por página',
-          }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
-            <template v-slot:top>
-              <v-toolbar flat class="toolbar-tabla">
-                <v-dialog v-model="dialogDelete" max-width="500px">
-                  <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
-                    <span class="alerta-text">Esta acción no se puede revertir</span>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-                <v-dialog v-model="dialogSelecciona" max-width="500px">
-                  <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Seleccionarlo?</v-card-title>
-                    <span class="alerta-text" style="text-align:center;">Este será el contribuyente con el cual usted
-                      realizará las operaciones.</span>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogSelecciona = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-toolbar>
-            </template>
-            <template #[`item.actions`]="{ item }">
-              <v-icon color="#810880" big @click="editItem(item)">
-                mdi-pencil
-              </v-icon>
-              <v-icon color="#810880" big @click="openDelete(item)">
-                mdi-delete
-              </v-icon>
-            </template>
-
-            <template #[`item.actions2`]="{ item }">
-              <v-btn class="btn-tabla" @click="openSelecciona(item)">
-                Seleccionar contribuyente
-              </v-btn>
-            </template>
-          </v-data-table>
-        </div>
+              <template #[`item.actions2`]="{ item }">
+                <v-btn class="btn-tabla" @click="openSelecciona(item)">
+                  Seleccionar contribuyente
+                </v-btn>
+              </template>
+            </v-data-table>
+          </div>
       </div>
     </section>
   </div>
@@ -210,7 +208,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "callePage",
+  name: "modificar-datosPage",
   mixins: [computeds],
   data() {
     return {
@@ -244,7 +242,7 @@ export default {
     }
   },
   head() {
-    const title = 'Calle';
+    const title = 'Ficha Contribuyente';
     return {
       title,
     }
@@ -257,7 +255,7 @@ export default {
     getContribuyente() {
       this.numeroDocumento=this.search
       if (this.search.trim() == '') {
-        this.$alert("success", { desc: "Debe colocar un número de RIF o un nombre válido.", hash: 'knsddcssdc', title: 'Advertencia' })
+        this.$alert("cancel", { desc: "Debe colocar un número de RIF o un nombre válido.", hash: 'knsddcssdc', title: 'Advertencia' })
 
       }else{
         //this.$axios.$get('propietario').then(response => {

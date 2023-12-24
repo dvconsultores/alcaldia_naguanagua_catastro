@@ -22,13 +22,15 @@ const _20f1ec6c = () => interopDefault(import('../pages/bcv.vue' /* webpackChunk
 const _462c72fc = () => interopDefault(import('../pages/calle.vue' /* webpackChunkName: "pages/calle" */))
 const _9e9b9cb2 = () => interopDefault(import('../pages/cedula-catastral.vue' /* webpackChunkName: "pages/cedula-catastral" */))
 const _5e20ffc2 = () => interopDefault(import('../pages/conjuntos-residenciales.vue' /* webpackChunkName: "pages/conjuntos-residenciales" */))
+const _2b4bf01a = () => interopDefault(import('../pages/consulta-contribuyente.vue' /* webpackChunkName: "pages/consulta-contribuyente" */))
 const _350d6670 = () => interopDefault(import('../pages/consulta-inmueble.vue' /* webpackChunkName: "pages/consulta-inmueble" */))
 const _bed63f6c = () => interopDefault(import('../pages/consulta-inmueble-old.vue' /* webpackChunkName: "pages/consulta-inmueble-old" */))
-const _22f70331 = () => interopDefault(import('../pages/consultar-propietario.vue' /* webpackChunkName: "pages/consultar-propietario" */))
+const _12f0348b = () => interopDefault(import('../pages/consultar-propietario-old.vue' /* webpackChunkName: "pages/consultar-propietario-old" */))
 const _57841e06 = () => interopDefault(import('../pages/crear-contribuyente.vue' /* webpackChunkName: "pages/crear-contribuyente" */))
 const _1b8706c9 = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
 const _4772cfce = () => interopDefault(import('../pages/dashboard -flujo.vue' /* webpackChunkName: "pages/dashboard -flujo" */))
 const _3fe333e3 = () => interopDefault(import('../pages/desincorporacion-inmueble.vue' /* webpackChunkName: "pages/desincorporacion-inmueble" */))
+const _2c9402c7 = () => interopDefault(import('../pages/desincorporacion-propietarios.vue' /* webpackChunkName: "pages/desincorporacion-propietarios" */))
 const _39d4beec = () => interopDefault(import('../pages/edificios.vue' /* webpackChunkName: "pages/edificios" */))
 const _541e4c87 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 const _eefaca78 = () => interopDefault(import('../pages/estado-cuenta.vue' /* webpackChunkName: "pages/estado-cuenta" */))
@@ -181,6 +183,10 @@ export const routerOptions = {
     component: _5e20ffc2,
     name: "conjuntos-residenciales___en"
   }, {
+    path: "/consulta-contribuyente",
+    component: _2b4bf01a,
+    name: "consulta-contribuyente___en"
+  }, {
     path: "/consulta-inmueble",
     component: _350d6670,
     name: "consulta-inmueble___en"
@@ -189,9 +195,9 @@ export const routerOptions = {
     component: _bed63f6c,
     name: "consulta-inmueble-old___en"
   }, {
-    path: "/consultar-propietario",
-    component: _22f70331,
-    name: "consultar-propietario___en"
+    path: "/consultar-propietario-old",
+    component: _12f0348b,
+    name: "consultar-propietario-old___en"
   }, {
     path: "/crear-contribuyente",
     component: _57841e06,
@@ -208,6 +214,10 @@ export const routerOptions = {
     path: "/desincorporacion-inmueble",
     component: _3fe333e3,
     name: "desincorporacion-inmueble___en"
+  }, {
+    path: "/desincorporacion-propietarios",
+    component: _2c9402c7,
+    name: "desincorporacion-propietarios___en"
   }, {
     path: "/edificios",
     component: _39d4beec,
@@ -541,6 +551,10 @@ export const routerOptions = {
     component: _5e20ffc2,
     name: "conjuntos-residenciales___es"
   }, {
+    path: "/es/consulta-contribuyente",
+    component: _2b4bf01a,
+    name: "consulta-contribuyente___es"
+  }, {
     path: "/es/consulta-inmueble",
     component: _350d6670,
     name: "consulta-inmueble___es"
@@ -549,9 +563,9 @@ export const routerOptions = {
     component: _bed63f6c,
     name: "consulta-inmueble-old___es"
   }, {
-    path: "/es/consultar-propietario",
-    component: _22f70331,
-    name: "consultar-propietario___es"
+    path: "/es/consultar-propietario-old",
+    component: _12f0348b,
+    name: "consultar-propietario-old___es"
   }, {
     path: "/es/crear-contribuyente",
     component: _57841e06,
@@ -568,6 +582,10 @@ export const routerOptions = {
     path: "/es/desincorporacion-inmueble",
     component: _3fe333e3,
     name: "desincorporacion-inmueble___es"
+  }, {
+    path: "/es/desincorporacion-propietarios",
+    component: _2c9402c7,
+    name: "desincorporacion-propietarios___es"
   }, {
     path: "/es/edificios",
     component: _39d4beec,

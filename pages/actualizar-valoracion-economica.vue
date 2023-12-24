@@ -96,8 +96,8 @@
 
         <hr>
 
-        <div v-if="show_observaciones === true" class="center" style="width: 100%; margin-bottom: 30px;">
-          <v-textarea class="textarea" v-model="dataValoracionTerreno.observaciones"></v-textarea>
+        <div  class="center" style="width: 100%; margin-bottom: 30px;">
+          <v-textarea class="textarea" v-model="dataValoracionTerreno.observaciones" disabled></v-textarea>
         </div>
       </div>
 
@@ -134,6 +134,9 @@
 
               </v-col>
 
+              <div  class="center" style="width: 100%; margin-bottom: 30px;">
+          <v-textarea class="input-300" v-model="defaultItem.observaciones" label="Observaciones (Fines Fiscales)"></v-textarea>
+        </div>
 
             </v-row>
           </v-container>
@@ -242,11 +245,12 @@ export default {
       menu_fecha: false,
       dialog_crear: false,
       dialog_edit_terreno: false,
-      show_observaciones: false,
+      show_observaciones: true,
       defaultItem: {
         tipologia: '',
         tipo: '',
         area: '',
+        observaciones: '',
       },
 
       ///data inmueble terreno
@@ -342,6 +346,7 @@ export default {
       this.defaultItem.tipologia = this.dataValoracionTerreno.tipologia
       this.defaultItem.tipo = this.dataValoracionTerreno.tipo
       this.defaultItem.area = this.dataValoracionTerreno.area
+      this.defaultItem.observaciones = this.dataValoracionTerreno.observaciones
 
     },
     saveTerreno() {
@@ -350,6 +355,7 @@ export default {
       formData.append('tipologia', this.defaultItem.tipologia)
       formData.append('tipo', this.defaultItem.tipo)
       formData.append('area', this.defaultItem.area)
+      formData.append('observaciones', this.defaultItem.observaciones)
 
 
       this.$axios.$patch('inmueble_valoracion_terreno/' + this.dataValoracionTerreno.id + '/', formData).then((res) => {

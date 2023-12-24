@@ -343,10 +343,7 @@ export default {
       this.$axios.$patch('conjuntoresidencial/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Edición de conjunto'})
-        const index = this.conjuntoData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.conjuntoData, index, { ...this.defaultItem });
-        }          
+        this.getDataConjunto()         
       }).catch((err) => {
         console.log(err)
       });
@@ -364,10 +361,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado un conjunto residencial con éxito", hash: 'knsddcssdc', title:'Eliminación de Conjunto'}) 
-        const index = this.conjuntoData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.conjuntoData.splice(index, 1);
-        }         
+        this.getDataConjunto()        
       }).catch((err) => {
         console.log(err)
       });

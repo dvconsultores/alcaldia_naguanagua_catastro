@@ -11,29 +11,31 @@
         <hr>
 
         <div class="inputs-container">
-          <v-text-field v-model="inmuebleData.numero_expediente" class="input-mostrar" label="Número de expediente"></v-text-field>
-          <v-text-field v-model="inmuebleData.descripcion_tipo" class="input-mostrar" label="Tipo"></v-text-field>
-          <v-text-field v-model="inmuebleData.descripcion_status" class="input-mostrar" label="Estatus"></v-text-field>
-          <v-text-field v-model="inmuebleData.descripcion_ambito" class="input-mostrar" label="Ambito"></v-text-field>
-          <v-text-field v-model="inmuebleData.descripcion_sector" class="input-mostrar" label="Sector"></v-text-field>
-          <v-text-field v-model="inmuebleData.descripcion_manzana" class="input-mostrar" label="Manzana"></v-text-field>
-          <v-text-field v-model="inmuebleData.codigo_parcela" class="input-mostrar" label="Parcela"></v-text-field>
-          <v-text-field v-model="inmuebleData.codigo_subparcela" class="input-mostrar" label="Sub-Parcela"></v-text-field>
-          <v-text-field v-model="inmuebleData.descripcion_nivel" class="input-mostrar" label="Nivel"></v-text-field>
-          <v-text-field v-model="inmuebleData.descripcion_unidad" class="input-mostrar" label="Unidad"></v-text-field>
-          <v-text-field v-model="inmuebleData.nombre_urbanizacion" class="input-mostrar" label="Urbanización"></v-text-field>
-          <v-text-field v-model="inmuebleData.nombre_calle" class="input-mostrar" label="Calle"></v-text-field>
-          <v-text-field v-model="inmuebleData.nombre_conjunto_residencial" class="input-mostrar" label="Conjunto Residencial"></v-text-field>
-          <v-text-field v-model="inmuebleData.nombre_edificio" class="input-mostrar" label="Edificio"></v-text-field>
-          <v-text-field v-model="inmuebleData.nombre_avenida" class="input-mostrar" label="Avenida"></v-text-field>
-          <v-text-field v-model="inmuebleData.nombre_torre" class="input-mostrar" label="Torre"></v-text-field>
-          <v-text-field v-model="inmuebleData.numero_civico" class="input-mostrar" label="Nro. Civicio"></v-text-field>
-          <v-text-field v-model="inmuebleData.numero_casa" class="input-mostrar" label="Nro. Casa"></v-text-field>
-          <v-text-field v-model="inmuebleData.numero_piso" class="input-mostrar" label="Nro. Piso"></v-text-field>
-          <v-text-field v-model="inmuebleData.telefono" class="input-mostrar" label="Teléfono"></v-text-field>
-          <v-text-field v-model="inmuebleData.descripcion_zona" class="input-mostrar" label="Zona"></v-text-field>
-          <v-text-field v-model="inmuebleData.direccion" class="input-mostrar" label="Dirección"></v-text-field>
-          <v-text-field v-model="inmuebleData.referencia" class="input-mostrar" label="Referencia"></v-text-field>
+          <v-text-field v-model="inmuebleData.numero_expediente" class="input-mostrar" label="Número de expediente" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.descripcion_tipo" class="input-mostrar" label="Tipo" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.descripcion_status" class="input-mostrar" label="Estatus" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.descripcion_ambito" class="input-mostrar" label="Ambito" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.descripcion_sector" class="input-mostrar" label="Sector" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.descripcion_manzana" class="input-mostrar" label="Manzana" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.codigo_parcela" class="input-mostrar" label="Parcela" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.codigo_subparcela" class="input-mostrar" label="Sub-Parcela" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.descripcion_nivel" class="input-mostrar" label="Nivel" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.descripcion_unidad" class="input-mostrar" label="Unidad" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.nombre_urbanizacion" class="input-mostrar" label="Urbanización" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.nombre_calle" class="input-mostrar" label="Calle" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.nombre_conjunto_residencial" class="input-mostrar" label="Conjunto Residencial" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.nombre_edificio" class="input-mostrar" label="Edificio" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.nombre_avenida" class="input-mostrar" label="Avenida" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.nombre_torre" class="input-mostrar" label="Torre" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.numero_civico" class="input-mostrar" label="Nro. Civicio" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.numero_casa" class="input-mostrar" label="Nro. Casa" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.numero_piso" class="input-mostrar" label="Nro. Piso" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.telefono" class="input-mostrar" label="Teléfono" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.descripcion_zona" class="input-mostrar" label="Zona" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.direccion" class="input-mostrar" label="Dirección" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.referencia" class="input-mostrar" label="Referencia" disabled></v-text-field>
+          <v-text-field v-model="inmuebleData.observaciones" class="input-mostrar" label="Observaciones" disabled></v-text-field>
+
         </div>
       </div>
     </section>
@@ -54,19 +56,11 @@
         <hr>
 
         <div class="data-table-container">
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Buscar"
-            hide-details
-            class="input-data-table"
-          ></v-text-field>
 
           <v-data-table
             :headers="headers"
             :items="inmueblePropietariosData"
             :items-per-page="10"
-            :search="search"
             :footer-props="{
               itemsPerPageText: 'Items por página',
             }"
@@ -169,7 +163,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "ActualizacionPropietariosPage",
+  name: "Actualizacion-PropietariosPage",
   mixins: [computeds],
   data() {
     return{
@@ -177,7 +171,6 @@ export default {
       dialogDelete: false,
       inmuebleData:[],
       inmueblePropietariosData:[],
-      search:'',
       nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
       nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
       numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
@@ -211,7 +204,7 @@ export default {
   methods: {
     redireccionarIdInmueble(){
       if(this.$store.getters.getExpediente === 'Sin Seleccionar'){
-        this.$router.push('modificar-datos')
+        this.$router.push('consulta-inmueble')
         this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
       }
     },
@@ -234,20 +227,30 @@ export default {
     },
 
     agregarContribuyente(){
-      const formData = new FormData()
-      formData.append('inmueble', this.$store.getters.getExpediente.id)
-      formData.append('propietario', this.$store.getters.getContribuyente.id)
-      formData.append('fecha_compra', this.fecha_compra)
-      this.$axios.$post('CrearInmueblePropietario/', formData).then(res => {
-        this.inmueblePropietariosData.push(res)
-        this.$alert("success", {desc: "Se ha agregado el contribuyente con éxito", hash: 'knsddcssdc', title:'Agregado'})        
-        this. getIdInmueblePropietarios()
-      }).catch(err => {
-        console.log(err)
-      })
+      const fechaValida = this.esFechaValida(this.fecha_compra);
+      if (fechaValida) {
+        const formData = new FormData()
+        formData.append('inmueble', this.$store.getters.getExpediente.id)
+        formData.append('propietario', this.$store.getters.getContribuyente.id)
+        formData.append('fecha_compra', this.fecha_compra)
+        this.$axios.$post('CrearInmueblePropietario/', formData).then(res => {
+          this.inmueblePropietariosData.push(res)
+          this.$alert("success", {desc: "Se ha agregado el contribuyente con éxito", hash: 'knsddcssdc', title:'Agregado'})        
+          this. getIdInmueblePropietarios()
+        }).catch(err => {
+          console.log(err)
+        })
 
-      this.openDialog = false
-    },  
+        this.openDialog = false
+      }else{
+        this.$alert("cancel", {desc: "Debe colocar una fecha Válida", hash: 'knsddcssdc', title:'Error'})
+      }
+
+    },
+    esFechaValida(fecha) {
+      const regexFecha = /^\d{4}-\d{2}-\d{2}$/; // Formato YYYY-MM-DD
+      return regexFecha.test(fecha) && !isNaN(Date.parse(fecha));
+    }, 
 
     openDelete(item){
       this.defaultItem = item

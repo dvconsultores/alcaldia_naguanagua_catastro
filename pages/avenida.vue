@@ -231,9 +231,10 @@ export default {
       ],
       avenidaData: [],
       itemsTipo: [
-        { text: 'Colateral', value: '1' },
-        { text: 'Via', value: '2' },
-        { text: 'Doble Via', value: '3' },
+        { text: 'Una Via', value: '1' },
+        { text: 'Doble Via', value: '2' },
+        { text: 'Colateral', value: '3' },
+        { text: 'Arterial', value: '4' },
       ],
       defaultItem: {
         codigo: '',
@@ -294,10 +295,7 @@ export default {
       this.$axios.$patch('avenida/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado una avenida con éxito", hash: 'knsddcssdc', title:'Edición de avenida'}) 
-        const index = this.avenidaData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.avenidaData, index, { ...this.defaultItem });
-        }         
+        this.getAvenida()        
       }).catch((err) => {
         console.log(err)
       });
@@ -315,10 +313,7 @@ export default {
         console.log(res.data)
         this.dialogDelete = false
         this.$alert("success", {desc: "Se ha eliminado una avenida con éxito", hash: 'knsddcssdc', title:'Eliminación de avenida'})
-        const index = this.avenidaData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.avenidaData.splice(index, 1);
-        }           
+        this.getAvenida()          
       }).catch((err) => {
         console.log(err)
       });

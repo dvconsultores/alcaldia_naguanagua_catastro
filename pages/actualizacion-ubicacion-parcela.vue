@@ -63,7 +63,7 @@
                   class="input-div"
                   prepend-icon="none"
                   >
-                  <img v-if="dataUbicacionInmueble.imagen_inmueble" :src="dataUbicacionInmueble.imagen_inmueble" class="preview-image"/>
+                  <img v-if="dataUbicacionInmueble.imagen_inmueble" :src="imageUrlInmueble" class="preview-image"/>
                   </v-div>
                 </v-card>
 
@@ -125,7 +125,7 @@
                   class="input-div"
                   prepend-icon="none"
                   >
-                  <img v-if="dataUbicacionInmueble.imagen_plano" :src="dataUbicacionInmueble.imagen_plano" class="preview-image" alt="image"/>
+                  <img v-if="dataUbicacionInmueble.imagen_plano" :src="imageUrlPlano" class="preview-image" alt="image"/>
                   </v-div>
                 </v-card>
 
@@ -188,7 +188,7 @@
                   class="input-div"
                   prepend-icon="none"
                   >
-                  <img v-if="dataUbicacionInmueble.imagan_plano_mesura" :src="dataUbicacionInmueble.imagan_plano_mesura" class="preview-image">
+                  <img v-if="dataUbicacionInmueble.imagan_plano_mesura" :src="imageUrlPlanoMesura" class="preview-image">
                   </v-div>
                 </v-card>
 
@@ -468,29 +468,32 @@ export default {
 
   computed: {
     imageUrlPlanoMesura() {
-      if (this.dataUbicacionInmueble.imagen_plano_mesura instanceof File || this.dataUbicacionInmueble.imagen_plano_mesura instanceof Blob) {
-        return URL.createObjectURL(this.dataUbicacionInmueble.imagen_plano_mesura);
+      var ruta = this.dataUbicacionInmueble.imagan_plano_mesura 
+      if (ruta.includes("catastro_back")) {
+        ruta = ruta.replace("catastro_back", "catastro_back/catastro_back");
       }
-      return null;
+      return ruta;
     },
     imageUrlPlano() {
-      if (this.dataUbicacionInmueble.imagan_plano instanceof File || this.dataUbicacionInmueble.imagan_plano instanceof Blob) {
-        return URL.createObjectURL(this.dataUbicacionInmueble.imagan_plano);
+      var ruta=this.dataUbicacionInmueble.imagen_plano
+      if (ruta.includes("catastro_back")) {
+        ruta = ruta.replace("catastro_back", "catastro_back/catastro_back");
       }
-      return null;
+      return ruta;
     },
     imageUrlInmueble() {
-      if (this.dataUbicacionInmueble.imagen_inmueble instanceof File || this.dataUbicacionInmueble.imagen_inmueble instanceof Blob) {
-        return URL.createObjectURL(this.dataUbicacionInmueble.imagen_inmueble);
+      var ruta = this.dataUbicacionInmueble.imagen_inmueble
+      if (ruta.includes("catastro_back")) {
+        ruta = ruta.replace("catastro_back", "catastro_back/catastro_back");
       }
-      return null;
+      return ruta;
     },
   },
 
   methods: {
     redireccionIdVacio(){
       if(this.$store.getters.getExpediente =='Sin Seleccionar'){
-        this.$router.push('modificar-datos')
+        this.$router.push('consulta-inmueble')
         this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
       }else{
         ''
@@ -552,7 +555,7 @@ export default {
     },
 
     uploadImagePlano() {
-    this.btnImagenInmueble = true
+    this.btnImagenPlano = true
 
     const formData = new FormData();
     formData.append('imagen_plano', this.dataUbicacionInmueble.imagen_plano)
@@ -562,12 +565,12 @@ export default {
       })
       .then(response => {
         console.log(response)
-        this.btnImagenInmueble = false
+        this.btnImagenPlano = false
         this.$alert("success", { desc: "Imagen cargada con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
       })
       .catch(err => {
         console.log(err)
-        this.btnImagenInmueble = false
+        this.btnImagenPlano = false
       });
     },
 
