@@ -731,7 +731,7 @@ export default {
 
 
       pdf.autoTable({
-        head: [['tipo', 'Descripción', 'Petro', 'Cantidad', 'Monto Bs']],
+        head: [['Tipo', 'Descripción', 'Base Imponible Bs', 'Cantidad', 'Monto Bs']],
         body: this.liquidacionDetalleData.map((item) => [
           tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).tipo],
           this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,

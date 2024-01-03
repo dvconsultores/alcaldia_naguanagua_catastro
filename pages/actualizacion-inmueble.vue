@@ -306,6 +306,26 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog
+            v-model="dialogWait"
+            hide-overlay
+            persistent
+            width="300"
+          >
+            <v-card
+              color="primary"
+              dark
+            >
+              <v-card-text>
+                Por favor espere!!!
+                <v-progress-linear
+                  indeterminate
+                  color="white"
+                  class="mb-0"
+                ></v-progress-linear>
+              </v-card-text>
+            </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -349,6 +369,7 @@ export default {
       inmueblePropietariosData: [],
       dataDocumentoPropiedad: [],
       dataValoracionTerreno: [],
+      dialogWait: true,
     }
   },
   head() {
@@ -359,6 +380,7 @@ export default {
   },
 
   mounted(){
+    this.dialogWait = true
     this.redireccionIdVacio()
     this.permisos();
     this.getDataTipo();
@@ -383,6 +405,7 @@ export default {
     this.getIdInmueblePropietarios();
     this.getDocumentoPropiedad();
     this.getInmuebleValoracionTerreno();
+    this.dialogWait = false
   },
 
   methods: {
@@ -598,6 +621,7 @@ export default {
 
     saveData() {
       this.btnGuardarInmuble = true
+      this.dialogWait = true  
 
       const formData = new FormData();
       this.inmuebleData.fecha_inscripcion ? formData.append('fecha_inscripcion', this.inmuebleData.fecha_inscripcion):'';
@@ -633,11 +657,13 @@ export default {
         this.dialog_confirmar = false
         this.$alert("success", { desc: "Se ha editado un inmueble con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
         this.generarPDF()
+        this.dialogWait = false
       })
       .catch(err => {
         console.error(err)
         this.btnGuardarInmuble = false
         this.dialog_confirmar = false
+        this.dialogWait = false
       });
     }, 
 

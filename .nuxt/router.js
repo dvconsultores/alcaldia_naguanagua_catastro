@@ -14,8 +14,6 @@ const _2a3fc7e6 = () => interopDefault(import('../pages/actualizar-documento-pro
 const _27d80687 = () => interopDefault(import('../pages/actualizar-documentos-pendientes.vue' /* webpackChunkName: "pages/actualizar-documentos-pendientes" */))
 const _4e921d53 = () => interopDefault(import('../pages/actualizar-terreno.vue' /* webpackChunkName: "pages/actualizar-terreno" */))
 const _7490ced3 = () => interopDefault(import('../pages/actualizar-valoracion-economica.vue' /* webpackChunkName: "pages/actualizar-valoracion-economica" */))
-const _430c5f5c = () => interopDefault(import('../pages/actualizar-valoracion-economica copy.vue' /* webpackChunkName: "pages/actualizar-valoracion-economica copy" */))
-const _0b84f4e4 = () => interopDefault(import('../pages/actualizar-valoracion-economica copy 2.vue' /* webpackChunkName: "pages/actualizar-valoracion-economica copy 2" */))
 const _0cdc7f6e = () => interopDefault(import('../pages/ambito.vue' /* webpackChunkName: "pages/ambito" */))
 const _3d728fbd = () => interopDefault(import('../pages/avenida.vue' /* webpackChunkName: "pages/avenida" */))
 const _20f1ec6c = () => interopDefault(import('../pages/bcv.vue' /* webpackChunkName: "pages/bcv" */))
@@ -24,8 +22,6 @@ const _9e9b9cb2 = () => interopDefault(import('../pages/cedula-catastral.vue' /*
 const _5e20ffc2 = () => interopDefault(import('../pages/conjuntos-residenciales.vue' /* webpackChunkName: "pages/conjuntos-residenciales" */))
 const _2b4bf01a = () => interopDefault(import('../pages/consulta-contribuyente.vue' /* webpackChunkName: "pages/consulta-contribuyente" */))
 const _350d6670 = () => interopDefault(import('../pages/consulta-inmueble.vue' /* webpackChunkName: "pages/consulta-inmueble" */))
-const _bed63f6c = () => interopDefault(import('../pages/consulta-inmueble-old.vue' /* webpackChunkName: "pages/consulta-inmueble-old" */))
-const _12f0348b = () => interopDefault(import('../pages/consultar-propietario-old.vue' /* webpackChunkName: "pages/consultar-propietario-old" */))
 const _57841e06 = () => interopDefault(import('../pages/crear-contribuyente.vue' /* webpackChunkName: "pages/crear-contribuyente" */))
 const _1b8706c9 = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
 const _4772cfce = () => interopDefault(import('../pages/dashboard -flujo.vue' /* webpackChunkName: "pages/dashboard -flujo" */))
@@ -35,17 +31,14 @@ const _39d4beec = () => interopDefault(import('../pages/edificios.vue' /* webpac
 const _541e4c87 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 const _eefaca78 = () => interopDefault(import('../pages/estado-cuenta.vue' /* webpackChunkName: "pages/estado-cuenta" */))
 const _3233eb7c = () => interopDefault(import('../pages/estado-cuenta-catastro.vue' /* webpackChunkName: "pages/estado-cuenta-catastro" */))
-const _aa1969c8 = () => interopDefault(import('../pages/estado-cuenta-catastro-old.vue' /* webpackChunkName: "pages/estado-cuenta-catastro-old" */))
 const _2691ab24 = () => interopDefault(import('../pages/estado-cuenta-detalle.vue' /* webpackChunkName: "pages/estado-cuenta-detalle" */))
 const _3c2779d8 = () => interopDefault(import('../pages/estado-cuenta-detalle-catastro.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-catastro" */))
 const _70f89f98 = () => interopDefault(import('../pages/estado-cuenta-detalle-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-hacienda" */))
 const _7242409e = () => interopDefault(import('../pages/estado-cuenta-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-hacienda" */))
-const _4e8d30c8 = () => interopDefault(import('../pages/estado-cuenta-taquilla-old.vue' /* webpackChunkName: "pages/estado-cuenta-taquilla-old" */))
 const _49cd7a34 = () => interopDefault(import('../pages/estatus-inmueble.vue' /* webpackChunkName: "pages/estatus-inmueble" */))
 const _41a5b15b = () => interopDefault(import('../pages/fines-fiscales.vue' /* webpackChunkName: "pages/fines-fiscales" */))
 const _74e90b09 = () => interopDefault(import('../pages/flow.vue' /* webpackChunkName: "pages/flow" */))
 const _abcb5ae6 = () => interopDefault(import('../pages/flow-devueltos.vue' /* webpackChunkName: "pages/flow-devueltos" */))
-const _eb2adf3a = () => interopDefault(import('../pages/flow-old.vue' /* webpackChunkName: "pages/flow-old" */))
 const _2166fa7b = () => interopDefault(import('../pages/flow-por-enviar.vue' /* webpackChunkName: "pages/flow-por-enviar" */))
 const _0f443c63 = () => interopDefault(import('../pages/flow-por-procesar.vue' /* webpackChunkName: "pages/flow-por-procesar" */))
 const _2c9458d4 = () => interopDefault(import('../pages/flow-por-recibir.vue' /* webpackChunkName: "pages/flow-por-recibir" */))
@@ -66,8 +59,7 @@ const _19efbef2 = () => interopDefault(import('../pages/patente.vue' /* webpackC
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _5a615ad2 = () => interopDefault(import('../pages/recaudacion-multiple.vue' /* webpackChunkName: "pages/recaudacion-multiple" */))
-const _f234e280 = () => interopDefault(import('../pages/recaudacion-multiple-copy.vue' /* webpackChunkName: "pages/recaudacion-multiple-copy" */))
-const _0df12498 = () => interopDefault(import('../pages/recaudacion-multiple -old.vue' /* webpackChunkName: "pages/recaudacion-multiple -old" */))
+const _7c433cf2 = () => interopDefault(import('../pages/recaudacion-multiple_copy.vue' /* webpackChunkName: "pages/recaudacion-multiple_copy" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
 const _d47f4554 = () => interopDefault(import('../pages/reporte-corridasbancarias.vue' /* webpackChunkName: "pages/reporte-corridasbancarias" */))
 const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
@@ -151,14 +143,6 @@ export const routerOptions = {
     component: _7490ced3,
     name: "actualizar-valoracion-economica___en"
   }, {
-    path: "/actualizar-valoracion-economica%20copy",
-    component: _430c5f5c,
-    name: "actualizar-valoracion-economica copy___en"
-  }, {
-    path: "/actualizar-valoracion-economica%20copy%202",
-    component: _0b84f4e4,
-    name: "actualizar-valoracion-economica copy 2___en"
-  }, {
     path: "/ambito",
     component: _0cdc7f6e,
     name: "ambito___en"
@@ -190,14 +174,6 @@ export const routerOptions = {
     path: "/consulta-inmueble",
     component: _350d6670,
     name: "consulta-inmueble___en"
-  }, {
-    path: "/consulta-inmueble-old",
-    component: _bed63f6c,
-    name: "consulta-inmueble-old___en"
-  }, {
-    path: "/consultar-propietario-old",
-    component: _12f0348b,
-    name: "consultar-propietario-old___en"
   }, {
     path: "/crear-contribuyente",
     component: _57841e06,
@@ -235,10 +211,6 @@ export const routerOptions = {
     component: _3233eb7c,
     name: "estado-cuenta-catastro___en"
   }, {
-    path: "/estado-cuenta-catastro-old",
-    component: _aa1969c8,
-    name: "estado-cuenta-catastro-old___en"
-  }, {
     path: "/estado-cuenta-detalle",
     component: _2691ab24,
     name: "estado-cuenta-detalle___en"
@@ -255,10 +227,6 @@ export const routerOptions = {
     component: _7242409e,
     name: "estado-cuenta-hacienda___en"
   }, {
-    path: "/estado-cuenta-taquilla-old",
-    component: _4e8d30c8,
-    name: "estado-cuenta-taquilla-old___en"
-  }, {
     path: "/estatus-inmueble",
     component: _49cd7a34,
     name: "estatus-inmueble___en"
@@ -274,10 +242,6 @@ export const routerOptions = {
     path: "/flow-devueltos",
     component: _abcb5ae6,
     name: "flow-devueltos___en"
-  }, {
-    path: "/flow-old",
-    component: _eb2adf3a,
-    name: "flow-old___en"
   }, {
     path: "/flow-por-enviar",
     component: _2166fa7b,
@@ -359,13 +323,9 @@ export const routerOptions = {
     component: _5a615ad2,
     name: "recaudacion-multiple___en"
   }, {
-    path: "/recaudacion-multiple-copy",
-    component: _f234e280,
-    name: "recaudacion-multiple-copy___en"
-  }, {
-    path: "/recaudacion-multiple%20-old",
-    component: _0df12498,
-    name: "recaudacion-multiple -old___en"
+    path: "/recaudacion-multiple_copy",
+    component: _7c433cf2,
+    name: "recaudacion-multiple_copy___en"
   }, {
     path: "/regimen",
     component: _422c3f54,
@@ -519,14 +479,6 @@ export const routerOptions = {
     component: _7490ced3,
     name: "actualizar-valoracion-economica___es"
   }, {
-    path: "/es/actualizar-valoracion-economica%20copy",
-    component: _430c5f5c,
-    name: "actualizar-valoracion-economica copy___es"
-  }, {
-    path: "/es/actualizar-valoracion-economica%20copy%202",
-    component: _0b84f4e4,
-    name: "actualizar-valoracion-economica copy 2___es"
-  }, {
     path: "/es/ambito",
     component: _0cdc7f6e,
     name: "ambito___es"
@@ -558,14 +510,6 @@ export const routerOptions = {
     path: "/es/consulta-inmueble",
     component: _350d6670,
     name: "consulta-inmueble___es"
-  }, {
-    path: "/es/consulta-inmueble-old",
-    component: _bed63f6c,
-    name: "consulta-inmueble-old___es"
-  }, {
-    path: "/es/consultar-propietario-old",
-    component: _12f0348b,
-    name: "consultar-propietario-old___es"
   }, {
     path: "/es/crear-contribuyente",
     component: _57841e06,
@@ -599,10 +543,6 @@ export const routerOptions = {
     component: _3233eb7c,
     name: "estado-cuenta-catastro___es"
   }, {
-    path: "/es/estado-cuenta-catastro-old",
-    component: _aa1969c8,
-    name: "estado-cuenta-catastro-old___es"
-  }, {
     path: "/es/estado-cuenta-detalle",
     component: _2691ab24,
     name: "estado-cuenta-detalle___es"
@@ -619,10 +559,6 @@ export const routerOptions = {
     component: _7242409e,
     name: "estado-cuenta-hacienda___es"
   }, {
-    path: "/es/estado-cuenta-taquilla-old",
-    component: _4e8d30c8,
-    name: "estado-cuenta-taquilla-old___es"
-  }, {
     path: "/es/estatus-inmueble",
     component: _49cd7a34,
     name: "estatus-inmueble___es"
@@ -638,10 +574,6 @@ export const routerOptions = {
     path: "/es/flow-devueltos",
     component: _abcb5ae6,
     name: "flow-devueltos___es"
-  }, {
-    path: "/es/flow-old",
-    component: _eb2adf3a,
-    name: "flow-old___es"
   }, {
     path: "/es/flow-por-enviar",
     component: _2166fa7b,
@@ -723,13 +655,9 @@ export const routerOptions = {
     component: _5a615ad2,
     name: "recaudacion-multiple___es"
   }, {
-    path: "/es/recaudacion-multiple-copy",
-    component: _f234e280,
-    name: "recaudacion-multiple-copy___es"
-  }, {
-    path: "/es/recaudacion-multiple%20-old",
-    component: _0df12498,
-    name: "recaudacion-multiple -old___es"
+    path: "/es/recaudacion-multiple_copy",
+    component: _7c433cf2,
+    name: "recaudacion-multiple_copy___es"
   }, {
     path: "/es/regimen",
     component: _422c3f54,

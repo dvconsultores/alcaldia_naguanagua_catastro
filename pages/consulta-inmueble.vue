@@ -311,11 +311,6 @@ export default {
     StoreExpedienteId(item) {
       this.$store.getters.getExpediente == undefined ? console.log('vacio') : console.log('lleno', this.$store.getters.getExpediente)
       this.$store.dispatch('storeExpediente', item)
-      //console.log('lucas1')
-      // console.log(item)
-      // console.log('lucas2')
-      // console.log(this.$store.getters.getExpediente)
-      // console.log(JSON.parse(JSON.stringify(this.$store.getters.getExpediente)))
       this.dialog_mostrar = false
     },
 

@@ -426,6 +426,12 @@
           <span class="span-saludo tcenter">
             {{this.currentDateTime}}
           </span>
+         
+        </div>
+        <div class="divcol center">
+           <v-btn class="btn-liquidar"  @click="clearStoreExpediente()">
+                <v-icon> mdi-delete-forever </v-icon>
+           </v-btn>
         </div>
       </div>
       
@@ -452,6 +458,11 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    clearStoreExpediente(){
+      this.$store.dispatch('storeExpediente', 'Sin Seleccionar')
+      this.$store.dispatch('storeContribuyente', 'Sin Seleccionar')
+
     },
     async fetchData() {
       try {

@@ -99,11 +99,20 @@ export default {
   mounted(){
     this.getFlujo()
     this.getInmueblePropietarios()
+    this.updateStoreExpediente()
     this.redireccionIdVacio()
   },
 
 
   methods: {
+    async updateStoreExpediente() {
+      try {
+        const response = await this.$axios.$get('inmueble/' + this.$store.getters.getExpediente.id)
+        this.$store.dispatch('storeExpediente', response)
+      } catch (err) {
+        console.log(err);
+      }
+    },
     redireccionIdVacio(){
       if(this.$store.getters.getContribuyente=='Sin Seleccionar'){
         this.$router.push('modificar-datos')

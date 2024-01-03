@@ -8,7 +8,7 @@
           </p>
 
           <span class="title-inscripcion-inmueble">
-            Petro Bs.: {{ montoBCV }}
+            Base Imponible Bs.: {{ montoBCV }}
           </span>
         </div>
 
@@ -320,13 +320,68 @@
 
         <div class="divrow center div-btns" style="gap:30px;">
 
-          <v-btn class="btn size-btn" @click="createEstadoCuenta()">
+          <v-btn class="btn size-btn" :disabled="disableBotonGuardar" @click="createEstadoCuenta()">
             Guardar
           </v-btn>
 
         </div>
       </div>
     </section>
+      <v-dialog content-class="dialog-confirmacion" persistent v-model="openDialogPeriodo">
+        <v-card class="card-confirmacion-dialog">
+          <div class="center divcol">
+            <h5 class="title-dialog">
+                    Confirme período para cálculo impuesto del inmueble
+            </h5>
+          </div>
+          <v-row>
+            <v-col>
+              <v-text-field
+                v-model="iAnio"
+                class="small-input mobile-inputs"
+                label="Año inicio deuda"
+                readonly
+                :value="0"
+               ></v-text-field>
+            </v-col>
+            <v-col>
+                <v-text-field
+                  v-model="iPeriodo"
+                  class="small-input mobile-inputs"
+                  label="Mes inicio deuda"
+                  readonly
+                  :value="0"
+                ></v-text-field>  
+             </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-text-field
+                v-model="fAnio"
+                class="small-input mobile-inputs"
+                label="Año fin deuda"
+                readonly
+                :value="0"
+               ></v-text-field>
+            </v-col>
+            <v-col>
+              <v-autocomplete
+                  v-model="fPeriodo" 
+                  class="big-autocomplete mobile-inputs"
+                  label="Periodo fin deuda*"
+                  :items="periodoData"
+                  item-text="periodo"
+                  item-value="id"
+                ></v-autocomplete>
+             </v-col>
+          </v-row>
+          <div class="center divrow" style="gap:10px;">
+              <v-btn class="btn btn-small" @click="openDialogPeriodo = false; getDeudaImpuesto()" style="background-color:#ED057E!important;">
+                  Procesar
+              </v-btn>
+          </div>
+        </v-card>
+      </v-dialog>
   </div>
 </template>
 
@@ -340,6 +395,7 @@ export default{
   mixins: [computeds],
   data() {
     return{
+      openDialogPeriodo:false,
       dialogWait: false,
       dialog_IC: false,
       observaciones:'',
@@ -363,9 +419,15 @@ export default{
       IC_Detalle:[],
       IC_Descuento:[],
       IC_Interes:[],
+      periodoData:[],
       tasa_multa_id: null,
       Correlativo: 0,
       Id: 0,
+      iAnio:this.$store.getters.getExpediente=='Sin Seleccionar'?0:JSON.parse(JSON.stringify(this.$store.getters.getExpediente.anio)),
+      iPeriodo:this.$store.getters.getExpediente=='Sin Seleccionar'?0:JSON.parse(JSON.stringify(this.$store.getters.getExpediente.codigo_periodo)),   
+      fAnio:(new Date()).getFullYear(),
+      fPeriodo:4,
+      disableBotonGuardar:true,
 
     }
   },
@@ -383,7 +445,10 @@ export default{
       this.$alert("cancel", { desc: "Debe seleccionar un tipo de transacción o trámite", hash: 'knsddcssdc', title: 'Error' })
     }
     else {
+      console.log('this.$store.getters.getExpediente',this.$store.getters.getExpediente)
       this.dialogWait = true
+      await this.updateStoreExpediente()
+      await this.getDataPeriodo()
       await this.getCorrelativo()
       await this.getTasaMulta()
       await this.getBCV()
@@ -392,7 +457,14 @@ export default{
         this.$router.push('consulta-inmueble')
         this.$alert("cancel", { desc: "Debe seleccionar un Inmueble para ingresar a este módulo", hash: 'knsddcssdc', title: 'Error' })
       } else {
-        await this.getDeudaImpuesto()
+
+        if (this.iAnio<=this.fAnio){
+          this.openDialogPeriodo=true
+        }else{
+          this.$alert("success", { desc: "Expediente solvente con impuesto de inmuebles urbanos.", hash: 'knsddcssdc', title: 'Solvente' })
+          this.$router.push('estado-cuenta-hacienda')
+        }
+        //await this.getDeudaImpuesto()
       }
       this.dialogWait = false
     }
@@ -400,6 +472,24 @@ export default{
 
 
   methods: {
+    async getDataPeriodo() {
+      try {
+        const response = await this.$axios.$get('ic_periodo/?aplica=C')
+        this.periodoData = response
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async updateStoreExpediente() {
+      try {
+        const response = await this.$axios.$get('inmueble/' + this.$store.getters.getExpediente.id)
+        this.$store.dispatch('storeExpediente', response)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     async getCorrelativo() {
       try {
         const response = await this.$axios.$get('correlativo');
@@ -439,14 +529,17 @@ export default{
       const data = {
         inmueble: this.$store.getters.getExpediente.id,
         propietario: this.$store.getters.getContribuyente.id,
-        periodo: 4,
+        anio: this.fAnio,
+        periodo: this.fPeriodo,
       }
       try {
+        this.dialogWait = true
         const res = await this.$axios.$post('ImpuestoInmueble/', data)
+        this.dialogWait = false
         if (res) {
           this.IC_Cabecera = res[0].cabacera
           if (res[0].cabacera.flujo) {
-            this.$alert("success", { desc: "El imueble posee impuestos por pagar pero tiene un proceso en catastro por terminar.", hash: 'knsddcssdc', title: 'Impuesto por pagar.' })
+            this.$alert("success", { desc: "El inmueble posee impuestos por pagar pero tiene un proceso en catastro por terminar.", hash: 'knsddcssdc', title: 'Impuesto por pagar.' })
             this.divs.push({
               tasa_multa_id: null, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
               monto_unidad_tributaria: null, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
@@ -460,7 +553,17 @@ export default{
             this.IC_Descuento = res[0].descuento
             this.IC_Interes = res[0].interes
             this.tasa_multa_id = this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
-            console.log('this.tasaMultaData1', this.tasaMultaData)
+            console.log('this.IC_Cabecera', this.IC_Cabecera)
+            this.observaciones="Cálculo desde el año:"+this.IC_Cabecera.anioini+" - período:"+this.IC_Cabecera.mesini+ ", hasta el año:"+this.IC_Cabecera.aniofin+" - período: "+this.IC_Cabecera.mesfin+". "
+            this.observaciones=this.observaciones+"Zona: "+this.IC_Cabecera.zona +", "
+            this.observaciones=this.observaciones+"El cálculo está en base a Bs." + (this.IC_Cabecera.basecalculobs).toFixed(2)+", "
+            this.observaciones=this.observaciones+"Sub Total Bs: " + (this.IC_Cabecera.subtotal).toFixed(2)+". "
+            this.observaciones=this.observaciones+"Base para cálculo de multa, recargo e interes Bs: " + (this.IC_Cabecera.BaseMultaRecargoInteres).toFixed(2)+", "
+            this.observaciones=this.observaciones+"Multa Bs: " + (this.IC_Cabecera.multa).toFixed(2) +". "
+            this.observaciones=this.observaciones+"Recargo ("+  this.IC_Cabecera.frecargo+ "%) Bs: "+(this.IC_Cabecera.recargo).toFixed(2)  +". "
+            this.observaciones=this.observaciones+"Interés Bs: "+(this.IC_Cabecera.interes).toFixed(2)+", "
+            this.observaciones=this.observaciones+"Total Bs: "+(this.IC_Cabecera.total).toFixed(2)+". "
+            console.log('this.observaciones', this.observaciones)
             this.divs.push({
               tasa_multa_id: this.tasa_multa_id.id, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
               monto_unidad_tributaria: this.IC_Cabecera.total, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
@@ -482,6 +585,7 @@ export default{
             editable: false
           });
         }
+        this.disableBotonGuardar=false
       } catch (err) {
         console.log(err);
       }
@@ -724,7 +828,17 @@ export default{
       startY=startY+5
       pdf.text('OBSERVACIONES:', 15, startY);
       pdf.setFont("helvetica", "bold");
-      pdf.text(this.observaciones, 55, startY);
+      startY=startY+5
+      let longText = this.observaciones
+      // Tamaño máximo de la línea
+      const maxWidth = 180;
+      // Dividir el texto en líneas
+      let textLines = pdf.splitTextToSize(longText, maxWidth);
+      // Agregar cada línea al PDF
+      textLines.forEach((line) => {
+          pdf.text(15, startY, line);
+          startY += 4; 
+      });
       pdf.setFont("helvetica", "normal");  
       startY=startY+10 
       pdf.text('SERVICIO O TRÁMITE:', 15, startY);
@@ -761,7 +875,7 @@ export default{
         },
       };
 
-      const columns = ['tipo','Descripción', 'Petro', 'Cantidad', 'Monto Bs'];
+      const columns = ['tipo','Descripción', 'Base Imponible Bs', 'Cantidad', 'Monto Bs'];
       const data = this.divs.map((item) => [
       tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).tipo], 
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).descripcion,

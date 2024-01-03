@@ -513,7 +513,7 @@ export default {
         },
       };
 
-      const columns = ['tipo', 'Descripción', 'Petro', 'Cantidad', 'Monto Bs'];
+      const columns = ['Tipo', 'Descripción', 'Base Imponible Bs', 'Cantidad', 'Monto Bs'];
       const data = this.divs.map((item) => [
         tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).tipo],
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,

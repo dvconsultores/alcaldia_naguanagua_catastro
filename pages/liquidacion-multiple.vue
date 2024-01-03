@@ -497,8 +497,19 @@ export default {
       startY = startY + 5
       pdf.text('OBSERVACIONES:', 15, startY);
       pdf.setFont("helvetica", "bold");
-      pdf.text(this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '', 55, startY);
-      pdf.setFont("helvetica", "normal");
+
+      startY=startY+5
+      let longText = this.selectedItem.observaciones != null ? this.selectedItem.observaciones : ''
+      // Tamaño máximo de la línea
+      const maxWidth = 180;
+      // Dividir el texto en líneas
+      let textLines = pdf.splitTextToSize(longText, maxWidth);
+      // Agregar cada línea al PDF
+      textLines.forEach((line) => {
+          pdf.text(15, startY, line);
+          startY += 4; 
+      });
+      pdf.setFont("helvetica", "normal");  
       startY = startY + 10
       pdf.text('SERVICIO O TRÁMITE:', 15, startY);
       pdf.setFont("helvetica", "bold");
@@ -522,7 +533,7 @@ export default {
         },
       };
 
-      const columns = ['tipo', 'Descripción', 'Petro', 'Cantidad', 'Monto Bs'];
+      const columns = ['Tipo', 'Descripción', 'Base Imponible Bs', 'Cantidad', 'Monto Bs'];
       const data = this.divs.map((item) => [
         tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).tipo],
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,

@@ -19,7 +19,7 @@
             <v-data-table v-model="selectedLiq" :headers="headers" :items="liquidacionData" :items-per-page="10"
               :search="search" :footer-props="{
                 itemsPerPageText: 'Items por página',
-              }" sort-by="codigo" class="mytabla" mobile-breakpoint="840" show-select>
+              }" sort-by="numero"  sort-desc  class="mytabla" mobile-breakpoint="840" show-select>
               <template v-slot:[`item.monto_total`]="{ item }">
                 {{ numeroFormateado(item.monto_total) }}
               </template>
@@ -129,7 +129,7 @@
                           </template>
                           <template #[`item.actions`]="{ item }">
                             <v-btn class="btn-tabla"
-                              @click="div.fechapago = item.fecha; div.monto = item.monto; div.nro_referencia = item.referencia; mostrarVentana = false">
+                              @click="ValidarTransferencia(item)">
                               Seleccionar Transferencia
                             </v-btn>
                           </template>
@@ -251,6 +251,7 @@ export default {
         { text: 'Concepto', value: 'tipoflujo.descripcion', align: 'center' },
         { text: 'Contribuyente', value: 'propietario.nombre', align: 'center' },
         { text: 'Fecha', value: 'fecha', align: 'center' },
+        { text: 'Observaciones', value: 'observaciones', align: 'center' },
         { text: 'Monto', value: 'monto_total', align: 'right' },
       ],
       headers: [
@@ -258,10 +259,12 @@ export default {
         { text: 'Tipo de Flujo', value: 'tipoflujo.descripcion', align: 'center' },
         { text: 'Contribuyente', value: 'propietario.nombre', align: 'center' },
         { text: 'Fecha', value: 'fecha', align: 'center' },
+        { text: 'Observaciones', value: 'observaciones', align: 'center' },
         { text: 'Total', value: 'monto_total', align: 'right' },
         { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
       headersCorridasBancarias: [
+        { text: 'ID', align: 'center', value: 'id' },
         { text: 'Fecha', align: 'center', value: 'fecha' },
         { text: 'referencia', value: 'referencia', align: 'center' },
         { text: 'Descripción', value: 'descripcion', align: 'center' },
@@ -291,9 +294,6 @@ export default {
         nro_referencia: '',
         monto: 1,
       }],
-      //nombrecontribuyente: this.$store.getters.getContribuyente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
-      //nacionalidadcontribuyente: this.$store.getters.getContribuyente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
-      //numero_documento: this.$store.getters.getContribuyente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
       CorrelativoPago: 0,
       Id: 0,
       MensajeNotaCredito: '',
@@ -302,6 +302,7 @@ export default {
       montoTotalCxC: 0,
       CorrelativoData: [],
       dialogWait: true,
+      ValidarTransferenciaData: [],
     }
   },
   head() {
@@ -323,6 +324,22 @@ export default {
   },
 
   methods: {
+      
+     async ValidarTransferencia(item) {
+      try {
+        const response = await this.$axios.$post('ValidarTransferencia/', item);
+        this.ValidarTransferenciaData = response
+        console.log('this.ValidarTransferenciaData',this.ValidarTransferenciaData)
+
+        this.div.fechapago = item.fecha; 
+        this.div.monto = item.monto; 
+        this.div.nro_referencia = item.referencia; 
+        this.mostrarVentana = false
+
+      } catch (err) {
+        console.log(err); 
+      }
+    },
     numeroFormateado(numero) {
       // Convertir a número si es una cadena
       const numeroComoNumero = typeof numero === 'string' ? parseFloat(numero) : numero;
@@ -447,6 +464,8 @@ export default {
         console.log(err);
       }
     },
+
+
 
     async getLiquidacionPropietario() {
       try {
@@ -632,9 +651,11 @@ export default {
       const minutos = fechaActual.getMinutes().toString().padStart(2, '0');
       const segundos = fechaActual.getSeconds().toString().padStart(2, '0');
       console.log('fechaActual')
-
+      let longText = ''
+      let textLines = ''
+      // Tamaño máximo de la línea
+      const maxWidth = 180;
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
-
       const img1 = new Image();
       const img2 = new Image();
       var ruta1 = this.CorrelativoData[0].Logo1;
@@ -649,16 +670,13 @@ export default {
       }
       img1.src = ruta1;
       img2.src = ruta2;
-
       img1.onload = function () {
         pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
         img2.onload = function () {
           pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
         };
       };
-
       let startY = 55;
-
       // Establecer el tamaño de fuente para el encabezado de la tabla
       const fontSizeTitle = 15; // Tamaño de fuente para el encabezado
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
@@ -677,13 +695,11 @@ export default {
       pdf.text(100, 35, 'R.I.F.: G-20004231-1', null, null, 'center');
       pdf.setFontSize(fontSizeHead);
       pdf.text(200, 50, `FECHA DE IMPRESIÓN: ${fechaConHora}`, null, null, 'right');
-
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(fontSizeTitle);
       pdf.text(100, 45, 'PLANILLA', null, null, 'center');
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "normal");
-
       pdf.setDrawColor(0); // Color de línea (negro en este caso)
       pdf.setLineWidth(0.5); // Ancho de la línea (1 en este caso)
       pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
@@ -710,16 +726,15 @@ export default {
       startY = startY + 5
       pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
       startY = startY + 5
-      pdf.text('OBSERVACIONES:', 15, startY);
-      pdf.setFont("helvetica", "bold");
-      pdf.text(this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '', 55, startY);
-      pdf.setFont("helvetica", "normal");
-      startY = startY + 10
+      //pdf.text('OBSERVACIONES:', 15, startY);
+      //pdf.setFont("helvetica", "bold");
+      //pdf.text(this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '', 55, startY);
+      //pdf.setFont("helvetica", "normal");
+      //startY = startY + 10
       pdf.text('SERVICIO O TRÁMITE:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(CabeceraPago.tipoflujo.descripcion, 55, startY);
       pdf.setFont("helvetica", "normal");
-
       if (CabeceraPago.inmueble) {
         startY = startY + 5
         pdf.text('NÚMERO DE EXPEDIENTE:', 15, startY);
@@ -729,24 +744,38 @@ export default {
         startY = startY + 5
         pdf.text('DIRECCIÓN INMUEBLE:', 15, startY);
         pdf.setFont("helvetica", "bold");
-        pdf.text(JSON.parse(JSON.stringify(CabeceraPago.inmueble.direccion)), 55, startY);
+        startY = startY + 5
+        longText = JSON.parse(JSON.stringify(CabeceraPago.inmueble.direccion))
+        textLines = pdf.splitTextToSize(longText, maxWidth);
+        textLines.forEach((line) => {
+          pdf.text(15, startY, line);
+          startY += 4;
+        });
         pdf.setFont("helvetica", "normal");
       }
-
       startY = startY + 10
       pdf.text('Nro. DOCUMENTO:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(CabeceraPago.numero.toString(), 55, startY);
       console.log('CabeceraPago')
-
       pdf.setFont("helvetica", "normal");
-      //startY=startY+5
+      startY = startY + 5
+      pdf.text('OBSERVACIONES:', 15, startY);
+      pdf.setFont("helvetica", "bold");
+      startY = startY + 5
+      longText = CabeceraPago.observaciones != null ? CabeceraPago.observaciones : ''
+      // Tamaño máximo de la línea
+      // Dividir el texto en líneas
+      textLines = pdf.splitTextToSize(longText, maxWidth);
+      // Agregar cada línea al PDF
+      textLines.forEach((line) => {
+        pdf.text(15, startY, line);
+        startY += 4;
+      });
+      pdf.setFont("helvetica", "normal");
       pdf.setFontSize(fontSizeHead); // Establecer el tamaño de fuente solo para esta línea
-
       const jsonStr = liquidacionDetalleData
-
       var jsonObject = JSON.parse(jsonStr);
-
       // Manipular los valores si es necesario (por ejemplo, convertir las cadenas numéricas a números)
       Object.keys(jsonObject).forEach(key => {
         const value = jsonObject[key];
@@ -757,8 +786,6 @@ export default {
       if (!Array.isArray(jsonObject)) {
         jsonObject = [jsonObject];
       }
-
-
       /*pdf.autoTable({
         head: [['tipo', 'Descripción', 'Petro', 'Cantidad', 'Monto Bs']],
         body: jsonObject.map((item) => [
@@ -776,17 +803,14 @@ export default {
         headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
 
       });*/
-
-      var columns = ['tipo', 'Descripción', 'Petro', 'Cantidad', 'Monto Bs'];
+      var columns = ['Tipo', 'Descripción', 'Base Imponible Bs', 'Cantidad', 'Monto Bs'];
       var data = jsonObject.map((item) => [
         tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id == item.tasamulta_id).tipo],
-
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id == item.tasamulta_id).descripcion,
         item.monto_unidad_tributaria,
         item.cantidad,
         item.monto_tasa,
       ]);
-
       pdf.autoTable({
         head: [columns],
         body: data,
@@ -794,16 +818,12 @@ export default {
         styles: { fontSize: fontSizeBody },
         headStyles: { fontSize: fontSizeHead },
       });
-
-
-
       startY += 10 + jsonObject.length * 7;
       startY = startY + 5
       pdf.setFont("helvetica", "bold");
       pdf.text('DETALLE DE PAGO:', 15, startY);
       pdf.setFont("helvetica", "normal");
       //startY=startY+5
-
       /*var options = {
         startY: startY + 2,
         styles: { fontSize: fontSizeBody },
@@ -816,7 +836,6 @@ export default {
           }
         },
       };*/
-
       columns = ['Tipo', 'Fecha Pago', 'Banco/Cuenta', 'Nro Referencia', 'Monto Bs'];
       data = DetallePago.map((item) => [
         this.tipoPagoData.find((tipopago) => tipopago.codigo === item.tipopago).descripcion,
@@ -826,7 +845,6 @@ export default {
         item.monto,
       ]);
       //pdf.autoTable(columns, data, options);
-
       pdf.autoTable({
         head: [columns],
         body: data,
@@ -834,12 +852,8 @@ export default {
         styles: { fontSize: fontSizeBody },
         headStyles: { fontSize: fontSizeHead },
       });
-
-
-
       startY += 10 + DetallePago.length * 7;
       startY = startY + 10
-
       pdf.text('MONTO X COBRAR (BS.):', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(fontSizeTitle);
@@ -851,7 +865,7 @@ export default {
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(fontSizeTitle);
       pdf.text(Montos.montoPagado.toString(), 55, startY);
-      console.log('montoPagado',Montos.montoPagado.toString())
+      console.log('montoPagado', Montos.montoPagado.toString())
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "normal");
       startY = startY + 5
@@ -864,10 +878,8 @@ export default {
       pdf.setFont("helvetica", "bold");
       pdf.text(this.$store.getters.getUser.caja.toString(), 55, startY);
       pdf.setFont("helvetica", "normal");
-
       pdf.save(`Planilla-Nro-${this.CorrelativoPago}.pdf`);
-      console.log('pdf',pdf)
-
+      console.log('pdf', pdf)
       await this.uploadPDF(pdf);
     },
 
@@ -889,7 +901,6 @@ export default {
     async getPDF() {
       try {
         console.log('getPDF entra')
-
         const response = await this.$axios.$get(`pagoestadocuenta/${this.IdPago}/`)
           console.log('response getPDF', response.ReportePdf)
           var pdfData = response.ReportePdf;
@@ -930,7 +941,6 @@ export default {
         }
       } 
       else { mensaje = mensaje + 'No hay pagos para procesar.' }
-
       if (mensaje) {this.$alert("cancel", { desc: "Error: " + mensaje, hash: 'knsddcssdc', title: 'Falta dato' }) } 
       else {this.createPago() }
     },
@@ -940,15 +950,10 @@ export default {
       this.montoTotalSelectedItem = parseFloat(this.montoTotalSelectedItem)
       this.montoTotalFunc = this.montoTotalPagado()
       this.diferencia = this.montoTotalSelectedItem - (this.montoTotalFunc)
-
       if (this.montoTotalSelectedItem !== null && parseFloat(this.montoTotalSelectedItem) <= this.montoTotalFunc) {
-
-
-
         if (this.montoTotalFunc > this.montoTotalSelectedItem) {
           this.$alert("success", { desc: "Se creará una NOTA DE CREDITO a favor del contribuyente", hash: 'knsddcssdc', title: 'NOTA DE CREDITO' })
         }
-
         // Recrear una vcabecera por cada liquidacion
         var CabeceraPago = this.selectedLiq
         //agrego una nueva columna para cada liquidacion reconstruida.
@@ -958,7 +963,6 @@ export default {
         });
         // Recrear el detalle para cada liquidacion
         var DetallePago = []
-
         // NOTA DE CREDITO
         var NCFiltrados = this.divs.filter(obj => obj.tipopago === 'N'); // pagos tipo nota de credito
         console.log('NCFiltrados', NCFiltrados)
@@ -1260,10 +1264,8 @@ export default {
         console.log('backend CorrelativoPago:', this.CorrelativoPago)
         console.log('backend liquidacionDetalleData:', detail)
         //console.log('backend notacredito:',this.Id)
-
         await this.generarPDF(propietario, divLiq, DetallePagoApi, CabeceraPagoApi, detail)
         this.dialogWait = false
-
         //this.$alert("success", { desc: "Se ha registrado un pago con éxito", hash: 'knsddcssdc', title: 'Creado' })
         await new Promise(resolve => setTimeout(resolve, 3000));
       } catch (err) {

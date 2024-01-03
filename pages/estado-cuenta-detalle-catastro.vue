@@ -8,7 +8,7 @@
           </p>
 
           <span class="title-inscripcion-inmueble">
-            Petro Bs.: {{ montoBCV }}
+            Base Imponible Bs.: {{ montoBCV }}
           </span>
         </div>
 
@@ -148,12 +148,12 @@
                               <th style="padding: 2px;"> Tipo </th>
                               <th style="padding: 2px;"> (a)<br> Area </th>
                               <th style="padding: 2px;"> (b)<br> Multa <br>Art.99 </th>
-                              <th style="padding: 2px;"> (c)<br> Multa <br> Petro (a * b) </th>
+                              <th style="padding: 2px;"> (c)<br> Multa <br> Base Imponible Bs (a * b) </th>
                               <th style="padding: 2px;"> (c * d)<br> Multa Bs <br>A PAGAR</th>
                               <th style="padding: 2px;"> (e)<br> Mora <br>Art.99 </th>
                               <th style="padding: 2px;"> (f)<br> Mora  <br>Fraccionada (e / 12) </th>
                               <th style="padding: 2px;"> (h)<br> Meses <br>vencido</th>
-                              <th style="padding: 2px;"> (g)<br> Mora <br>Petro (f * h * a)</th>
+                              <th style="padding: 2px;"> (g)<br> Mora <br>Base Imponible Bs (f * h * a)</th>
                               <th style="padding: 2px;"> (g * d)<br> Mora Bs <br>A PAGAR</th>
                             </tr>
                           </thead>
@@ -227,12 +227,12 @@
                               <th style="padding: 2px;"> Tipo </th>
                               <th style="padding: 2px;"> (a)<br> Area </th>
                               <th style="padding: 2px;"> (b)<br> Multa <br>Art.99 </th>
-                              <th style="padding: 2px;"> (c)<br> Multa <br> Petro (a * b) </th>
+                              <th style="padding: 2px;"> (c)<br> Multa <br> Base Imponible Bs (a * b) </th>
                               <th style="padding: 2px;"> (c * d)<br> Multa Bs <br>A PAGAR</th>
                               <th style="padding: 2px;"> (e)<br> Mora <br>Art.99 </th>
                               <th style="padding: 2px;"> (f)<br> Mora  <br>Fraccionada (e / 12) </th>
                               <th style="padding: 2px;"> (h)<br> Meses <br>vencido</th>
-                              <th style="padding: 2px;"> (g)<br> Mora <br>Petro (f * h * a)</th>
+                              <th style="padding: 2px;"> (g)<br> Mora <br>Base Imponible Bs (f * h * a)</th>
                               <th style="padding: 2px;"> (g * d)<br> Mora Bs <br>A PAGAR</th>
                             </tr>
                           </thead>
@@ -306,12 +306,12 @@
                               <th style="padding: 2px;"> Tipo </th>
                               <th style="padding: 2px;"> (a)<br> Area </th>
                               <th style="padding: 2px;"> (b)<br> Multa <br>Art.101 </th>
-                              <th style="padding: 2px;"> (c)<br> Multa <br> Petro (a * b) </th>
+                              <th style="padding: 2px;"> (c)<br> Multa <br> Base Imponible Bs (a * b) </th>
                               <th style="padding: 2px;"> (c * d)<br> Multa Bs <br>A PAGAR</th>
                               <th style="padding: 2px;"> (e)<br> Mora <br>Art.99 </th>
                               <th style="padding: 2px;"> (f)<br> Mora  <br>Fraccionada (e / 12) </th>
                               <th style="padding: 2px;"> (h)<br> Meses <br>vencido</th>
-                              <th style="padding: 2px;"> (g)<br> Mora <br>Petro (f * h * a)</th>
+                              <th style="padding: 2px;"> (g)<br> Mora <br>Base Imponible Bs (f * h * a)</th>
                               <th style="padding: 2px;"> (g * d)<br> Mora Bs <br>A PAGAR</th>
                             </tr>
                           </thead>
@@ -385,12 +385,12 @@
                               <th style="padding: 2px;"> Tipo </th>
                               <th style="padding: 2px;"> (a)<br> Area </th>
                               <th style="padding: 2px;"> (b)<br> Multa <br>Art.101 </th>
-                              <th style="padding: 2px;"> (c)<br> Multa <br> Petro (a * b) </th>
+                              <th style="padding: 2px;"> (c)<br> Multa <br> Base Imponible Bs (a * b) </th>
                               <th style="padding: 2px;"> (c * d)<br> Multa Bs <br>A PAGAR</th>
                               <th style="padding: 2px;"> (e)<br> Mora <br>Art.99 </th>
                               <th style="padding: 2px;"> (f)<br> Mora  <br>Fraccionada (e / 12) </th>
                               <th style="padding: 2px;"> (h)<br> Meses <br>vencido</th>
-                              <th style="padding: 2px;"> (g)<br> Mora <br>Petro (f * h * a)</th>
+                              <th style="padding: 2px;"> (g)<br> Mora <br>Base Imponible Bs (f * h * a)</th>
                               <th style="padding: 2px;"> (g * d)<br> Mora Bs <br>A PAGAR</th>
                             </tr>
                           </thead>
@@ -968,7 +968,7 @@ export default{
         },
       };
 
-      const columns = ['tipo','Descripción', 'Petro', 'Cantidad', 'Monto Bs'];
+      const columns = ['Tipo','Descripción', 'Base Imponible Bs', 'Cantidad', 'Monto Bs'];
       const data = this.divs.map((item) => [
       tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).tipo], 
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).descripcion,

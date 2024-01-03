@@ -70,20 +70,6 @@
     "_name": "_7490ced3"
   },
   {
-    "name": "actualizar-valoracion-economica copy___en",
-    "path": "/actualizar-valoracion-economica%20copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-valoracion-economica copy.vue",
-    "chunkName": "pages/actualizar-valoracion-economica copy",
-    "_name": "_430c5f5c"
-  },
-  {
-    "name": "actualizar-valoracion-economica copy 2___en",
-    "path": "/actualizar-valoracion-economica%20copy%202",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-valoracion-economica copy 2.vue",
-    "chunkName": "pages/actualizar-valoracion-economica copy 2",
-    "_name": "_0b84f4e4"
-  },
-  {
     "name": "ambito___en",
     "path": "/ambito",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
@@ -138,20 +124,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble.vue",
     "chunkName": "pages/consulta-inmueble",
     "_name": "_350d6670"
-  },
-  {
-    "name": "consulta-inmueble-old___en",
-    "path": "/consulta-inmueble-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble-old.vue",
-    "chunkName": "pages/consulta-inmueble-old",
-    "_name": "_bed63f6c"
-  },
-  {
-    "name": "consultar-propietario-old___en",
-    "path": "/consultar-propietario-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario-old.vue",
-    "chunkName": "pages/consultar-propietario-old",
-    "_name": "_12f0348b"
   },
   {
     "name": "crear-contribuyente___en",
@@ -217,13 +189,6 @@
     "_name": "_3233eb7c"
   },
   {
-    "name": "estado-cuenta-catastro-old___en",
-    "path": "/estado-cuenta-catastro-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-catastro-old.vue",
-    "chunkName": "pages/estado-cuenta-catastro-old",
-    "_name": "_aa1969c8"
-  },
-  {
     "name": "estado-cuenta-detalle___en",
     "path": "/estado-cuenta-detalle",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle.vue",
@@ -252,13 +217,6 @@
     "_name": "_7242409e"
   },
   {
-    "name": "estado-cuenta-taquilla-old___en",
-    "path": "/estado-cuenta-taquilla-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-taquilla-old.vue",
-    "chunkName": "pages/estado-cuenta-taquilla-old",
-    "_name": "_4e8d30c8"
-  },
-  {
     "name": "estatus-inmueble___en",
     "path": "/estatus-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estatus-inmueble.vue",
@@ -285,13 +243,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-devueltos.vue",
     "chunkName": "pages/flow-devueltos",
     "_name": "_abcb5ae6"
-  },
-  {
-    "name": "flow-old___en",
-    "path": "/flow-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-old.vue",
-    "chunkName": "pages/flow-old",
-    "_name": "_eb2adf3a"
   },
   {
     "name": "flow-por-enviar___en",
@@ -434,18 +385,11 @@
     "_name": "_5a615ad2"
   },
   {
-    "name": "recaudacion-multiple-copy___en",
-    "path": "/recaudacion-multiple-copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple-copy.vue",
-    "chunkName": "pages/recaudacion-multiple-copy",
-    "_name": "_f234e280"
-  },
-  {
-    "name": "recaudacion-multiple -old___en",
-    "path": "/recaudacion-multiple%20-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple -old.vue",
-    "chunkName": "pages/recaudacion-multiple -old",
-    "_name": "_0df12498"
+    "name": "recaudacion-multiple_copy___en",
+    "path": "/recaudacion-multiple_copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple_copy.vue",
+    "chunkName": "pages/recaudacion-multiple_copy",
+    "_name": "_7c433cf2"
   },
   {
     "name": "regimen___en",
@@ -714,20 +658,6 @@
     "_name": "_7490ced3"
   },
   {
-    "name": "actualizar-valoracion-economica copy___es",
-    "path": "/es/actualizar-valoracion-economica%20copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-valoracion-economica copy.vue",
-    "chunkName": "pages/actualizar-valoracion-economica copy",
-    "_name": "_430c5f5c"
-  },
-  {
-    "name": "actualizar-valoracion-economica copy 2___es",
-    "path": "/es/actualizar-valoracion-economica%20copy%202",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-valoracion-economica copy 2.vue",
-    "chunkName": "pages/actualizar-valoracion-economica copy 2",
-    "_name": "_0b84f4e4"
-  },
-  {
     "name": "ambito___es",
     "path": "/es/ambito",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
@@ -782,20 +712,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble.vue",
     "chunkName": "pages/consulta-inmueble",
     "_name": "_350d6670"
-  },
-  {
-    "name": "consulta-inmueble-old___es",
-    "path": "/es/consulta-inmueble-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consulta-inmueble-old.vue",
-    "chunkName": "pages/consulta-inmueble-old",
-    "_name": "_bed63f6c"
-  },
-  {
-    "name": "consultar-propietario-old___es",
-    "path": "/es/consultar-propietario-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/consultar-propietario-old.vue",
-    "chunkName": "pages/consultar-propietario-old",
-    "_name": "_12f0348b"
   },
   {
     "name": "crear-contribuyente___es",
@@ -854,13 +770,6 @@
     "_name": "_3233eb7c"
   },
   {
-    "name": "estado-cuenta-catastro-old___es",
-    "path": "/es/estado-cuenta-catastro-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-catastro-old.vue",
-    "chunkName": "pages/estado-cuenta-catastro-old",
-    "_name": "_aa1969c8"
-  },
-  {
     "name": "estado-cuenta-detalle___es",
     "path": "/es/estado-cuenta-detalle",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle.vue",
@@ -889,13 +798,6 @@
     "_name": "_7242409e"
   },
   {
-    "name": "estado-cuenta-taquilla-old___es",
-    "path": "/es/estado-cuenta-taquilla-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-taquilla-old.vue",
-    "chunkName": "pages/estado-cuenta-taquilla-old",
-    "_name": "_4e8d30c8"
-  },
-  {
     "name": "estatus-inmueble___es",
     "path": "/es/estatus-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estatus-inmueble.vue",
@@ -922,13 +824,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-devueltos.vue",
     "chunkName": "pages/flow-devueltos",
     "_name": "_abcb5ae6"
-  },
-  {
-    "name": "flow-old___es",
-    "path": "/es/flow-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-old.vue",
-    "chunkName": "pages/flow-old",
-    "_name": "_eb2adf3a"
   },
   {
     "name": "flow-por-enviar___es",
@@ -1071,18 +966,11 @@
     "_name": "_5a615ad2"
   },
   {
-    "name": "recaudacion-multiple-copy___es",
-    "path": "/es/recaudacion-multiple-copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple-copy.vue",
-    "chunkName": "pages/recaudacion-multiple-copy",
-    "_name": "_f234e280"
-  },
-  {
-    "name": "recaudacion-multiple -old___es",
-    "path": "/es/recaudacion-multiple%20-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple -old.vue",
-    "chunkName": "pages/recaudacion-multiple -old",
-    "_name": "_0df12498"
+    "name": "recaudacion-multiple_copy___es",
+    "path": "/es/recaudacion-multiple_copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple_copy.vue",
+    "chunkName": "pages/recaudacion-multiple_copy",
+    "_name": "_7c433cf2"
   },
   {
     "name": "regimen___es",

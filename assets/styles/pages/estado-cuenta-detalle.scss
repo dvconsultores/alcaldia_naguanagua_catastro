@@ -458,3 +458,44 @@
 .v-text-field > .v-input__control > .v-input__slot:after {
   width: 0%;
 }
+
+.dialog-confirmacion{
+
+  .card-confirmacion-dialog{
+    background-color: var(--bg-ap);
+    max-width: 600px;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+
+    .title-dialog{
+      --c: var(--primary);
+      --fw: 700;
+      text-align: center;
+    }
+
+    .desc-dialog{
+      --fw: 500;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .input-fecha{
+      width: 100%;
+      box-shadow: 0px 0px 3px 3px rgba( #000000, 0.1)!important;
+      border-radius: 10px;
+      border: 1px solid var(--primary);
+      padding-inline: 10px;
+      height: 65px;
+    }
+
+    .btn-small{
+      max-width: 150px!important;
+    }
+  }
+}
