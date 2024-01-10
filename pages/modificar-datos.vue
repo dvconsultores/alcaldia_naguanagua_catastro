@@ -47,7 +47,7 @@
                     <v-text-field v-model="nuevoRegistro.nombre" class="input-big"
                       label="Nombre / Razón social"></v-text-field>
 
-                    <v-textarea class="input-textarea" label="Dirección fiscal"></v-textarea>
+                    <v-textarea v-model="nuevoRegistro.direccion" class="input-textarea" label="Dirección fiscal"></v-textarea>
 
                     <v-text-field v-model="nuevoRegistro.telefono_principal" class="input-medium"
                       label="Teléfono"></v-text-field>
@@ -112,7 +112,7 @@
                     <v-text-field v-model="defaultItem.nombre" class="input-big"
                       label="Nombre / Razón social"></v-text-field>
 
-                    <v-textarea class="input-textarea" label="Dirección fiscal"></v-textarea>
+                    <v-textarea v-model="defaultItem.direccion" class="input-textarea" label="Dirección fiscal"></v-textarea>
 
                     <v-text-field v-model="defaultItem.telefono_principal" class="input-medium"
                       label="Teléfono"></v-text-field>
@@ -146,7 +146,7 @@
 
           <div class="data-table-container">
               <div>
-                <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar contribuyente" hide-details class="input-data-table" @keyup.enter="getContribuyente"></v-text-field>
+                <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar contribuyente" hide-details class="input-data-table" @keyup.enter="getContribuyentes"></v-text-field>
                 <!--v-btn @click="getContribuyente" color="primary">Buscar contribuyente</v-btn-->
               </div>
             <v-data-table :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
@@ -201,6 +201,26 @@
           </div>
       </div>
     </section>
+    <v-dialog
+            v-model="dialogWait"
+            hide-overlay
+            persistent
+            width="300"
+          >
+            <v-card
+              color="primary"
+              dark
+            >
+              <v-card-text>
+                Por favor espere!!!
+                <v-progress-linear
+                  indeterminate
+                  color="white"
+                  class="mb-0"
+                ></v-progress-linear>
+              </v-card-text>
+            </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -212,8 +232,9 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      dialogWait : false,
       numeroDocumento: '',
-      search: '',
+      search: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':this.$store.getters.getContribuyente.numero_documento,
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
@@ -234,6 +255,7 @@ export default {
         nacionalidad: '',
         numero_documento: '',
         nombre: '',
+        direccion: '',
         telefono_principal: '',
         telefono_secundario: '',
         email_principal: '',
@@ -252,20 +274,26 @@ export default {
 
   methods: {
 
-    getContribuyente() {
-      this.numeroDocumento=this.search
+    async getContribuyentes() {
+      this.numeroDocumento = this.search
       if (this.search.trim() == '') {
         this.$alert("cancel", { desc: "Debe colocar un número de RIF o un nombre válido.", hash: 'knsddcssdc', title: 'Advertencia' })
 
       }else{
-        //this.$axios.$get('propietario').then(response => {
-        this.$axios.$get(`filtrar_propietarios/?numero_documento=${this.numeroDocumento}`).then(response => {
-
-        this.propietarioData = response
-        console.log(' this.propietarioData', typeof this.propietarioData)
-      }).catch(err => {
-        console.log(err)
-      })
+        try {
+          this.dialogWait = true
+          const response = await this.$axios.$get(`filtrar_propietarios/?numero_documento=${this.numeroDocumento}`)
+          if (response.length>0){
+            this.propietarioData = response
+            console.log('propietarioData',this.propietarioData)
+            this.dialogWait = false
+          }else{
+            this.dialogWait = false
+            this.$alert("cancel", { desc: "No se encontraron contribuentes.", hash: 'knsddcssdc', title: 'Advertencia' })
+          }
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
 
@@ -289,6 +317,7 @@ export default {
       this.defaultItem.nacionalidad = item.nacionalidad
       this.defaultItem.numero_documento = item.numero_documento
       this.defaultItem.nombre = item.nombre
+      this.defaultItem.direccion = item.direccion
       this.defaultItem.telefono_principal = item.telefono_principal
       this.defaultItem.telefono_secundario = item.telefono_secundario
       this.defaultItem.email_principal = item.email_principal
@@ -301,6 +330,7 @@ export default {
       formData.append('nacionalidad', this.defaultItem.nacionalidad)
       formData.append('numero_documento', this.defaultItem.numero_documento)
       formData.append('nombre', this.defaultItem.nombre)
+      formData.append('direccion', this.defaultItem.direccion)
       formData.append('telefono_principal', this.defaultItem.telefono_principal)
       formData.append('telefono_secundario', this.defaultItem.telefono_secundario)
       formData.append('email_principal', this.defaultItem.email_principal)

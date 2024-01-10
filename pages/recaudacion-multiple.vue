@@ -129,7 +129,7 @@
                           </template>
                           <template #[`item.actions`]="{ item }">
                             <v-btn class="btn-tabla"
-                              @click="ValidarTransferencia(item)">
+                            @click="div.fechapago = item.fecha; div.monto = item.monto; div.nro_referencia = item.referencia; mostrarVentana = false">
                               Seleccionar Transferencia
                             </v-btn>
                           </template>
