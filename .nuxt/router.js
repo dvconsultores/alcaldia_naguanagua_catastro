@@ -14,6 +14,7 @@ const _2a3fc7e6 = () => interopDefault(import('../pages/actualizar-documento-pro
 const _27d80687 = () => interopDefault(import('../pages/actualizar-documentos-pendientes.vue' /* webpackChunkName: "pages/actualizar-documentos-pendientes" */))
 const _4e921d53 = () => interopDefault(import('../pages/actualizar-terreno.vue' /* webpackChunkName: "pages/actualizar-terreno" */))
 const _7490ced3 = () => interopDefault(import('../pages/actualizar-valoracion-economica.vue' /* webpackChunkName: "pages/actualizar-valoracion-economica" */))
+const _11987b6a = () => interopDefault(import('../pages/actualizar-valoracion-economica-2024.vue' /* webpackChunkName: "pages/actualizar-valoracion-economica-2024" */))
 const _0cdc7f6e = () => interopDefault(import('../pages/ambito.vue' /* webpackChunkName: "pages/ambito" */))
 const _3d728fbd = () => interopDefault(import('../pages/avenida.vue' /* webpackChunkName: "pages/avenida" */))
 const _20f1ec6c = () => interopDefault(import('../pages/bcv.vue' /* webpackChunkName: "pages/bcv" */))
@@ -50,6 +51,7 @@ const _a32b6a42 = () => interopDefault(import('../pages/liquidacion.vue' /* webp
 const _16cbbcee = () => interopDefault(import('../pages/liquidacion-multiple.vue' /* webpackChunkName: "pages/liquidacion-multiple" */))
 const _1dc5ef9e = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _2124f254 = () => interopDefault(import('../pages/maestro-patente.vue' /* webpackChunkName: "pages/maestro-patente" */))
+const _5c7bda2e = () => interopDefault(import('../pages/maestro-patente-old.vue' /* webpackChunkName: "pages/maestro-patente-old" */))
 const _a60d722e = () => interopDefault(import('../pages/manzana.vue' /* webpackChunkName: "pages/manzana" */))
 const _249d638d = () => interopDefault(import('../pages/modificar-datos.vue' /* webpackChunkName: "pages/modificar-datos" */))
 const _f723739e = () => interopDefault(import('../pages/moneda.vue' /* webpackChunkName: "pages/moneda" */))
@@ -142,6 +144,10 @@ export const routerOptions = {
     path: "/actualizar-valoracion-economica",
     component: _7490ced3,
     name: "actualizar-valoracion-economica___en"
+  }, {
+    path: "/actualizar-valoracion-economica-2024",
+    component: _11987b6a,
+    name: "actualizar-valoracion-economica-2024___en"
   }, {
     path: "/ambito",
     component: _0cdc7f6e,
@@ -286,6 +292,10 @@ export const routerOptions = {
     path: "/maestro-patente",
     component: _2124f254,
     name: "maestro-patente___en"
+  }, {
+    path: "/maestro-patente-old",
+    component: _5c7bda2e,
+    name: "maestro-patente-old___en"
   }, {
     path: "/manzana",
     component: _a60d722e,
@@ -479,6 +489,10 @@ export const routerOptions = {
     component: _7490ced3,
     name: "actualizar-valoracion-economica___es"
   }, {
+    path: "/es/actualizar-valoracion-economica-2024",
+    component: _11987b6a,
+    name: "actualizar-valoracion-economica-2024___es"
+  }, {
     path: "/es/ambito",
     component: _0cdc7f6e,
     name: "ambito___es"
@@ -618,6 +632,10 @@ export const routerOptions = {
     path: "/es/maestro-patente",
     component: _2124f254,
     name: "maestro-patente___es"
+  }, {
+    path: "/es/maestro-patente-old",
+    component: _5c7bda2e,
+    name: "maestro-patente-old___es"
   }, {
     path: "/es/manzana",
     component: _a60d722e,

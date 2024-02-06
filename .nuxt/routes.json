@@ -70,6 +70,13 @@
     "_name": "_7490ced3"
   },
   {
+    "name": "actualizar-valoracion-economica-2024___en",
+    "path": "/actualizar-valoracion-economica-2024",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-valoracion-economica-2024.vue",
+    "chunkName": "pages/actualizar-valoracion-economica-2024",
+    "_name": "_11987b6a"
+  },
+  {
     "name": "ambito___en",
     "path": "/ambito",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
@@ -320,6 +327,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/maestro-patente.vue",
     "chunkName": "pages/maestro-patente",
     "_name": "_2124f254"
+  },
+  {
+    "name": "maestro-patente-old___en",
+    "path": "/maestro-patente-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/maestro-patente-old.vue",
+    "chunkName": "pages/maestro-patente-old",
+    "_name": "_5c7bda2e"
   },
   {
     "name": "manzana___en",
@@ -658,6 +672,13 @@
     "_name": "_7490ced3"
   },
   {
+    "name": "actualizar-valoracion-economica-2024___es",
+    "path": "/es/actualizar-valoracion-economica-2024",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizar-valoracion-economica-2024.vue",
+    "chunkName": "pages/actualizar-valoracion-economica-2024",
+    "_name": "_11987b6a"
+  },
+  {
     "name": "ambito___es",
     "path": "/es/ambito",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/ambito.vue",
@@ -901,6 +922,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/maestro-patente.vue",
     "chunkName": "pages/maestro-patente",
     "_name": "_2124f254"
+  },
+  {
+    "name": "maestro-patente-old___es",
+    "path": "/es/maestro-patente-old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/maestro-patente-old.vue",
+    "chunkName": "pages/maestro-patente-old",
+    "_name": "_5c7bda2e"
   },
   {
     "name": "manzana___es",

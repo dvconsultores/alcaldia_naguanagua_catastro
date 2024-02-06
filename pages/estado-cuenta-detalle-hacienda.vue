@@ -110,7 +110,7 @@
               <div class="div-dialog">
                 <v-card class="dialog-flow-container">
                   <v-card-title>
-                    <span class="title">Cálculos impuestos de inmuebles urbanos</span>
+                    <span class="title">Cálculos impuestos de inmuebles urbanos según tasa de mayor valor segun el BCV al momento de la emisión de este documento.</span>
                   </v-card-title>
 
 
@@ -262,7 +262,162 @@
                   </v-card>              
               </div>
             </v-dialog>
+            <v-dialog v-model="dialog_IC2023" content-class="dialog-flow" fullscreen scrollable>
+              <div class="div-dialog">
+                <v-card class="dialog-flow-container">
+                  <v-card-title>
+                    <span class="title">Cálculos impuestos de inmuebles urbanos PETRO</span>
+                  </v-card-title>
 
+
+                      <v-card class="card-flow">
+                        <v-card-title class="title-flow">
+                          Cálculo del impuesto
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 4px;"> Zona </th>
+                              <th style="padding: 4px;"> Base cálculo Bs </th>
+                              <th style="padding: 4px;"> Sub Total Bs </th>
+                              <th style="padding: 4px;"> tBaseMultaRecargoInteres Bs </th>
+                              <th style="padding: 4px;"> Multa Bs({{ IC_Cabecera.fmulta }}%)</th>
+                              <th style="padding: 4px;"> Recargo Bs  ({{ IC_Cabecera.frecargo }}%)</th>
+                              <th style="padding: 4px;"> Interés Bs</th>
+                              <th style="padding: 4px;"> Total Bs </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="solicitud-inputs-container">
+                              <td style="padding: 4px;text-align: center;"> {{ IC_Cabecera2023.zona }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ IC_Cabecera2023.basecalculobs }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.subtotal, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.BaseMultaRecargoInteres, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.multa, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.recargo, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.interes, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.total, 2) }} </td>
+                              
+
+                            </tr>
+                          </tbody>
+                        </table>
+                      </v-card>
+
+
+                      <v-card class="card-flow">
+                        <v-card-title class="title-flow">
+                          Detalle del cálculo del impuesto
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 2px;"> Aplica </th>
+                              <th style="padding: 2px;"> Año </th>
+                              <th style="padding: 2px;"> Periodo </th>
+                              <th style="padding: 2px;"> Multa </th>
+                              <th style="padding: 2px;"> Uso </th>
+                              <th style="padding: 2px;"> Tipo </th>
+                              <th style="padding: 2px;"> Area m2 </th>
+                              <th style="padding: 2px;"> Alicuota Bs</th>
+                              <th style="padding: 2px;"> Sub Total Bs. </th>
+                              <th style="padding: 2px;"> Descuento % </th>
+                              <th style="padding: 2px;"> Total Bs.</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in IC_Detalle2023" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }"> {{ item.aplica }} </span></td>
+                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }"> {{ item.anio }}  </span></td>
+                              <td style="padding: 2px;text-align: center;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.periodo }} </span></td>
+                              <td style="padding: 2px;text-align: center;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.multa }} </span></td>
+                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.uso_descripcion }} </span></td>
+                              <td style="padding: 2px;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.tipo_descripcion }} </span></td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.area_m2 }} m2 </span></td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ item.alicuota.toFixed(8) }}</span> </td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ roundNumber(item.sub_total, 2) }}</span></td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ roundNumber(item.mdescuento, 2) }}</span> </td>
+                              <td style="padding: 2px;text-align: right;"> <span :style="{ color: item.multa ? 'red' : 'black' }">{{ roundNumber(item.total, 2) }} </span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                     </v-card>
+
+
+                     <v-card class="card-flow">
+                        <v-card-title class="title-flow">
+                          Detalle del descuento aplicado
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 2px;"> Aplica </th>
+                              <th style="padding: 2px;"> Año </th>
+                              <th style="padding: 2px;"> Periodo </th>
+                              <th style="padding: 2px;"> Uso </th>
+                              <th style="padding: 2px;"> Fecha desde </th>
+                              <th style="padding: 2px;"> Fecha hasta </th>
+                              <th style="padding: 2px;"> Descripción </th>
+                              <th style="padding: 2px;"> Sub total Bs </th>
+                              <th style="padding: 2px;"> Descuento % </th>
+                              <th style="padding: 2px;"> Total Bs </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in IC_Descuento2023" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;"> {{ item.aplica }} </td> 
+                              <td style="padding: 2px;"> {{ item.anio }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.periodo }} </td>
+                              <td style="padding: 2px;text-align: left;"> {{ item.uso_descripcion }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.fechadesde }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.fechahasta }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.descripcion }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.base, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.descuento, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.total, 2)  }} </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                     </v-card>
+
+                     <v-card class="card-flow">
+                        <v-card-title class="title-flow">
+                          Detalle del interés moratorio aplicado (BCV Tasas de interés activas.)
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 2px;"> Año </th>
+                              <th style="padding: 2px;"> Mes </th>
+                              <th style="padding: 2px;"> Tasa % </th>
+                              <th style="padding: 2px;"> Dias </th>
+                              <th style="padding: 2px;"> Mora Mensual Bs </th>
+                              <th style="padding: 2px;"> Total Interes Mensual Bs </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in IC_Interes2023" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;text-align: left;"> {{ item.anio }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.mes }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.tasa, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.dias, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.moramensual, 2)  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ roundNumber(item.interesmensual, 2)  }} </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                     </v-card>                     
+
+
+                     <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn class="btn dialog-btn" @click="dialog_IC2023 = false">
+                          Salir
+                        </v-btn>
+                      </v-card-actions>
+                  </v-card>              
+              </div>
+            </v-dialog>
         </div>
 
         <v-btn class="btns-add-remove no-shadow" @click="addDiv(index)">
@@ -376,7 +531,7 @@
              </v-col>
           </v-row>
           <div class="center divrow" style="gap:10px;">
-              <v-btn class="btn btn-small" @click="openDialogPeriodo = false; getDeudaImpuesto()" style="background-color:#ED057E!important;">
+              <v-btn class="btn btn-small" @click="openDialogPeriodo = false; getDeuda()" style="background-color:#ED057E!important;">
                   Procesar
               </v-btn>
           </div>
@@ -398,6 +553,7 @@ export default{
       openDialogPeriodo:false,
       dialogWait: false,
       dialog_IC: false,
+      dialog_IC2023: false,
       observaciones:'',
       nuevoRegistro: {},
       monto_unidad_tributaria: null,
@@ -419,6 +575,10 @@ export default{
       IC_Detalle:[],
       IC_Descuento:[],
       IC_Interes:[],
+      IC_Cabecera2023:[],
+      IC_Detalle2023:[],
+      IC_Descuento2023:[],
+      IC_Interes2023:[],
       periodoData:[],
       tasa_multa_id: null,
       Correlativo: 0,
@@ -507,6 +667,9 @@ export default{
       if (id=='IC'){
         this.dialog_IC = true
       }
+      if (id=='IC2023'){
+        this.dialog_IC2023 = true
+      }
       
     },
 
@@ -521,6 +684,76 @@ export default{
         const response = await   this.$axios.$get('tasamulta');
         this.tasaMultaData = response
         console.log('this.tasaMultaData0',this.tasaMultaData)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getDeuda() {
+        await this.getDeudaImpuesto2023()
+        await this.getDeudaImpuesto()
+
+    }, 
+    async getDeudaImpuesto2023() {
+      const data = {
+        inmueble: this.$store.getters.getExpediente.id,
+        propietario: this.$store.getters.getContribuyente.id,
+        anio: this.fAnio,
+        periodo: this.fPeriodo,
+      }
+      try {
+        this.dialogWait = true
+        const res = await this.$axios.$post('ImpuestoInmueble2023/', data)
+        this.dialogWait = false
+        if (res) {
+          this.IC_Cabecera = res[0].cabacera
+          if (res[0].cabacera.flujo) {
+            this.$alert("success", { desc: "El inmueble posee impuestos por pagar pero tiene un proceso en catastro por terminar.", hash: 'knsddcssdc', title: 'Impuesto por pagar.' })
+            this.divs.push({
+              tasa_multa_id: null, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
+              monto_unidad_tributaria: null, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
+              cantidad: 1, // Valor para cantidad (puedes reemplazarlo con el valor que desees)
+              calculo: 0, // Valor para calculo (puedes reemplazarlo con el valor que desees)
+              editable: false
+            });
+          } else {
+            this.IC_Cabecera2023 = res[0].cabacera
+            this.IC_Detalle2023 = res[0].detalle
+            this.IC_Descuento2023 = res[0].descuento
+            this.IC_Interes2023 = res[0].interes
+            this.tasa_multa_id = this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
+            console.log('this.IC_Cabecera', this.IC_Cabecera)
+            this.observaciones="CÁLCULO desde el año:"+this.IC_Cabecera.anioini+" - período:"+this.IC_Cabecera.mesini+ ", hasta el año: 2023 - período: 4. "
+            this.observaciones=this.observaciones+"Zona: "+this.IC_Cabecera.zona +", "
+            this.observaciones=this.observaciones+"El cálculo está en base al último registro del PETRO en cual es Bs." + (this.IC_Cabecera.basecalculobs).toFixed(2)+". "
+            this.observaciones=this.observaciones+"Sub-Total Bs: " + (this.IC_Cabecera.subtotal).toFixed(2)+". "
+            this.observaciones=this.observaciones+"Base para cálculo de multa, recargo e interes Bs: " + (this.IC_Cabecera.BaseMultaRecargoInteres).toFixed(2)+". "
+            this.observaciones=this.observaciones+"Multa Bs: " + (this.IC_Cabecera.multa).toFixed(2) +". "
+            this.observaciones=this.observaciones+"Recargo ("+  this.IC_Cabecera.frecargo+ "%) Bs: "+(this.IC_Cabecera.recargo).toFixed(2)  +". "
+            this.observaciones=this.observaciones+"Interés Bs: "+(this.IC_Cabecera.interes).toFixed(2)+". "
+            this.observaciones=this.observaciones+"Total Bs: "+(this.IC_Cabecera.total).toFixed(2)+". "
+            console.log('this.observaciones', this.observaciones)
+            this.divs.push({
+              tasa_multa_id: this.tasa_multa_id.id, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
+              monto_unidad_tributaria: this.IC_Cabecera.total, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
+              cantidad: 1, // Valor para cantidad (puedes reemplazarlo con el valor que desees)
+              calculo: this.IC_Cabecera.total, // Valor para calculo (puedes reemplazarlo con el valor que desees)
+              editable: true,
+              detalle: 'IC2023'
+            });
+            this.$alert("success", { desc: "El imueble posee impuestos por pagar. Se ha cargado la deuda con éxito.", hash: 'knsddcssdc', title: 'Impuesto por pagar.' })
+
+          }
+        }
+        else {
+          this.divs.push({
+            tasa_multa_id: null, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
+            monto_unidad_tributaria: null, // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
+            cantidad: 1, // Valor para cantidad (puedes reemplazarlo con el valor que desees)
+            calculo: 0, // Valor para calculo (puedes reemplazarlo con el valor que desees)
+            editable: false
+          });
+        }
+        this.disableBotonGuardar=false
       } catch (err) {
         console.log(err);
       }
@@ -554,14 +787,15 @@ export default{
             this.IC_Interes = res[0].interes
             this.tasa_multa_id = this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
             console.log('this.IC_Cabecera', this.IC_Cabecera)
-            this.observaciones="Cálculo desde el año:"+this.IC_Cabecera.anioini+" - período:"+this.IC_Cabecera.mesini+ ", hasta el año:"+this.IC_Cabecera.aniofin+" - período: "+this.IC_Cabecera.mesfin+". "
-            this.observaciones=this.observaciones+"Zona: "+this.IC_Cabecera.zona +", "
-            this.observaciones=this.observaciones+"El cálculo está en base a Bs." + (this.IC_Cabecera.basecalculobs).toFixed(2)+", "
-            this.observaciones=this.observaciones+"Sub Total Bs: " + (this.IC_Cabecera.subtotal).toFixed(2)+". "
-            this.observaciones=this.observaciones+"Base para cálculo de multa, recargo e interes Bs: " + (this.IC_Cabecera.BaseMultaRecargoInteres).toFixed(2)+", "
+            this.observaciones=this.observaciones+"\n"
+            this.observaciones=this.observaciones+"CÁLCULO desde el año:"+this.IC_Cabecera.anioini+" - período:"+this.IC_Cabecera.mesini+ ", hasta el año:"+this.IC_Cabecera.aniofin+" - período: "+this.IC_Cabecera.mesfin+". "
+            this.observaciones=this.observaciones+"Zona: "+this.IC_Cabecera.zona +". "
+            this.observaciones=this.observaciones+"El cálculo está en base a Bs." + (this.IC_Cabecera.basecalculobs).toFixed(2)+". "
+            this.observaciones=this.observaciones+"Sub-Total Bs: " + (this.IC_Cabecera.subtotal).toFixed(2)+". "
+            this.observaciones=this.observaciones+"Base para cálculo de multa, recargo e interes Bs: " + (this.IC_Cabecera.BaseMultaRecargoInteres).toFixed(2)+". "
             this.observaciones=this.observaciones+"Multa Bs: " + (this.IC_Cabecera.multa).toFixed(2) +". "
             this.observaciones=this.observaciones+"Recargo ("+  this.IC_Cabecera.frecargo+ "%) Bs: "+(this.IC_Cabecera.recargo).toFixed(2)  +". "
-            this.observaciones=this.observaciones+"Interés Bs: "+(this.IC_Cabecera.interes).toFixed(2)+", "
+            this.observaciones=this.observaciones+"Interés Bs: "+(this.IC_Cabecera.interes).toFixed(2)+". "
             this.observaciones=this.observaciones+"Total Bs: "+(this.IC_Cabecera.total).toFixed(2)+". "
             console.log('this.observaciones', this.observaciones)
             this.divs.push({
@@ -590,10 +824,9 @@ export default{
         console.log(err);
       }
     },
-
     async getBCV() {
       try {
-        const response = await this.$axios.$get('unidadtributaria/')
+        const response = await this.$axios.$get('tasabcv/')
           this.bcvData = response
           this.montoBCV = this.bcvData[0].monto
         } catch (err) {
@@ -840,7 +1073,7 @@ export default{
           startY += 4; 
       });
       pdf.setFont("helvetica", "normal");  
-      startY=startY+10 
+      startY=startY+5 
       pdf.text('SERVICIO O TRÁMITE:', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getFlujo.descripcion)), 55, startY);
@@ -875,7 +1108,7 @@ export default{
         },
       };
 
-      const columns = ['tipo','Descripción', 'Base Imponible Bs', 'Cantidad', 'Monto Bs'];
+      const columns = ['Tipo','Descripción', 'Base Imponible Bs', 'Cantidad', 'Monto Bs'];
       const data = this.divs.map((item) => [
       tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).tipo], 
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).descripcion,
@@ -917,15 +1150,8 @@ export default{
         startY=startY+10
         pdf.text('Esta planilla tiene validez de '+this.$store.getters.getFlujo.vencimiento+' días. Se vence el día :'+this.formatearFecha(this.sumarDiasHabiles(fechaActual, +this.$store.getters.getFlujo.vencimiento)), 15, startY);
         startY=startY+10
-        pdf.text('Contribuyente_________________________________________', 15, startY);
-        startY=startY+10
-        pdf.text('C.I._________________________________________________', 15, startY);
-        startY=startY+10
-        pdf.text('Firma_______________________________________________', 15, startY);
         pdf.text('SELLO___________________________', 140, startY);
-        startY=startY+10
-        pdf.text('Fecha______________________________________________', 15, startY);
-        startY=startY+5
+
         
       
      

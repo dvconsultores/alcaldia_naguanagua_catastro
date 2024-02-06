@@ -91,7 +91,7 @@
 
           <v-data-table :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
-          }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
+          }" sort-by="id" sort-desc class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
               <v-toolbar flat class="toolbar-tabla">
 

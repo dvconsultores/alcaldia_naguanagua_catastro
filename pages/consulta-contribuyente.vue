@@ -167,7 +167,7 @@ export default {
 
       headers: [
         { text: 'Nombre/Razón social', align: 'center', value: 'nombre', },
-        { text: 'Id', value: 'id', align: 'center' },
+        //{ text: 'Id', value: 'id', align: 'center' },
         { text: 'Número de documento RIF.', value: 'numero_documento', align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],

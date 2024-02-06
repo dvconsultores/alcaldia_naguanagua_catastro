@@ -301,7 +301,7 @@ export default {
       mostrarVentana: false,
       montoTotalCxC: 0,
       CorrelativoData: [],
-      dialogWait: true,
+      dialogWait: false,
       ValidarTransferenciaData: [],
     }
   },

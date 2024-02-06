@@ -77,26 +77,21 @@
                         label="Período inicio deuda" disabled></v-text-field>
                       <v-text-field v-model="selectedItem.id" class="input-mostrar" label="id" disabled></v-text-field>
                     </div>
-
                     <div class="div-btns" @click="StoreExpedienteId(selectedItem)">
                       <v-btn>
                         Seleccionar Expediente
                       </v-btn>
-
                       <v-btn style="background-color:#ED057E!important;" @click="dialog_mostrar = false">
                         Cancelar
                       </v-btn>
                     </div>
                   </v-tab-item>
                   <v-tab-item :value="1">
-
                     <div class="data-table-container">
                       <v-data-table :headers="headers_propietario" :items="PropietariosData" :items-per-page="10"
                         :footer-props="{
                           itemsPerPageText: 'Items por página',
                         }" sort-by="nombre" class="mytabla" mobile-breakpoint="840">
-
-
                         <template v-slot:top>
                           <v-toolbar flat class="toolbar-tabla">
                             <v-dialog v-model="dialogSelecciona" max-width="500px">
@@ -116,8 +111,6 @@
                             </v-dialog>
                           </v-toolbar>
                         </template>
-
-
                         <template #[`item.actions2`]="{ item }">
                           <v-btn class="btn-tabla" @click="openSelecciona(item)">
                             Seleccionar contribuyente
@@ -125,7 +118,6 @@
                         </template>
                       </v-data-table>
                     </div>
-
                     <div class="center" style="margin-top:30px;">
                       <v-btn class="btn" style="background-color:#ED057E!important; width: 200px!important;"
                         @click="dialog_mostrar = false">
@@ -138,19 +130,15 @@
             </div>
           </v-dialog>
         </div>
-
         <div class="data-table-container">
-
           <div>
-            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar INMUEBLE por número de expediente" hide-details
-              class="input-data-table" @keyup.enter="getInmueble"></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar INMUEBLE por número de expediente"
+              hide-details class="input-data-table" @keyup.enter="getInmueble"></v-text-field>
             <!--v-btn @click="getInmueble" color="primary">Buscar INMUEBLE</v-btn-->
           </div>
           <v-data-table :headers="headers" :items="inmuebleData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
-
-
             <template #[`item.actions2`]="{ item }">
               <v-btn class="btn-tabla" @click="openDialog(item)">
                 Ver Detalle
@@ -160,25 +148,13 @@
         </div>
       </div>
     </section>
-    <v-dialog
-            v-model="dialogWait"
-            hide-overlay
-            persistent
-            width="300"
-          >
-            <v-card
-              color="primary"
-              dark
-            >
-              <v-card-text>
-                Por favor espere!!!
-                <v-progress-linear
-                  indeterminate
-                  color="white"
-                  class="mb-0"
-                ></v-progress-linear>
-              </v-card-text>
-            </v-card>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
     </v-dialog>
   </div>
 </template>
@@ -210,7 +186,7 @@ export default {
 
       headers_propietario: [
         { text: 'Nombre/Razón social', align: 'center', value: 'propietario.nombre', },
-        { text: 'Id', value: 'propietario.id', align: 'center' },
+        //{ text: 'Id', value: 'propietario.id', align: 'center' },
         { text: 'Número de documento RIF.', value: 'propietario.numero_documento', align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],
@@ -229,36 +205,7 @@ export default {
         numero_documento: '',
         nacionalidad: '',
       },
-      selectedItem: {
-        id: '',
-        numero_expediente: '',
-        fecha_inscripcion: '',
-        tipo: '',
-        status: '',
-        ambito: '',
-        sector: '',
-        manzana: '',
-        parcela: '',
-        subparcela: '',
-        nivel: '',
-        unidad: '',
-        urbanizacion: '',
-        calle: '',
-        conjunto_residencial: '',
-        edificio: '',
-        avenida: '',
-        torre: '',
-        numero_civico: '',
-        numero_casa: '',
-        numero_piso: '',
-        telefono: '',
-        zona: '',
-        direccion: '',
-        referencia: '',
-        observaciones: '',
-        anio: '',
-        codigo_periodo: '',
-      },
+      selectedItem: {},
       dialogSelecciona: false,
       defaultItem: {
         tipo_documento: '',

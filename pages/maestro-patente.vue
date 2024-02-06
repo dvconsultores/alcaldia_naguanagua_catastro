@@ -1,189 +1,161 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section2-sector">
-      <div class="datos-sectores-container">
+    <section class="section1-consulta-inmueble">
+      <div class="consulta-inmueble-container">
         <div class="title-morado">
-          <p class="datos-sectores-title">
-            Patentes
+          <p class="consulta-inmueble-title">
+            CONSULTA Patentes
           </p>
-
-          <v-dialog v-model="dialog" max-width="1600px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn class="btn-add-tabla" v-bind="attrs" v-on="on">
-                +
-              </v-btn>
-            </template>
-            <v-card id="dialog-editar-crear">
-              <v-card-title>
-                <span class="title">Crear Patente</span>
-              </v-card-title>
-
-              <hr>
-
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.codigo" label="Código" class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete v-model="nuevoRegistro.propietario" label="Propietario" class="input-dialog"
-                        :items="propietarioData" item-text="nombre" item-value="id"></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.tipo_patente" label="Tipo Patente"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.numero_documento_representante" label="RIF Representante"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.nombre_representante" label="Nombre Representante"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.cargo_representante" label="Cargo Representante"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.telefono" label="Teléfono Representante"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete v-model="nuevoRegistro.periodo" label="Periodo" class="input-dialog"
-                        :items="periodoData" item-text="periodo" item-value="id"></v-autocomplete>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.anio" label="Año" class="input-dialog"></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.horario_desde" label="horario desde"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.horario_hasta" label="horario hasta"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.nro_inmuebles" label="nro inmuebles"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.nro_solicitud" label="nro solicitud"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.nro_tomo" label="nro tomo" class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="nuevoRegistro.habilitado" label="habilitado"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn class="btn dialog-btn" @click="dialog = false">
-                  Cancelar
-                </v-btn>
-                <v-btn class="btn dialog-btn" @click="createPatente()" style="background-color:#ED057E!important;">
-                  Guardar
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-
-          <v-dialog v-model="dialog_editar" max-width="1600px">
-            <v-card id="dialog-editar-crear">
-              <v-card-title>
-                <span class="title">Editar patente</span>
-              </v-card-title>
-
-              <hr>
-
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete v-model="defaultItem.propietario" label="Propietario" class="input-dialog"
-                        :items="propietarioData" item-text="nombre" item-value="id"></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="defaultItem.codigo" label="Código" class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="defaultItem.descripcion" label="Descripción"
-                        class="input-dialog"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete v-model="defaultItem.clasificacion" label="Clasificación" class="input-dialog"
-                        :items="defaultItem.clasificacion" item-text="clasificacion"></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="defaultItem.area" label="Área" class="input-dialog"></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="defaultItem.perimetro" label="Perímetro" class="input-dialog"></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn class="btn dialog-btn" @click="dialog_editar = false">
-                  Cancelar
-                </v-btn>
-                <v-btn class="btn dialog-btn" @click="saveData()" style="background-color:#ED057E!important;">
-                  Guardar
-                </v-btn>
-              </v-card-actions>
-            </v-card>
+          <v-dialog v-model="dialog_mostrar" max-width="1600px">
+            <div id="dialog-mostrar">
+              <v-card class="card-detalles">
+                <v-tabs v-model="activeTab">
+                  <v-tab :value="0">
+                    Datos de la Petente
+                  </v-tab>
+                  <v-tab :value="1">
+                    Actividades Económicas
+                  </v-tab>
+                </v-tabs>
+                <hr>
+                <v-tabs-items v-model="activeTab" style="background-color: #fff!important; border-radius: 10px;">
+                  <v-tab-item :value="0">
+                    <div class="inputs-container">
+                      <v-text-field v-model="selectedItem.numero_expediente" class="input-mostrar"
+                        label="Número de expediente" disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.descripcion_tipo" class="input-mostrar" label="Tipo"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.descripcion_status" class="input-mostrar" label="Estatus"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.descripcion_ambito" class="input-mostrar" label="Ambito"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.descripcion_sector" class="input-mostrar" label="Sector"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.descripcion_manzana" class="input-mostrar" label="Manzana"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.codigo_parcela" class="input-mostrar" label="Parcela"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.codigo_subparcela" class="input-mostrar" label="Sub-Parcela"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.descripcion_nivel" class="input-mostrar" label="Nivel"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.descripcion_unidad" class="input-mostrar" label="Unidad"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.nombre_urbanizacion" class="input-mostrar" label="Urbanización"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.nombre_calle" class="input-mostrar" label="Calle"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.nombre_conjunto_residencial" class="input-mostrar"
+                        label="Conjunto Residencial" disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.nombre_edificio" class="input-mostrar" label="Edificio"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.nombre_avenida" class="input-mostrar" label="Avenida"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.nombre_torre" class="input-mostrar" label="Torre"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.numero_civico" class="input-mostrar" label="Nro. Civicio"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.numero_casa" class="input-mostrar" label="Nro. Casa"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.numero_piso" class="input-mostrar" label="Nro. Piso"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.telefono" class="input-mostrar" label="Teléfono"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.descripcion_zona" class="input-mostrar" label="Zona"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.direccion" class="input-mostrar" label="Dirección"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.referencia" class="input-mostrar" label="Referencia"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.observaciones" class="input-mostrar" label="Observaciones"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.fecha_inscripcion" class="input-mostrar"
+                        label="Fecha inscripcion" disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.anio" class="input-mostrar" label="Año inicio deuda"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.codigo_periodo" class="input-mostrar"
+                        label="Período inicio deuda" disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.id" class="input-mostrar" label="id" disabled></v-text-field>
+                    </div>
+                    <div class="div-btns" @click="StoreExpedienteId(selectedItem)">
+                      <v-btn>
+                        Seleccionar Expediente
+                      </v-btn>
+                      <v-btn style="background-color:#ED057E!important;" @click="dialog_mostrar = false">
+                        Cancelar
+                      </v-btn>
+                    </div>
+                  </v-tab-item>
+                  <v-tab-item :value="1">
+                    <div class="data-table-container">
+                      <v-data-table :headers="headers_propietario" :items="PropietariosData" :items-per-page="10"
+                        :footer-props="{
+                          itemsPerPageText: 'Items por página',
+                        }" sort-by="nombre" class="mytabla" mobile-breakpoint="840">
+                        <template v-slot:top>
+                          <v-toolbar flat class="toolbar-tabla">
+                            <v-dialog v-model="dialogSelecciona" max-width="500px">
+                              <v-card id="dialog-eliminar-card">
+                                <v-card-title class="center title">¿Seleccionarlo?</v-card-title>
+                                <span class="alerta-text" style="text-align:center;">Este será el contribuyente con el
+                                  cual usted
+                                  realizará las operaciones.</span>
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
+                                  <v-btn class="btn dialog-btn" text @click="dialogSelecciona = false"
+                                    style="background-color:#ED057E!important;">No</v-btn>
+                                  <v-spacer></v-spacer>
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+                          </v-toolbar>
+                        </template>
+                        <template #[`item.actions2`]="{ item }">
+                          <v-btn class="btn-tabla" @click="openSelecciona(item)">
+                            Seleccionar contribuyente
+                          </v-btn>
+                        </template>
+                      </v-data-table>
+                    </div>
+                    <div class="center" style="margin-top:30px;">
+                      <v-btn class="btn" style="background-color:#ED057E!important; width: 200px!important;"
+                        @click="dialog_mostrar = false">
+                        Cancelar
+                      </v-btn>
+                    </div>
+                  </v-tab-item>
+                </v-tabs-items>
+              </v-card>
+            </div>
           </v-dialog>
         </div>
-
         <div class="data-table-container">
-          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
-            class="input-data-table"></v-text-field>
-
-          <v-data-table :headers="headers" :items="ae_patenteData" :items-per-page="10" :search="search" :footer-props="{
+          <div>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar INMUEBLE por número de expediente"
+              hide-details class="input-data-table" @keyup.enter="getInmueble"></v-text-field>
+            <!--v-btn @click="getInmueble" color="primary">Buscar INMUEBLE</v-btn-->
+          </div>
+          <v-data-table :headers="headers" :items="inmuebleData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
-            <template v-slot:top>
-              <v-toolbar flat class="toolbar-tabla">
-                <v-dialog v-model="dialogDelete" max-width="500px">
-                  <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
-                    <span class="alerta-text">Esta acción no se puede revertir</span>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-toolbar>
-            </template>
-            <template #[`item.actions`]="{ item }">
-              <v-icon color="#810880" big @click="editItem(item)">
-                mdi-pencil
-              </v-icon>
-              <v-icon color="#810880" big @click="openDelete(item)">
-                mdi-delete
-              </v-icon>
+            <template #[`item.actions2`]="{ item }">
+              <v-btn class="btn-tabla" @click="openDialog(item)">
+                Ver Detalle
+              </v-btn>
             </template>
           </v-data-table>
         </div>
       </div>
     </section>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -191,158 +163,142 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "Maestro-PatentePage",
+  name: "consulta-inmueblePage",
   mixins: [computeds],
   data() {
     return {
-      search: '',
+      dialogWait : false,
+      activeTab: 0,
+      dialog_mostrar: false,
+      search: this.$store.getters.getExpediente=='Sin Seleccionar'?'':this.$store.getters.getExpediente.numero_expediente,
+      numeroDocumento: '',
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
       nuevoRegistro: {},
       headers: [
-        { text: 'tipo', align: 'start', value: 'tipo_patente' },
-        { text: 'numero', align: 'start', value: 'numero' },
-        { text: 'Razon economica', align: 'start', value: 'propietario_nombre' },
-        { text: 'RIF', align: 'start', value: 'propietario_numero' },
-        { text: 'Documento representante', align: 'start', value: 'numero_documento_representante' },
-        { text: 'nombre representante', align: 'start', value: 'nombre_representante' },
-        { text: '', value: 'actions', sortable: false, align: 'center' },
-
+        { text: 'Número de expediente', align: 'center', value: 'numero_expediente' },
+        { text: 'Dirección', value: 'direccion', align: 'center' },
+        { text: 'Referencia', value: 'referencia', align: 'center' },
+        { text: 'Observación', value: 'observacion', align: 'center' },
+        { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],
-      TIPO_PATENTE: (
-        ('T', 'Temporal'),
-        ('D', 'Definitiva'),
-        ('G', 'Genérica')
-      ),
-      ae_patenteData: [],
-      propietarioData: [],
 
+      headers_propietario: [
+        { text: 'Nombre/Razón social', align: 'center', value: 'propietario.nombre', },
+        //{ text: 'Id', value: 'propietario.id', align: 'center' },
+        { text: 'Número de documento RIF.', value: 'propietario.numero_documento', align: 'center' },
+        { text: '', value: 'actions2', sortable: false, align: 'center' },
+      ],
+      inmuebleData: [],
+      PropietariosData: [
+        {
+          propietario:
+          {
+            nombre: 'jorge',
+            id: '88'
+          }
+        }
+      ],
+      selectedPropietario: {
+        nombre: '',
+        numero_documento: '',
+        nacionalidad: '',
+      },
+      selectedItem: {},
+      dialogSelecciona: false,
       defaultItem: {
-        numero: '',
-        propietario: '',
-        tipo_patente: '',
-        numero_documento_representante: '',
-        nombre_representante: '',
-        cargo_representante: '',
-        telefono: '',
-        periodo: '',
-        anio: '',
-        horario_desde: '',
-        horario_hasta: '',
-        nro_inmuebles: '',
-        nro_solicitud: '',
-        nro_tomo: '',
-        inmueble: '',
+        tipo_documento: '',
+        nacionalidad: '',
+        numero_documento: '',
+        nombre: '',
+        telefono_principal: '',
+        telefono_secundario: '',
+        email_principal: '',
+        emaill_secundario: '',
       },
     }
   },
   head() {
-    const title = 'Patente';
+    const title = 'Consulta Inmueble';
     return {
       title,
     }
   },
 
-  mounted() {
-    this.getDataPatente()
-    this.getDataPropietario()
-    this.getDataPeriodo()
-  },
+  //mounted(){     this.getInmueble()   },
 
   methods: {
-    getDataPeriodo() {
-      this.$axios.$get('ic_periodo/?aplica=A').then(response => {
-        this.periodoData = response
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    getDataPropietario() {
-      this.$axios.$get('propietario').then(response => {
-        this.propietarioData = response
-      }).catch(err => {
-        console.log(err)
-      })
+    openSelecciona(item) {
+      this.defaultItem = item.propietario
+      console.log('this.defaultItem', this.defaultItem)
+      this.dialogSelecciona = true
     },
 
-    getDataPatente() {
-      this.$axios.$get('ae_patente').then(response => {
-        this.ae_patenteData = response
-      }).catch(err => {
-        console.log(err)
-      })
+    StoreContribuyenteId() {
+      this.$store.getters.getContribuyente == undefined ? console.log('vacio') : console.log(this.$store.getters.getContribuyente)
+      this.$store.dispatch('storeContribuyente', this.defaultItem)
+      this.dialogSelecciona = false
+      this.StoreExpedienteId(this.selectedItem)
+    },
+    async getInmueblePropietarios() {
+      try {
+        this.dialogWait = true
+        const response = await this.$axios.$get(`inmueble_propietarios/?inmueble=${this.selectedItem.id}`);
+        this.PropietariosData = response
+        console.log('this.PropietariosData ', this.PropietariosData)
+        this.dialogWait = false
+        this.dialog_mostrar = true
+      } catch (err) {
+        console.log(err);
+      }
     },
 
-    createPatente() {
-      this.$axios.$post('ae_patente/', this.nuevoRegistro).then(res => {
-        console.log(res.data)
-        this.nuevoRegistro = {}
-        this.ae_patenteData.push(res)
-        this.$alert("success", { desc: "Se ha creado una nueva patente con éxito", hash: 'knsddcssdc', title: 'Creación de Patente' })
-      }).catch(err => {
-        console.log(err)
-      })
 
-      this.dialog = false
+    StoreExpedienteId(item) {
+      this.$store.getters.getExpediente == undefined ? console.log('vacio') : console.log('lleno', this.$store.getters.getExpediente)
+      this.$store.dispatch('storeExpediente', item)
+      this.dialog_mostrar = false
     },
 
-    editItem(item) {
-      console.log(item)
-      this.dialog_editar = true
-      this.defaultItem.id = item.id
-      this.defaultItem.codigo = item.codigo
-      this.defaultItem.descripcion = item.descripcion
-      this.defaultItem.ambito = item.ambito
-      this.defaultItem.clasificacion = item.clasificacion
-      this.defaultItem.area = item.area
-      this.defaultItem.perimetro = item.perimetro
-    },
+    async getInmueble() {
+      var idInmueble
+      this.inmuebleData = []
+      this.numeroDocumento = this.search
+      if (this.search.trim() == '') {
+        this.$alert("cancel", { desc: "Debe colocar un número de expediente válido.", hash: 'knsddcssdc', title: 'Advertencia' })
 
-    saveData() {
-      const formData = new FormData()
-      formData.append('codigo', this.defaultItem.codigo)
-      formData.append('descripcion', this.defaultItem.descripcion)
-      formData.append('ambito', this.defaultItem.ambito)
-      formData.append('clasificacion', this.defaultItem.clasificacion)
-      formData.append('area', this.defaultItem.area)
-      formData.append('perimetro', this.defaultItem.perimetro)
-
-
-      this.$axios.$patch('ae_patente/' + this.defaultItem.id + '/', formData).then((res) => {
-        console.log(res.data)
-        this.$alert("success", { desc: "Se ha editado una Patente con éxito", hash: 'knsddcssdc', title: 'Edición de patente' })
-        const index = this.ae_patenteData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.ae_patenteData, index, { ...this.defaultItem });
+      }else{
+        try {
+          this.dialogWait = true
+          const response = await this.$axios.$get(`filtrar_inmuebles/?numero_expediente=${this.numeroDocumento}`)
+          if (response.length>0){
+            idInmueble = response[0].id
+            const response1 = await this.$axios.$get('inmueble/' + idInmueble)
+            this.inmuebleData = [response1]
+            this.dialogWait = false
+          }else{
+            this.dialogWait = false
+            this.$alert("cancel", { desc: "No se encontraron expedientes.", hash: 'knsddcssdc', title: 'Advertencia' })
+          }
+        } catch (err) {
+          console.log(err);
         }
-      }).catch((err) => {
-        console.log(err)
-      });
-
-      this.dialog_editar = false
+      }
     },
 
-    openDelete(item) {
-      this.defaultItem = item
-      this.dialogDelete = true
-    },
+    async openDialog(item) {
+      this.selectedItem = item
+      try {
+        await this.getInmueblePropietarios();
+      } catch (error) {
+        console.log(error);
+      }
 
-    deleteItem() {
-      this.$axios.$delete('ae_patente/' + this.defaultItem.id + '/').then((res) => {
-        console.log(res.data)
-        this.dialogDelete = false
-        this.$alert("success", { desc: "Se ha eliminado una Patente con éxito", hash: 'knsddcssdc', title: 'Eliminación de patente' })
-        const index = this.ae_patenteData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.ae_patenteData.splice(index, 1);
-        }
-      }).catch((err) => {
-        console.log(err)
-      });
     },
   }
 };
 </script>
 
-<style src="~/assets/styles/pages/maestro-patente.scss" lang="scss" />
+
+<style src="~/assets/styles/pages/consulta-inmueble.scss" lang="scss" />

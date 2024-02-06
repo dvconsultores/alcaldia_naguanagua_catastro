@@ -377,7 +377,7 @@
 
         <div class="divcol center">
           <span class="span-saludo" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'"> 
-            Inmueble Zona : {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.zona))}}
+          Zona : {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.descripcion_zona))}} , Categorización : {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.descripcion_categorizacion))}}
           </span>
           <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
            Expediente Nro.: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.numero_expediente))}}
@@ -421,8 +421,8 @@
             {{this.max_rate_key}}
           </span>
           <span class="span-saludo tcenter">
-            {{this.max_rate_value}}
-          </span>
+            {{this.montoBCV}} 
+          </span> 
           <span class="span-saludo tcenter">
             {{this.currentDateTime}}
           </span>
@@ -449,15 +449,26 @@ export default {
     return {
       max_rate_key:null,
       max_rate_value:null,
+      montoBCV:0,
+      bcvData:[],
       currentDateTime: new Date().toLocaleString()
     };
   },
   mounted() {
     //this.scheduleGetRequest(); // Iniciar el programador al montar el componente
+    this.getBCV()
   },
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    getBCV() {
+      this.$axios.$get('tasabcv/').then(response => {
+          this.bcvData = response
+          this.montoBCV = this.bcvData[0].monto
+        }).catch(err => {
+          console.log(err)
+        })
     },
     clearStoreExpediente(){
       this.$store.dispatch('storeExpediente', 'Sin Seleccionar')
