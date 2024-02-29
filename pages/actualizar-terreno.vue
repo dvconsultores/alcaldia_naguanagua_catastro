@@ -216,7 +216,6 @@
     <v-dialog content-class="dialog-guardar" max-width="500px" v-model="dialog_confirmar" persistent>
       <v-card class="guardar-card">
         <v-card-title class="center title">¿Desea guardar este registro?</v-card-title>
-        <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>

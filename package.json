@@ -26,6 +26,7 @@
     "nuxt": "^2.15.8",
     "parallax-js": "^3.1.0",
     "pinia": "^2.1.6",
+    "qrcode": "^1.5.3",
     "vue": "^2.6.14",
     "vue-advanced-chat": "^2.0.1",
     "vue-apexcharts": "^1.6.2",

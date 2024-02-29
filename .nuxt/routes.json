@@ -14,6 +14,13 @@
     "_name": "_0d119478"
   },
   {
+    "name": "actualizacion-inmueble-sindico___en",
+    "path": "/actualizacion-inmueble-sindico",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-inmueble-sindico.vue",
+    "chunkName": "pages/actualizacion-inmueble-sindico",
+    "_name": "_33f48b80"
+  },
+  {
     "name": "actualizacion-propietarios___en",
     "path": "/actualizacion-propietarios",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-propietarios.vue",
@@ -26,13 +33,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-ubicacion-parcela.vue",
     "chunkName": "pages/actualizacion-ubicacion-parcela",
     "_name": "_d759198e"
-  },
-  {
-    "name": "actualizacion-ubicacion-parcela(sebas)___en",
-    "path": "/actualizacion-ubicacion-parcela(sebas)",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-ubicacion-parcela(sebas).vue",
-    "chunkName": "pages/actualizacion-ubicacion-parcela(sebas)",
-    "_name": "_87712d34"
   },
   {
     "name": "actualizar-construccion___en",
@@ -329,13 +329,6 @@
     "_name": "_2124f254"
   },
   {
-    "name": "maestro-patente-old___en",
-    "path": "/maestro-patente-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/maestro-patente-old.vue",
-    "chunkName": "pages/maestro-patente-old",
-    "_name": "_5c7bda2e"
-  },
-  {
     "name": "manzana___en",
     "path": "/manzana",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/manzana.vue",
@@ -397,13 +390,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple.vue",
     "chunkName": "pages/recaudacion-multiple",
     "_name": "_5a615ad2"
-  },
-  {
-    "name": "recaudacion-multiple_copy___en",
-    "path": "/recaudacion-multiple_copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple_copy.vue",
-    "chunkName": "pages/recaudacion-multiple_copy",
-    "_name": "_7c433cf2"
   },
   {
     "name": "regimen___en",
@@ -616,6 +602,13 @@
     "_name": "_0d119478"
   },
   {
+    "name": "actualizacion-inmueble-sindico___es",
+    "path": "/es/actualizacion-inmueble-sindico",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-inmueble-sindico.vue",
+    "chunkName": "pages/actualizacion-inmueble-sindico",
+    "_name": "_33f48b80"
+  },
+  {
     "name": "actualizacion-propietarios___es",
     "path": "/es/actualizacion-propietarios",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-propietarios.vue",
@@ -628,13 +621,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-ubicacion-parcela.vue",
     "chunkName": "pages/actualizacion-ubicacion-parcela",
     "_name": "_d759198e"
-  },
-  {
-    "name": "actualizacion-ubicacion-parcela(sebas)___es",
-    "path": "/es/actualizacion-ubicacion-parcela(sebas)",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-ubicacion-parcela(sebas).vue",
-    "chunkName": "pages/actualizacion-ubicacion-parcela(sebas)",
-    "_name": "_87712d34"
   },
   {
     "name": "actualizar-construccion___es",
@@ -924,13 +910,6 @@
     "_name": "_2124f254"
   },
   {
-    "name": "maestro-patente-old___es",
-    "path": "/es/maestro-patente-old",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/maestro-patente-old.vue",
-    "chunkName": "pages/maestro-patente-old",
-    "_name": "_5c7bda2e"
-  },
-  {
     "name": "manzana___es",
     "path": "/es/manzana",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/manzana.vue",
@@ -992,13 +971,6 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple.vue",
     "chunkName": "pages/recaudacion-multiple",
     "_name": "_5a615ad2"
-  },
-  {
-    "name": "recaudacion-multiple_copy___es",
-    "path": "/es/recaudacion-multiple_copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple_copy.vue",
-    "chunkName": "pages/recaudacion-multiple_copy",
-    "_name": "_7c433cf2"
   },
   {
     "name": "regimen___es",

@@ -51,16 +51,6 @@
                       ></v-autocomplete>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="nuevoRegistro.nombre"
                         label="Nombre del Conjunto"
@@ -125,16 +115,6 @@
                       ></v-autocomplete>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.urbanizacion"
-                        label="Urbanización/Barrio"
-                        class="input-dialog"
-                        :items="urbanizacionData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="defaultItem.nombre"
                         label="Nombre del Conjunto"
@@ -182,7 +162,7 @@
             :footer-props="{
               itemsPerPageText: 'Items por página',
             }"
-            sort-by="codigo"
+            sort-by="nombre"
             class="mytabla"
             mobile-breakpoint="840"
           >
@@ -244,7 +224,6 @@ export default {
       headers: [
         { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
         { text: 'Sector', value: 'descripcion_sector', align:'center' },
-        { text: 'Urbanización/Barrio', value: 'nombre_urbanizacion', align:'center' },
         { text: 'Nombre del Conjunto', value: 'nombre', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
@@ -252,18 +231,16 @@ export default {
       conjuntoData: [],
       sectoresData: [],
       ambitoData:[],
-      urbanizacionData: [],
 
       defaultItem: {
         ambito: '',
         sector: '',
-        urbanizacion: '',
         nombre: '',
       },
     }
   },
   head() {
-    const title = 'Urbanización o Barrio';
+    const title = 'Conjunto Residencial';
     return {
       title,
     }
@@ -272,7 +249,6 @@ export default {
   mounted(){
     this.getDataSector(),
     this.getDataAmbito(),
-    this.getDataUrbanizacion(),
     this.getDataConjunto()
   },
 
@@ -280,14 +256,6 @@ export default {
     getDataConjunto(){
       this.$axios.$get('conjuntoresidencial').then(response => {
           this.conjuntoData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
-
-    getDataUrbanizacion(){
-      this.$axios.$get('urbanizacion').then(response => {
-          this.urbanizacionData = response
         }).catch(err => {
           console.log(err)
         })
@@ -330,7 +298,6 @@ export default {
       this.defaultItem.ambito = item.ambito
       this.defaultItem.sector = item.sector
       this.defaultItem.nombre = item.nombre
-      this.defaultItem.urbanizacion = item.urbanizacion
     },
 
     saveData(){
@@ -338,7 +305,6 @@ export default {
       formData.append('ambito', this.defaultItem.ambito)
       formData.append('sector', this.defaultItem.sector)
       formData.append('nombre', this.defaultItem.nombre)
-      formData.append('tipo', this.defaultItem.urbanizacion)
 
       this.$axios.$patch('conjuntoresidencial/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)

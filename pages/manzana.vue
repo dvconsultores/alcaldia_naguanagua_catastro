@@ -60,65 +60,7 @@
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="nuevoRegistro.area"
-                        label="Área"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="nuevoRegistro.perimetro"
-                        label="Perímetro"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.via_norte"
-                        label="Vía Norte"
-                        class="input-dialog"
-                        :items="dataCalle"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.via_sur"
-                        label="Vía Sur"
-                        class="input-dialog"
-                        :items="dataCalle"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.via_este"
-                        label="Vía Este"
-                        class="input-dialog"
-                        :items="dataCalle"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.via_oeste"
-                        label="Vía Oeste"
-                        class="input-dialog"
-                        :items="dataCalle"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
+                    
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -184,65 +126,6 @@
                       ></v-text-field>
                     </v-col>
                    
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="defaultItem.area"
-                        label="Área"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="defaultItem.perimetro"
-                        label="Perímetro"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.via_norte"
-                        label="Vía Norte"
-                        class="input-dialog"
-                        :items="dataCalle"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.via_sur"
-                        label="Vía Sur"
-                        class="input-dialog"
-                        :items="dataCalle"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.via_este"
-                        label="Vía Este"
-                        class="input-dialog"
-                        :items="dataCalle"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.via_oeste"
-                        label="Vía Oeste"
-                        class="input-dialog"
-                        :items="dataCalle"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -426,12 +309,6 @@ export default {
         { text: 'Ambito', align: 'start', value: 'descripcion_ambito',},
         { text: 'Sector', value: 'descripcion_sector', align:'center' },
         { text: 'Código Manzana', value: 'codigo', align:'center' },
-        { text: 'Área', value: 'area', align:'center' },
-        { text: 'Perímetro', value: 'perimetro', align:'center' },
-        { text: 'Vía Norte', value: 'descripcion_via_norte', align:'center' },
-        { text: 'Vía Sur', value: 'descripcion_via_sur', align:'center' },
-        { text: 'Vía Este', value: 'descripcion_via_este', align:'center' },
-        { text: 'Vía Oeste', value: 'descripcion_via_oeste', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
 
@@ -444,18 +321,6 @@ export default {
         ambito: '',
         sector: '',
         codigo: '',
-        area: '',
-        perimetro: '',
-        via_norte: '',
-        via_sur: '',
-        via_este: '',
-        via_oeste: '',
-        descripcion_ambito: '',
-        descripcion_sector: '',
-        descripcion_via_norte: '',
-        descripcion_via_sur: '',
-        descripcion_via_este: '',
-        descripcion_via_oeste: '',
 
       },
     }
@@ -527,19 +392,6 @@ export default {
       this.defaultItem.id = item.id
       this.defaultItem.codigo = item.codigo
       this.defaultItem.ambito = item.ambito
-      this.defaultItem.area = item.area
-      this.defaultItem.perimetro = item.perimetro
-      this.defaultItem.sector = item.sector
-      this.defaultItem.via_norte = item.via_norte
-      this.defaultItem.via_este = item.via_este
-      this.defaultItem.via_sur = item.via_sur
-      this.defaultItem.via_oeste = item.via_oeste
-      this.defaultItem.descripcion_ambito = item.descripcion_ambito
-      this.defaultItem.descripcion_sector = item.descripcion_sector
-      this.defaultItem.descripcion_via_norte = item.descripcion_via_norte
-      this.defaultItem.descripcion_via_sur = item.descripcion_via_sur
-      this.defaultItem.descripcion_via_este = item.descripcion_via_este
-      this.defaultItem.descripcion_via_oeste = item.descripcion_via_oeste
 
 
     },
@@ -547,14 +399,8 @@ export default {
     saveData(){
       const formData = new FormData()
       formData.append('codigo', this.defaultItem.codigo)
-      formData.append('ambito', this.defaultItem.ambito)
-      formData.append('area', this.defaultItem.area)
-      formData.append('perimetro', this.defaultItem.perimetro)
       formData.append('sector', this.defaultItem.sector)
-      formData.append('via_norte', this.defaultItem.via_norte)
-      formData.append('via_este', this.defaultItem.via_este)
-      formData.append('via_sur', this.defaultItem.via_sur)
-      formData.append('via_oeste', this.defaultItem.via_oeste)
+
 
       this.$axios.$patch('manzana/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)

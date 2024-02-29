@@ -227,16 +227,14 @@
               v-model="dataDocumentoPropiedad.numero_terreno"
               class="input-300"
               label="Nro. de Documento"
-              type="number"
               ></v-text-field>  
             </v-col>
 
             <v-col cols="3">
               <v-text-field
-              v-model="dataDocumentoPropiedad.folio_terreno"
+              v-model="dataDocumentoPropiedad.folio_terreno" 
               class="input-300"
               label="Folios"
-              type="number"
               ></v-text-field>
             </v-col>
 
@@ -419,7 +417,6 @@
     <v-dialog content-class="dialog-guardar" max-width="500px" v-model="dialog_confirmar" persistent>
       <v-card class="guardar-card">
         <v-card-title class="center title">¿Desea guardar este registro?</v-card-title>
-        <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
@@ -456,7 +453,7 @@ export default {
     }
   },
   head() {
-    const title = 'Actualizar Terreno';
+    const title = 'Actualizar Documentos Propiedad';
     return {
       title,
     }
@@ -474,7 +471,7 @@ export default {
   methods: {
     redireccionIdVacio(){
       if(this.$store.getters.getExpediente =='Sin Seleccionar'){
-        this.$router.push('modificar-datos')
+        this.$router.push('consulta-inmueble')
         this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
       }else{
         ''
@@ -554,23 +551,51 @@ export default {
 
       const formData = new FormData();
 
-      this.dataDocumentoPropiedad.tipo_documento ? formData.append('tipo_documento', this.dataDocumentoPropiedad.tipo_documento) : '';
-      this.dataDocumentoPropiedad.tipo_especial ? formData.append('tipo_especial', this.dataDocumentoPropiedad.tipo_especial) : '';
-      this.dataDocumentoPropiedad.fecha_habitabilidad ? formData.append('fecha_habitabilidad', this.dataDocumentoPropiedad.fecha_habitabilidad) : '';
-      this.dataDocumentoPropiedad.tipo_tenencia ? formData.append('tipo_tenencia', this.dataDocumentoPropiedad.tipo_tenencia) : '';
-      this.dataDocumentoPropiedad.fecha_vigencia ? formData.append('fecha_vigencia', this.dataDocumentoPropiedad.fecha_vigencia) : '';
-      this.dataDocumentoPropiedad.fecha_documento ? formData.append('fecha_documento', this.dataDocumentoPropiedad.fecha_documento) : '';
+      //this.dataDocumentoPropiedad.tipo_documento ? formData.append('tipo_documento', this.dataDocumentoPropiedad.tipo_documento) : ' ';
+      //this.dataDocumentoPropiedad.tipo_especial ? formData.append('tipo_especial', this.dataDocumentoPropiedad.tipo_especial) : ' ';
+      //this.dataDocumentoPropiedad.fecha_habitabilidad ? formData.append('fecha_habitabilidad', this.dataDocumentoPropiedad.fecha_habitabilidad) : ' ';
+      //this.dataDocumentoPropiedad.tipo_tenencia ? formData.append('tipo_tenencia', this.dataDocumentoPropiedad.tipo_tenencia) : ' ';
+      //this.dataDocumentoPropiedad.fecha_vigencia ? formData.append('fecha_vigencia', this.dataDocumentoPropiedad.fecha_vigencia) : ' ';
+      //this.dataDocumentoPropiedad.fecha_documento ? formData.append('fecha_documento', this.dataDocumentoPropiedad.fecha_documento) : ' ';
+      //this.dataDocumentoPropiedad.numero_documento ?  formData.append('numero_documento', this.dataDocumentoPropiedad.numero_documento) : ' ';
+      //this.dataDocumentoPropiedad.matricula_documento ?  formData.append('matricula_documento', this.dataDocumentoPropiedad.matricula_documento) : ' ';
+      //this.dataDocumentoPropiedad.anio_folio_documento ?  formData.append('anio_folio_documento', this.dataDocumentoPropiedad.anio_folio_documento) : ' ';
+      //this.dataDocumentoPropiedad.fecha_terreno ? formData.append('fecha_terreno', this.dataDocumentoPropiedad.fecha_terreno) : ' ';
+      //formData.append('numero_terreno', this.dataDocumentoPropiedad.numero_terreno);
+      //formData.append('folio_terreno', this.dataDocumentoPropiedad.folio_terreno);
+      //this.dataDocumentoPropiedad.protocolo_terreno ?  formData.append('protocolo_terreno', this.dataDocumentoPropiedad.protocolo_terreno) : ' ';
+      //this.dataDocumentoPropiedad.tomo_terreno ?  formData.append('tomo_terreno', this.dataDocumentoPropiedad.tomo_terreno) : ' ';
+      //this.dataDocumentoPropiedad.area_terreno ?  formData.append('area_terreno', this.dataDocumentoPropiedad.area_terreno) : ' ';
+      //this.dataDocumentoPropiedad.valor_terreno ?  formData.append('valor_terreno', this.dataDocumentoPropiedad.valor_terreno) : ' ';
+      //this.dataDocumentoPropiedad.fecha_construccion ? formData.append('fecha_construccion', this.dataDocumentoPropiedad.fecha_construccion) : ' ';
+      //this.dataDocumentoPropiedad.numero_construccion ?  formData.append('numero_construccion', this.dataDocumentoPropiedad.numero_construccion) : ' ';
+      //this.dataDocumentoPropiedad.folio_construccion ?  formData.append('folio_construccion', this.dataDocumentoPropiedad.folio_construccion) : ' ';
+      //this.dataDocumentoPropiedad.protocolo_construccion ?  formData.append('protocolo_construccion', this.dataDocumentoPropiedad.protocolo_construccion) : ' ';
+      //this.dataDocumentoPropiedad.tomo_construccion ?  formData.append('tomo_construccion', this.dataDocumentoPropiedad.tomo_construccion) : ' ';
+      //this.dataDocumentoPropiedad.area_construccion ?  formData.append('area_construccion', this.dataDocumentoPropiedad.area_construccion) : ' ';
+      //this.dataDocumentoPropiedad.valor_construccion ?  formData.append('valor_construccion', this.dataDocumentoPropiedad.valor_construccion) : ' ';
+      //this.dataDocumentoPropiedad.lindero_norte ?  formData.append('lindero_norte', this.dataDocumentoPropiedad.lindero_norte) : ' ';
+      //this.dataDocumentoPropiedad.lindero_sur ?  formData.append('lindero_sur', this.dataDocumentoPropiedad.lindero_sur) : ' ';
+      //this.dataDocumentoPropiedad.lindero_este ?  formData.append('lindero_este', this.dataDocumentoPropiedad.lindero_este) : ' ';
+      //this.dataDocumentoPropiedad.lindero_oeste ?  formData.append('lindero_oeste', this.dataDocumentoPropiedad.lindero_oeste) : ' ';
+
+      this.dataDocumentoPropiedad.tipo_documento ? formData.append('tipo_documento', this.dataDocumentoPropiedad.tipo_documento) : ' ';
+      this.dataDocumentoPropiedad.tipo_especial ? formData.append('tipo_especial', this.dataDocumentoPropiedad.tipo_especial) : ' ';
+      this.dataDocumentoPropiedad.fecha_habitabilidad ? formData.append('fecha_habitabilidad', this.dataDocumentoPropiedad.fecha_habitabilidad) : ' ';
+      this.dataDocumentoPropiedad.tipo_tenencia ? formData.append('tipo_tenencia', this.dataDocumentoPropiedad.tipo_tenencia) : ' ';
+      this.dataDocumentoPropiedad.fecha_vigencia ? formData.append('fecha_vigencia', this.dataDocumentoPropiedad.fecha_vigencia) : ' ';
+      this.dataDocumentoPropiedad.fecha_documento ? formData.append('fecha_documento', this.dataDocumentoPropiedad.fecha_documento) : ' ';
       formData.append('numero_documento', this.dataDocumentoPropiedad.numero_documento);
       formData.append('matricula_documento', this.dataDocumentoPropiedad.matricula_documento);
       formData.append('anio_folio_documento', this.dataDocumentoPropiedad.anio_folio_documento);
-      this.dataDocumentoPropiedad.fecha_terreno ? formData.append('fecha_terreno', this.dataDocumentoPropiedad.fecha_terreno) : '';
+      this.dataDocumentoPropiedad.fecha_terreno ? formData.append('fecha_terreno', this.dataDocumentoPropiedad.fecha_terreno) : ' ';
       formData.append('numero_terreno', this.dataDocumentoPropiedad.numero_terreno);
       formData.append('folio_terreno', this.dataDocumentoPropiedad.folio_terreno);
       formData.append('protocolo_terreno', this.dataDocumentoPropiedad.protocolo_terreno);
       formData.append('tomo_terreno', this.dataDocumentoPropiedad.tomo_terreno);
       formData.append('area_terreno', this.dataDocumentoPropiedad.area_terreno);
       formData.append('valor_terreno', this.dataDocumentoPropiedad.valor_terreno);
-      this.dataDocumentoPropiedad.fecha_construccion ? formData.append('fecha_construccion', this.dataDocumentoPropiedad.fecha_construccion) : '';
+      this.dataDocumentoPropiedad.fecha_construccion ? formData.append('fecha_construccion', this.dataDocumentoPropiedad.fecha_construccion) : ' ';
       formData.append('numero_construccion', this.dataDocumentoPropiedad.numero_construccion);
       formData.append('folio_construccion', this.dataDocumentoPropiedad.folio_construccion);
       formData.append('protocolo_construccion', this.dataDocumentoPropiedad.protocolo_construccion);
@@ -581,6 +606,9 @@ export default {
       formData.append('lindero_sur', this.dataDocumentoPropiedad.lindero_sur);
       formData.append('lindero_este', this.dataDocumentoPropiedad.lindero_este);
       formData.append('lindero_oeste', this.dataDocumentoPropiedad.lindero_oeste);
+
+
+
 
       this.$axios.$patch(`inmueble_propiedad/${this.dataDocumentoPropiedad.id}/`, formData)
       .then(res => {

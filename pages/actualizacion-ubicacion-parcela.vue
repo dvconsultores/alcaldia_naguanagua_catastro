@@ -54,6 +54,7 @@
         <div class="div-card mt-8">
           <v-row>
             <v-col cols="12">
+              
               <div style="width: 100%;">
                 <v-card class="card-image-upload">
                   <span class="span-float">
@@ -64,6 +65,7 @@
                   prepend-icon="none"
                   >
                   <img v-if="dataUbicacionInmueble.imagen_inmueble" :src="imageUrlInmueble" class="preview-image"/>
+                  <img v-if="previewImageInmueble" :src="previewImageInmueble" class="preview-image"/>
                   </v-div>
                 </v-card>
 
@@ -71,38 +73,18 @@
                   <v-file-input 
                   v-model="dataUbicacionInmueble.imagen_inmueble"
                   show-size
-                  placeholder="Seleccione el archivo" class="file-input"
+                  placeholder="Seleccione el archivo" 
+                  class="file-input"
+                  accept="image/*"
+                  @change="handleImageUploadInmueble"
                   ></v-file-input>
                   <v-btn :loading="btnImagenInmueble" @click="uploadImageInmueble()">
                     <span>Subir</span>
                   </v-btn>
                 </div>
               </div>
+
             </v-col>
-
-            <!-- <v-col md="6" sm="12">
-              <div style="width: 100%;">
-                <v-card class="card-image-upload">
-                  <span class="span-float">
-                    Imagen - Inmueble 2
-                  </span>
-                  <span class="span-float-2">
-                    Arrastre y suelte el archivo aquí
-                  </span>
-                  <v-file-input
-                  class="input-file"
-                  prepend-icon="none"
-                  ></v-file-input>
-                </v-card>
-
-                <div class="file-btn">
-                  <v-file-input placeholder="Seleccione el archivo" class="file-input"></v-file-input>
-                  <v-btn>
-                    <span>Subir</span>
-                  </v-btn>
-                </div>
-              </div>
-            </v-col> -->
           </v-row>
         </div>
       </div>
@@ -126,6 +108,8 @@
                   prepend-icon="none"
                   >
                   <img v-if="dataUbicacionInmueble.imagen_plano" :src="imageUrlPlano" class="preview-image" alt="image"/>
+                  <img v-if="previewImagePlano" :src="previewImagePlano" class="preview-image"/>
+
                   </v-div>
                 </v-card>
 
@@ -135,6 +119,7 @@
                   show-size
                   placeholder="Seleccione el archivo" class="file-input"
                   accept="image/*"
+                  @change="handleImageUploadPlano"
                   ></v-file-input>
                   <v-btn :loading="btnImagenPlano" @click="uploadImagePlano()">
                     <span>Subir</span>
@@ -189,6 +174,8 @@
                   prepend-icon="none"
                   >
                   <img v-if="dataUbicacionInmueble.imagan_plano_mesura" :src="imageUrlPlanoMesura" class="preview-image">
+                  <img v-if="previewImagePlanoMesura" :src="previewImagePlanoMesura" class="preview-image"/>
+
                   </v-div>
                 </v-card>
 
@@ -198,6 +185,7 @@
                   show-size
                   placeholder="Seleccione el archivo" class="file-input"
                   accept="image/*"
+                  @change="handleImageUploadPlanoMesura"
                   ></v-file-input>
                   <v-btn :loading="btnImagenPlanoMesura" @click="uploadImagePlanoMesura()">
                     <span>Subir</span>
@@ -422,7 +410,6 @@
     <v-dialog content-class="dialog-guardar" max-width="500px" v-model="dialog_confirmar" persistent>
       <v-card class="guardar-card">
         <v-card-title class="center title">¿Desea guardar este registro?</v-card-title>
-        <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
@@ -451,7 +438,10 @@ export default {
       btnGuardarInmuble: false,
       btnImagenPlano: false,
       btnImagenPlanoMesura: false,
-      btnImagenInmueble: false
+      btnImagenInmueble: false,
+      previewImagePlano: null,
+      previewImagePlanoMesura: null,
+      previewImageInmueble: null,
     }
   },
   head() {
@@ -466,24 +456,24 @@ export default {
     this.getInmuebleUbicacion()
   },
 
-  computed: {
+  computed: { 
     imageUrlPlanoMesura() {
       var ruta = this.dataUbicacionInmueble.imagan_plano_mesura 
-      if (ruta.includes("catastro_back")) {
+      if (typeof ruta === 'string' && ruta.includes("catastro_back")) {
         ruta = ruta.replace("catastro_back", "catastro_back/catastro_back");
       }
       return ruta;
     },
     imageUrlPlano() {
       var ruta=this.dataUbicacionInmueble.imagen_plano
-      if (ruta.includes("catastro_back")) {
+      if (typeof ruta === 'string' && ruta.includes("catastro_back")) {
         ruta = ruta.replace("catastro_back", "catastro_back/catastro_back");
       }
       return ruta;
     },
     imageUrlInmueble() {
       var ruta = this.dataUbicacionInmueble.imagen_inmueble
-      if (ruta.includes("catastro_back")) {
+      if (typeof ruta === 'string' && ruta.includes("catastro_back")) {
         ruta = ruta.replace("catastro_back", "catastro_back/catastro_back");
       }
       return ruta;
@@ -491,6 +481,39 @@ export default {
   },
 
   methods: {
+
+
+    handleImageUploadInmueble(event) {
+      const file = event
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.previewImageInmueble = reader.result;
+      };
+    },
+    handleImageUploadPlanoMesura(event) {
+      const file = event
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.previewImagePlanoMesura = reader.result;
+      };
+    },
+    handleImageUploadPlano(event) {
+      const file = event
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.previewImagePlano = reader.result;
+      };
+    },
+
     redireccionIdVacio(){
       if(this.$store.getters.getExpediente =='Sin Seleccionar'){
         this.$router.push('consulta-inmueble')
@@ -503,7 +526,6 @@ export default {
     getInmuebleUbicacion(){
       this.$axios.$get('inmueble_ubicacion/?inmueble=' + this.$store.getters.getExpediente.id).then(response => {
         this.dataUbicacionInmueble = response[0]
-        console.log('dataUbicacionInmueble',this.dataUbicacionInmueble)
         this.documentoPropiedadId = this.dataUbicacionInmueble[0].id
         
 
@@ -575,6 +597,7 @@ export default {
     },
 
     uploadImageInmueble() {
+    console.log('uploadImageInmueble')
     this.btnImagenInmueble = true
 
     const formData = new FormData();
@@ -598,26 +621,27 @@ export default {
       this.btnGuardarInmuble = true
 
       const formData = new FormData();
-      formData.append('lindero_norte', this.dataUbicacionInmueble.lindero_norte);
-      formData.append('lindero_este', this.dataUbicacionInmueble.lindero_este);
-      formData.append('lindero_sur', this.dataUbicacionInmueble.lindero_sur);
-      formData.append('lindero_oeste', this.dataUbicacionInmueble.lindero_oeste);
-      formData.append('g1_norte', this.dataUbicacionInmueble.g1_norte);
-      formData.append('g2_norte', this.dataUbicacionInmueble.g2_norte);
-      formData.append('g3_norte', this.dataUbicacionInmueble.g3_norte);
-      formData.append('g4_norte', this.dataUbicacionInmueble.g4_norte);
-      formData.append('g5_norte', this.dataUbicacionInmueble.g5_norte);
-      formData.append('g6_norte', this.dataUbicacionInmueble.g6_norte);
-      formData.append('g7_norte', this.dataUbicacionInmueble.g7_norte);
-      formData.append('g8_norte', this.dataUbicacionInmueble.g8_norte);
-      formData.append('g1_este', this.dataUbicacionInmueble.g1_este);
-      formData.append('g2_este', this.dataUbicacionInmueble.g2_este);
-      formData.append('g3_este', this.dataUbicacionInmueble.g3_este);
-      formData.append('g4_este', this.dataUbicacionInmueble.g4_este);
-      formData.append('g5_este', this.dataUbicacionInmueble.g5_este);
-      formData.append('g6_este', this.dataUbicacionInmueble.g6_este);
-      formData.append('g7_este', this.dataUbicacionInmueble.g7_este);
-      formData.append('g8_este', this.dataUbicacionInmueble.g8_este);
+
+      this.dataUbicacionInmueble.lindero_norte  ? formData.append('lindero_norte', this.dataUbicacionInmueble.lindero_norte) : ' ';
+      this.dataUbicacionInmueble.lindero_este  ? formData.append('lindero_este', this.dataUbicacionInmueble.lindero_este) : ' ';
+      this.dataUbicacionInmueble.lindero_sur  ? formData.append('lindero_sur', this.dataUbicacionInmueble.lindero_sur) : ' ';
+      this.dataUbicacionInmueble.lindero_oeste  ? formData.append('lindero_oeste', this.dataUbicacionInmueble.lindero_oeste) : ' ';
+      this.dataUbicacionInmueble.g1_norte  ? formData.append('g1_norte', this.dataUbicacionInmueble.g1_norte) : ' ';
+      this.dataUbicacionInmueble.g2_norte  ? formData.append('g2_norte', this.dataUbicacionInmueble.g2_norte) : ' ';
+      this.dataUbicacionInmueble.g3_norte  ? formData.append('g3_norte', this.dataUbicacionInmueble.g3_norte) : ' ';
+      this.dataUbicacionInmueble.g4_norte  ? formData.append('g4_norte', this.dataUbicacionInmueble.g4_norte) : ' ';
+      this.dataUbicacionInmueble.g5_norte  ? formData.append('g5_norte', this.dataUbicacionInmueble.g5_norte) : ' ';
+      this.dataUbicacionInmueble.g6_norte  ? formData.append('g6_norte', this.dataUbicacionInmueble.g6_norte) : ' ';
+      this.dataUbicacionInmueble.g7_norte  ? formData.append('g7_norte', this.dataUbicacionInmueble.g7_norte) : ' ';
+      this.dataUbicacionInmueble.g8_norte  ? formData.append('g8_norte', this.dataUbicacionInmueble.g8_norte) : ' ';
+      this.dataUbicacionInmueble.g1_este  ? formData.append('g1_este', this.dataUbicacionInmueble.g1_este) : ' ';
+      this.dataUbicacionInmueble.g2_este  ? formData.append('g2_este', this.dataUbicacionInmueble.g2_este) : ' ';
+      this.dataUbicacionInmueble.g3_este  ? formData.append('g3_este', this.dataUbicacionInmueble.g3_este) : ' ';
+      this.dataUbicacionInmueble.g4_este  ? formData.append('g4_este', this.dataUbicacionInmueble.g4_este) : ' ';
+      this.dataUbicacionInmueble.g5_este  ? formData.append('g5_este', this.dataUbicacionInmueble.g5_este) : ' ';
+      this.dataUbicacionInmueble.g6_este  ? formData.append('g6_este', this.dataUbicacionInmueble.g6_este) : ' ';
+      this.dataUbicacionInmueble.g7_este  ? formData.append('g7_este', this.dataUbicacionInmueble.g7_este) : ' ';
+      this.dataUbicacionInmueble.g8_este  ? formData.append('g8_este', this.dataUbicacionInmueble.g8_este) : ' ';
     
       this.$axios.$patch(`inmueble_ubicacion/${this.dataUbicacionInmueble.id}/`, formData)
       .then(res => {

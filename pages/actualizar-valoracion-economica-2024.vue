@@ -342,7 +342,7 @@ export default {
       formData.append('observaciones', this.defaultItem.observaciones)
 
 
-      this.$axios.$patch('inmueble_valoracion_terreno/' + this.dataValoracionTerreno.id + '/', formData).then((res) => {
+      this.$axios.$patch('inmueble_valoracion_terreno2024/' + this.dataValoracionTerreno.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", { desc: "Se ha editado una valoración de terreno con éxito", hash: 'knsddcssdc', title: 'Edición de valoración de terreno.' })
         this.btnAddTerreno = false
@@ -370,7 +370,7 @@ export default {
         valor_actual: this.nuevoRegistro.valor_actual,
         sub_utilizado: this.nuevoRegistro.sub_utilizado,
       }
-      this.$axios.$post('inmueble_valoracion_construccion/', formNewTerreno).then(response => {
+      this.$axios.$post('inmueble_valoracion_construccion2024/', formNewTerreno).then(response => {
         this.dataValoracionConstruccion.push(response)
         this.$alert("success", { desc: "Se ha guardado una construcción con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
         this.btnAddConstruccion = false
@@ -420,7 +420,7 @@ export default {
     },
 
     confirmDelete() {
-      this.$axios.$delete(`inmueble_valoracion_construccion/${this.deleteItem.id}`, this.deleteItem).then(response => {
+      this.$axios.$delete(`inmueble_valoracion_construccion2024/${this.deleteItem.id}`, this.deleteItem).then(response => {
         console.log(response)
         this.$alert("success", { desc: "Se ha eliminado una construcción con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
         this.dialog_eliminar = false

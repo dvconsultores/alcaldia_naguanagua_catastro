@@ -60,16 +60,7 @@
                         item-value="id"
                       ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.conjuntoresidencial"
-                        label="Nombre del Conjunto"
-                        class="input-dialog"
-                        :items="conjuntoData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
+  
 
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -145,16 +136,7 @@
                         item-value="id"
                       ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.conjuntoresidencial"
-                        label="Nombre del Conjunto"
-                        class="input-dialog"
-                        :items="conjuntoData"
-                        item-text="nombre"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
+   
 
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -204,7 +186,7 @@
             :footer-props="{
               itemsPerPageText: 'Items por página',
             }"
-            sort-by="codigo"
+            sort-by="nombre"
             class="mytabla"
             mobile-breakpoint="840"
           >
@@ -267,13 +249,11 @@ export default {
         { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
         { text: 'Sector', value: 'descripcion_sector', align:'center' },
         { text: 'Urbanización/Barrio', value: 'nombre_urbanizacion', align:'center' },
-        { text: 'Conjunto Residencial', value: 'nombre_conjuntoresidencial', align:'center' },
         { text: 'Edificio', value: 'nombre', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
 
       edificiosData: [],   
-      conjuntoData: [],
       sectoresData: [],
       ambitoData:[],
       urbanizacionData: [], 
@@ -282,7 +262,6 @@ export default {
         ambito: '',
         sector: '',
         urbanizacion: '',
-        conjuntoresidencial: '',
         nombre: '',
       },
     }
@@ -298,7 +277,6 @@ export default {
     this.getDataSector(),
     this.getDataAmbito(),
     this.getDataUrbanizacion(),
-    this.getDataConjunto(),
     this.getDataEdificio()
 
   },
@@ -312,13 +290,6 @@ export default {
         })
     },
 
-    getDataConjunto(){
-      this.$axios.$get('conjuntoresidencial').then(response => {
-          this.conjuntoData = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
 
     getDataUrbanizacion(){
       this.$axios.$get('urbanizacion').then(response => {
@@ -364,7 +335,6 @@ export default {
       this.defaultItem.ambito = item.ambito
       this.defaultItem.sector = item.sector
       this.defaultItem.urbanizacion = item.urbanizacion
-      this.defaultItem.conjuntoresidencial = item.conjuntoresidencial
       this.defaultItem.nombre = item.nombre
     },
 
@@ -373,7 +343,6 @@ export default {
       formData.append('ambito', this.defaultItem.ambito)
       formData.append('sector', this.defaultItem.sector)
       formData.append('urbanizacion', this.defaultItem.urbanizacion)
-      formData.append('conjuntoresidencial', this.defaultItem.conjuntoresidencial)
       formData.append('nombre', this.defaultItem.nombre)
 
       this.$axios.$patch('edificio/'+ this.defaultItem.id + '/', formData).then((res) => {

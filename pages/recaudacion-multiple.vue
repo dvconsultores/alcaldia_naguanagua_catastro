@@ -194,11 +194,11 @@
             </div>
             <hr>
             <div class="divrow center div-btns" style="gap:30px;">
-              <v-btn class="btn size-btn" @click="validaPago()">
+              <v-btn :disabled="botonDeshabilitado1" class="btn size-btn" @click="validaPago()">
                 Guardar
               </v-btn>
 
-              <v-btn class="btn size-btn" style="background-color:#ED057E!important;" @click="closeopenDialog()">
+              <v-btn :disabled="botonDeshabilitado2" class="btn size-btn" style="background-color:#ED057E!important;" @click="closeopenDialog()">
                 Cancelar
               </v-btn>
             </div>
@@ -240,6 +240,8 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      botonDeshabilitado1:false,
+      botonDeshabilitado2:false,
       menu: false,
       search: '',
       searchTransferencia: '',
@@ -1254,6 +1256,8 @@ export default {
     async ProcesarPago(propietario, divLiq, DetallePagoApi, CabeceraPagoApi, data) {
       try {
         this.dialogWait = true
+        this.botonDeshabilitado1 = true
+        this.botonDeshabilitado2 = true
         const res = await this.$axios.$post('crearPago/', data);
         console.log('backend creapago:', res)
         console.log('data para pdf:', data)
@@ -1268,6 +1272,9 @@ export default {
         this.dialogWait = false
         //this.$alert("success", { desc: "Se ha registrado un pago con éxito", hash: 'knsddcssdc', title: 'Creado' })
         await new Promise(resolve => setTimeout(resolve, 3000));
+        this.botonDeshabilitado1 = false
+        this.botonDeshabilitado2 = false
+        this.closeopenDialog()
       } catch (err) {
         console.log(err);
       }

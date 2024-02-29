@@ -52,16 +52,6 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-autocomplete
-                        v-model="nuevoRegistro.manzana"
-                        label="Código Manzana"
-                        class="input-dialog"
-                        :items="sectoresManzana"
-                        item-text="codigo"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
                         v-model="nuevoRegistro.parcela"
                         label="Código Parcela"
                         class="input-dialog"
@@ -79,21 +69,6 @@
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="nuevoRegistro.area"
-                        label="Área"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="nuevoRegistro.perimetro"
-                        label="Perímetro"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -151,16 +126,6 @@
                         item-value="id"
                       ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.manzana"
-                        label="Código Manzana"
-                        class="input-dialog"
-                        :items="sectoresManzana"
-                        item-text="codigo"
-                        item-value="id"
-                      ></v-autocomplete>
-                    </v-col>
                    
                     <v-col cols="12" sm="6" md="4">
                       <v-autocomplete
@@ -181,21 +146,6 @@
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="defaultItem.area"
-                        label="Área"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="defaultItem.perimetro"
-                        label="Perímetro"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -299,16 +249,12 @@ export default {
       headers: [
         { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
         { text: 'Sector', value: 'descripcion_sector', align:'center' },
-        { text: 'Código Manzana', value: 'codigo_manzana', align:'center' },
         { text: 'Código Parcela', value: 'codigo_parcela', align:'center' },
         { text: 'Código Sub-Parcela', value: 'codigo', align:'center' },
-        { text: 'Área', value: 'area', align:'center' },
-        { text: 'Perímetro', value: 'perimetro', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
       
       dataParcela: [],
-      sectoresManzana: [],
       ambitoData:[],
       sectoresData:[],
       dataSubParcela:[],
@@ -316,11 +262,8 @@ export default {
       defaultItem: {
         ambito: '',
         sector: '',
-        manzana: '',
         parcela: '',
         codigo: '',
-        area: '',
-        perimetro: '',
       },
     }
   },
@@ -335,7 +278,6 @@ export default {
   mounted(){
     this.getDataSector(),
     this.getDataAmbito(),
-    this.getDataManzana(),
     this.getDataParcela()
     this.getDataSubParcela()
 
@@ -375,13 +317,6 @@ export default {
         })
     },
 
-    getDataManzana() {
-      this.$axios.$get('manzana').then(response => {
-          this.sectoresManzana = response
-        }).catch(err => {
-          console.log(err)
-        })
-    },
 
     createSubParcela(){
       this.$axios.$post('subparcela/', this.nuevoRegistro).then(res => {
@@ -402,22 +337,16 @@ export default {
       this.defaultItem.id = item.id
       this.defaultItem.ambito = item.ambito
       this.defaultItem.sector = item.sector
-      this.defaultItem.manzana = item.manzana
       this.defaultItem.parcela = item.parcela
       this.defaultItem.codigo = item.codigo
-      this.defaultItem.area = item.area
-      this.defaultItem.perimetro = item.perimetro
     },
 
     saveData(){
       const formData = new FormData()
       formData.append('ambito', this.defaultItem.ambito)
       formData.append('sector', this.defaultItem.sector)
-      formData.append('codigo_manzana', this.defaultItem.manzana)
-      formData.append('codigo_parcela', this.defaultItem.parcela)
-      formData.append('codigo_sub_parcela', this.defaultItem.codigo)
-      formData.append('perimetro', this.defaultItem.perimetro)
-      formData.append('area', this.defaultItem.area)
+      formData.append('parcela', this.defaultItem.parcela)
+      formData.append('codigo', this.defaultItem.codigo)
 
       this.$axios.$patch('subparcela/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)

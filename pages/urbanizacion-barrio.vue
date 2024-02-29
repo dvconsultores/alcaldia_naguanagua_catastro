@@ -52,13 +52,6 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="nuevoRegistro.codigo"
-                        label="Código"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
                         v-model="nuevoRegistro.nombre"
                         label="Nombre"
                         class="input-dialog"
@@ -74,17 +67,7 @@
                         item-value="value"
                       ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.zona"
-                        class="input-dialog"
-                        label="Zona"
-                        :items="dataZona"
-                        item-text="descripcion"
-                        item-value="id"
-                        ></v-autocomplete>
 
-                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -114,7 +97,7 @@
           >
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Crear Urbanización</span>
+                <span class="title">Editar Urbanización</span>
               </v-card-title>
 
               <hr>
@@ -144,13 +127,6 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="defaultItem.codigo"
-                        label="Código"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
                         v-model="defaultItem.nombre"
                         label="Nombre"
                         class="input-dialog"
@@ -166,17 +142,7 @@
                         item-value="value"
                       ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.zona"
-                        class="input-dialog"
-                        label="Zona"
-                        :items="dataZona"
-                        item-text="descripcion"
-                        item-value="id"
-                        ></v-autocomplete>
 
-                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -185,7 +151,7 @@
                 <v-spacer></v-spacer>
                 <v-btn
                   class="btn dialog-btn"
-                  @click="dialog = false"
+                  @click="dialog_editar = false"
                 >
                   Cancelar
                 </v-btn>
@@ -218,7 +184,7 @@
             :footer-props="{
               itemsPerPageText: 'Items por página',
             }"
-            sort-by="codigo"
+            sort-by="nombre"
             class="mytabla"
             mobile-breakpoint="840"
           >
@@ -321,17 +287,14 @@ export default {
       headers: [
         { text: 'Ambito', align: 'center', value: 'descripcion_ambito',},
         { text: 'Sector', value: 'descripcion_sector', align:'center' },
-        { text: 'Código', value: 'codigo', align:'center' },
         { text: 'Nombre', value: 'nombre', align:'center' },
         { text: 'Tipo', value: 'tipo', align:'center' },
-        { text: 'Zona', value: 'zona', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
 
       sectoresData: [],
       ambitoData:[],
       urbanizacionData: [],
-      dataZona:[],
       itemsTipo: [
         { text: 'Pública', value: 'P' },
         { text: 'Privada', value: 'R' },
@@ -339,9 +302,7 @@ export default {
       defaultItem: {
         ambito: '',
         sector: '',
-        codigo: '',
         nombre: '',
-        zona: '',
         tipo: '',
       },
     }
@@ -356,18 +317,10 @@ export default {
   mounted(){
     this.getDataSector(),
     this.getDataAmbito(),
-    this.getDataUrbanizacion(),
-    this.getDataZona()
+    this.getDataUrbanizacion()
   },
 
   methods: {
-    getDataZona(){
-      this.$axios.$get('zona').then(response =>{
-        this.dataZona = response
-      }).catch(err => {
-        console.log(err)
-      })
-    },
     getDataUrbanizacion(){
       this.$axios.$get('urbanizacion').then(response => {
           this.urbanizacionData = response
@@ -413,21 +366,16 @@ export default {
       this.defaultItem.ambito = item.ambito
       this.defaultItem.sector = item.sector
       this.defaultItem.nombre = item.nombre
-      this.defaultItem.codigo = item.codigo
       this.defaultItem.tipo = item.tipo
-      this.defaultItem.zona = item.zona
     },
 
     saveData(){
       const formData = new FormData()
       formData.append('ambito', this.defaultItem.ambito)
       formData.append('sector', this.defaultItem.sector)
-      formData.append('codigo', this.defaultItem.codigo)
       formData.append('nombre', this.defaultItem.nombre)
 
       formData.append('tipo', this.defaultItem.tipo)
-      formData.append('zona', this.defaultItem.zona)
-
       this.$axios.$patch('urbanizacion/'+ this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
         this.$alert("success", {desc: "Se ha editado una urbanización con éxito", hash: 'knsddcssdc', title:'Edición de urbanización'}) 

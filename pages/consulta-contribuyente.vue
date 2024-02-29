@@ -4,7 +4,7 @@
       <div class="consulta-inmueble-container">
         <div class="title-morado">
           <p class="consulta-inmueble-title">
-            CONSULTA Contribuyente
+            CONTRIBUYENTE CEDULA
           </p>
           <v-dialog v-model="dialog_mostrar" max-width="1600px">
             <div id="dialog-mostrar">

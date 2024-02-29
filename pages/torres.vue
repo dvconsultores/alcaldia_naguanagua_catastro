@@ -204,7 +204,7 @@
             :footer-props="{
               itemsPerPageText: 'Items por página',
             }"
-            sort-by="codigo"
+            sort-by="nombre"
             class="mytabla"
             mobile-breakpoint="840"
           >

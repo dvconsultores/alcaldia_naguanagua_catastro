@@ -27,12 +27,12 @@
                 {{ numeroFormateado(item.monto_total) }}
               </template>
               <template #[`item.actions`]="{ item }">
-                <v-btn class="btn-liquidar" @click="getEstadoDetalles(item)">
+                <v-btn :disabled="botonDeshabilitado" class="btn-liquidar" @click="getEstadoDetalles(item)">
                   <v-icon>mdi-eye</v-icon>
                 </v-btn>
               </template>
               <template #[`item.actions2`]="{ item }">
-                <v-btn class="btn-liquidar" @click="getEstadoDetallesFast(item)">
+                <v-btn  :disabled="botonDeshabilitado" class="btn-liquidar" @click="getEstadoDetallesFast(item)">
                   <v-icon>mdi-gavel</v-icon>
                 </v-btn>
               </template>
@@ -228,8 +228,7 @@ export default {
       Correlativo: 0,
       Id: 0,
       dialogWait: false,
-
-
+      botonDeshabilitado: false,
     }
   },
 
@@ -336,7 +335,10 @@ export default {
         this.Id = res.id
         console.log('this.divs', this.divs)
         await this.generarPDF()
+        await this.getEstadosCuentas()
         this.$router.push('liquidacion-multiple')
+        
+
         //this.$alert("success", { desc: "Se ha creado una pre-factura con éxito", hash: 'knsddcssdc', title: 'Creado' })
         this.dialogWait = false
       } catch (err) {
@@ -635,6 +637,8 @@ export default {
     },
 
     async getEstadoDetallesFast(item) {
+      this.botonDeshabilitado=true
+      this.dialogWait=true
       this.selectedItem = item
       console.log('this.selectedItem ', this.selectedItem)
       this.nombrecontribuyente = item.propietario.nombre
@@ -643,6 +647,7 @@ export default {
       const fechaActual = new Date();
       fechaActual.setHours(0, 0, 0, 0); // Establece la hora en 00:00:00
       try {
+        
         const response = await this.$axios.$get(`estadocuenta/${item.id}`)
         this.idEstadoCuenta = response
         if ((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo.vencimiento)) >= (fechaActual)) {
@@ -656,9 +661,12 @@ export default {
         } else {
           this.$alert("cancel", { desc: "Estado de cuenta vencido", hash: 'knsddcssdc', title: 'Error' })
         }
+        
       } catch (err) {
         console.log(err);
       }
+      this.dialogWait=false
+      this.botonDeshabilitado=false
     },
 
     async getEstadosCuentas() {

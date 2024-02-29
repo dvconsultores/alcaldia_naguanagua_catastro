@@ -38,7 +38,7 @@
                     <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
                       <v-autocomplete 
                       v-model="defaultItem.estado" 
-                      :items="itemsEstatus"
+                      :items="itemsEstatusFiltered"
                       item-text="text"
                       item-value="id"
                       label="Cambio de Estado en el Proceso"
@@ -59,8 +59,8 @@
                   <v-btn @click="saveEstado()">
                     Guardar
                   </v-btn> 
-                  <v-btn @click="openFIN(defaultItem)">
-                    Finalizar Solicitud
+                  <v-btn @click="openFIN(defaultItem)" v-if="(JSON.parse(JSON.stringify(this.$store.getters.getUser.finaliza_flujo)))">
+                    Archivar Solicitud (Solo Personal de Archivo)
                   </v-btn>
                 </div>
               </div>
@@ -79,8 +79,8 @@
               <v-toolbar flat class="toolbar-tabla">
                 <v-dialog v-model="dialogDevuelve" max-width="500px">
                   <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Finalizar Solicitud?</v-card-title>
-                      <span class="alerta-text" style="text-align:center;">Esta seguro de FINALIZAR la solicitud?</span>
+                    <v-card-title class="center title">¿Finalizar Solicitud. Archivar el EXPEDIENTE!!!!!?</v-card-title>
+                      <span class="alerta-text" style="text-align:center;">Esta seguro de FINALIZAR la solicitu y Archivar definitivamente el Expediente?</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="saveFIN()">Si</v-btn>
@@ -140,6 +140,16 @@ export default {
 
     }
   },
+  computed: { 
+    itemsEstatusFiltered() {
+    // Filtramos los elementos según el valor de la variable 'a'
+    if (JSON.parse(JSON.stringify(this.$store.getters.getUser.finaliza_flujo))){
+      return this.itemsEstatus;
+    } else {
+      return this.itemsEstatus.filter(item => item.id !== '9');
+    }
+  }
+  },
   head() {
     const title = 'Documentos Por Procesar';
     return {
@@ -149,6 +159,7 @@ export default {
 
   mounted() {
     this.getFlujo()
+    console.log('kdokadñlkadlkad',JSON.parse(JSON.stringify(this.$store.getters.getUser.finaliza_flujo)))
   },
 
   methods: {

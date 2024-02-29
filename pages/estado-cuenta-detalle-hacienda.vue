@@ -896,8 +896,9 @@ export default{
         this.IC_Interes=[]     
         this.generarPDF()
         this.dialogWait = false
-        this.$router.push('modificar-datos')
+        
         this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
+        this.$router.push('consulta-contribuyente')
       } catch (err) {
         console.log(err);
       }

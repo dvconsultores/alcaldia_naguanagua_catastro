@@ -479,7 +479,7 @@
 
         <div class="divrow center div-btns" style="gap:30px;">
 
-          <v-btn class="btn size-btn" @click="createEstadoCuenta()">
+          <v-btn :disable="botonDeshabilitado" class="btn size-btn" @click="createEstadoCuenta()">
             Guardar
           </v-btn>
         </div>
@@ -542,6 +542,7 @@ export default{
       Correlativo: 0,
       Id: 0,
       CorrelativoData: [],
+      botonDeshabilitado: false,
     }
   },
 
@@ -768,7 +769,7 @@ export default{
     },
 
 
-    async createEstadoCuenta(){    
+    async createEstadoCuenta(){  
       const data = {
         inmueble: (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')? this.$store.getters.getExpediente.id : null,
         flujo: this.idflujo,
@@ -779,6 +780,7 @@ export default{
         monto_total: this.montoTotal(),
       }
       try {
+        this.botonDeshabilitado=true  
         this.dialogWait = true
         const res = await this.$axios.$post('crearestadocuenta/', data)
         console.log(res)
@@ -786,8 +788,10 @@ export default{
         this.Id=res.id
         this.generarPDF()
         this.dialogWait = false
+        this.botonDeshabilitado=false  
         //this.$router.push('modificar-datos')
         this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
+        this.$router.push('consulta-inmueble')
       } catch (err) {
         console.log(err);
       }

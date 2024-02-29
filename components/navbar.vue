@@ -388,7 +388,13 @@
         </div>
 
         <div class="divcol center">
-          <span class="span-saludo">
+          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getPatente))!='Sin Seleccionar'">
+           Patente Nro.: {{JSON.parse(JSON.stringify(this.$store.getters.getPatente.numero))}}
+          </span>
+        </div>
+
+        <div class="divcol center">
+          <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
            Contribuyente
           </span>
           <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getContribuyente))!='Sin Seleccionar'">
@@ -473,6 +479,7 @@ export default {
     clearStoreExpediente(){
       this.$store.dispatch('storeExpediente', 'Sin Seleccionar')
       this.$store.dispatch('storeContribuyente', 'Sin Seleccionar')
+      this.$store.dispatch('storePatente', 'Sin Seleccionar')
 
     },
     async fetchData() {

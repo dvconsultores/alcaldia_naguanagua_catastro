@@ -6,9 +6,9 @@ import scrollBehavior from './router.scrollBehavior.js'
 
 const _7d0e5d0a = () => interopDefault(import('../pages/acceso.vue' /* webpackChunkName: "pages/acceso" */))
 const _0d119478 = () => interopDefault(import('../pages/actualizacion-inmueble.vue' /* webpackChunkName: "pages/actualizacion-inmueble" */))
+const _33f48b80 = () => interopDefault(import('../pages/actualizacion-inmueble-sindico.vue' /* webpackChunkName: "pages/actualizacion-inmueble-sindico" */))
 const _16a22c28 = () => interopDefault(import('../pages/actualizacion-propietarios.vue' /* webpackChunkName: "pages/actualizacion-propietarios" */))
 const _d759198e = () => interopDefault(import('../pages/actualizacion-ubicacion-parcela.vue' /* webpackChunkName: "pages/actualizacion-ubicacion-parcela" */))
-const _87712d34 = () => interopDefault(import('../pages/actualizacion-ubicacion-parcela(sebas).vue' /* webpackChunkName: "pages/actualizacion-ubicacion-parcela(sebas)" */))
 const _0f5bcd74 = () => interopDefault(import('../pages/actualizar-construccion.vue' /* webpackChunkName: "pages/actualizar-construccion" */))
 const _2a3fc7e6 = () => interopDefault(import('../pages/actualizar-documento-propiedad.vue' /* webpackChunkName: "pages/actualizar-documento-propiedad" */))
 const _27d80687 = () => interopDefault(import('../pages/actualizar-documentos-pendientes.vue' /* webpackChunkName: "pages/actualizar-documentos-pendientes" */))
@@ -51,7 +51,6 @@ const _a32b6a42 = () => interopDefault(import('../pages/liquidacion.vue' /* webp
 const _16cbbcee = () => interopDefault(import('../pages/liquidacion-multiple.vue' /* webpackChunkName: "pages/liquidacion-multiple" */))
 const _1dc5ef9e = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _2124f254 = () => interopDefault(import('../pages/maestro-patente.vue' /* webpackChunkName: "pages/maestro-patente" */))
-const _5c7bda2e = () => interopDefault(import('../pages/maestro-patente-old.vue' /* webpackChunkName: "pages/maestro-patente-old" */))
 const _a60d722e = () => interopDefault(import('../pages/manzana.vue' /* webpackChunkName: "pages/manzana" */))
 const _249d638d = () => interopDefault(import('../pages/modificar-datos.vue' /* webpackChunkName: "pages/modificar-datos" */))
 const _f723739e = () => interopDefault(import('../pages/moneda.vue' /* webpackChunkName: "pages/moneda" */))
@@ -61,7 +60,6 @@ const _19efbef2 = () => interopDefault(import('../pages/patente.vue' /* webpackC
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _5a615ad2 = () => interopDefault(import('../pages/recaudacion-multiple.vue' /* webpackChunkName: "pages/recaudacion-multiple" */))
-const _7c433cf2 = () => interopDefault(import('../pages/recaudacion-multiple_copy.vue' /* webpackChunkName: "pages/recaudacion-multiple_copy" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
 const _d47f4554 = () => interopDefault(import('../pages/reporte-corridasbancarias.vue' /* webpackChunkName: "pages/reporte-corridasbancarias" */))
 const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
@@ -113,6 +111,10 @@ export const routerOptions = {
     component: _0d119478,
     name: "actualizacion-inmueble___en"
   }, {
+    path: "/actualizacion-inmueble-sindico",
+    component: _33f48b80,
+    name: "actualizacion-inmueble-sindico___en"
+  }, {
     path: "/actualizacion-propietarios",
     component: _16a22c28,
     name: "actualizacion-propietarios___en"
@@ -120,10 +122,6 @@ export const routerOptions = {
     path: "/actualizacion-ubicacion-parcela",
     component: _d759198e,
     name: "actualizacion-ubicacion-parcela___en"
-  }, {
-    path: "/actualizacion-ubicacion-parcela(sebas)",
-    component: _87712d34,
-    name: "actualizacion-ubicacion-parcela(sebas)___en"
   }, {
     path: "/actualizar-construccion",
     component: _0f5bcd74,
@@ -293,10 +291,6 @@ export const routerOptions = {
     component: _2124f254,
     name: "maestro-patente___en"
   }, {
-    path: "/maestro-patente-old",
-    component: _5c7bda2e,
-    name: "maestro-patente-old___en"
-  }, {
     path: "/manzana",
     component: _a60d722e,
     name: "manzana___en"
@@ -332,10 +326,6 @@ export const routerOptions = {
     path: "/recaudacion-multiple",
     component: _5a615ad2,
     name: "recaudacion-multiple___en"
-  }, {
-    path: "/recaudacion-multiple_copy",
-    component: _7c433cf2,
-    name: "recaudacion-multiple_copy___en"
   }, {
     path: "/regimen",
     component: _422c3f54,
@@ -457,6 +447,10 @@ export const routerOptions = {
     component: _0d119478,
     name: "actualizacion-inmueble___es"
   }, {
+    path: "/es/actualizacion-inmueble-sindico",
+    component: _33f48b80,
+    name: "actualizacion-inmueble-sindico___es"
+  }, {
     path: "/es/actualizacion-propietarios",
     component: _16a22c28,
     name: "actualizacion-propietarios___es"
@@ -464,10 +458,6 @@ export const routerOptions = {
     path: "/es/actualizacion-ubicacion-parcela",
     component: _d759198e,
     name: "actualizacion-ubicacion-parcela___es"
-  }, {
-    path: "/es/actualizacion-ubicacion-parcela(sebas)",
-    component: _87712d34,
-    name: "actualizacion-ubicacion-parcela(sebas)___es"
   }, {
     path: "/es/actualizar-construccion",
     component: _0f5bcd74,
@@ -633,10 +623,6 @@ export const routerOptions = {
     component: _2124f254,
     name: "maestro-patente___es"
   }, {
-    path: "/es/maestro-patente-old",
-    component: _5c7bda2e,
-    name: "maestro-patente-old___es"
-  }, {
     path: "/es/manzana",
     component: _a60d722e,
     name: "manzana___es"
@@ -672,10 +658,6 @@ export const routerOptions = {
     path: "/es/recaudacion-multiple",
     component: _5a615ad2,
     name: "recaudacion-multiple___es"
-  }, {
-    path: "/es/recaudacion-multiple_copy",
-    component: _7c433cf2,
-    name: "recaudacion-multiple_copy___es"
   }, {
     path: "/es/regimen",
     component: _422c3f54,

@@ -4,7 +4,7 @@
       <div class="consulta-inmueble-container">
         <div class="title-morado">
           <p class="consulta-inmueble-title">
-            CONSULTA Inmuebles
+          EXPEDIENTE
           </p>
           <v-dialog v-model="dialog_mostrar" max-width="1600px">
             <div id="dialog-mostrar">
@@ -139,8 +139,13 @@
           <v-data-table :headers="headers" :items="inmuebleData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
+            <template #[`item.actions1`]="{ item }">
+              <v-btn class="btn-tabla" @click="openDialog1(item)">
+                Selecciona Expediente
+              </v-btn>
+            </template>
             <template #[`item.actions2`]="{ item }">
-              <v-btn class="btn-tabla" @click="openDialog(item)">
+              <v-btn class="btn-tabla" @click="openDialog2(item)">
                 Ver Detalle
               </v-btn>
             </template>
@@ -181,6 +186,7 @@ export default {
         { text: 'Dirección', value: 'direccion', align: 'center' },
         { text: 'Referencia', value: 'referencia', align: 'center' },
         { text: 'Observación', value: 'observacion', align: 'center' },
+        { text: '', value: 'actions1', sortable: false, align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],
 
@@ -287,14 +293,21 @@ export default {
       }
     },
 
-    async openDialog(item) {
+    async openDialog1(item) {
+      this.selectedItem = item
+      try {
+        this.StoreExpedienteId(this.selectedItem)
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async openDialog2(item) {
       this.selectedItem = item
       try {
         await this.getInmueblePropietarios();
       } catch (error) {
         console.log(error);
       }
-
     },
   }
 };

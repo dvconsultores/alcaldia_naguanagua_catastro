@@ -14,9 +14,9 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table"></v-text-field>
 
-          <v-data-table :headers="headers" :items="flujoData" :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table  v-model="selectedLiq" :headers="headers" :items="flujoData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
-          }" sort-by="id" sort-desc class="mytabla" mobile-breakpoint="840">
+          }" sort-by="id" sort-desc class="mytabla" mobile-breakpoint="840" show-select>
             <template v-slot:top>
               <v-toolbar flat class="toolbar-tabla">
                 <v-dialog v-model="dialogDevuelve" max-width="500px">
@@ -48,12 +48,12 @@
               </v-toolbar>
             </template>
             <template #[`item.actions1`]="{ item }">
-              <v-btn class="btn-tabla" @click="openDevuelve(item)">
+              <v-btn :disabled="selectedLiq.indexOf(item) === -1" class="btn-tabla" @click="openDevuelve(item)">
                 Devolver
               </v-btn>
             </template>
             <template #[`item.actions2`]="{ item }">
-              <v-btn class="btn-tabla" @click="openRecibe(item)">
+              <v-btn :disabled="selectedLiq.indexOf(item) === -1" class="btn-tabla" @click="openRecibe(item)">
                 Recibir
               </v-btn>
             </template>
@@ -88,8 +88,7 @@ export default {
       ],
       flujoData: [],
       defaultItem: [],
-
-
+      selectedLiq: [],
     }
   },
   head() {
@@ -99,56 +98,69 @@ export default {
     }
   },
 
-  mounted() {
-    this.getFlujo()
+  async mounted() {
+    await this.CargaDatos()
   },
 
   methods: {
+    async CargaDatos(){
+      await this.getFlujo()
+    },
 
-    getFlujo() {
+    async getFlujo() {
       console.log('depto',this.permido.departamento)
-      this.$axios.$get('flujodetalle/?tarea=1&departamento_recibe='+this.permido.departamento).then(response => {
+      try {
+        const response = await this.$axios.$get('flujodetalle/?tarea=1&departamento_recibe='+this.permido.departamento);
         this.flujoData = response
-      }).catch(err => {
-        console.log(err)
-      })
+        console.log('this.flujoData)',this.flujoData)
+      } catch (err) {
+        console.log(err); 
+      }
     },
     openDevuelve(item) {
       this.defaultItem = item
       this.dialogDevuelve = true
     },
     openRecibe(item) {
+      console.log('this.selectedLiq',this.selectedLiq)
       this.defaultItem = item
       this.dialogRecibe = true
     },
-    saveDevuelve() {
-      const formData = new FormData()
-      formData.append('departamento_recibe', this.defaultItem.departamento_envia)
-      formData.append('tarea', 7)
-      formData.append('estado', 0)
-      this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
-        console.log(res.data)
-        this.$alert("success", { desc: "Se ha devuelto el documento con éxito", hash: 'knsddcssdc', title: 'Devolución de Documento' })
-        
-        this.getFlujo()
-        this.dialogDevuelve = false
-      }).catch((err) => {
-        console.log(err)
-      });
+    async saveDevuelve() {
+      for (const divLiq of this.selectedLiq) {
+        const formData = new FormData()
+        formData.append('departamento_recibe', divLiq.departamento_envia)
+        formData.append('tarea', 7)
+        formData.append('estado', 0)
+        try {
+        const response = await this.$axios.$patch('flujodetalle/' + divLiq.id + '/', formData);
+        console.log('flujodetalle)',response)
+        } catch (err) {
+        console.log(err); 
+        }
+      }
+      this.$alert("success", { desc: "Se ha devuelto el(los) documento(s) con éxito", hash: 'knsddcssdc', title: 'Devolución de Documento' })
+      this.selectedLiq = [] 
+      this.CargaDatos()
+      this.dialogDevuelve = false
     },
-    saveRecibe() {
-      const formData = new FormData()
-      formData.append('estado', 2)
-      formData.append('tarea', 3)
-      formData.append('recibe_usuario',this.permido.user_id)
-      this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
-        console.log(res.data)
-        this.$alert("success", { desc: "Se ha recibido el documento con éxito", hash: 'knsddcssdc', title: 'Recepción de Documento' })
-        this.getFlujo()
-        this.dialogRecibe = false
-      }).catch((err) => {
-        console.log(err)
-      });
+    async saveRecibe() {
+      for (const divLiq of this.selectedLiq) {
+        const formData = new FormData()
+        formData.append('estado', 2)
+        formData.append('tarea', 3) 
+        formData.append('recibe_usuario',this.permido.user_id)
+        try {
+        const response = await this.$axios.$patch('flujodetalle/' + divLiq.id + '/', formData);
+        console.log('flujodetalle)',response)
+        } catch (err) {
+        console.log(err); 
+        }
+      }
+      this.$alert("success", { desc: "Se ha recibido el(los) documento(s) con éxito", hash: 'knsddcssdc', title: 'Recepción de Documento' })
+      this.selectedLiq = [] 
+      this.CargaDatos()
+      this.dialogRecibe = false
     },
   }
 };

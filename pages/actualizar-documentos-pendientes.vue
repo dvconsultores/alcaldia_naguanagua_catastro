@@ -1,31 +1,39 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-documentos-pendientes">
-      <div class="documentos-faltante-container">
+    <section class="section1-actualizar-documento">
+
+
+      <div class="actualizar-documento-container">
         <div class="title-morado">
-          <p class="documentos-faltante-title">
-            Documentos Faltantes
+          <p class="actualizar-documento-title">
+            FINES FISCALES
           </p>
         </div>
+        <div class="div-card pt-8 wrap" style="flex-direction: column;">
+          <v-row>
+            <v-col lg="6" xs="12">
+              <v-text-field
+              v-model="dataDocumentoPropiedad.cedula"
+              class="input-middle"
+              label="Superficie de construcción M2 "
+              type="number"
+              ></v-text-field> 
+            </v-col>
 
-        <v-card class="card-checkbox">
-          <span class="span-float">Documentos</span>
-          <v-checkbox class="custom-checkbox" v-model="cedula_checkbox" label="Cédula de Indentidad"></v-checkbox>
-          <v-checkbox class="custom-checkbox"  v-model="documento_checkbox" label="Documentos de Propiedad"></v-checkbox>
-        </v-card>
-
-        <div class="textarea-div">
-          <span class="span-float">
-            Observaciones
-          </span>
-          <v-textarea
-          class="textarea"
-          ></v-textarea>
+            <v-col lg="6" xs="12">
+              <v-text-field
+              v-model="dataDocumentoPropiedad.documentopropiedad"
+              class="input-middle"
+              label="Superficie de terreno M2"
+              type="number"
+              ></v-text-field>  
+            </v-col>
+          </v-row>
         </div>
       </div>
 
-      <div>
-        <v-btn class="btn btn-mobile" @click="dialog_confirmar = true">
+      <div class="center" @click="dialog_confirmar = true">
+        <v-btn class="btn btn-mobile">
           Guardar
         </v-btn>
       </div>
@@ -33,13 +41,12 @@
 
     <!-- DIALOG -->
 
-    <v-dialog content-class="dialog-confirmar" max-width="500px" v-model="dialog_confirmar" persistent>
-      <v-card id="dialog-eliminar-card">
+    <v-dialog content-class="dialog-guardar" max-width="500px" v-model="dialog_confirmar" persistent>
+      <v-card class="guardar-card">
         <v-card-title class="center title">¿Desea guardar este registro?</v-card-title>
-        <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
           <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color:#ED057E!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -56,26 +63,68 @@ export default {
   mixins: [computeds],
   data() {
     return {  
-      cedula_checkbox: false,
-      documento_checkbox: false,  
+      btnGuardarInmuble: false,
+
       dialog_confirmar: false,
+
+      dataDocumentoPropiedad: [],
     }
   },
   head() {
-    const title = 'Actualizar Documentos Pendientes';
+    const title = 'Fines Fiscales';
     return {
       title,
     }
   },
 
-  mounted(){
+  created(){
+    this.redireccionIdVacio()
+    this.getDocumentoPropiedad()
 
   },
 
   methods: {
+    redireccionIdVacio(){
+      if(this.$store.getters.getExpediente =='Sin Seleccionar'){
+        this.$router.push('consulta-inmueble')
+        this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
+      }else{
+        ''
+      }
+    },
 
+    getDocumentoPropiedad(){
+      this.$axios.$get('inmueble_faltante/?inmueble=' + this.$store.getters.getExpediente.id).then(response => {
+        this.dataDocumentoPropiedad = response[0]
+        this.documentoPropiedadId = this.dataDocumentoPropiedad[0].id
+      }).catch(err => {
+        console.log(err) 
+      })
+    },
+
+    saveData() {
+      this.btnGuardarInmuble = true
+
+      const formData = new FormData();
+
+      this.dataDocumentoPropiedad.cedula ? formData.append('cedula', this.dataDocumentoPropiedad.cedula) : ' ';
+      this.dataDocumentoPropiedad.documentopropiedad ? formData.append('documentopropiedad', this.dataDocumentoPropiedad.documentopropiedad) : ' ';
+
+      this.$axios.$patch(`inmueble_faltante/${this.dataDocumentoPropiedad.id}/`, formData)
+      .then(res => {
+        console.log(res.data)
+        this.btnGuardarInmuble = false
+        this.dialog_confirmar = false
+        this.$alert("success", { desc: "Se ha guardado un inmueble con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
+      })
+      .catch(err => {
+        console.error(err)
+        this.btnGuardarInmuble = false
+        this.dialog_confirmar = false
+      });
+    }, 
   }
 };
 </script>
 
-<style src="~/assets/styles/pages/actualizar-documentos-pendientes.scss" lang="scss" />
+<style src="~/assets/styles/pages/actualizar-documento-propiedad.scss" lang="scss" />

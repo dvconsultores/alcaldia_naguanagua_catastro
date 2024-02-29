@@ -42,6 +42,9 @@ export const mutations = {
   STORE_expediente(state, expediente) { // seteo de data
     state.expediente = expediente
   },
+  STORE_patente(state, patente) { // seteo de data
+    state.patente = patente
+  },
 
   STORE_flujo(state, flujo) { // seteo de data
     state.flujo = flujo
@@ -143,6 +146,9 @@ export const actions = {
   storeContribuyente({commit}, contribuyente) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_contribuyente', contribuyente)
   },
+  storePatente({commit}, patente) { // recibe la data y la manda a store user para ser seteada
+    commit('STORE_patente', patente)
+  },
   storeExpediente({commit}, expediente) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_expediente', expediente)
   },
@@ -202,6 +208,9 @@ export const getters = {
   },
   getContribuyente(state) { // consulta la variable
     return state.contribuyente == undefined ? 'Sin Seleccionar' : state.contribuyente
+  },
+  getPatente(state) { // consulta la variable
+    return state.patente == undefined ? 'Sin Seleccionar' : state.patente
   },
   getExpediente(state) { // consulta la variable
     return state.expediente == undefined ? 'Sin Seleccionar' : state.expediente
