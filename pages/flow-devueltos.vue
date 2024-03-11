@@ -52,11 +52,11 @@
                 </div>
 
                 <div class="div-btns">
-                  <v-btn @click="saveEstado()">
+                  <v-btn :disabled="disableBoton" @click="saveEstado()">
                     Guardar
                   </v-btn>
 
-                  <v-btn style="background-color:#ED057E!important;" @click="dialog_editar = false">
+                  <v-btn :disabled="disableBoton" style="background-color:#ED057E!important;" @click="dialog_editar = false">
                     Cancelar
                   </v-btn>
                 </div>
@@ -80,8 +80,8 @@
                       <span class="alerta-text" style="text-align:center;">El documento retornará a quien lo envio.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="saveDevuelve()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDevuelve = false"
+                      <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="saveDevuelve()">Si</v-btn>
+                      <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="dialogDevuelve = false"
                         style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
@@ -90,7 +90,7 @@
               </v-toolbar>
             </template>
             <template #[`item.actions1`]="{ item }">
-              <v-btn class="btn-tabla" @click="editItem(item)">
+              <v-btn :disabled="disableBoton" class="btn-tabla" @click="editItem(item)">
                 Re-Enviar
               </v-btn>
             </template>
@@ -98,6 +98,14 @@
         </div>
       </div>
     </section>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -109,6 +117,8 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      disableBoton : false,
+      dialogWait : false,
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
       search: '',
       dialogRecibe: false,
@@ -138,29 +148,35 @@ export default {
     }
   },
 
-  mounted() {
-    this.getFlujo()
-    this.getDepartamento()
+  async mounted() {
+    await this.getFlujo();
+    await this.getDepartamento();
   },
 
   methods: {
-
-    getFlujo() {
-      console.log('fecha',this.fecha)
-      this.$axios.$get('flujodetalle/?tarea=7&departamento_recibe='+this.permido.departamento).then(response => {
+    async getFlujo() {
+      this.dialogWait = true;
+      try {
+        const response = await this.$axios.$get('flujodetalle/?tarea=7&departamento_recibe='+this.permido.departamento);
         this.flujoData = response
-      }).catch(err => {
-        console.log(err)
-      })
+        console.log('this.flujoData)',this.flujoData)
+      } catch (err) {
+        console.log(err); 
+      }
+      this.dialogWait = false;
     },
-    getDepartamento() {
-      this.$axios.$get('departamento/?nombre='+this.permido.departamento).then(response => {
+    async getDepartamento() {
+      this.dialogWait = true;
+      try {
+        const response = await this.$axios.$get('departamento/?nombre='+this.permido.departamento);
         this.perfilData = response
-        console.log(this.perfilData)
-      }).catch(err => {
-        console.log(err)
-      })
+        console.log('this.perfilData)',this.perfilData)
+      } catch (err) {
+        console.log(err); 
+      }
+      this.dialogWait = false;
     },
+
     openDevuelve(item) {
       this.defaultItem = item
       this.dialogDevuelve = true
@@ -171,6 +187,7 @@ export default {
     },
 
     saveEstado() {
+      this.disableBoton=true
       const formDataNew = new FormData()
       formDataNew.append('estado',1)
       formDataNew.append('tarea', 1)
@@ -187,6 +204,7 @@ export default {
       }).catch((err) => {
         console.log(err)
       });
+      this.disableBoton=false
 
     },
     editItem(item) {

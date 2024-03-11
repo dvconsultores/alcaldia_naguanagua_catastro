@@ -32,13 +32,6 @@
                   <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="nuevoRegistro.codigo"
-                        label="Código"
-                        class="input-dialog"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
                         v-model="nuevoRegistro.nombre"
                         label="Nombre"
                         class="input-dialog"
@@ -92,18 +85,6 @@
               <v-card-text>
                 <v-container>
                   <v-row class="center">
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="defaultItem.codigo"
-                        label="Código"
-                        class="input-dialog"
-                        disabled
-                      ></v-text-field>
-                    </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="defaultItem.nombre"
@@ -164,7 +145,7 @@
             :footer-props="{
               itemsPerPageText: 'Items por página',
             }"
-            sort-by="codigo"
+            sort-by="nombre"
             class="mytabla"
             mobile-breakpoint="840"
           >
@@ -224,7 +205,6 @@ export default {
       dialogDelete: false,
       nuevoRegistro:{},
       headers: [
-        { text: 'Código', align: 'center', value: 'codigo',},
         { text: 'Descripción', value: 'nombre', align:'center' },
         { text: 'Tipo', value: 'tipo', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
@@ -238,7 +218,6 @@ export default {
       ],
 
       defaultItem: {
-        codigo: '',
         nombre: '',
         tipo:'',
         id:'',
@@ -282,14 +261,12 @@ export default {
       console.log(item)
       this.dialog_editar = true
       this.defaultItem.id = item.id
-      this.defaultItem.codigo = item.codigo
       this.defaultItem.nombre = item.nombre
       this.defaultItem.tipo = item.tipo
     },
 
     saveData(){
       const formData = new FormData()
-      formData.append('codigo', this.defaultItem.codigo)
       formData.append('nombre', this.defaultItem.nombre)
       formData.append('tipo', this.defaultItem.tipo)
 

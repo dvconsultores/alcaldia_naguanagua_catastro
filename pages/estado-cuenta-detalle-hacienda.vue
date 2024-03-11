@@ -706,7 +706,10 @@ export default{
         this.dialogWait = false
         if (res) {
           this.IC_Cabecera = res[0].cabacera
-          if (res[0].cabacera.flujo) {
+          // Se validaba si el expediente tiene por lo menos un tramite en FLUJO, no procese los pagos, en vista de que todavia pudieran estar modificando datos
+          // pero el flujo se cierra cuando lo archivan y en la practica, mucho antes de archivar ya pueden estar cargados las valoraciones economicas.
+          // es por eso que le coloque un ==99 para no eliminar la condicion y que en teoria nunca de cumpla. 
+          if (res[0].cabacera.flujo==99) {
             this.$alert("success", { desc: "El inmueble posee impuestos por pagar pero tiene un proceso en catastro por terminar.", hash: 'knsddcssdc', title: 'Impuesto por pagar.' })
             this.divs.push({
               tasa_multa_id: null, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
@@ -771,7 +774,10 @@ export default{
         this.dialogWait = false
         if (res) {
           this.IC_Cabecera = res[0].cabacera
-          if (res[0].cabacera.flujo) {
+          // Se validaba si el expediente tiene por lo menos un tramite en FLUJO, no procese los pagos, en vista de que todavia pudieran estar modificando datos
+          // pero el flujo se cierra cuando lo archivan y en la practica, mucho antes de archivar ya pueden estar cargados las valoraciones economicas.
+          // es por eso que le coloque un ==99 para no eliminar la condicion y que en teoria nunca de cumpla. 
+          if (res[0].cabacera.flujo==99) {
             this.$alert("success", { desc: "El inmueble posee impuestos por pagar pero tiene un proceso en catastro por terminar.", hash: 'knsddcssdc', title: 'Impuesto por pagar.' })
             this.divs.push({
               tasa_multa_id: null, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)

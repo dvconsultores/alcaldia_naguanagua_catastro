@@ -747,7 +747,12 @@ export default {
         pdf.text('DIRECCIÓN INMUEBLE:', 15, startY);
         pdf.setFont("helvetica", "bold");
         startY = startY + 5
-        longText = JSON.parse(JSON.stringify(CabeceraPago.inmueble.direccion))
+
+        if (CabeceraPago.inmueble.direccion!=null){
+          longText = JSON.parse(JSON.stringify(CabeceraPago.inmueble.direccion))
+        }else{
+          longText = 'Sin dirección.'
+        }
         textLines = pdf.splitTextToSize(longText, maxWidth);
         textLines.forEach((line) => {
           pdf.text(15, startY, line);

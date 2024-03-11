@@ -21,6 +21,13 @@
     "_name": "_33f48b80"
   },
   {
+    "name": "actualizacion-inmueble copy___en",
+    "path": "/actualizacion-inmueble%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-inmueble copy.vue",
+    "chunkName": "pages/actualizacion-inmueble copy",
+    "_name": "_22e31801"
+  },
+  {
     "name": "actualizacion-propietarios___en",
     "path": "/actualizacion-propietarios",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-propietarios.vue",
@@ -607,6 +614,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-inmueble-sindico.vue",
     "chunkName": "pages/actualizacion-inmueble-sindico",
     "_name": "_33f48b80"
+  },
+  {
+    "name": "actualizacion-inmueble copy___es",
+    "path": "/es/actualizacion-inmueble%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/actualizacion-inmueble copy.vue",
+    "chunkName": "pages/actualizacion-inmueble copy",
+    "_name": "_22e31801"
   },
   {
     "name": "actualizacion-propietarios___es",

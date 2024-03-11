@@ -433,14 +433,9 @@ export default {
       pdf.text(this.inmuebleData.direccion, 55, startY);
       pdf.setFont("helvetica", "normal");
       startY = startY + 5
-      pdf.text('REFERENCIA: ', 15, startY);
-      pdf.setFont("helvetica", "bold");
-      pdf.text(this.inmuebleData.referencia, 55, startY);
-      pdf.setFont("helvetica", "normal");
-      startY = startY + 5
       pdf.text('OBSERVACIONES:', 15, startY);
       pdf.setFont("helvetica", "bold");
-      pdf.text(this.inmuebleData.observaciones, 55, startY);
+      pdf.text('Pendiente por formalizar inscripcion', 55, startY);
       pdf.setFont("helvetica", "normal");
       startY = startY + 10
       pdf.text('PROPIETARIO(S):', 15, startY);
@@ -449,10 +444,11 @@ export default {
         styles: { fontSize: fontSizeBody },
         headStyles: { fontSize: fontSizeHead },
       };
-      const columns = ['RIF', 'NOMBRE'];
+      const columns = ['RIF', 'NOMBRE','FECHA COMPRA'];
       const data = this.inmueblePropietariosData.map((item) => [
         item.propietario.numero_documento,
         item.propietario.nombre,
+        item.fecha_compra,
       ]);
       pdf.autoTable(columns, data, options);
       startY += 10 + this.inmueblePropietariosData.length * 7;

@@ -63,8 +63,9 @@ export default {
         { value: 'val_construccion2024',  label: '20. Val.Construcción 2024' },
         { value: 'tipologiaNew',      label: '21. Actualizar Categorizacion' },
         { value: 'inicio',            label: '22. Actualiza Correlativo de Inmueble' },
-        { value: 'inmueblecategorizacion',  label: '23. inmueble categorizacion' },
-        { value: 'comunidad',               label: '24. comunidad' },
+        //{ value: 'inmueblecategorizacion',  label: '23. inmueble categorizacion carga de trabajo' },
+        { value: 'comunidad',               label: '24. Comunidad' },
+        { value: 'CategorizacionUrbana',    label: '25. Categorizacion Urbana' },
       ],
     };
   },

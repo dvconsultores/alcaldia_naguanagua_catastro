@@ -7,6 +7,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 const _7d0e5d0a = () => interopDefault(import('../pages/acceso.vue' /* webpackChunkName: "pages/acceso" */))
 const _0d119478 = () => interopDefault(import('../pages/actualizacion-inmueble.vue' /* webpackChunkName: "pages/actualizacion-inmueble" */))
 const _33f48b80 = () => interopDefault(import('../pages/actualizacion-inmueble-sindico.vue' /* webpackChunkName: "pages/actualizacion-inmueble-sindico" */))
+const _22e31801 = () => interopDefault(import('../pages/actualizacion-inmueble copy.vue' /* webpackChunkName: "pages/actualizacion-inmueble copy" */))
 const _16a22c28 = () => interopDefault(import('../pages/actualizacion-propietarios.vue' /* webpackChunkName: "pages/actualizacion-propietarios" */))
 const _d759198e = () => interopDefault(import('../pages/actualizacion-ubicacion-parcela.vue' /* webpackChunkName: "pages/actualizacion-ubicacion-parcela" */))
 const _0f5bcd74 = () => interopDefault(import('../pages/actualizar-construccion.vue' /* webpackChunkName: "pages/actualizar-construccion" */))
@@ -114,6 +115,10 @@ export const routerOptions = {
     path: "/actualizacion-inmueble-sindico",
     component: _33f48b80,
     name: "actualizacion-inmueble-sindico___en"
+  }, {
+    path: "/actualizacion-inmueble%20copy",
+    component: _22e31801,
+    name: "actualizacion-inmueble copy___en"
   }, {
     path: "/actualizacion-propietarios",
     component: _16a22c28,
@@ -450,6 +455,10 @@ export const routerOptions = {
     path: "/es/actualizacion-inmueble-sindico",
     component: _33f48b80,
     name: "actualizacion-inmueble-sindico___es"
+  }, {
+    path: "/es/actualizacion-inmueble%20copy",
+    component: _22e31801,
+    name: "actualizacion-inmueble copy___es"
   }, {
     path: "/es/actualizacion-propietarios",
     component: _16a22c28,

@@ -12,8 +12,14 @@
             <v-col lg="11" class="divrow pr-0">
               <v-autocomplete v-model="dataValoracionTerreno.tipo" class="input-small outlined" label="Tipo terreno"
                 :items="dataTipo" item-text="descripcion" item-value="id" readonly></v-autocomplete>
-              <v-autocomplete v-model="dataValoracionTerreno.tipologia_categorizacion" class="input-small outlined"
-                label="Uso" :items="dataTipologia" item-text="descripcion" item-value="id" readonly></v-autocomplete>
+                <v-autocomplete v-model="dataValoracionTerreno.tipologia_categorizacion"
+                class="input-small outlined"
+                label="Uso"
+                :items="dataTipologia.filter(item => item.descripcion.includes('TERRENO'))"
+                item-text="descripcion"
+                item-value="id"
+                readonly>
+              </v-autocomplete> 
               <v-text-field v-model="dataValoracionTerreno.uso_valor" class="input-small outlined" label="Uso valor"
                 readonly></v-text-field>
               <v-text-field type="number" class="input-small" hide-spin-buttons></v-text-field>
@@ -104,7 +110,7 @@
             <v-row class="center">
               <v-col lg="12" class="divrow pr-0">
                 <v-autocomplete v-model="defaultItem.tipologia_categorizacion" class="input-small" label="Uso"
-                  :items="dataTipologia" item-text="descripcion" item-value="id"></v-autocomplete>
+                  :items="dataTipologia.filter(item => item.descripcion.includes('TERRENO'))" item-text="descripcion" item-value="id"></v-autocomplete>
 
                 <v-autocomplete v-model="defaultItem.tipo" class="input-small" label="Tipo Inmueble" :items="dataTipo"
                   item-text="descripcion" item-value="id"></v-autocomplete>
@@ -152,7 +158,7 @@
             <v-row class="center">
               <v-col lg="12" class="divrow pr-0">
                 <v-autocomplete v-model="nuevoRegistro.tipologia_categorizacion" class="input-small" label="Uso"
-                  :items="dataTipologia" item-text="descripcion" item-value="id"></v-autocomplete>
+                  :items="dataTipologia.filter(item => !item.descripcion.includes('TERRENO'))" item-text="descripcion" item-value="id"></v-autocomplete>
 
                 <v-autocomplete v-model="nuevoRegistro.tipo" class="input-small" label="Tipo Inmueble" :items="dataTipo"
                   item-text="descripcion" item-value="id"></v-autocomplete>
@@ -270,6 +276,11 @@ export default {
       title,
     }
   },
+  computed: {
+    filterTipologiaTerreno: function() {
+      return this.dataTipologia.filter(item => item.descripcion.startsWith("TERRENO"));
+    }
+  },
   async mounted() {
     this.redireccionIdVacio()
     try {
@@ -310,6 +321,7 @@ export default {
         const response = await this.$axios.$get(`inmueble_valoracion_terreno2024/?inmueble=${this.inmuebleId}`);
         this.dataValoracionTerreno = response[0];
         console.log('this.dataValoracionTerreno', this.dataValoracionTerreno)
+        
       } catch (err) {
         console.log(err);
       }

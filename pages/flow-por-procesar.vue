@@ -53,13 +53,13 @@
 
                 <div class="div-btns">
 
-                  <v-btn style="background-color:#ED057E!important;" @click="dialog_editar = false">
+                  <v-btn :disabled="disableBoton" style="background-color:#ED057E!important;" @click="dialog_editar = false">
                     Cancelar
                   </v-btn>
-                  <v-btn @click="saveEstado()">
+                  <v-btn :disabled="disableBoton" @click="saveEstado()">
                     Guardar
                   </v-btn> 
-                  <v-btn @click="openFIN(defaultItem)" v-if="(JSON.parse(JSON.stringify(this.$store.getters.getUser.finaliza_flujo)))">
+                  <v-btn :disabled="disableBoton"  @click="openFIN(defaultItem)" v-if="(JSON.parse(JSON.stringify(this.$store.getters.getUser.finaliza_flujo)))">
                     Archivar Solicitud (Solo Personal de Archivo)
                   </v-btn>
                 </div>
@@ -83,8 +83,8 @@
                       <span class="alerta-text" style="text-align:center;">Esta seguro de FINALIZAR la solicitu y Archivar definitivamente el Expediente?</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="saveFIN()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDevuelve = false"
+                      <v-btn :disabled="disableBoton"  class="btn dialog-btn" text @click="saveFIN()">Si</v-btn>
+                      <v-btn :disabled="disableBoton"  class="btn dialog-btn" text @click="dialogDevuelve = false"
                         style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
@@ -93,7 +93,7 @@
               </v-toolbar>
             </template>
             <template #[`item.actions1`]="{ item }">
-              <v-btn class="btn-tabla" @click="editItem(item)">
+              <v-btn :disabled="disableBoton"  class="btn-tabla" @click="editItem(item)">
                 Procesar
               </v-btn>
             </template>
@@ -101,6 +101,14 @@
         </div>
       </div>
     </section>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -112,6 +120,8 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      disableBoton: false,
+      dialogWait : false,
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
       search: '',
       dialogRecibe: false,
@@ -128,8 +138,6 @@ export default {
         { text: '', value: 'actions1', sortable: false, align: 'center' },
       ],
       itemsEstatus: [
-              //{id:'2', text:'Recibido'},
-              //{id:'3', text:'Pendiente por Procesar'},
               {id:'4', text:'En proceso'}, 
               {id:'5', text:'Proceso Finalizado'}, 
               {id:'9', text:'TERMINAR la Solicitud'},  ],
@@ -142,12 +150,21 @@ export default {
   },
   computed: { 
     itemsEstatusFiltered() {
+      console.log('this.$store.getters.getUser.imprime_recibo_entrega',this.$store.getters.getUser.imprime_recibo_entrega)
     // Filtramos los elementos según el valor de la variable 'a'
-    if (JSON.parse(JSON.stringify(this.$store.getters.getUser.finaliza_flujo))){
+    if (JSON.parse(JSON.stringify(this.$store.getters.getUser.finaliza_flujo))){ 
+      if (JSON.parse(JSON.stringify(this.$store.getters.getUser.imprime_recibo_entrega))){ 
+            return [...this.itemsEstatus, {id:'A', text:'Imprimir Soporte Entrega Expediente'}];
+        }
       return this.itemsEstatus;
     } else {
+      if (JSON.parse(JSON.stringify(this.$store.getters.getUser.imprime_recibo_entrega))){ 
+        const listaFiltrada = this.itemsEstatus.filter(item => item.id !== '9');
+            return [...listaFiltrada, {id:'A', text:'Imprimir Soporte Entrega Expediente'}];
+        }
       return this.itemsEstatus.filter(item => item.id !== '9');
-    }
+      
+    }    
   }
   },
   head() {
@@ -157,27 +174,32 @@ export default {
     }
   },
 
-  mounted() {
-    this.getFlujo()
+  async mounted() {
+    await this.getFlujo();
     console.log('kdokadñlkadlkad',JSON.parse(JSON.stringify(this.$store.getters.getUser.finaliza_flujo)))
   },
 
   methods: {
 
-    getFlujo() {
-      this.$axios.$get('flujodetalle/?tarea=3&departamento_recibe='+this.permido.departamento).then(response => {
+    async getFlujo() {
+      this.dialogWait = true;
+      try {
+        const response = await this.$axios.$get('flujodetalle/?tarea=3&departamento_recibe='+this.permido.departamento);
         this.flujoData = response
-        console.log('this.flujoData ',this.flujoData )
-      }).catch(err => {
-        console.log(err)
-      })
+        console.log('flujoData',this.CorrelativoData)
+      } catch (err) {
+        console.log(err);
+      }
+      this.dialogWait = false;
     },
+
     openFIN(item) {
       this.defaultItem = item
       this.dialogDevuelve = true
     },
 
     saveEstado() {
+      this.disableBoton=true
       const formData = new FormData()
      
       if (this.defaultItem.estado=='5'){
@@ -196,8 +218,10 @@ export default {
       }).catch((err) => {
         console.log(err)
       });
+      this.disableBoton=false
     },
     saveFIN() {
+      this.disableBoton=true
       const formData = new FormData()
       formData.append('tarea', '8')
       formData.append('estado','9')
@@ -222,6 +246,7 @@ export default {
       }).catch((err) => {
         console.log(err)
       });
+      this.disableBoton=false
     },
     editItem(item) {
       console.log(item)

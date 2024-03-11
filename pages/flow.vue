@@ -109,6 +109,14 @@
 
       </div>
     </section>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -120,6 +128,7 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      dialogWait : false,
       search: '',
       dialog_editar: false,
       headers: [
@@ -143,31 +152,40 @@ export default {
     }
   },
 
-  mounted() {
-    this.getContribuyente()
+  async mounted() {
+    await this.getFlow();
   },
 
   methods: {
 
-    getContribuyente() {
-      this.$axios.$get('flujo/').then(response => {
+    async getFlow() { 
+      this.dialogWait = true;
+      try {
+        const response = await this.$axios.$get('flujo/');
         this.propietarioData = response
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    getFlujo(item) {
-      this.$axios.$get('flujodetalle?flujo=' + item).then(response => {
-        this.flujoData = response
-      }).catch(err => {
-        console.log(err)
-      })
+        console.log('this.propietarioData)',this.propietarioData)
+      } catch (err) {
+        console.log(err); 
+      }
+      this.dialogWait = false;
     },
 
-    editItem(item) {
+    async getFlujo(item) { 
+      this.dialogWait = true;
+      try {
+        const response = await this.$axios.$get('flujodetalle?flujo=' + item);
+        this.flujoData = response
+        this.flujoData.sort((a, b) => a.id - b.id);
+        console.log('this.flujoData)',this.flujoData)
+      } catch (err) {
+        console.log(err); 
+      }
+      this.dialogWait = false;
+    },
+    async editItem(item) {
       this.flujoId=item.id
       this.dialog_editar = true
-      this.getFlujo(item.id)
+      await this.getFlujo(item.id)
     },
 
   }

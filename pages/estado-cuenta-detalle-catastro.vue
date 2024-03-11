@@ -524,6 +524,7 @@ export default{
       flujoData:[],
       dataTipoInmueble: [],
       idflujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo.codigo)),
+      crea_expediente_flujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo.crea_expediente)),
       IC_Cabecera:[],
       IC_Detalle:[],
       IC_Descuento:[],
@@ -565,20 +566,21 @@ export default{
         await this.getBCV()
         await this.getTipoInmueble()
         
-        if (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')
+        if (!this.crea_expediente_flujo)
         {
           if(this.$store.getters.getExpediente=='Sin Seleccionar'){
               this.$router.push('consulta-inmueble')
               this.$alert("cancel", {desc: "Debe seleccionar un Inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
-            }else{
-              await this.getMultaImpuesto()
             }
+            //else{
+            //  await this.getMultaImpuesto()
+            //}
         }
         else
         {
-          if(this.$store.getters.getExpediente!='Sin Seleccionar'){
-            await this.getMultaImpuesto()
-          }
+          //if(this.$store.getters.getExpediente!='Sin Seleccionar'){
+          //  await this.getMultaImpuesto()
+          //}
         }
         this.dialogWait = false 
         console.log('dialogWait',this.dialogWait)
@@ -771,7 +773,7 @@ export default{
 
     async createEstadoCuenta(){  
       const data = {
-        inmueble: (this.idflujo=='2' || this.idflujo=='3' ||this.idflujo=='4')? this.$store.getters.getExpediente.id : null,
+        inmueble: (!this.crea_expediente_flujo)? this.$store.getters.getExpediente.id : null,
         flujo: this.idflujo,
         //correlativo: this.numeroCorrelativo,
         propietario: this.$store.getters.getContribuyente.id,
@@ -951,7 +953,11 @@ export default{
           startY=startY+5
           pdf.text('DIRECCIÓN INMUEBLE:', 15, startY);
           pdf.setFont("helvetica", "bold");
-          pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getExpediente.direccion)), 55, startY);
+          if (this.$store.getters.getExpediente.direccion!=null){
+            pdf.text(JSON.parse(JSON.stringify(this.$store.getters.getExpediente.direccion)), 55, startY);         
+          }else{
+            pdf.text('Sin Dirección', 55, startY);
+          }
           pdf.setFont("helvetica", "normal");
       }
       startY=startY+5

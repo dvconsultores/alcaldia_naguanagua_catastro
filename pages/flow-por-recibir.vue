@@ -25,8 +25,8 @@
                       <span class="alerta-text" style="text-align:center;">El documento retornará a quien lo envio.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="saveDevuelve()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDevuelve = false"
+                      <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="saveDevuelve()">Si</v-btn>
+                      <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="dialogDevuelve = false"
                         style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
@@ -38,8 +38,8 @@
                       <span class="alerta-text" style="text-align:center;">El documento se marcará como recibido y aparecerá en el buzon DOCUMENTOS POR PROCESAR.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="saveRecibe()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogRecibe = false"
+                      <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="saveRecibe()">Si</v-btn>
+                      <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="dialogRecibe = false"
                         style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
@@ -61,6 +61,14 @@
         </div>
       </div>
     </section>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -72,6 +80,8 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      disableBoton: false,
+      dialogWait : false,
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
       search: '',
       dialogRecibe: false,
@@ -99,7 +109,7 @@ export default {
   },
 
   async mounted() {
-    await this.CargaDatos()
+    await this.CargaDatos();
   },
 
   methods: {
@@ -108,6 +118,7 @@ export default {
     },
 
     async getFlujo() {
+      this.dialogWait = true;
       console.log('depto',this.permido.departamento)
       try {
         const response = await this.$axios.$get('flujodetalle/?tarea=1&departamento_recibe='+this.permido.departamento);
@@ -116,6 +127,7 @@ export default {
       } catch (err) {
         console.log(err); 
       }
+      this.dialogWait = false;
     },
     openDevuelve(item) {
       this.defaultItem = item
@@ -127,6 +139,7 @@ export default {
       this.dialogRecibe = true
     },
     async saveDevuelve() {
+      this.disableBoton=true
       for (const divLiq of this.selectedLiq) {
         const formData = new FormData()
         formData.append('departamento_recibe', divLiq.departamento_envia)
@@ -143,8 +156,10 @@ export default {
       this.selectedLiq = [] 
       this.CargaDatos()
       this.dialogDevuelve = false
+      this.disableBoton=false
     },
     async saveRecibe() {
+      this.disableBoton=true
       for (const divLiq of this.selectedLiq) {
         const formData = new FormData()
         formData.append('estado', 2)
@@ -161,6 +176,7 @@ export default {
       this.selectedLiq = [] 
       this.CargaDatos()
       this.dialogRecibe = false
+      this.disableBoton=false
     },
   }
 };

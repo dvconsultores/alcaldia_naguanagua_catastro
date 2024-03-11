@@ -52,11 +52,11 @@
                 </div>
 
                 <div class="div-btns">
-                  <v-btn @click="saveEstado()">
+                  <v-btn :disabled="disableBoton" @click="saveEstado()">
                     Guardar
                   </v-btn>
 
-                  <v-btn style="background-color:#ED057E!important;" @click="dialog_editar = false">
+                  <v-btn :disabled="disableBoton" style="background-color:#ED057E!important;" @click="dialog_editar = false">
                     Cancelar
                   </v-btn>
                 </div>
@@ -72,25 +72,8 @@
           <v-data-table :headers="headers" :items="flujoData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="id" sort-desc class="mytabla" mobile-breakpoint="840">
-            <template v-slot:top>
-              <v-toolbar flat class="toolbar-tabla">
-                <v-dialog v-model="dialogDevuelve" max-width="500px">
-                  <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Devolver Documento?</v-card-title>
-                      <span class="alerta-text" style="text-align:center;">El documento retornará a quien lo envio.</span>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="saveDevuelve()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDevuelve = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-toolbar>
-            </template>
             <template #[`item.actions1`]="{ item }">
-              <v-btn class="btn-tabla" @click="editItem(item)">
+              <v-btn :disabled="disableBoton" class="btn-tabla" @click="editItem(item)">
                 Enviar
               </v-btn>
             </template>
@@ -98,6 +81,14 @@
         </div>
       </div>
     </section>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -109,10 +100,11 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      disableBoton: false,
+      dialogWait : false,
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
       search: '',
       dialogRecibe: false,
-      dialogDevuelve: false,
       dialog_editar: false,
       headers: [
         { text: 'Solicitud', align: 'center', value: 'flujo', },
@@ -138,51 +130,51 @@ export default {
     }
   },
 
-  mounted() {
-    this.getFlujo()
-    this.getDepartamento()
+  async mounted() {
+    await this.getFlujo();
+    await this.getDepartamento();
   },
 
   methods: {
-
-    getFlujo() {
-      console.log('fecha',this.fecha)
-      this.$axios.$get('flujodetalle/?tarea=6&departamento_recibe='+this.permido.departamento).then(response => {
+    async getFlujo() {
+      this.dialogWait = true;
+      try {
+        const response = await this.$axios.$get('flujodetalle/?tarea=6&departamento_recibe='+this.permido.departamento);
         this.flujoData = response
-      }).catch(err => {
-        console.log(err)
-      })
+        console.log('this.flujoData)',this.flujoData)
+      } catch (err) {
+        console.log(err); 
+      }
+      this.dialogWait = false;
     },
-    getDepartamento() {
-      this.$axios.$get('departamento/?nombre='+this.permido.departamento).then(response => {
+    async getDepartamento() {
+      this.dialogWait = true;
+      try {
+        const response = await this.$axios.$get('departamento/?nombre='+this.permido.departamento);
         this.perfilData = response
-        console.log(this.perfilData)
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    openDevuelve(item) {
-      this.defaultItem = item
-      this.dialogDevuelve = true
-    },
+        console.log('this.perfilData)',this.perfilData)
+      } catch (err) {
+        console.log(err); 
+      }
+      this.dialogWait = false;
+    },   
     openRecibe(item) {
       this.defaultItem = item
       this.dialogRecibe = true
     },
 
     saveEstado() {
+      this.disableBoton=true
       const formData = new FormData()
       formData.append('tarea', '8')
       formData.append('estado','7')      
       this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        //this.$alert("success", { desc: "Se ha Enviado el documento con éxito", hash: 'knsddcssdc', title: 'Cambio de Estado del proceso' })
-        //this.getFlujo()
-        //this.dialog_editar = false
       }).catch((err) => {
         console.log(err)
+        this.disableBoton=false
       });
-
+      this.disableBoton=true
       const formDataNew = new FormData()
       formDataNew.append('flujo', this.defaultItem.flujo)
       formDataNew.append('estado',1)
@@ -200,6 +192,7 @@ export default {
       }).catch((err) => {
         console.log(err)
       });
+      this.disableBoton=false
 
     },
     editItem(item) {
