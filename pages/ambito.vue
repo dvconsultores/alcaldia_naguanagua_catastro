@@ -86,7 +86,7 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table"></v-text-field>
 
-          <v-data-table :headers="headers" :items="ambitoData" :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table :headers="headers" :items="ambitoData" :loading="loading"  :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
@@ -133,6 +133,7 @@ export default {
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
+      loading: true,
       headers: [
         { text: 'Código', align: 'center', value: 'codigo', },
         { text: 'Descripción', value: 'descripcion', align: 'center' },
@@ -182,6 +183,7 @@ export default {
     getAmbito() {
       this.$axios.$get('ambito').then(response => {
         this.ambitoData = response
+        this.loading = false
         console.log('this.ambitoData',this.ambitoData)
       }).catch(err => {
         console.log(err)
