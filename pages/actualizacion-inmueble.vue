@@ -38,13 +38,21 @@
           <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="5" transition="scale-transition" offset-y
             min-width="auto">
             <template #activator="{ on, attrs }">
+              <v-text-field v-model="inmuebleData.fecha_creacion" class="small-input mobile-inputs"
+                label="Fecha de Inscripcion" append-icon="mdi-calendar" v-bind="attrs" v-on="on"></v-text-field>
+            </template>
+            <v-date-picker v-model="nuevaFechaCrea" label="Fecha" color="blue" header-color="#810880"
+              class="custom-date-picker" @input="formatoFechaCrea()"></v-date-picker>
+          </v-menu>
+          <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="5" transition="scale-transition" offset-y
+            min-width="auto">
+            <template #activator="{ on, attrs }">
               <v-text-field v-model="inmuebleData.fecha_inscripcion" class="small-input mobile-inputs"
                 label="Fecha de última Compra" append-icon="mdi-calendar" v-bind="attrs" v-on="on"></v-text-field>
             </template>
             <v-date-picker v-model="nuevaFecha" label="Fecha" color="blue" header-color="#810880"
               class="custom-date-picker" @input="formatoFecha()"></v-date-picker>
           </v-menu>
-
           <v-autocomplete v-model="inmuebleData.tipo" class="big-autocomplete mobile-inputs" label="Tipo de Inmueble"
             :items="tipoInmuebleData" item-text="descripcion" item-value="id"></v-autocomplete>
 
@@ -219,6 +227,7 @@ export default {
       btnGuardarInmuble: false,
       menu: false,
       nuevaFecha: null,
+      nuevaFechaCrea: null,
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       accesos: {},
       CorrelativoData: [],
@@ -535,7 +544,11 @@ export default {
         this.inmuebleData.fecha_inscripcion = moment(this.nuevaFecha).format('YYYY-MM-DD');
       }
     },
-
+    formatoFechaCrea() {
+      if (this.nuevaFechaCrea) {
+        this.inmuebleData.fecha_creacion = moment(this.nuevaFechaCrea).format('YYYY-MM-DD');
+      }
+    },
     async saveData() 
       {await this.saveData_ok()}
       ,
@@ -548,6 +561,8 @@ export default {
 
       const formData = new FormData();
       this.inmuebleData.fecha_inscripcion ? formData.append('fecha_inscripcion', this.inmuebleData.fecha_inscripcion) : '';
+      this.inmuebleData.fecha_creacion ? formData.append('fecha_creacion', this.inmuebleData.fecha_creacion) : '';
+
       this.inmuebleData.tipo ? formData.append('tipo', this.inmuebleData.tipo) : '';
       this.inmuebleData.status ? formData.append('status', this.inmuebleData.status) : '';
       this.inmuebleData.ambito ? formData.append('ambito', this.inmuebleData.ambito) : '';
