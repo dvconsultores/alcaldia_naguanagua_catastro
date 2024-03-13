@@ -86,7 +86,7 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table"></v-text-field>
 
-          <v-data-table :headers="headers" :items="ambitoData" :loading="loading"  :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table :headers="headers" dense :items="ambitoData" :loading="loading"  :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>

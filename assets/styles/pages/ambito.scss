@@ -16,7 +16,7 @@
     width: 100%;
     padding-top: 100px;
     border-radius: 10px;
-    padding: 120px 10px 20px 10px;
+    padding: 80px 10px 20px 10px;
     background-color: #fff;
     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
     display: grid;
@@ -27,12 +27,12 @@
     .btn-add-tabla{
       background-color: var(--primary)!important;
       box-shadow: none!important;
-      min-height: 40px;
-      min-width: 40px;
-      width: 40px;
-      height: 40px;
+      min-height: 30px;
+      min-width: 30px;
+      width: 30px;
+      height: 30px;
       --c:#fff!important;
-      font-size: 40px!important;
+      font-size: 30px!important;
       font-weight: 500!important;
       // justify-self: flex-end;
       // align-self: flex-end;
@@ -65,10 +65,11 @@
       }
   
       .input-data-table {
-        box-shadow: -2px 2px 3px 5px rgba(0, 0, 0, 0.1)!important;
+        box-shadow: -1px 1px 3px 4px rgba(0, 0, 0, 0.1)!important;
         padding-inline: 10px;
         border-radius: 10px;
-        margin-top: -25px !important;
+        padding: 10px 10px 10px 10px;
+        margin-bottom: 15px;
         height: 45px;
         display: flex; /* Add display flex */
         align-items: center; /* Center items vertically */
@@ -89,14 +90,12 @@
   
       .v-data-table th{
         background-color: #fff;
-        height: 80px;
         border-radius: 0px;
         
         span{
           color:var(--primary)!important;
           font-weight: 500!important;
-          font-size: 1.4em!important;
-          font-weight:700!important;
+          font-size: 1.2em!important;
         }
       }
     
@@ -246,8 +245,7 @@
 
   hr {
     border: solid 0.8px rgba(0, 0, 0, 0.1); /* Reduced border thickness */
-    width: 116%; /* Adjusted width */
-    margin-left: -19.2px; /* Adjusted margin-left */
+    width: 90%; /* Adjusted width */
     margin-block: 16px;
   }
 
@@ -265,6 +263,7 @@
     box-shadow: 1.6px 1.6px 1.6px 1.6px rgba(0, 0, 0, 0.1)!important; /* Reduced box-shadow */
     padding-inline: 6.4px; /* Adjusted padding */
     border-radius: 6.4px; /* Reduced border radius */
+    height: 55px; /* Adjusted height */
   }
 
   .input-dialog:active, 
