@@ -39,7 +39,7 @@
             ></v-text-field>
 
 
-            <div class="checkbox-span">
+            <!-- <div class="checkbox-span">
               <v-checkbox
               label="Recuerdame"
               ></v-checkbox>
@@ -47,7 +47,7 @@
               <span>
                 ¿Olvidaste la contraseña? 
               </span>
-            </div>
+            </div> -->
 
             <v-btn style="--bg: var(--active)" @click="login()">
               <template v-if="isLoading">
@@ -58,9 +58,9 @@
               </template>
             </v-btn>
 
-            <span class="last-span">
+            <!-- <span class="last-span">
               <a>¿Necesitas ayuda?</a> Comuníquese con soporte
-            </span>
+            </span> -->
       </v-form>
       </div>
     </div>
@@ -85,10 +85,10 @@ export default {
       email:null,
       password:null,
       rules: {
-        required: [(v) => !!v || "Field required"],
+        required: [(v) => !!v || "Requerido"],
         email: [
-          (v) => !!v || "Field required",
-          v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+          (v) => !!v || "Requerido",
+          v => /.+@.+\..+/.test(v) || 'Formato de correo inválido',
         ],
       }
     }
