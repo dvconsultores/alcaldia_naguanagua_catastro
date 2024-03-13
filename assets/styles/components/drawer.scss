@@ -35,6 +35,7 @@
   --fw:500;
   padding-inline: 16px;
   border-radius: 0px;
+  font-size: 13px!important;
 
   .v-icon{
     max-width: 30px;
@@ -42,7 +43,7 @@
   }
 
   .mdi-chevron-down{
-    display: none;
+    color: #810880!important;
   }
 }
 
