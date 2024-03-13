@@ -259,14 +259,14 @@ export default {
           (v) => !!v || "Field required",
           v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
         ],
-        confirmPasswordRegister: [
-          (v) => !!v || "Field required",
-          v => this.formRegister.password === this.passwordConfirmerRegister || 'Password must match',
-        ],
-        confirmPasswordRecover: [
-          (v) => !!v || "Field required",
-          v => this.formRecover.password === this.passwordConfirmerRecover || 'Password must match',
-        ],
+        //confirmPasswordRegister: [
+        //  (v) => !!v || "Field required",
+        //  v => this.formRegister.password === this.passwordConfirmerRegister || 'Password must match',
+        //],
+        //confirmPasswordRecover: [
+        //  (v) => !!v || "Field required",
+        //  v => this.formRecover.password === this.passwordConfirmerRecover || 'Password must match',
+        //],
       }
     }
   },

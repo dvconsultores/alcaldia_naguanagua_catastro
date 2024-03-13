@@ -30,7 +30,7 @@
             </v-col>
             <v-col lg="1" class="divrow pl-0">
 
-              <v-btn class="btn-delete" @click="editTerreno()">
+              <v-btn v-if="accesos.actualizar" class="btn-delete" @click="editTerreno()">
                 <v-icon>
                   mdi-pencil
                 </v-icon>
@@ -65,7 +65,7 @@
                 readonly></v-text-field>
             </v-col>
             <v-col lg="1" class="divrow pl-0">
-              <v-btn class="btn-delete" @click="openDelete(item)">
+              <v-btn v-if="accesos.actualizar" class="btn-delete" @click="openDelete(item)">
                 <v-icon>
                   mdi-delete
                 </v-icon>
@@ -218,6 +218,26 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog
+            v-model="dialogWait"
+            hide-overlay
+            persistent
+            width="300"
+          >
+            <v-card
+              color="primary"
+              dark
+            >
+              <v-card-text>
+                Por favor espere!!!
+                <v-progress-linear
+                  indeterminate
+                  color="white"
+                  class="mb-0"
+                ></v-progress-linear>
+              </v-card-text>
+            </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -226,10 +246,11 @@ import computeds from '~/mixins/computeds'
 import moment from 'moment'
 
 export default {
-  name: "actualizar-valoracion-economicaPage",
+  name: "actualizar-valoracion-economica-2024Page",
   mixins: [computeds],
   data() {
     return {
+      dialogWait:false,
       new_sub_utilizado: false,
       dialog_eliminar: false,
       menu_fecha: false,
@@ -267,6 +288,8 @@ export default {
       dataValoracionTerreno: {},
       dataValoracionConstruccion: [],
       inmuebleId: this.$store.getters.getExpediente == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getExpediente.id)),
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
+      accesos: {},
       nuevoRegistro: {},
     }
   },
@@ -283,21 +306,27 @@ export default {
   },
   async mounted() {
     this.redireccionIdVacio()
-    try {
-      await this.getInmuebleValoracionTerreno()
-      await this.getInmuebleValoracionConstruccion()
-    } catch (error) {
-      console.log(error);
-    }
-    this.getInmuebleValoracionTerreno()
-    this.getInmuebleValoracionConstruccion()
-    this.getTipologia()
-    this.getTipo()
-    this.getFinesFiscales()
-    this.getForma()
+
   },
 
   methods: {
+    permisos() {
+      /********************************************************************************************************
+        Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser
+      ******************************************************************************************************* */
+      const longitud = this.$options.name.length;
+      this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
+      // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
+      console.log('permiso: 1 si , 0 no:', this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
+        console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
+        console.log('this.accesos',this.accesos)
+      } else {
+        this.$router.push('index')
+        this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
+      }
+    },
     formatoValor(valor) {
       if (isNaN(valor)) {
         // Maneja el caso en que valor no sea un número válido
@@ -308,12 +337,27 @@ export default {
       const valorFormateado = Number(valor).toFixed(6).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       return valorFormateado;
     },
-    redireccionIdVacio() {
+    async redireccionIdVacio() {
       if (this.$store.getters.getExpediente == 'Sin Seleccionar') {
         this.$router.push('consulta-inmueble')
         this.$alert("cancel", { desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title: 'Error' })
       } else {
-        ''
+        await this.permisos();
+        this.dialogWait = true;
+        try {
+          await this.getInmuebleValoracionTerreno()
+          await this.getInmuebleValoracionConstruccion()
+        } catch (error) {
+          this.dialogWait = false;
+          console.log(error);
+        }
+        //this.getInmuebleValoracionTerreno()
+        //this.getInmuebleValoracionConstruccion()
+        this.getTipologia()
+        this.getTipo()
+        this.getFinesFiscales()
+        this.getForma()
+        this.dialogWait = false;
       }
     },
     async getInmuebleValoracionTerreno() {

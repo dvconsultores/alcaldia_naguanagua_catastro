@@ -260,7 +260,7 @@ export default {
       if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
         console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
         this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
-        //console.log('this.accesos.borrar',this.accesos.borrar)
+        console.log('this.accesos',this.accesos)
       } else {
         this.$router.push('index')
         this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
