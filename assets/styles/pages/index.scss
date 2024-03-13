@@ -40,7 +40,7 @@
       font-weight: 700!important;
       margin: 40px 0;
       text-align: center;
-      font-size: 40px;
+      font-size: 30px;
 
       @include media(max, 600px){
         font-size: 30px;
@@ -50,7 +50,7 @@
     .inputs-btns{
       display: flex;
       flex-direction: column;
-      width: 450px;
+      width: 400px;
       align-items: center;
 
       @include media(max, 500px){
@@ -62,11 +62,11 @@
         background-color: #fff;
         border-radius: 1em;
         margin-bottom: 30px;
-        padding: 15px 15px;
-        height: 65px;
+        padding: 10px 15px;
+        height: 55px;
         display: grid;
         place-items: center;
-        width: 450px;
+        width: 400px;
 
         @include media(max, 500px){
           width: 300px;
@@ -92,7 +92,7 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 15px;
-        width: 450px;
+        width: 400px;
 
         @include media(max, 500px){
           max-width: 300px;
@@ -118,7 +118,7 @@
         height: 55px;
         border-radius: 0.5em;
         box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)!important;
-        width: 450px;
+        width: 400px;
         border-radius: 50px;
 
         @include media(max, 500px){
