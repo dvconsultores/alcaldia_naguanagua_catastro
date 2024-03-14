@@ -98,14 +98,14 @@
 
 
   .btn-drawer{
-    width: 200px;
+    width: 100px;
     min-height: 45px;
     height: 45px;
+    margin-top: 20px;
 
     background-color: var(--bg-ap)!important;
     box-shadow: none!important;
     margin-inline: auto;
-    bottom: 0px;
 
     span{
       --c: var(--primary);
