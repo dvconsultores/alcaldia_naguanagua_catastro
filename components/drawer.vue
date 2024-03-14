@@ -47,7 +47,7 @@
 
       <v-btn class="btn-drawer" @click="$router.push('/')">
         <span>
-          Cerrar sesión
+          <v-icon>mdi-logout</v-icon>
         </span>
       </v-btn>
     </v-navigation-drawer>
