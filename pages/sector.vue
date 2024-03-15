@@ -1,58 +1,5 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <!-- <section class="section1-sector">
-      <div class="sector-container">
-        <p class="title-sector">
-          Agregar nuevo Sector
-        </p>
-
-        <hr>
-
-        <div class="textfield-search-container">
-          <v-autocomplete
-          v-model="newItem.ambito"
-          class="autocomplete-small"
-          label="Ambito*"
-          :items="items_ambito"
-          ></v-autocomplete>
-
-          <v-autocomplete
-          v-model="newItem.codigo"
-          class="autocomplete-small"
-          label="Código*"
-          ></v-autocomplete>
-
-          <v-text-field
-          v-model="newItem.nombre"
-          class="inputs-consulta"
-          label="Nombre*"
-          ></v-text-field>
-
-          <v-autocomplete
-          v-model="newItem.clasificacion"
-          class="autocomplete-small"
-          label="Clasificación*"
-          ></v-autocomplete>
-
-          <v-text-field
-          v-model="newItem.area"
-          class="inputs-consulta"
-          label="Area*"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="newItem.perimetro"
-          class="inputs-consulta"
-          label="Perímetro*"
-          ></v-text-field>
-
-          <v-btn class="btn-buscar" @click="addItem">
-            Agregar
-          </v-btn>           
-        </div>
-      </div>
-    </section> -->
-
     <section class="section2-sector">
       <div class="datos-sectores-container">
         <div class="title-morado">
@@ -298,10 +245,12 @@
           ></v-text-field>
 
           <v-data-table
+             dense
             :headers="headers"
             :items="sectoresData"
             :items-per-page="10"
             :search="search"
+            :loading="loading" 
             :footer-props="{
               itemsPerPageText: 'Items por página',
             }"
@@ -359,6 +308,7 @@ export default {
   mixins: [computeds],
   data() {
     return {  
+      loading: true,
       search: '',
       dialog: false,
       dialog_editar: false,
@@ -402,6 +352,7 @@ export default {
     getDataAmbito() {
       this.$axios.$get('ambito').then(response => {
           this.ambitoData = response
+          this.loading = false
         }).catch(err => {
           console.log(err)
         })

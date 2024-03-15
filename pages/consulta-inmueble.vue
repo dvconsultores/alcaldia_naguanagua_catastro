@@ -11,9 +11,12 @@
               <v-card class="card-detalles">
                 <v-tabs v-model="activeTab">
                   <v-tab :value="0">
-                    Datos del Inmueble
+                    Datos del Inmueble 1/2
                   </v-tab>
                   <v-tab :value="1">
+                    Datos del Inmueble 2/2
+                  </v-tab>
+                  <v-tab :value="2">
                     Contribuyentes Asociados
                   </v-tab>
                 </v-tabs>
@@ -32,14 +35,6 @@
                       <v-text-field v-model="selectedItem.descripcion_sector" class="input-mostrar" label="Sector"
                         disabled></v-text-field>
                       <v-text-field v-model="selectedItem.descripcion_manzana" class="input-mostrar" label="Manzana"
-                        disabled></v-text-field>
-                      <v-text-field v-model="selectedItem.codigo_parcela" class="input-mostrar" label="Parcela"
-                        disabled></v-text-field>
-                      <v-text-field v-model="selectedItem.codigo_subparcela" class="input-mostrar" label="Sub-Parcela"
-                        disabled></v-text-field>
-                      <v-text-field v-model="selectedItem.descripcion_nivel" class="input-mostrar" label="Nivel"
-                        disabled></v-text-field>
-                      <v-text-field v-model="selectedItem.descripcion_unidad" class="input-mostrar" label="Unidad"
                         disabled></v-text-field>
                       <v-text-field v-model="selectedItem.nombre_urbanizacion" class="input-mostrar" label="Urbanización"
                         disabled></v-text-field>
@@ -63,19 +58,16 @@
                         disabled></v-text-field>
                       <v-text-field v-model="selectedItem.descripcion_zona" class="input-mostrar" label="Zona"
                         disabled></v-text-field>
-                      <v-text-field v-model="selectedItem.direccion" class="input-mostrar" label="Dirección"
+                        <v-text-field v-model="selectedItem.descripcion_categorizacion" class="input-mostrar" label="Categoria"
                         disabled></v-text-field>
-                      <v-text-field v-model="selectedItem.referencia" class="input-mostrar" label="Referencia"
-                        disabled></v-text-field>
-                      <v-text-field v-model="selectedItem.observaciones" class="input-mostrar" label="Observaciones"
+                        <v-text-field v-model="selectedItem.descripcion_comunidad" class="input-mostrar" label="Comunidad"
                         disabled></v-text-field>
                       <v-text-field v-model="selectedItem.fecha_inscripcion" class="input-mostrar"
-                        label="Fecha inscripcion" disabled></v-text-field>
+                        label="Fecha Ultima compra" disabled></v-text-field>
                       <v-text-field v-model="selectedItem.anio" class="input-mostrar" label="Año inicio deuda"
                         disabled></v-text-field>
                       <v-text-field v-model="selectedItem.codigo_periodo" class="input-mostrar"
                         label="Período inicio deuda" disabled></v-text-field>
-                      <v-text-field v-model="selectedItem.id" class="input-mostrar" label="id" disabled></v-text-field>
                     </div>
                     <div class="div-btns" @click="StoreExpedienteId(selectedItem)">
                       <v-btn>
@@ -87,6 +79,32 @@
                     </div>
                   </v-tab-item>
                   <v-tab-item :value="1">
+                    <div class="inputs-container">
+                      <v-text-field v-model="selectedItem.numero_expediente" class="input-mostrar"
+                        label="Número de expediente" disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.descripcion_zona" class="input-mostrar" label="Zona"
+                        disabled></v-text-field>
+                        <v-text-field v-model="selectedItem.descripcion_categorizacion" class="input-mostrar" label="Categoria"
+                        disabled></v-text-field>
+                        <v-text-field v-model="selectedItem.descripcion_comunidad" class="input-mostrar" label="Comunidad"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.direccion" class="text-area-input-small" label="Dirección"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.referencia" class="text-area-input-small" label="Referencia"
+                        disabled></v-text-field>
+                      <v-text-field v-model="selectedItem.observaciones" class="text-area-input-small" label="Observaciones"
+                        disabled></v-text-field>
+                    </div>
+                    <div class="div-btns" @click="StoreExpedienteId(selectedItem)">
+                      <v-btn>
+                        Seleccionar Expediente
+                      </v-btn>
+                      <v-btn style="background-color:#ED057E!important;" @click="dialog_mostrar = false">
+                        Cancelar
+                      </v-btn>
+                    </div>
+                  </v-tab-item>
+                  <v-tab-item :value="2">
                     <div class="data-table-container">
                       <v-data-table :headers="headers_propietario" :items="PropietariosData" :items-per-page="10"
                         :footer-props="{
@@ -136,7 +154,7 @@
               hide-details class="input-data-table" @keyup.enter="getInmueble"></v-text-field>
             <!--v-btn @click="getInmueble" color="primary">Buscar INMUEBLE</v-btn-->
           </div>
-          <v-data-table :headers="headers" :items="inmuebleData" :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table :loading="dialogWait" :headers="headers" :items="inmuebleData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
             <template #[`item.actions1`]="{ item }">
@@ -153,14 +171,14 @@
         </div>
       </div>
     </section>
-    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+    <!--v-dialog v-model="dialogWait" hide-overlay persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
           Por favor espere!!!
           <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
         </v-card-text>
       </v-card>
-    </v-dialog>
+    </v-dialog-->
   </div>
 </template>
 

@@ -69,7 +69,7 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table"></v-text-field>
 
-          <v-data-table :headers="headers" :items="flujoData" :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table :loading="dialogWait" :headers="headers" :items="flujoData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="id" sort-desc class="mytabla" mobile-breakpoint="840">
             <template #[`item.actions1`]="{ item }">
@@ -81,14 +81,14 @@
         </div>
       </div>
     </section>
-    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+    <!--v-dialog v-model="dialogWait" hide-overlay persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
           Por favor espere!!!
           <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
         </v-card-text>
       </v-card>
-    </v-dialog>
+    </v-dialog-->
   </div>
 </template>
 

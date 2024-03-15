@@ -229,7 +229,7 @@
   display: flex;
   flex-direction: column;
   max-width: 1440px;
-  width: 100%;
+  width: 90%;
   overflow-x: hidden;
   margin-right: 0px!important;
   margin-left: 0px;
@@ -243,7 +243,7 @@
     width: 100%;
     padding-top: 120px;
     border-radius: 10px;
-    padding: 120px 10px 20px 10px;
+    padding: 80px 10px 20px 10px;
     background-color: #fff;
     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
     display: grid;
@@ -259,7 +259,7 @@
       width: 50px;
       height: 50px;
       --c:#fff!important;
-      font-size: 50px!important;
+      font-size: 30px!important; 
       font-weight: 500!important;
       // justify-self: flex-end;
       // align-self: flex-end;
@@ -314,7 +314,7 @@
         span{
           color:var(--primary)!important;
           font-weight: 500!important;
-          font-size: 1.8em!important;
+          font-size: 1.2em!important;
           font-weight:700!important;
         }
       }
@@ -333,7 +333,7 @@
         --c:#000;
         --fw:500;
         font-family: var(--font2);
-        font-size: 16px!important;
+        font-size: 14px!important;
         border-bottom: solid 2px var(--primary)!important;
         height: 80px;
       }
@@ -371,7 +371,7 @@
         --c: #fff;
         --fw: 700;
         margin-bottom: 0px;
-        font-size: 22px;
+        font-size: 18px;
       }
 
       
@@ -542,8 +542,7 @@
       span{
         color:var(--primary)!important;
         font-weight: 500!important;
-        font-size: 1.8em!important;
-        font-weight:700!important;
+        font-size: 1.2em!important;
       }
     }
   
@@ -561,7 +560,7 @@
       --c:#000;
       --fw:500;
       font-family: var(--font2);
-      font-size: 16px!important;
+      font-size: 14px!important;
       border-bottom: solid 2px var(--primary)!important;
       height: 80px;
     }
@@ -626,15 +625,44 @@
       justify-content: center;
       align-items: center;
       gap: 10px;
+      font-size: 15px !important;
 
       .input-mostrar{
         box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
         border-radius: 10px;
         border: 1px solid var(--primary);
         padding-inline: 10px;
-        height: 65px;
+        height: 50px;
         max-width: 250px;
         min-width: 130px;
+        font-size: 15px ;
+      }
+      .small-input{
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 50px;
+        max-width: 275px;
+        min-width: 150px;
+      }
+
+      .text-area-input{
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 100px;
+        min-width: 100%;
+      }
+
+      .text-area-input-small{
+        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        padding-inline: 10px;
+        height: 100px;
+        max-width: 50%;
       }
     }
 

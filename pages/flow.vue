@@ -1,10 +1,10 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-modificar-datos">
+    <section class="section1-flow">
       <div class="modificar-datos-container">
         <div class="title-morado">
           <p class="modificar-datos-title">
-            Fujos
+            Flujos
           </p>
 
           <v-dialog v-model="dialog_editar" content-class="dialog-flow" fullscreen scrollable>
@@ -89,7 +89,7 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table"></v-text-field>
 
-          <v-data-table :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table :loading="dialogWait" :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="id" sort-desc class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
@@ -109,14 +109,14 @@
 
       </div>
     </section>
-    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+    <!--v-dialog v-model="dialogWait" hide-overlay persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
           Por favor espere!!!
           <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
         </v-card-text>
       </v-card>
-    </v-dialog>
+    </v-dialog-->
   </div>
 </template>
 
@@ -128,14 +128,14 @@ export default {
   mixins: [computeds],
   data() {
     return {
-      dialogWait : false,
+      dialogWait : true,
       search: '',
       dialog_editar: false,
       headers: [
         { text: 'Solicitud', align: 'center', value: 'id', },
-        { text: 'Tipo', value: 'pagoestadocuenta.liquidacion.tipoflujo.descripcion', align: 'center' },
+        { text: 'Tipo', value: 'descripcion_flujo', align: 'center' },
         { text: 'Expediente', value: 'expediente', align: 'center' },
-        { text: 'Propietario', value: 'pagoestadocuenta.liquidacion.propietario.nombre', align: 'center' },
+        { text: 'Propietario', value: 'nombre_propietario', align: 'center' },
         { text: 'Estado', value: 'estado_display', align: 'center' },
         { text: 'Fecha', value: 'fecha', align: 'center' },
         { text: '', value: 'actions', sortable: false, align: 'center' },

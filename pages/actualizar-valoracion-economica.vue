@@ -41,7 +41,7 @@
           <p class="actualizar-valoracion-economica-title">
             Datos de la Construcción
           </p>
-          <v-icon class="bold" color="#fff" x-large @click="dialog_crear = true">mdi-plus</v-icon>
+          <v-icon v-if="accesos.actualizar" class="bold" color="#fff" x-large @click="dialog_crear = true">mdi-plus</v-icon>
         </div>
         <div class="div-card pt-8 wrap" style="flex-direction: column;">
           <v-row v-for="(item, index) in dataValoracionConstruccion" :key="index"

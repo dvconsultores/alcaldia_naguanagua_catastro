@@ -1,28 +1,5 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <!-- <section class="section1-actualizacion">
-    <div class="actualizacion-container">
-        <p class="title-actualizacion">
-          Actualización de Datos
-        </p>
-
-        <hr>
-
-        <div class="textfield-search-container">
-          <v-text-field
-          v-model="nroExpediente"
-          class="inputs-consulta"
-          label="Nro. de Expediente"
-          @input="buscarPropietario()"
-          ></v-text-field>
-
-          <v-btn class="btn-buscar" @click="buscarPropietario()">
-            Buscar
-          </v-btn>
-        </div> 
-      </div>
-   </section> --> 
-
     <section class="section2-actualizacion">
       <div class="datos-generales-container">
         <div class="title-morado">
@@ -44,7 +21,7 @@
             <v-date-picker v-model="nuevaFechaCrea" label="Fecha" color="blue" header-color="#810880"
               class="custom-date-picker" @input="formatoFechaCrea()"></v-date-picker>
           </v-menu>
-          <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="5" transition="scale-transition" offset-y
+          <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="5" transition="scale-transition" offset-y
             min-width="auto">
             <template #activator="{ on, attrs }">
               <v-text-field v-model="inmuebleData.fecha_inscripcion" class="small-input mobile-inputs"
@@ -60,14 +37,12 @@
             :items="estatusInmuebleData" item-text="descripcion" item-value="id"></v-autocomplete>
         </div>
       </div>
-
       <div class="direccion-container">
         <div class="title-morado">
           <p class="direccion-title">
             Dirección del Inmueble
           </p>
         </div>
-
         <div class="direccion-inputs-container">
           <v-autocomplete v-model="inmuebleData.ambito" class="big-autocomplete mobile-inputs" label="Ambito*"
             :items="ambitoData" item-text="descripcion" item-value="id"></v-autocomplete>
@@ -226,6 +201,7 @@ export default {
       dialog_confirmar: false,
       btnGuardarInmuble: false,
       menu: false,
+      menu2: false,
       nuevaFecha: null,
       nuevaFechaCrea: null,
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),

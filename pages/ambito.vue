@@ -4,7 +4,7 @@
       <div class="datos-ambito-container">
         <div class="title-morado">
           <p class="datos-ambito-title">
-            Ambito
+            Ámbito
           </p>
 
           <v-dialog v-model="dialog" max-width="1600px">
@@ -24,7 +24,7 @@
                 <v-container>
                   <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="codigo" label="Ambito" class="input-dialog"></v-text-field>
+                      <v-text-field v-model="codigo" label="Ámbito" class="input-dialog"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field v-model="descripcion" label="Descripción" class="input-dialog"></v-text-field>
@@ -48,7 +48,7 @@
           <v-dialog v-model="dialog_editar" max-width="1600px">
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar Ambito</span>
+                <span class="title">Editar Ámbito</span>
               </v-card-title>
 
               <hr>
@@ -57,7 +57,7 @@
                 <v-container>
                   <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="defaultItem.codigo" label="Ambito" class="input-dialog"
+                      <v-text-field v-model="defaultItem.codigo" label="Ámbito" class="input-dialog"
                         disabled></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -152,7 +152,7 @@ export default {
     }
   },
   head() {
-    const title = 'Ambito';
+    const title = 'Ámbito';
     return {
       title,
     }
@@ -223,7 +223,7 @@ export default {
 
       this.$axios.$patch('ambito/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", { desc: "Se ha editado un ambito con éxito", hash: 'knsddcssdc', title: 'Edición de Ambito' })
+        this.$alert("success", { desc: "Se ha editado un Ámbito con éxito", hash: 'knsddcssdc', title: 'Edición de Ámbito' })
         this.getAmbito()
       }).catch((err) => {
         console.log(err)
@@ -241,7 +241,7 @@ export default {
       this.$axios.$delete('ambito/' + this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", { desc: "Se ha eliminado un ambito con éxito", hash: 'knsddcssdc', title: 'Eliminación de Ambito' })
+        this.$alert("success", { desc: "Se ha eliminado un Ámbito con éxito", hash: 'knsddcssdc', title: 'Eliminación de Ámbito' })
         this.getAmbito()
       }).catch((err) => {
         console.log(err)

@@ -1,6 +1,6 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-modificar-datos">
+    <section class="section1-flow-recibir">
       <div class="modificar-datos-container">
         <div class="title-morado">
           <p class="modificar-datos-title">
@@ -14,7 +14,7 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table"></v-text-field>
 
-          <v-data-table  v-model="selectedLiq" :headers="headers" :items="flujoData" :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table  v-model="selectedLiq" :loading="dialogWait" :headers="headers" :items="flujoData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="id" sort-desc class="mytabla" mobile-breakpoint="840" show-select>
             <template v-slot:top>
@@ -61,14 +61,14 @@
         </div>
       </div>
     </section>
-    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+    <!--v-dialog v-model="dialogWait" hide-overlay persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
           Por favor espere!!!
           <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
         </v-card-text>
       </v-card>
-    </v-dialog>
+    </v-dialog-->
   </div>
 </template>
 
@@ -81,7 +81,7 @@ export default {
   data() {
     return {
       disableBoton: false,
-      dialogWait : false,
+      dialogWait : true,
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser)),
       search: '',
       dialogRecibe: false,
