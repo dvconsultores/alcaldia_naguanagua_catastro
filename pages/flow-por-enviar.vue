@@ -163,17 +163,20 @@ export default {
       this.dialogRecibe = true
     },
 
-    saveEstado() {
+    async saveEstado() {
       this.disableBoton=true
       const formData = new FormData()
       formData.append('tarea', '8')
-      formData.append('estado','7')      
-      this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData).then((res) => {
+      formData.append('estado','7')   
+      
+      try {
+        const res = await this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData);
         console.log(res.data)
-      }).catch((err) => {
-        console.log(err)
+      } catch (err) {
+        console.log(err); 
         this.disableBoton=false
-      });
+      }
+
       this.disableBoton=true
       const formDataNew = new FormData()
       formDataNew.append('flujo', this.defaultItem.flujo)
@@ -184,15 +187,17 @@ export default {
       formDataNew.append('observaciones', this.defaultItem.observaciones)
       formDataNew.append('envia_usuario',this.permido.user_id)
       formDataNew.append('envia_fecha',this.fecha)
-      this.$axios.$post('flujodetalle/', formDataNew).then(res => {
+
+      try {
+        const res = await this.$axios.$post('flujodetalle/', formDataNew);
         console.log(res.data)
         this.$alert("success", { desc: "Se ha Enviado el documento con éxito", hash: 'knsddcssdc', title: 'Cambio de Estado del proceso' })
         this.getFlujo()
         this.dialog_editar = false
-      }).catch((err) => {
-        console.log(err)
-      });
-      this.disableBoton=false
+      } catch (err) {
+        console.log(err); 
+        this.disableBoton=false
+      }
 
     },
     editItem(item) {
