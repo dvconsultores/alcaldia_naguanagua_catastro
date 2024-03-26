@@ -9,7 +9,7 @@
 
           <v-dialog v-model="dialog" max-width="1600px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn class="btn-add-tabla" v-bind="attrs" v-on="on">
+              <v-btn v-if="accesos.escribir" class="btn-add-tabla" v-bind="attrs" v-on="on">
                 +
               </v-btn>
             </template>
@@ -106,6 +106,7 @@
                 </v-dialog>
               </v-toolbar>
             </template>
+
             <template #[`item.actions`]="{ item }">
               <v-icon color="#810880" big @click="editItem(item)">
                 mdi-pencil
@@ -148,7 +149,7 @@ export default {
         descripcion: '',
         id: '',
       },
-      accesos:null,
+      accesos: {},
     }
   },
   head() {

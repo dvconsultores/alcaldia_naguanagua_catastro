@@ -1,10 +1,10 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-zona">
-      <div class="datos-zona-container">
+    <section class="section1-ambito">
+      <div class="datos-ambito-container">
         <div class="title-morado">
-          <p class="datos-zona-title">
-            zona
+          <p class="datos-ambito-title">
+            Zona
           </p>
 
           <v-dialog
@@ -12,7 +12,7 @@
             max-width="1600px"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
+              <v-btn v-if="accesos.escribir" 
                 class="btn-add-tabla"
                 v-bind="attrs"
                 v-on="on"
@@ -82,7 +82,7 @@
           >
             <v-card id="dialog-editar-crear">
               <v-card-title>
-                <span class="title">Editar zona</span>
+                <span class="title">Editar Zona</span>
               </v-card-title>
 
               <hr>
@@ -178,22 +178,16 @@
                 </v-dialog>
               </v-toolbar>
             </template>
+
             <template #[`item.actions`]="{ item }">
-              <v-icon
-                color="#810880"
-                big
-                @click="editItem(item)"
-              >
+              <v-icon v-if="accesos.actualizar" color="#810880" big @click="editItem(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon
-                color="#810880"
-                big
-                @click="openDelete(item)"
-              >
+              <v-icon v-if="accesos.borrar" color="#810880" big @click="openDelete(item)">
                 mdi-delete
               </v-icon>
             </template>
+
           </v-data-table>
         </div>
       </div>
@@ -226,6 +220,8 @@ export default {
         descripcion: '',
         id:'',
       },
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
+      accesos: {},
     }
   },
   head() {
@@ -236,10 +232,27 @@ export default {
   },
 
   mounted(){
+    this.permisos()
     this.getData()
   },
 
   methods: {
+    permisos() {
+      /********************************************************************************************************
+        Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser
+      ******************************************************************************************************* */
+      const longitud = this.$options.name.length;
+      this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
+      // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
+      console.log('permiso: 1 si , 0 no:',this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) { 
+        console.log('leer:',(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        this.accesos=(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
+      }else{
+        this.$router.push('index')
+        this.$alert("cancel", {desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title:'Error'})
+      }
+    },
     getData() {
       this.$axios.$get('zona').then(response => {
           this.zonaData = response
@@ -310,4 +323,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/zona.scss" lang="scss" />
+<style src="~/assets/styles/pages/ambito.scss" lang="scss" />

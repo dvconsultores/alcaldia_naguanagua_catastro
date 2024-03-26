@@ -9,7 +9,7 @@
         </div>
         <div class="div-card pt-8 wrap" style="flex-direction: column;">
           <v-row>
-            <v-col lg="11" class="divrow pr-0">
+            <v-col lg="10" class="divrow pr-0">
               <v-autocomplete v-model="dataValoracionTerreno.tipo" class="input-small outlined" label="Tipo terreno"
                 :items="dataTipo" item-text="descripcion" item-value="id" readonly></v-autocomplete>
 
@@ -17,10 +17,10 @@
                 :items="dataTipologia" item-text="descripcion" item-value="id" readonly></v-autocomplete>
               <v-text-field v-model="dataValoracionTerreno.uso_valor" class="input-small outlined" label="Uso valor"
                 readonly></v-text-field>
-                <v-text-field type="number" class="input-small"
-                hide-spin-buttons></v-text-field>
-              <v-text-field v-model="dataValoracionTerreno.area" class="input-small outlined"
-                label="Área (m2)" readonly></v-text-field>
+              <v-text-field v-model="dataValoracionTerreno.zona_codigo" class="input-small outlined" label="Zona"
+                readonly></v-text-field>
+              <v-text-field v-model="dataValoracionTerreno.area" class="input-small outlined" label="Área (m2)"
+                readonly></v-text-field>
               <v-text-field v-model="dataValoracionTerreno.uso_total" type="number" class="input-small outlined"
                 label="Valor Total" hide-spin-buttons readonly></v-text-field>
             </v-col>
@@ -32,6 +32,11 @@
                 </v-icon>
               </v-btn>
             </v-col>
+            <v-col lg="1" class="divrow pl-0">
+              <span style="color: red;" v-if="ValidaCategorizacion != dataValoracionTerreno.zona_codigo">
+                !ERROR EN ZONA!
+              </span>
+            </v-col>
           </v-row>
         </div>
       </div>
@@ -41,23 +46,25 @@
           <p class="actualizar-valoracion-economica-title">
             Datos de la Construcción
           </p>
-          <v-icon v-if="accesos.actualizar" class="bold" color="#fff" x-large @click="dialog_crear = true">mdi-plus</v-icon>
+          <v-icon v-if="accesos.escribir" class="bold" color="#fff" x-large
+            @click="dialog_crear = true">mdi-plus</v-icon>
         </div>
         <div class="div-card pt-8 wrap" style="flex-direction: column;">
           <v-row v-for="(item, index) in dataValoracionConstruccion" :key="index"
             style="border-bottom: 2px solid var(--primary);">
-            <v-col lg="11" class="divrow pr-0">
+            <v-col lg="10" class="divrow pr-0">
               <v-text-field v-model="item.tipo_descripcion" class="input-small outlined" label="Tipo Inmueble"
                 readonly></v-text-field>
               <v-text-field v-model="item.uso_descripcion" class="input-small outlined" label="Uso descripción"
                 readonly></v-text-field>
               <v-text-field v-model="item.uso_valor" class="input-small outlined" label="Uso valor"
                 readonly></v-text-field>
+              <v-text-field v-model="item.zona_codigo" class="input-small outlined" label="Zona"
+                readonly></v-text-field>
 
-
-              <v-card class="input-small outlined center" style="background: #fff;">
+              <!--v-card class="input-small outlined center" style="background: #fff;">
                 <v-checkbox readonly v-model="item.sub_utilizado" label="Sub-Utilizado"></v-checkbox>
-              </v-card>
+              </v-card-->
 
 
               <v-text-field v-model="item.area" class="input-small outlined text-right" label="Área (m2)"
@@ -68,11 +75,16 @@
             </v-col>
 
             <v-col lg="1" class="divrow pl-0">
-              <v-btn v-if="accesos.actualizar" class="btn-delete" @click="openDelete(item)">
+              <v-btn v-if="accesos.borrar" class="btn-delete" @click="openDelete(item)">
                 <v-icon>
                   mdi-delete
                 </v-icon>
               </v-btn>
+            </v-col>
+            <v-col lg="1" class="divrow pl-0">
+              <span style="color: red;" v-if="ValidaCategorizacion != item.zona_codigo">
+                !ERROR EN ZONA!
+              </span>
             </v-col>
           </v-row>
 
@@ -96,7 +108,7 @@
 
         <hr>
 
-        <div  class="center" style="width: 100%; margin-bottom: 30px;">
+        <div class="center" style="width: 100%; margin-bottom: 30px;">
           <v-textarea class="textarea" v-model="dataValoracionTerreno.observaciones" disabled></v-textarea>
         </div>
       </div>
@@ -134,9 +146,10 @@
 
               </v-col>
 
-              <div  class="center" style="width: 100%; margin-bottom: 30px;">
-          <v-textarea class="input-300" v-model="defaultItem.observaciones" label="Observaciones (Fines Fiscales)"></v-textarea>
-        </div>
+              <div class="center" style="width: 100%; margin-bottom: 30px;">
+                <v-textarea class="input-300" v-model="defaultItem.observaciones"
+                  label="Observaciones (Fines Fiscales)"></v-textarea>
+              </div>
 
             </v-row>
           </v-container>
@@ -146,8 +159,8 @@
             Cancelar
           </v-btn>
 
-          <v-btn class="btn dialog-btn" @click="saveTerreno()"
-            style="background-color:#ED057E!important;" :loading="btnAddTerreno">
+          <v-btn class="btn dialog-btn" @click="saveTerreno()" style="background-color:#ED057E!important;"
+            :loading="btnAddTerreno">
             Guardar
           </v-btn>
         </v-card-actions>
@@ -173,16 +186,16 @@
                 <v-autocomplete v-model="nuevoRegistro.tipo" class="input-small" label="Tipo Inmueble" :items="dataTipo"
                   item-text="descripcion" item-value="id"></v-autocomplete>
 
-                <v-menu v-model="menu_fecha" :close-on-content-click="false" :nudge-right="5"
+                <!--v-menu v-model="menu_fecha" :close-on-content-click="false" :nudge-right="5"
                   transition="scale-transition" offset-y min-width="auto">
                   <template #activator="{ on, attrs }">
                     <v-text-field v-model="nuevoRegistro.fecha_construccion" class="input-small"
                       label="Fecha habitabilidad" append-icon="mdi-calendar" readonly v-bind="attrs"
                       v-on="on"></v-text-field>
                   </template>
-                  <v-date-picker v-model="nuevoRegistro.fecha_construccion" label="Fecha habitabilidad" color="#ff4081"
-                    header-color="#810880" class="custom-date-picker"></v-date-picker>
-                </v-menu>
+<v-date-picker v-model="nuevoRegistro.fecha_construccion" label="Fecha habitabilidad" color="#ff4081"
+  header-color="#810880" class="custom-date-picker"></v-date-picker>
+</v-menu-->
               </v-col>
 
               <v-col lg="12" class="divrow pr-0">
@@ -192,11 +205,11 @@
 
 
 
-              <v-col lg="6" class="divrow pr-0">
+              <!--v-col lg="6" class="divrow pr-0">
                 <v-card class="input-small outlined center" style="background: #fff;">
                   <v-checkbox v-model="nuevoRegistro.sub_utilizado" label="Sub-Utilizado"></v-checkbox>
                 </v-card>
-              </v-col>
+              </v-col-->
             </v-row>
           </v-container>
         </v-card-text>
@@ -228,25 +241,13 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog
-            v-model="dialogWait"
-            hide-overlay
-            persistent
-            width="300"
-          >
-            <v-card
-              color="primary"
-              dark
-            >
-              <v-card-text>
-                Por favor espere!!!
-                <v-progress-linear
-                  indeterminate
-                  color="white"
-                  class="mb-0"
-                ></v-progress-linear>
-              </v-card-text>
-            </v-card>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
     </v-dialog>
   </div>
 </template>
@@ -260,7 +261,9 @@ export default {
   mixins: [computeds],
   data() {
     return {
-      dialogWait:false,
+      ValidaCategorizacion: JSON.parse(JSON.stringify(this.$store.getters.getExpediente.codigo_zona)),
+
+      dialogWait: false,
       new_sub_utilizado: false,
       dialog_eliminar: false,
       menu_fecha: false,
@@ -326,7 +329,7 @@ export default {
       if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
         console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
         this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
-        console.log('this.accesos',this.accesos)
+        console.log('this.accesos', this.accesos)
       } else {
         this.$router.push('index')
         this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
@@ -369,7 +372,7 @@ export default {
       try {
         const response = await this.$axios.$get(`inmueble_valoracion_terreno/?inmueble=${this.inmuebleId}`);
         this.dataValoracionTerreno = response[0];
-        console.log('this.dataValoracionTerreno',this.dataValoracionTerreno)
+        console.log('this.dataValoracionTerreno', this.dataValoracionTerreno)
       } catch (err) {
         console.log(err);
       }
@@ -436,7 +439,7 @@ export default {
         this.btnAddConstruccion = false
         this.dialog_crear = false
         this.new = {}
-        this.nuevoRegistro= {}
+        this.nuevoRegistro = {}
       }).catch(err => {
         console.log(err)
         this.btnAddConstruccion = false

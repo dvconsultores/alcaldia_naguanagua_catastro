@@ -9,7 +9,7 @@
         </div>
         <div class="div-card pt-8 wrap" style="flex-direction: column;">
           <v-row>
-            <v-col lg="11" class="divrow pr-0">
+            <v-col lg="10" class="divrow pr-0">
               <v-autocomplete v-model="dataValoracionTerreno.tipo" class="input-small outlined" label="Tipo terreno"
                 :items="dataTipo" item-text="descripcion" item-value="id" readonly></v-autocomplete>
                 <v-autocomplete v-model="dataValoracionTerreno.tipologia_categorizacion"
@@ -22,19 +22,24 @@
               </v-autocomplete> 
               <v-text-field v-model="dataValoracionTerreno.uso_valor" class="input-small outlined" label="Uso valor"
                 readonly></v-text-field>
-              <v-text-field type="number" class="input-small" hide-spin-buttons></v-text-field>
+                <v-text-field v-model="dataValoracionTerreno.categorizacion_codigo" class="input-small outlined" label="Categoria"
+                readonly></v-text-field>
               <v-text-field v-model="dataValoracionTerreno.area" class="input-small outlined" label="Área (m2)"
                 readonly></v-text-field>
               <v-text-field v-model="dataValoracionTerreno.uso_total" type="number" class="input-small outlined"
                 label="Valor Total" hide-spin-buttons readonly></v-text-field>
             </v-col>
             <v-col lg="1" class="divrow pl-0">
-
               <v-btn v-if="accesos.actualizar" class="btn-delete" @click="editTerreno()">
                 <v-icon>
                   mdi-pencil
                 </v-icon>
               </v-btn>
+            </v-col>
+            <v-col lg="1" class="divrow pl-0">
+              <span style="color: red;" v-if="ValidaCategorizacion!=dataValoracionTerreno.categorizacion_codigo">
+                !ERROR EN CATEGORIA!
+              </span>
             </v-col>
           </v-row>
         </div>
@@ -44,32 +49,39 @@
           <p class="actualizar-valoracion-economica-title">
             Datos de la Construcción
           </p>
-          <v-icon v-if="accesos.actualizar" class="bold" color="#fff" x-large @click="dialog_crear = true">mdi-plus</v-icon>
+          <v-icon v-if="accesos.escribir" class="bold" color="#fff" x-large @click="dialog_crear = true">mdi-plus</v-icon>
         </div>
         <div class="div-card pt-8 wrap" style="flex-direction: column;">
           <v-row v-for="(item, index) in dataValoracionConstruccion" :key="index"
             style="border-bottom: 2px solid var(--primary);">
-            <v-col lg="11" class="divrow pr-0">
+            <v-col lg="10" class="divrow pr-0">
               <v-text-field v-model="item.tipo_descripcion" class="input-small outlined" label="Tipo Inmueble"
                 readonly></v-text-field>
               <v-text-field v-model="item.uso_descripcion" class="input-small outlined" label="Uso descripción"
                 readonly></v-text-field>
               <v-text-field v-model="item.uso_valor" class="input-small outlined" label="Uso valor"
                 readonly></v-text-field>
-              <v-card class="input-small outlined center" style="background: #fff;">
+                <v-text-field v-model="item.categorizacion_codigo" class="input-small outlined" label="Categoria"
+                readonly></v-text-field>
+              <!--v-card class="input-small outlined center" style="background: #fff;">
                 <v-checkbox readonly v-model="item.sub_utilizado" label="Sub-Utilizado"></v-checkbox>
-              </v-card>
+              </v-card-->
               <v-text-field v-model="item.area" class="input-small outlined text-right" label="Área (m2)"
                 readonly></v-text-field>
               <v-text-field :value="formatoValor(item.uso_total)" class="input-small outlined" label="Valor total"
                 readonly></v-text-field>
             </v-col>
             <v-col lg="1" class="divrow pl-0">
-              <v-btn v-if="accesos.actualizar" class="btn-delete" @click="openDelete(item)">
+              <v-btn v-if="accesos.borrar" class="btn-delete" @click="openDelete(item)">
                 <v-icon>
                   mdi-delete
                 </v-icon>
               </v-btn>
+            </v-col>
+            <v-col lg="1" class="divrow pl-0">
+              <span style="color: red;" v-if="ValidaCategorizacion!=item.categorizacion_codigo">
+                !ERROR EN CATEGORIA!
+              </span>
             </v-col>
           </v-row>
         </div>
@@ -95,16 +107,12 @@
 
     <!-- DIALOG -->
 
-
-
     <v-dialog content-class="dialog-agregar-construccion" max-width="1600px" v-model="dialog_edit_terreno">
       <v-card class="card-crear">
         <v-card-title>
           <span class="title">Modificar terreno</span>
         </v-card-title>
-
         <hr>
-
         <v-card-text>
           <v-container>
             <v-row class="center">
@@ -114,15 +122,10 @@
 
                 <v-autocomplete v-model="defaultItem.tipo" class="input-small" label="Tipo Inmueble" :items="dataTipo"
                   item-text="descripcion" item-value="id"></v-autocomplete>
-
-
               </v-col>
-
               <v-col lg="12" class="divrow pr-0">
                 <v-text-field v-model="defaultItem.area" class="input-small" label="Área (m2)"></v-text-field>
-
               </v-col>
-
               <div class="center" style="width: 100%; margin-bottom: 30px;">
                 <v-textarea class="input-300" v-model="defaultItem.observaciones"
                   label="Observaciones (Fines Fiscales)"></v-textarea>
@@ -163,7 +166,7 @@
                 <v-autocomplete v-model="nuevoRegistro.tipo" class="input-small" label="Tipo Inmueble" :items="dataTipo"
                   item-text="descripcion" item-value="id"></v-autocomplete>
 
-                <v-menu v-model="menu_fecha" :close-on-content-click="false" :nudge-right="5"
+                <!--v-menu v-model="menu_fecha" :close-on-content-click="false" :nudge-right="5"
                   transition="scale-transition" offset-y min-width="auto">
                   <template #activator="{ on, attrs }">
                     <v-text-field v-model="nuevoRegistro.fecha_construccion" class="input-small"
@@ -172,21 +175,16 @@
                   </template>
                   <v-date-picker v-model="nuevoRegistro.fecha_construccion" label="Fecha habitabilidad" color="#ff4081"
                     header-color="#810880" class="custom-date-picker"></v-date-picker>
-                </v-menu>
+                </v-menu-->
               </v-col>
-
               <v-col lg="12" class="divrow pr-0">
                 <v-text-field v-model="nuevoRegistro.area" class="input-small" label="Área (m2)"></v-text-field>
-
               </v-col>
-
-
-
-              <v-col lg="6" class="divrow pr-0">
+              <!--v-col lg="6" class="divrow pr-0">
                 <v-card class="input-small outlined center" style="background: #fff;">
                   <v-checkbox v-model="nuevoRegistro.sub_utilizado" label="Sub-Utilizado"></v-checkbox>
                 </v-card>
-              </v-col>
+              </v-col-->
             </v-row>
           </v-container>
         </v-card-text>
@@ -194,7 +192,6 @@
           <v-btn class="btn dialog-btn" @click="dialog_crear = false">
             Cancelar
           </v-btn>
-
           <v-btn class="btn dialog-btn" @click="postInmuebleValoracionConstruccion()"
             style="background-color:#ED057E!important;" :loading="btnAddConstruccion">
             Guardar
@@ -250,6 +247,7 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      ValidaCategorizacion:JSON.parse(JSON.stringify(this.$store.getters.getExpediente.codigo_categorizacion)),
       dialogWait:false,
       new_sub_utilizado: false,
       dialog_eliminar: false,

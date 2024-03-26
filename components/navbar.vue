@@ -376,14 +376,15 @@
         </v-icon> -->
 
         <div class="divcol center">
-          <span class="span-saludo" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'"> 
-          Zona : {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.descripcion_zona))}} , Categorización : {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.descripcion_categorizacion))}}
-          </span>
           <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
            Expediente Nro.: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.numero_expediente))}}
           </span>
+          <span class="span-saludo" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'"> 
+          {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.descripcion_zona))}} , {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.descripcion_categorizacion))}}
+          </span>
+
           <span class="span-saludo tcenter" v-if="JSON.parse(JSON.stringify(this.$store.getters.getExpediente))!='Sin Seleccionar'">
-           Dirección: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.direccion))}}
+           Comunidad: {{JSON.parse(JSON.stringify(this.$store.getters.getExpediente.descripcion_comunidad))}}
           </span>
         </div>
 
@@ -410,16 +411,10 @@
             Hola Usuario: {{JSON.parse(JSON.stringify(this.$store.getters.getUser.username))}}
           </span>
           <span class="span-saludo tcenter">
-            {{JSON.parse(JSON.stringify(this.$store.getters.getUser.nombre))}}
+            {{JSON.parse(JSON.stringify(this.$store.getters.getUser.nombre))}}  {{JSON.parse(JSON.stringify(this.$store.getters.getUser.apellido))}}
           </span>
           <span class="span-saludo tcenter">
-           {{JSON.parse(JSON.stringify(this.$store.getters.getUser.apellido))}}
-          </span>
-          <span class="span-saludo tcenter">
-            Departamento:
-          </span>
-          <span class="span-saludo tcenter">
-            {{JSON.parse(JSON.stringify(this.$store.getters.getUser.departamento))}}
+            Departamento: {{JSON.parse(JSON.stringify(this.$store.getters.getUser.departamento))}}
           </span>
         </div>
         <div class="divcol center">

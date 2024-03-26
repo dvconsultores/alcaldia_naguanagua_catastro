@@ -1,94 +1,8 @@
-.section1-actualizacion{
-  display: flex;
-  flex-direction: column;
-  max-width: 1440px;
-  width: 100%;
-  overflow-x: hidden;
-  margin-right: 0px!important;
-  margin-left: 0px;
-  gap: 10px;
-  padding-bottom: 10px;
-  padding-inline: 10px 10px;
-
-  .actualizacion-container{
-    background-color: #fff;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    border-radius: 10px;
-    gap: 20px;
-    overflow-x: hidden;
-    box-shadow: 3px 3px 3px 3px rgba(#000000,0.1)!important;
-    margin-bottom: 30px;
-
-    .title-actualizacion{
-      --c: var(--primary);
-      --fw: 500;
-      font-size: 22px;
-    }
-
-    hr{
-      border: solid 1px rgba(#000000,0.1);
-      width: 130%;
-      margin-left: -20px;
-    }
-
-    .textfield-search-container{
-      max-width: 70%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-
-      .inputs-consulta{
-        border-radius: 10px;
-        padding-inline: 10px;
-        max-height: 66px;
-        box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-        max-width: 300px;
-
-        @include media(max, 669px){
-          min-width: 250px;
-        }
-      }
-
-      .inputs-consulta:active, .inputs-consulta:focus-within{
-        border: 1px solid var(--primary)!important;
-      }
-
-      .btn-buscar{
-        background-color: var(--primary);
-        min-height: 55px;
-        height: 55px;
-        border-radius: 0.5em;
-        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3)!important;
-        width: 250px;
-        border-radius: 50px;
-
-        @include media(max, 669px){
-          min-width: 250px;
-        }
-
-        span{
-          --c: #fff;
-          font-weight: 700!important;
-        }
-      }
-    }
-  }
-}
-
-
 .section2-actualizacion{
   display: flex;
   flex-direction: column;
   max-width: 1440px;
-  width: 100%;
+  width: 90%;
   overflow-x: hidden;
   margin-right: 0px!important;
   margin-left: 0px;
@@ -101,7 +15,7 @@
     width: 100%;
     padding-top: 120px;
     border-radius: 10px;
-    padding: 120px 20px 20px 0px;
+    padding: 80px 20px 20px 0px;
     background-color: #fff;
     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
     display: grid;
@@ -127,7 +41,7 @@
         --c: #fff;
         --fw: 700;
         margin-bottom: 0px;
-        font-size: 22px;
+        font-size: 18px;
       }
     }
 
@@ -137,8 +51,9 @@
       align-items: center;
       gap: 20px;
       padding-inline: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       flex-wrap: wrap;
+      
 
       @include media(max, 650px){
         justify-content: center;
@@ -150,7 +65,7 @@
         border-radius: 10px;
         border: 1px solid var(--primary);
         padding-inline: 10px;
-        height: 65px;
+        height: 50px;
 
         @include media(max, 1260px){
           min-width: 300px;
@@ -162,8 +77,8 @@
         border-radius: 10px;
         border: 1px solid var(--primary);
         padding-inline: 10px;
-        height: 65px;
-        max-width: 255px;
+        height: 50px;
+        max-width: 155px;
         min-width: 150px;
       }
     }
@@ -174,7 +89,7 @@
     width: 100%;
     padding-top: 120px;
     border-radius: 10px;
-    padding: 120px 20px 20px 0px;
+    padding: 80px 20px 20px 0px;
     background-color: #fff;
     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
     display: grid;
@@ -200,7 +115,7 @@
         --c: #fff;
         --fw: 700;
         margin-bottom: 0px;
-        font-size: 22px;
+        font-size: 18px;
       }
     }
 
@@ -223,7 +138,7 @@
         border-radius: 10px;
         border: 1px solid var(--primary);
         padding-inline: 10px;
-        height: 65px;
+        height: 50px;
 
         @include media(max, 1260px){
           min-width: 300px;
@@ -235,8 +150,8 @@
         border-radius: 10px;
         border: 1px solid var(--primary);
         padding-inline: 10px;
-        height: 65px;
-        max-width: 275px;
+        height: 50px;
+        max-width: 155px;
         min-width: 150px;
       }
 
@@ -245,7 +160,7 @@
         border-radius: 10px;
         border: 1px solid var(--primary);
         padding-inline: 10px;
-        height: 130px;
+        height: 100px;
         min-width: 100%;
       }
 
@@ -254,7 +169,7 @@
         border-radius: 10px;
         border: 1px solid var(--primary);
         padding-inline: 10px;
-        height: 130px;
+        height: 100px;
         max-width: 50%;
       }
     }

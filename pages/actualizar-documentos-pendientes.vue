@@ -28,6 +28,14 @@
               type="number"
               ></v-text-field>  
             </v-col>
+            <v-col lg="12" xs="12">
+              <v-text-field
+              v-model="dataDocumentoPropiedad.observaciones"
+              class="input-middle"
+              label="Observación (es)"
+
+              ></v-text-field>  
+            </v-col>
           </v-row>
         </div>
       </div>
@@ -109,6 +117,7 @@ export default {
 
       this.dataDocumentoPropiedad.cedula ? formData.append('cedula', this.dataDocumentoPropiedad.cedula) : ' ';
       this.dataDocumentoPropiedad.documentopropiedad ? formData.append('documentopropiedad', this.dataDocumentoPropiedad.documentopropiedad) : ' ';
+      this.dataDocumentoPropiedad.observaciones ? formData.append('observaciones', this.dataDocumentoPropiedad.observaciones) : ' ';
 
       this.$axios.$patch(`inmueble_faltante/${this.dataDocumentoPropiedad.id}/`, formData)
       .then(res => {

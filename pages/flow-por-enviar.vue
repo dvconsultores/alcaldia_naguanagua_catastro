@@ -172,6 +172,7 @@ export default {
       try {
         const res = await this.$axios.$patch('flujodetalle/' + this.defaultItem.id + '/', formData);
         console.log(res.data)
+        this.disableBoton=false
       } catch (err) {
         console.log(err); 
         this.disableBoton=false
@@ -194,6 +195,7 @@ export default {
         this.$alert("success", { desc: "Se ha Enviado el documento con éxito", hash: 'knsddcssdc', title: 'Cambio de Estado del proceso' })
         this.getFlujo()
         this.dialog_editar = false
+        this.disableBoton=false
       } catch (err) {
         console.log(err); 
         this.disableBoton=false

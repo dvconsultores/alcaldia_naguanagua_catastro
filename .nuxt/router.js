@@ -21,6 +21,7 @@ const _3d728fbd = () => interopDefault(import('../pages/avenida.vue' /* webpackC
 const _20f1ec6c = () => interopDefault(import('../pages/bcv.vue' /* webpackChunkName: "pages/bcv" */))
 const _462c72fc = () => interopDefault(import('../pages/calle.vue' /* webpackChunkName: "pages/calle" */))
 const _9e9b9cb2 = () => interopDefault(import('../pages/cedula-catastral.vue' /* webpackChunkName: "pages/cedula-catastral" */))
+const _ee8fe0e6 = () => interopDefault(import('../pages/comunidad.vue' /* webpackChunkName: "pages/comunidad" */))
 const _5e20ffc2 = () => interopDefault(import('../pages/conjuntos-residenciales.vue' /* webpackChunkName: "pages/conjuntos-residenciales" */))
 const _2b4bf01a = () => interopDefault(import('../pages/consulta-contribuyente.vue' /* webpackChunkName: "pages/consulta-contribuyente" */))
 const _350d6670 = () => interopDefault(import('../pages/consulta-inmueble.vue' /* webpackChunkName: "pages/consulta-inmueble" */))
@@ -51,6 +52,9 @@ const _f29babc0 = () => interopDefault(import('../pages/impuestos-pago.vue' /* w
 const _41046902 = () => interopDefault(import('../pages/inscripcion-inmueble.vue' /* webpackChunkName: "pages/inscripcion-inmueble" */))
 const _a32b6a42 = () => interopDefault(import('../pages/liquidacion.vue' /* webpackChunkName: "pages/liquidacion" */))
 const _16cbbcee = () => interopDefault(import('../pages/liquidacion-multiple.vue' /* webpackChunkName: "pages/liquidacion-multiple" */))
+const _1353825a = () => interopDefault(import('../pages/lista-estadocuenta.vue' /* webpackChunkName: "pages/lista-estadocuenta" */))
+const _87586256 = () => interopDefault(import('../pages/lista-liquidacion.vue' /* webpackChunkName: "pages/lista-liquidacion" */))
+const _40a423be = () => interopDefault(import('../pages/lista-pago.vue' /* webpackChunkName: "pages/lista-pago" */))
 const _1dc5ef9e = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _2124f254 = () => interopDefault(import('../pages/maestro-patente.vue' /* webpackChunkName: "pages/maestro-patente" */))
 const _a60d722e = () => interopDefault(import('../pages/manzana.vue' /* webpackChunkName: "pages/manzana" */))
@@ -72,6 +76,8 @@ const _2a000081 = () => interopDefault(import('../pages/sector.vue' /* webpackCh
 const _655bcbdc = () => interopDefault(import('../pages/servicios.vue' /* webpackChunkName: "pages/servicios" */))
 const _6aa5ef40 = () => interopDefault(import('../pages/sub-parcela.vue' /* webpackChunkName: "pages/sub-parcela" */))
 const _b9343d0c = () => interopDefault(import('../pages/tasa-multa.vue' /* webpackChunkName: "pages/tasa-multa" */))
+const _ba486522 = () => interopDefault(import('../pages/tasabcv.vue' /* webpackChunkName: "pages/tasabcv" */))
+const _d494e56c = () => interopDefault(import('../pages/tasas-interes.vue' /* webpackChunkName: "pages/tasas-interes" */))
 const _61594750 = () => interopDefault(import('../pages/tipo-desincorporacion.vue' /* webpackChunkName: "pages/tipo-desincorporacion" */))
 const _60aa8af6 = () => interopDefault(import('../pages/tipo-documento.vue' /* webpackChunkName: "pages/tipo-documento" */))
 const _876adf3c = () => interopDefault(import('../pages/tipo-especial.vue' /* webpackChunkName: "pages/tipo-especial" */))
@@ -172,6 +178,10 @@ export const routerOptions = {
     path: "/cedula-catastral",
     component: _9e9b9cb2,
     name: "cedula-catastral___en"
+  }, {
+    path: "/comunidad",
+    component: _ee8fe0e6,
+    name: "comunidad___en"
   }, {
     path: "/conjuntos-residenciales",
     component: _5e20ffc2,
@@ -293,6 +303,18 @@ export const routerOptions = {
     component: _16cbbcee,
     name: "liquidacion-multiple___en"
   }, {
+    path: "/lista-estadocuenta",
+    component: _1353825a,
+    name: "lista-estadocuenta___en"
+  }, {
+    path: "/lista-liquidacion",
+    component: _87586256,
+    name: "lista-liquidacion___en"
+  }, {
+    path: "/lista-pago",
+    component: _40a423be,
+    name: "lista-pago___en"
+  }, {
     path: "/login",
     component: _1dc5ef9e,
     name: "login___en"
@@ -376,6 +398,14 @@ export const routerOptions = {
     path: "/tasa-multa",
     component: _b9343d0c,
     name: "tasa-multa___en"
+  }, {
+    path: "/tasabcv",
+    component: _ba486522,
+    name: "tasabcv___en"
+  }, {
+    path: "/tasas-interes",
+    component: _d494e56c,
+    name: "tasas-interes___en"
   }, {
     path: "/tipo-desincorporacion",
     component: _61594750,
@@ -517,6 +547,10 @@ export const routerOptions = {
     component: _9e9b9cb2,
     name: "cedula-catastral___es"
   }, {
+    path: "/es/comunidad",
+    component: _ee8fe0e6,
+    name: "comunidad___es"
+  }, {
     path: "/es/conjuntos-residenciales",
     component: _5e20ffc2,
     name: "conjuntos-residenciales___es"
@@ -633,6 +667,18 @@ export const routerOptions = {
     component: _16cbbcee,
     name: "liquidacion-multiple___es"
   }, {
+    path: "/es/lista-estadocuenta",
+    component: _1353825a,
+    name: "lista-estadocuenta___es"
+  }, {
+    path: "/es/lista-liquidacion",
+    component: _87586256,
+    name: "lista-liquidacion___es"
+  }, {
+    path: "/es/lista-pago",
+    component: _40a423be,
+    name: "lista-pago___es"
+  }, {
     path: "/es/login",
     component: _1dc5ef9e,
     name: "login___es"
@@ -716,6 +762,14 @@ export const routerOptions = {
     path: "/es/tasa-multa",
     component: _b9343d0c,
     name: "tasa-multa___es"
+  }, {
+    path: "/es/tasabcv",
+    component: _ba486522,
+    name: "tasabcv___es"
+  }, {
+    path: "/es/tasas-interes",
+    component: _d494e56c,
+    name: "tasas-interes___es"
   }, {
     path: "/es/tipo-desincorporacion",
     component: _61594750,

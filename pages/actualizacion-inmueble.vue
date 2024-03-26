@@ -44,32 +44,32 @@
           </p>
         </div>
         <div class="direccion-inputs-container">
-          <v-autocomplete v-model="inmuebleData.ambito" class="big-autocomplete mobile-inputs" label="Ambito*"
+          <v-autocomplete v-model="inmuebleData.ambito" class="small-input mobile-inputs" label="Ambito*"
             :items="ambitoData" item-text="descripcion" item-value="id"></v-autocomplete>
 
           <v-autocomplete v-model="inmuebleData.sector" class="big-autocomplete mobile-inputs" label="Sector*"
             :items="sectorData" item-text="descripcion" item-value="id"></v-autocomplete>
 
-          <v-autocomplete v-model="inmuebleData.manzana" class="big-autocomplete mobile-inputs" label="Manzana*"
+          <v-autocomplete v-model="inmuebleData.manzana" class="small-input mobile-inputs" label="Manzana*"
             :items="manzanaData" item-text="codigo" item-value="id"></v-autocomplete>
 
-          <v-autocomplete v-model="inmuebleData.parcela" class="big-autocomplete mobile-inputs" label="Parcela*"
+          <v-autocomplete v-model="inmuebleData.parcela" class="small-input mobile-inputs" label="Parcela*"
             :items="parcelaData" item-text="codigo" item-value="id"></v-autocomplete>
 
-          <v-autocomplete v-model="inmuebleData.subparcela" class="big-autocomplete mobile-inputs" label="Sub-Parcela*"
+          <v-autocomplete v-model="inmuebleData.subparcela" class="small-input mobile-inputs" label="Sub-Parcela*"
             :items="subParcelaData" item-text="codigo" item-value="id"></v-autocomplete>
 
-          <v-autocomplete v-model="inmuebleData.nivel" class="big-autocomplete mobile-inputs" label="Nivel"
+          <v-autocomplete v-model="inmuebleData.nivel" class="small-input mobile-inputs" label="Nivel"
             :items="nivelInmuebleData" item-text="descripcion" item-value="id"></v-autocomplete>
 
-          <v-autocomplete v-model="inmuebleData.unidad" class="big-autocomplete mobile-inputs" label="Unidad"
+          <v-autocomplete v-model="inmuebleData.unidad" class="small-input mobile-inputs" label="Unidad"
             :items="unidadInmuebleData" item-text="descripcion" item-value="id"></v-autocomplete>
+
+            <v-autocomplete v-model="inmuebleData.calle" class="big-autocomplete mobile-inputs" label="Calle"
+            :items="calleData" item-text="nombre" item-value="id"></v-autocomplete>
 
           <v-autocomplete v-model="inmuebleData.urbanizacion" class="big-autocomplete mobile-inputs"
             label="Urbanización / Barrio*" :items="urbanizacionData" item-text="nombre" item-value="id"></v-autocomplete>
-
-          <v-autocomplete v-model="inmuebleData.calle" class="big-autocomplete mobile-inputs" label="Calle"
-            :items="calleData" item-text="nombre" item-value="id"></v-autocomplete>
 
           <v-autocomplete v-model="inmuebleData.conjunto_residencial" class="big-autocomplete mobile-inputs"
             label="Conj. Residencial / Centro Comercial" :items="conjuntoResidencialData" item-text="nombre"
@@ -98,12 +98,15 @@
             :items="dataZona" item-text="descripcion" item-value="id"></v-autocomplete>
 
           <v-autocomplete v-model="inmuebleData.categorizacion" class="small-input mobile-inputs" label="Categorización"
-            :items="dataCategorizacion" item-text="descripcion" item-value="id"></v-autocomplete>
+            :items="dataCategorizacion" item-text="descripcion" item-value="id"  readonly  ></v-autocomplete>
 
+            <v-autocomplete v-model="inmuebleData.comunidad" class="big-autocomplete mobile-inputs" label="Comunidad"
+            :items="dataComunidad" item-text="comunidad" item-value="id"></v-autocomplete>
+            
           <v-text-field v-if="accesos.borrar" v-model="inmuebleData.anio" class="small-input mobile-inputs" label="Año inicio deuda"
             :disabled="!accesos.borrar"></v-text-field>
 
-          <v-autocomplete v-if="accesos.borrar" v-model="inmuebleData.periodo" class="big-autocomplete mobile-inputs"
+          <v-autocomplete v-if="accesos.borrar" v-model="inmuebleData.periodo" class="small-input mobile-inputs" 
             label="Período inicio deuda*" :items="periodoData" item-text="periodo" item-value="id"
             :disabled="!accesos.borrar"></v-autocomplete>
 
@@ -196,6 +199,7 @@ export default {
       torreData: [],
       dataZona: [],
       dataCategorizacion: [],
+      dataComunidad: [],
 
       IdZona: null,
       dialog_confirmar: false,
@@ -241,11 +245,11 @@ export default {
       const longitud = this.$options.name.length;
       this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
       // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
-      console.log('permiso: 1 si , 0 no:', this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      //console.log('permiso: 1 si , 0 no:', this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
       if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
-        console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        //console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
         this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
-        console.log('this.accesos',this.accesos)
+        //console.log('this.accesos',this.accesos)
       } else {
         this.$router.push('index')
         this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
@@ -276,6 +280,7 @@ export default {
         await this.getDataTorre();
         await this.getDataZona();
         await this.getDataCategorizacion();
+        await this.getDataComunidad();
         await this.getDataInmueble();
         await this.getIdInmueblePropietarios();
         await this.getDocumentoPropiedad();
@@ -292,7 +297,7 @@ export default {
       try {
         const response = await this.$axios.$get(`inmueble_propietarios/?inmueble=${this.$store.getters.getExpediente.id}`)
         this.inmueblePropietariosData = response;
-        console.log('inmueblePropietariosData', this.inmueblePropietariosData)
+        //console.log('inmueblePropietariosData', this.inmueblePropietariosData)
       } catch (err) {
         console.log(err);
       }
@@ -301,7 +306,7 @@ export default {
       try {
         const response = await this.$axios.$get('inmueble_propiedad/?inmueble=' + this.$store.getters.getExpediente.id)
         this.dataDocumentoPropiedad = response[0];
-        console.log('dataDocumentoPropiedad', this.dataDocumentoPropiedad)
+        //console.log('dataDocumentoPropiedad', this.dataDocumentoPropiedad)
       } catch (err) {
         console.log(err);
       }
@@ -310,7 +315,7 @@ export default {
       try {
         const response = await this.$axios.$get(`inmueble_valoracion_terreno/?inmueble=${this.$store.getters.getExpediente.id}`);
         this.dataValoracionTerreno = response[0];
-        console.log('this.dataValoracionTerreno', this.dataValoracionTerreno)
+        //console.log('this.dataValoracionTerreno', this.dataValoracionTerreno)
       } catch (err) {
         console.log(err);
       }
@@ -319,7 +324,7 @@ export default {
       try {
         const response = await this.$axios.$get(`inmueble_faltante/?inmueble=${this.$store.getters.getExpediente.id}`);
         this.dataFinesFiscales = response[0];
-        console.log('this.dataFinesFiscales', this.dataFinesFiscales)
+        //console.log('this.dataFinesFiscales', this.dataFinesFiscales)
       } catch (err) {
         console.log(err);
       }
@@ -328,7 +333,7 @@ export default {
       try {
         const response = await this.$axios.$get(`inmueble_ubicacion/?inmueble=${this.$store.getters.getExpediente.id}`);
         this.dataUbicacionInmueble = response[0];
-        console.log('this.dataUbicacionInmueble', this.dataUbicacionInmueble)
+        //console.log('this.dataUbicacionInmueble', this.dataUbicacionInmueble)
       } catch (err) {
         console.log(err);
       }
@@ -337,7 +342,7 @@ export default {
       try {
         const response = await this.$axios.$get('correlativo');
         this.CorrelativoData = response;
-        console.log('CorrelativoData', this.CorrelativoData)
+        //console.log('CorrelativoData', this.CorrelativoData)
       } catch (err) {
         console.log(err);
       }
@@ -346,7 +351,7 @@ export default {
       try {
         const response = await this.$axios.$get('zona');
         this.dataZona = response;
-        console.log('dataZona', this.dataZona)
+        //console.log('dataZona', this.dataZona)
       } catch (err) {
         console.log(err);
       }
@@ -355,7 +360,16 @@ export default {
       try {
         const response = await this.$axios.$get('categorizacion');
         this.dataCategorizacion = response;
-        console.log('dataCategorizacion', this.dataCategorizacion)
+        //console.log('dataCategorizacion', this.dataCategorizacion)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getDataComunidad() {
+      try {
+        const response = await this.$axios.$get('comunidad');
+        this.dataComunidad = response;
+        //console.log('dataComunidad', this.dataComunidad)
       } catch (err) {
         console.log(err);
       }
@@ -364,7 +378,16 @@ export default {
       try {
         const response = await this.$axios.$get('inmueble/' + this.$store.getters.getExpediente.id);
         this.inmuebleData = response;
-        console.log('inmuebleData', this.inmuebleData)
+        //console.log('inmuebleData', this.inmuebleData)
+
+        if (this.inmuebleData.codigo_categorizacion == 'X' ) {
+          this.$alert("cancel", { desc: "Luego de grabar los datos en la FICHA, debe ir a la VALORACION ECONÓMICA CATEGORIZACIÓN, y hacer las correcciones en los USOS de Terreno y de Construcción.", hash: 'knsddcssdc', title: 'Advertencia' })
+          this.$alert("cancel", { desc: "El inmueble registra en comunidad SIN COMUNIDAD. Debe seleccionar una comunidad válida desde la lista de Comunidades!!!.", hash: 'knsddcssdc', title: 'Advertencia' })
+          }
+        if (this.inmuebleData.codigo_categorizacion == null ) { 
+          this.$alert("cancel", { desc: "Luego de grabar los datos en la FICHA, debe ir a la VALORACION ECONÓMICA CATEGORIZACIÓN, y hacer las correcciones en los USOS de Terreno y de Construcción.", hash: 'knsddcssdc', title: 'Advertencia' })
+          this.$alert("cancel", { desc: "El inmueble NO TIENE COMUNIDAD!!!. Debe seleccionar una comunidad vÁlida desde la lista de Comunidades!!!.", hash: 'knsddcssdc', title: 'Advertencia' })
+        }
       } catch (err) {
         console.log(err);
       }
@@ -373,7 +396,7 @@ export default {
       try {
         const response = await this.$axios.$get('sector');
         this.sectorData = response;
-        console.log('sectorData', this.sectorData)
+        //console.log('sectorData', this.sectorData)
       } catch (err) {
         console.log(err);
       }
@@ -382,7 +405,7 @@ export default {
       try {
         const response = await this.$axios.$get('manzana');
         this.manzanaData = response;
-        console.log('manzanaData', this.manzanaData)
+        //console.log('manzanaData', this.manzanaData)
       } catch (err) {
         console.log(err);
       }
@@ -391,7 +414,7 @@ export default {
       try {
         const response = await this.$axios.$get('parcela');
         this.parcelaData = response;
-        console.log('parcelaData', this.parcelaData)
+        //console.log('parcelaData', this.parcelaData)
       } catch (err) {
         console.log(err);
       }
@@ -400,7 +423,7 @@ export default {
       try {
         const response = await this.$axios.$get('subparcela');
         this.subParcelaData = response;
-        console.log('subParcelaData', this.subParcelaData)
+        //console.log('subParcelaData', this.subParcelaData)
       } catch (err) {
         console.log(err);
       }
@@ -409,7 +432,7 @@ export default {
       try {
         const response = await this.$axios.$get('urbanizacion');
         this.urbanizacionData = response;
-        console.log('urbanizacionData', this.urbanizacionData)
+        //console.log('urbanizacionData', this.urbanizacionData)
       } catch (err) {
         console.log(err);
       }
@@ -418,7 +441,7 @@ export default {
       try {
         const response = await this.$axios.$get('calle');
         this.calleData = response;
-        console.log('calleData', this.calleData)
+        //console.log('calleData', this.calleData)
       } catch (err) {
         console.log(err);
       }
@@ -427,7 +450,7 @@ export default {
       try {
         const response = await this.$axios.$get('ic_periodo/?aplica=C');
         this.periodoData = response;
-        console.log('periodoData', this.periodoData)
+        //console.log('periodoData', this.periodoData)
       } catch (err) {
         console.log(err);
       }
@@ -436,7 +459,7 @@ export default {
       try {
         const response = await this.$axios.$get('conjuntoresidencial');
         this.conjuntoResidencialData = response;
-        console.log('conjuntoResidencialData', this.conjuntoResidencialData)
+        //console.log('conjuntoResidencialData', this.conjuntoResidencialData)
       } catch (err) {
         console.log(err);
       }
@@ -445,7 +468,7 @@ export default {
       try {
         const response = await this.$axios.$get('edificio');
         this.edificioData = response;
-        console.log('edificioData', this.edificioData)
+        //console.log('edificioData', this.edificioData)
       } catch (err) {
         console.log(err);
       }
@@ -454,7 +477,7 @@ export default {
       try {
         const response = await this.$axios.$get('avenida');
         this.avenidaData = response;
-        console.log('avenidaData', this.avenidaData)
+        //console.log('avenidaData', this.avenidaData)
       } catch (err) {
         console.log(err);
       }
@@ -463,7 +486,7 @@ export default {
       try {
         const response = await this.$axios.$get('torre');
         this.torreData = response;
-        console.log('torreData', this.torreData)
+        //console.log('torreData', this.torreData)
       } catch (err) {
         console.log(err);
       }
@@ -472,7 +495,7 @@ export default {
       try {
         const response = await this.$axios.$get('tipoinmueble');
         this.tipoInmuebleData = response;
-        console.log('tipoInmuebleData', this.tipoInmuebleData)
+        //console.log('tipoInmuebleData', this.tipoInmuebleData)
       } catch (err) {
         console.log(err);
       }
@@ -481,7 +504,7 @@ export default {
       try {
         const response = await this.$axios.$get('estatusinmueble');
         this.estatusInmuebleData = response;
-        console.log('estatusInmuebleData', this.estatusInmuebleData)
+        //console.log('estatusInmuebleData', this.estatusInmuebleData)
       } catch (err) {
         console.log(err);
       }
@@ -490,7 +513,7 @@ export default {
       try {
         const response = await this.$axios.$get('ambito');
         this.ambitoData = response;
-        console.log('ambitoData', this.ambitoData)
+        //console.log('ambitoData', this.ambitoData)
       } catch (err) {
         console.log(err);
       }
@@ -499,7 +522,7 @@ export default {
       try {
         const response = await this.$axios.$get('nivelinmueble');
         this.nivelInmuebleData = response;
-        console.log('nivelInmuebleData', this.nivelInmuebleData)
+        //console.log('nivelInmuebleData', this.nivelInmuebleData)
       } catch (err) {
         console.log(err);
       }
@@ -508,7 +531,7 @@ export default {
       try {
         const response = await this.$axios.$get('unidadinmueble');
         this.unidadInmuebleData = response;
-        console.log('unidadInmuebleData', this.unidadInmuebleData)
+        //console.log('unidadInmuebleData', this.unidadInmuebleData)
       } catch (err) {
         console.log(err);
       }
@@ -561,8 +584,18 @@ export default {
       this.inmuebleData.numero_piso ? formData.append('numero_piso', this.inmuebleData.numero_piso) : '';
       this.inmuebleData.telefono ? formData.append('telefono', this.inmuebleData.telefono) : '';
       this.inmuebleData.zona ? formData.append('zona', this.inmuebleData.zona) : '';
-      this.inmuebleData.categorizacion ? formData.append('categorizacion', this.inmuebleData.categorizacion) : '';
+      
+      //console.log('this.inmuebleData.comunidad',this.inmuebleData.comunidad)
+      //console.log('this.dataComunidad',this.dataComunidad)
 
+      const Codigo_Categorizacion=this.dataComunidad.find(item => item.id == this.inmuebleData.comunidad).categoria ;
+      this.inmuebleData.categorizacion=this.dataCategorizacion.find(item => item.codigo == Codigo_Categorizacion).id
+
+      //console.log('Codigo_Categorizacion',Codigo_Categorizacion)
+      //console.log('this.inmuebleData.categorizacion',this.inmuebleData.categorizacion)
+
+      this.inmuebleData.categorizacion ? formData.append('categorizacion', this.inmuebleData.categorizacion) : '';
+      this.inmuebleData.comunidad ? formData.append('comunidad', this.inmuebleData.comunidad) : '';
       this.inmuebleData.direccion ? formData.append('direccion', this.inmuebleData.direccion) : '';
       this.inmuebleData.referencia ? formData.append('referencia', this.inmuebleData.referencia) : '';
       this.inmuebleData.observaciones ? formData.append('observaciones', this.inmuebleData.observaciones) : '';
@@ -570,7 +603,14 @@ export default {
 
       try {
         const res = await this.$axios.$patch(`inmueble/${this.$store.getters.getExpediente.id}/`, formData);
-          console.log('res.data', res)
+          this.inmuebleData.nombre_urbanizacion=res.nombre_urbanizacion
+          this.inmuebleData.nombre_calle=res.nombre_calle
+          this.inmuebleData.nombre_avenida=res.nombre_avenida
+          this.inmuebleData.nombre_conjunto_residencial=res.nombre_conjunto_residencial
+          this.inmuebleData.nombre_edificio=res.nombre_edificio
+          this.inmuebleData.nombre_torre=res.nombre_torre
+          //console.log('res.data', typeof res,res)
+          //console.log('inmuebleData antes', typeof this.inmuebleData, this.inmuebleData)
           this.$store.dispatch('storeExpediente', res)
           this.btnGuardarInmuble = false;
           this.dialog_confirmar = false;
@@ -579,6 +619,7 @@ export default {
           this.dialogWait = false
           this.disableBotonGuardar = false;
           this.disableBotonImprimir = false;
+
       } catch (err) {
         console.error(err)
           this.btnGuardarInmuble = false;
@@ -607,7 +648,7 @@ export default {
       const encodedData = encodeURIComponent(dataString);
 
       const url = `${this.$axios.defaults.baseURL}CertificaFicha/?data=${encodedData}`;
-      console.log('url',url)
+      //console.log('url',url)
       const qrCodeDataURL = await QRCode.toDataURL(url);
 
       // Agrega el código QR al PDF
@@ -617,12 +658,14 @@ export default {
       const img1 = new Image();
       const img2 = new Image();
       const img3 = new Image();
-      var ruta1 = this.CorrelativoData[0].Logo1;
+      //var ruta1 = "http://localhost:8000/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png" // this.CorrelativoData[0].Logo1;
+      var ruta1 = this.CorrelativoData[0].Logo1; 
+      console.log('ruta1',ruta1)
       if (ruta1.includes("catastro_back")) {
         // Concatenar "/catastro_back"
         ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
       }
-      var ruta2 = this.CorrelativoData[0].Logo2;
+      var ruta2 = "http://localhost:8000/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png" //this.CorrelativoData[0].Logo2;
       if (ruta2.includes("catastro_back")) {
         // Concatenar "/catastro_back"
         ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
@@ -634,12 +677,13 @@ export default {
       };
       //----------------------------------------------------- MESURA
       var ruta3 = this.dataUbicacionInmueble.imagan_plano_mesura;
+      console.log('ruta3',ruta3)
 
       if (ruta3 !=null&& ruta3 !='null') {
-        if (ruta3.includes("catastro_back")) {
+      //  if (ruta3.includes("catastro_back")) {
           // Concatenar "/catastro_back"
-          ruta3 = ruta3.replace("catastro_back", "catastro_back/catastro_back");
-        }
+      //    ruta3 = ruta3.replace("catastro_back", "catastro_back/catastro_back");
+      //  }
         img3.src = ruta3;
       }
       let widthImagen = 0
@@ -820,6 +864,13 @@ export default {
         });
       }
 
+
+
+
+
+
+
+
       startY = startY + 15
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
@@ -847,7 +898,7 @@ export default {
         body: data,
       });
       startY = startY + 12
-      columns = ["Conj. Residencial", "Edificio"];
+      columns = ["Conj. Residencial/Centro Comercial", "Edificio"];
       data = [[this.inmuebleData.nombre_conjunto_residencial,
       this.inmuebleData.nombre_edificio]];
       pdf.autoTable({
@@ -1247,15 +1298,15 @@ export default {
       // Una vez que la imagen se ha cargado completamente, continúa con la lógica
        widthImagen = img3.width;
       heightImagen = img3.height;
-      console.log("Ancho original de la imagen:", widthImagen);
-      console.log("Alto original de la imagen:", heightImagen);
+      //console.log("Ancho original de la imagen:", widthImagen);
+      //console.log("Alto original de la imagen:", heightImagen);
 
 
       //widthImagen = img3.width;
       //heightImagen = img3.height;
 
-      console.log('widthImagen',widthImagen,img3.width)
-      console.log('heightImagen',heightImagen,img3.height) 
+      //console.log('widthImagen',widthImagen,img3.width)
+      //console.log('heightImagen',heightImagen,img3.height) 
 
 
       // Supongamos que quieres mostrar la imagen en un área de 50x50 en la página PDF
@@ -1274,7 +1325,7 @@ export default {
           widthImagenAjustada = widthImagen * (heightArea / heightImagen);
       }
       const x = (pdfWidth - widthImagenAjustada) / 2;
-      console.log('x',x,'pdfWidth',pdfWidth,'widthImagenAjustada',widthImagenAjustada)
+      //console.log('x',x,'pdfWidth',pdfWidth,'widthImagenAjustada',widthImagenAjustada)
 
       // Agrega la imagen ajustada al área especificada en el PDF
       pdf.addImage(img3, 'JPEG', x, startY, widthImagenAjustada, heightImagenAjustada); 

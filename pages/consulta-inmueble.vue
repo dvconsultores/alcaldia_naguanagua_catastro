@@ -301,6 +301,15 @@ export default {
             const response1 = await this.$axios.$get('inmueble/' + idInmueble)
             this.inmuebleData = [response1]
             this.dialogWait = false
+            if (this.inmuebleData[0].codigo_categorizacion == 'X' ) {
+                 this.$alert("cancel", { desc: "EL INMUEBLE TIENE COMUNIDAD INDEFINIDA. DEBE COLOCAR EN FICHA UNA COMUNIDAD!!!", hash: 'knsddcssdc', title: 'Advertencia' })
+             }
+             if (this.inmuebleData[0].codigo_categorizacion == null ) {
+                 this.$alert("cancel", { desc: "EL INMUEBLE NO TIENE COMUNIDAD!!!. DEBE COLOCAR EN FICHA UNA COMUNIDAD!!!", hash: 'knsddcssdc', title: 'Advertencia' })
+             }
+            console.log('COMUNIDAD',this.inmuebleData[0].comunidad)
+            console.log('CATEGORIZACION',this.inmuebleData[0].categorizacion)
+            console.log('inmuebleData',this.inmuebleData[0])
           }else{
             this.dialogWait = false
             this.$alert("cancel", { desc: "No se encontraron expedientes.", hash: 'knsddcssdc', title: 'Advertencia' })

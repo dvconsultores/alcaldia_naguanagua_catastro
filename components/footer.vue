@@ -1,7 +1,7 @@
 <template>
   <v-footer id="footer" class="no-padding">
     <span>
-      © Alcaldía Naguanagua, 2023. Versión 1.0.0
+      © Alcaldía Naguanagua, 2024. Versión 1.0.0
     </span>
   </v-footer>
 </template>
