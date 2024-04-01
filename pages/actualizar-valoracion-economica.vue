@@ -44,7 +44,7 @@
       <div class="actualizar-valoracion-economica-container">
         <div class="title-morado">
           <p class="actualizar-valoracion-economica-title">
-            Datos de la Construcción
+            Datos de la Construcción. TOTAL m2: {{ numeroFormateado(montoTotalPagado()) }}
           </p>
           <v-icon v-if="accesos.escribir" class="bold" color="#fff" x-large
             @click="dialog_crear = true">mdi-plus</v-icon>
@@ -318,6 +318,30 @@ export default {
   },
 
   methods: {
+    numeroFormateado(numero) {
+      // Convertir a número si es una cadena
+      const numeroComoNumero = typeof numero === 'string' ? parseFloat(numero) : numero;
+
+      // Verificar si 'numeroComoNumero' es un número válido
+      if (isNaN(numeroComoNumero)) {
+        return 'Error: No es un número válido';
+      }
+
+      // Formatear el número manualmente
+      const partes = numeroComoNumero.toFixed(2).toString().split('.');
+      partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return partes.join('.');
+    },
+    montoTotalPagado() {
+        var total = 0
+        console.log('total cxc', this.montoTotalCxC)
+        for (const div of this.dataValoracionConstruccion) {
+          if (div.area !== null) {
+            total += parseFloat(div.area)
+          }
+        }
+        return total
+    },
     permisos() {
       /********************************************************************************************************
         Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser

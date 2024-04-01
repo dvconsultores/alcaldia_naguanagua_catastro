@@ -665,7 +665,7 @@ export default {
         // Concatenar "/catastro_back"
         ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
       }
-      var ruta2 = "http://localhost:8000/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png" //this.CorrelativoData[0].Logo2;
+      var ruta2 = this.CorrelativoData[0].Logo2;
       if (ruta2.includes("catastro_back")) {
         // Concatenar "/catastro_back"
         ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
