@@ -121,7 +121,7 @@
                         <table>
                           <thead>
                             <tr>
-                              <th style="padding: 4px;"> Zona </th>
+                              <th style="padding: 4px;"> Categoría </th>
                               <th style="padding: 4px;"> Base cálculo Bs </th>
                               <th style="padding: 4px;"> Sub Total Bs </th>
                               <th style="padding: 4px;"> tBaseMultaRecargoInteres Bs </th>
