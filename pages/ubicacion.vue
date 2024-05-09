@@ -1,9 +1,9 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-ubicacion">
-      <div class="datos-ubicacion-container">
+    <section class="section1-ambito">
+      <div class="datos-ambito-container">
         <div class="title-morado">
-          <p class="datos-ubicacion-title">
+          <p class="datos-ambito-title">
             Ubicación
           </p>
 
@@ -310,4 +310,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/ubicacion.scss" lang="scss" />
+<style src="~/assets/styles/pages/ambito.scss" lang="scss" />

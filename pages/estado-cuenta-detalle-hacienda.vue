@@ -891,9 +891,9 @@ export default{
         this.Id=res.id
         console.log('IC_Cabecera',this.IC_Cabecera)
         console.log('idflujo',this.idflujo)
-        if (this.IC_Cabecera!=[] && this.idflujo=='4'){  // solo ejecuta si se genereo un calculo de impuesto de inmueble uranos (flujo=4)
-           this.createEstadoCuentaDetalleImpuestoInmueble()
-        }
+        //if (this.IC_Cabecera!=[] && this.idflujo=='4'){  // solo ejecuta si se genereo un calculo de impuesto de inmueble uranos (flujo=4)
+        //   this.createEstadoCuentaDetalleImpuestoInmueble()
+        //}
 
        
         this.IC_Cabecera=[]
@@ -1119,41 +1119,20 @@ export default{
       const data = this.divs.map((item) => [
       tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).tipo], 
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).descripcion,
-        item.monto_unidad_tributaria,
+        this.formatNumber(item.monto_unidad_tributaria),
         item.cantidad,
-        item.calculo,
+        this.formatNumber(item.calculo),
       ]);
 
       pdf.autoTable(columns, data, options);
-
-
-/*
-      pdf.autoTable({
-          head: [[ 'Descripción','Petro', 'Cantidad', 'Monto Bs' ]],
-          body: this.divs.map(item => [
-            this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).descripcion,
-            item.monto_unidad_tributaria,
-            item.cantidad,
-            item.calculo
-            
-          ]),
-          startY: startY + 2,
-          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
-          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-
-        });
-        }
-        */
         startY += 10 + this.divs.length * 7;
         startY=startY+10
-
         pdf.text('MONTO A CANCELAR (BS.):', 15, startY);
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(fontSizeTitle); 
-        pdf.text(this.montoTotal(), 55, startY);
+        pdf.text(this.formatNumber(this.montoTotal()), 55, startY);
         pdf.setFontSize(fontSizeHead); 
         pdf.setFont("helvetica", "normal");
-
         startY=startY+10
         pdf.text('Esta planilla tiene validez de '+this.$store.getters.getFlujo.vencimiento+' días. Se vence el día :'+this.formatearFecha(this.sumarDiasHabiles(fechaActual, +this.$store.getters.getFlujo.vencimiento)), 15, startY);
         startY=startY+10
@@ -1194,6 +1173,20 @@ export default{
       } catch (err) {
         console.error('Error al obtener el PDF:', err);
       }
+    },
+    formatNumber(input) {
+    // Convierte cadena a número si es necesario
+    const number = typeof input === 'string' ? parseFloat(input.replace(/,/g, '')) : input;
+
+    // Verifica si el número es válido
+    if (isNaN(number)) {
+        return 'Número inválido';
+    }
+
+    // Formatea el número con dos decimales y separadores de miles
+    const formattedNumber = number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    return formattedNumber; 
     },
   }
 }

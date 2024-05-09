@@ -195,9 +195,6 @@ export default {
 
   mounted(){
     this.redireccionarIdInmueble()
-    console.log('kdkdkdkd',this.$store.getters.getContribuyente)
-    this.getInmueble()
-    this.getIdInmueblePropietarios()
   },
 
 
@@ -206,6 +203,13 @@ export default {
       if(this.$store.getters.getExpediente === 'Sin Seleccionar'){
         this.$router.push('consulta-inmueble')
         this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
+      }
+      else
+      {
+      console.log('kdkdkdkd',this.$store.getters.getContribuyente)
+      this.getInmueble()
+      this.getIdInmueblePropietarios()
+
       }
     },
 

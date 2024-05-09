@@ -1,9 +1,9 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section2-sub-parcela">
-      <div class="datos-sub-parcela-container">
+    <section class="section1-ambito">
+      <div class="datos-ambito-container">
         <div class="title-morado">
-          <p class="datos-sub-parcela-title">
+          <p class="datos-ambito-title">
             Sub-Parcelas
           </p>
 
@@ -378,4 +378,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/sub-parcela.scss" lang="scss" />
+<style src="~/assets/styles/pages/ambito.scss" lang="scss" />

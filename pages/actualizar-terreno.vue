@@ -307,17 +307,7 @@ export default {
 
   created(){
     this.redireccionIdVacio()
-    this.getInmuebleTerreno()
-    this.getForma()
-    this.getUbicacion()
-    this.getTenencia()
-    this.getRegimen()
-    this.getAcceso()
-    this.getTopografia()
-    this.getUso()
-    this.getInmuebleTerrenoTopografia()
-    this.getInmuebleTerrenoAcceso()
-    this.getInmuebleTerrenoUso()
+
   },
 
   methods: {
@@ -326,7 +316,17 @@ export default {
         this.$router.push('consulta-inmueble')
         this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
       }else{
-        ''
+        this.getInmuebleTerreno()
+        this.getForma()
+        this.getUbicacion()
+        this.getTenencia()
+        this.getRegimen()
+        this.getAcceso()
+        this.getTopografia()
+        this.getUso()
+        this.getInmuebleTerrenoTopografia()
+        this.getInmuebleTerrenoAcceso()
+        this.getInmuebleTerrenoUso()
       }
     },
 

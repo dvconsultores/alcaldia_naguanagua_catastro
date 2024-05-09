@@ -982,9 +982,9 @@ export default{
       const data = this.divs.map((item) => [
       tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).tipo], 
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasa_multa_id).descripcion,
-        item.monto_unidad_tributaria,
+        this.formatNumber(item.monto_unidad_tributaria),
         item.cantidad,
-        item.calculo,
+        this.formatNumber(item.calculo),
       ]);
 
       pdf.autoTable(columns, data, options);
@@ -1013,7 +1013,7 @@ export default{
         pdf.text('MONTO A CANCELAR (BS.):', 15, startY);
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(fontSizeTitle); 
-        pdf.text(this.montoTotal(), 55, startY);
+        pdf.text(this.formatNumber(this.montoTotal()), 55, startY);
         pdf.setFontSize(fontSizeHead); 
         pdf.setFont("helvetica", "normal");
 
@@ -1064,6 +1064,17 @@ export default{
         } catch (err) {
           console.error('Error al obtener el PDF:', err);
         }
+    },
+    formatNumber(input) {
+    // Convierte cadena a número si es necesario
+    const number = typeof input === 'string' ? parseFloat(input.replace(/,/g, '')) : input;
+    // Verifica si el número es válido
+    if (isNaN(number)) {
+        return 'Número inválido';
+    }
+    // Formatea el número con dos decimales y separadores de miles
+    const formattedNumber = number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return formattedNumber; 
     },
   }
 }

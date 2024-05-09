@@ -246,13 +246,8 @@ export default {
     }
   },
 
-  mounted(){
-    this.getCorrelativo()
-    this.redireccionarIdInmueble()
-    console.log('kdkdkdkd',this.$store.getters.getContribuyente)
-    this.getTipoDesincorporacion()
-    this.getInmueble()
-    this.getIdInmueblePropietarios()
+  mounted(){ 
+    this.redireccionarIdInmueble() 
   },
 
 
@@ -269,6 +264,13 @@ export default {
       if(this.$store.getters.getExpediente === 'Sin Seleccionar'){
         this.$router.push('consulta-inmueble')
         this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
+      }
+      else{
+            this.getCorrelativo()
+            console.log('kdkdkdkd',this.$store.getters.getContribuyente)
+            this.getTipoDesincorporacion()
+            this.getInmueble()
+            this.getIdInmueblePropietarios()
       }
     },
     getInmueble() {

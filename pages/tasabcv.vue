@@ -54,8 +54,7 @@
                 <v-container>
                   <v-row class="center">
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="defaultItem.monto" label="TasaBcv" class="input-dialog"
-                        ></v-text-field>
+                      <v-text-field v-model="defaultItem.monto" label="TasaBcv" class="input-dialog"></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -79,7 +78,8 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table"></v-text-field>
 
-          <v-data-table :headers="headers" dense :items="TasaBcvData" :loading="loading"  :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table :headers="headers" dense :items="TasaBcvData" :loading="loading" :items-per-page="10"
+            :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
@@ -128,7 +128,7 @@ export default {
       dialogDelete: false,
       loading: true,
       headers: [
-        { text: 'TasaBcv', align: 'center', value: 'monto'},
+        { text: 'TasaBcv', align: 'center', value: 'monto' },
         { text: 'Fecha', value: 'fecha', align: 'center' },
         { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
@@ -164,20 +164,20 @@ export default {
       const longitud = this.$options.name.length;
       this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
       // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
-      console.log('permiso: 1 si , 0 no:',this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
-      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) { 
-        console.log('leer:',(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
-        this.accesos=(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
-      }else{
+      console.log('permiso: 1 si , 0 no:', this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
+        console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
+      } else {
         this.$router.push('index')
-        this.$alert("cancel", {desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title:'Error'})
+        this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
       }
     },
     getTasaBcv() {
       this.$axios.$get('tasabcv').then(response => {
         this.TasaBcvData = response
         this.loading = false
-        console.log('this.TasaBcvData',this.TasaBcvData)
+        console.log('this.TasaBcvData', this.TasaBcvData)
       }).catch(err => {
         console.log(err)
       })

@@ -202,6 +202,7 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      montoBCV:0,
       search: '',
       correlativoData: [],
       bcvData: [],
@@ -210,11 +211,11 @@ export default {
       estadoCuentasData: [],
       tasaMultaData: [],
       headers: [
-        { text: '#Nro', align: 'center', value: 'numero', },
-        { text: 'Tipo de Flujo', value: 'tipoflujo.descripcion', align: 'center' },
-        { text: 'Contribuyente', value: 'propietario.nombre', align: 'center' },
-        { text: 'Dias', value: 'tipoflujo.vencimiento', align: 'center' },
-        { text: 'Fecha', value: 'fecha', align: 'center' },
+        { text: '# Estado de Cuenta', align: 'center', value: 'numero', },
+        { text: 'Tipo de Flujo', value: 'tipoflujo_descripcion', align: 'center' },
+        { text: 'Contribuyente', value: 'propietario_nombre', align: 'center' },
+        { text: 'Dias', value: 'tipoflujo_vencimiento', align: 'center' },
+        { text: 'Fecha', value: 'fechaformato', align: 'center' },
         { text: 'Total', value: 'monto_total', align: 'center' },
         { text: '', value: 'actions', sortable: false, align: 'center' },
         { text: '', value: 'actions2', sortable: false, align: 'center' },
@@ -319,9 +320,9 @@ export default {
     async createLiquidacion() {
       const data = {
         estadocuenta: this.selectedItem.id,
-        inmueble: this.selectedItem.inmueble == null ? null : this.selectedItem.inmueble.id,
-        flujo: this.selectedItem.tipoflujo.id,
-        propietario: this.selectedItem.propietario.id,
+        inmueble: this.selectedItem.inmueble == null ? null : this.selectedItem.inmueble,
+        flujo: this.selectedItem.tipoflujo,
+        propietario: this.selectedItem.propietario,
         observacion: this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '',
         detalle: this.divs,
         monto_total: this.montoTotal()
@@ -356,7 +357,7 @@ export default {
 
     async getBCV() {
       try {
-        const response = await this.$axios.$get('unidadtributaria/')
+        const response = await this.$axios.$get('tasabcv/')
           this.bcvData = response
           this.montoBCV = this.bcvData[0].monto
         } catch (err) {
@@ -487,12 +488,12 @@ export default {
       startY = startY + 5
       pdf.text('DIRECCIÓN: ', 15, startY);
       pdf.setFont("helvetica", "bold");
-      pdf.text(JSON.parse(JSON.stringify(this.selectedItem.propietario.direccion)), 55, startY);
+      pdf.text(JSON.parse(JSON.stringify(this.selectedItem.propietario_direccion)), 55, startY);
       pdf.setFont("helvetica", "normal");
       startY = startY + 5
       pdf.text('TELÉFONO:', 15, startY);
       pdf.setFont("helvetica", "bold");
-      pdf.text(JSON.parse(JSON.stringify(this.selectedItem.propietario.telefono_principal)), 55, startY);
+      pdf.text(JSON.parse(JSON.stringify(this.selectedItem.propietario_telefono_principal)), 55, startY);
       pdf.setFont("helvetica", "normal");
       startY = startY + 5
       pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
@@ -515,7 +516,7 @@ export default {
       startY = startY + 10
       pdf.text('SERVICIO O TRÁMITE:', 15, startY);
       pdf.setFont("helvetica", "bold");
-      pdf.text(this.selectedItem.tipoflujo.descripcion, 55, startY);
+      pdf.text(this.selectedItem.tipoflujo_descripcion, 55, startY);
       pdf.setFont("helvetica", "normal");
       startY = startY + 5
 
@@ -539,9 +540,9 @@ export default {
       const data = this.divs.map((item) => [
         tipoMapeo[this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).tipo],
         this.tasaMultaData.find((TasaMulta) => TasaMulta.id === item.tasamulta).descripcion,
-        item.monto_unidad_tributaria,
+        this.formatNumber(item.monto_unidad_tributaria),
         item.cantidad,
-        item.monto_tasa,
+        this.formatNumber(item.monto_tasa),
       ]);
 
       pdf.autoTable(columns, data, options);
@@ -552,7 +553,7 @@ export default {
       pdf.text('MONTO A CANCELAR (BS.):', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(fontSizeTitle);
-      pdf.text(this.montoTotal(), 55, startY);
+      pdf.text(this.formatNumber(this.montoTotal()), 55, startY);
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "normal");
 
@@ -615,11 +616,11 @@ export default {
         const response = await this.$axios.$get(`estadocuenta/${item.id}`)
         this.idEstadoCuenta = response
         console.log('this.idEstadoCuenta', this.idEstadoCuenta)
-        console.log('this.idEstadoCuenta.tipoflujo.vencimiento', this.idEstadoCuenta.tipoflujo.vencimiento)
+        console.log('this.idEstadoCuenta.tipoflujo_vencimiento', this.idEstadoCuenta.tipoflujo_vencimiento)
         console.log('this.idEstadoCuenta.fecha', this.idEstadoCuenta.fecha)
-        console.log((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo.vencimiento)) >= (fechaActual),
-          (this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo.vencimiento)), (fechaActual))
-        if ((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo.vencimiento)) >= (fechaActual)) {
+        console.log((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)) >= (fechaActual),
+          (this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)), (fechaActual))
+        if ((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)) >= (fechaActual)) {
           try {
             const response2 = await this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${item.id}`)
             this.divs = response2
@@ -641,16 +642,16 @@ export default {
       this.dialogWait=true
       this.selectedItem = item
       console.log('this.selectedItem ', this.selectedItem)
-      this.nombrecontribuyente = item.propietario.nombre
-      this.nacionalidadcontribuyente = item.propietario.nacionalidad
-      this.numero_documento = item.propietario.numero_documento
+      this.nombrecontribuyente = item.propietario_nombre
+      this.nacionalidadcontribuyente = item.propietario_nacionalidad
+      this.numero_documento = item.propietario_numero_documento
       const fechaActual = new Date();
       fechaActual.setHours(0, 0, 0, 0); // Establece la hora en 00:00:00
       try {
         
         const response = await this.$axios.$get(`estadocuenta/${item.id}`)
         this.idEstadoCuenta = response
-        if ((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo.vencimiento)) >= (fechaActual)) {
+        if ((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)) >= (fechaActual)) {
           try {
             const response2 = await this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${item.id}`)
             this.divs = response2
@@ -677,6 +678,17 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    formatNumber(input) {
+    // Convierte cadena a número si es necesario
+    const number = typeof input === 'string' ? parseFloat(input.replace(/,/g, '')) : input;
+    // Verifica si el número es válido
+    if (isNaN(number)) {
+        return 'Número inválido';
+    }
+    // Formatea el número con dos decimales y separadores de miles
+    const formattedNumber = number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return formattedNumber; 
     },
   }
 

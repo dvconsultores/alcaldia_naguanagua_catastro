@@ -366,20 +366,7 @@ export default {
 
   created(){
     this.redireccionIdVacio()
-    this.getInmuebleConstruccion()
-    this.getTipoPared()
-    this.getCubierta()
-    this.getTecho()
-    this.getTipoInmueble()
-    this.getUsoConstruccion()
-    this.getTenencia()
-    this.getRegimen()
-    this.getAcabadoPared()
-    this.getConservacion()
-    this.getInmuebleConstruccionSoporte()
-    this.getInmuebleConstruccionTecho()
-    this.getInmuebleConstruccionCubierta()
-    this.getSoporte()
+
   },
 
   methods: {
@@ -388,7 +375,20 @@ export default {
         this.$router.push('consulta-inmueble')
         this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
       }else{
-        ''
+        this.getInmuebleConstruccion()
+        this.getTipoPared()
+        this.getCubierta()
+        this.getTecho()
+        this.getTipoInmueble()
+        this.getUsoConstruccion()
+        this.getTenencia()
+        this.getRegimen()
+        this.getAcabadoPared()
+        this.getConservacion()
+        this.getInmuebleConstruccionSoporte()
+        this.getInmuebleConstruccionTecho()
+        this.getInmuebleConstruccionCubierta()
+        this.getSoporte()
       }
     },
 

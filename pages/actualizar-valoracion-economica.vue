@@ -383,8 +383,6 @@ export default {
           this.dialogWait = false;
           console.log(error);
         }
-        //this.getInmuebleValoracionTerreno()
-        //this.getInmuebleValoracionConstruccion()
         this.getTipologia()
         this.getTipo()
         this.getFinesFiscales()

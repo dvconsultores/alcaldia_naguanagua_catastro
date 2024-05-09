@@ -18,7 +18,7 @@ const _7490ced3 = () => interopDefault(import('../pages/actualizar-valoracion-ec
 const _11987b6a = () => interopDefault(import('../pages/actualizar-valoracion-economica-2024.vue' /* webpackChunkName: "pages/actualizar-valoracion-economica-2024" */))
 const _0cdc7f6e = () => interopDefault(import('../pages/ambito.vue' /* webpackChunkName: "pages/ambito" */))
 const _3d728fbd = () => interopDefault(import('../pages/avenida.vue' /* webpackChunkName: "pages/avenida" */))
-const _20f1ec6c = () => interopDefault(import('../pages/bcv.vue' /* webpackChunkName: "pages/bcv" */))
+const _8317eb9c = () => interopDefault(import('../pages/bcv_old.vue' /* webpackChunkName: "pages/bcv_old" */))
 const _462c72fc = () => interopDefault(import('../pages/calle.vue' /* webpackChunkName: "pages/calle" */))
 const _9e9b9cb2 = () => interopDefault(import('../pages/cedula-catastral.vue' /* webpackChunkName: "pages/cedula-catastral" */))
 const _ee8fe0e6 = () => interopDefault(import('../pages/comunidad.vue' /* webpackChunkName: "pages/comunidad" */))
@@ -54,6 +54,7 @@ const _a32b6a42 = () => interopDefault(import('../pages/liquidacion.vue' /* webp
 const _16cbbcee = () => interopDefault(import('../pages/liquidacion-multiple.vue' /* webpackChunkName: "pages/liquidacion-multiple" */))
 const _1353825a = () => interopDefault(import('../pages/lista-estadocuenta.vue' /* webpackChunkName: "pages/lista-estadocuenta" */))
 const _87586256 = () => interopDefault(import('../pages/lista-liquidacion.vue' /* webpackChunkName: "pages/lista-liquidacion" */))
+const _e5d2805a = () => interopDefault(import('../pages/lista-notacredito.vue' /* webpackChunkName: "pages/lista-notacredito" */))
 const _40a423be = () => interopDefault(import('../pages/lista-pago.vue' /* webpackChunkName: "pages/lista-pago" */))
 const _1dc5ef9e = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _2124f254 = () => interopDefault(import('../pages/maestro-patente.vue' /* webpackChunkName: "pages/maestro-patente" */))
@@ -66,6 +67,7 @@ const _19efbef2 = () => interopDefault(import('../pages/patente.vue' /* webpackC
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _5a615ad2 = () => interopDefault(import('../pages/recaudacion-multiple.vue' /* webpackChunkName: "pages/recaudacion-multiple" */))
+const _0128289a = () => interopDefault(import('../pages/recaudacion-multiple copy.vue' /* webpackChunkName: "pages/recaudacion-multiple copy" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
 const _d47f4554 = () => interopDefault(import('../pages/reporte-corridasbancarias.vue' /* webpackChunkName: "pages/reporte-corridasbancarias" */))
 const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
@@ -93,6 +95,7 @@ const _34e7ea4e = () => interopDefault(import('../pages/unidad-inmueble.vue' /* 
 const _2b3b74aa = () => interopDefault(import('../pages/unidad-tributaria.vue' /* webpackChunkName: "pages/unidad-tributaria" */))
 const _1a165a1b = () => interopDefault(import('../pages/upload-archivo.vue' /* webpackChunkName: "pages/upload-archivo" */))
 const _065529c9 = () => interopDefault(import('../pages/upload-corrida.vue' /* webpackChunkName: "pages/upload-corrida" */))
+const _01b441c8 = () => interopDefault(import('../pages/upload-corrida copy.vue' /* webpackChunkName: "pages/upload-corrida copy" */))
 const _24993a24 = () => interopDefault(import('../pages/urbanizacion-barrio.vue' /* webpackChunkName: "pages/urbanizacion-barrio" */))
 const _10ef55f4 = () => interopDefault(import('../pages/uso.vue' /* webpackChunkName: "pages/uso" */))
 const _2e486083 = () => interopDefault(import('../pages/zona.vue' /* webpackChunkName: "pages/zona" */))
@@ -167,9 +170,9 @@ export const routerOptions = {
     component: _3d728fbd,
     name: "avenida___en"
   }, {
-    path: "/bcv",
-    component: _20f1ec6c,
-    name: "bcv___en"
+    path: "/bcv_old",
+    component: _8317eb9c,
+    name: "bcv_old___en"
   }, {
     path: "/calle",
     component: _462c72fc,
@@ -311,6 +314,10 @@ export const routerOptions = {
     component: _87586256,
     name: "lista-liquidacion___en"
   }, {
+    path: "/lista-notacredito",
+    component: _e5d2805a,
+    name: "lista-notacredito___en"
+  }, {
     path: "/lista-pago",
     component: _40a423be,
     name: "lista-pago___en"
@@ -358,6 +365,10 @@ export const routerOptions = {
     path: "/recaudacion-multiple",
     component: _5a615ad2,
     name: "recaudacion-multiple___en"
+  }, {
+    path: "/recaudacion-multiple%20copy",
+    component: _0128289a,
+    name: "recaudacion-multiple copy___en"
   }, {
     path: "/regimen",
     component: _422c3f54,
@@ -467,6 +478,10 @@ export const routerOptions = {
     component: _065529c9,
     name: "upload-corrida___en"
   }, {
+    path: "/upload-corrida%20copy",
+    component: _01b441c8,
+    name: "upload-corrida copy___en"
+  }, {
     path: "/urbanizacion-barrio",
     component: _24993a24,
     name: "urbanizacion-barrio___en"
@@ -535,9 +550,9 @@ export const routerOptions = {
     component: _3d728fbd,
     name: "avenida___es"
   }, {
-    path: "/es/bcv",
-    component: _20f1ec6c,
-    name: "bcv___es"
+    path: "/es/bcv_old",
+    component: _8317eb9c,
+    name: "bcv_old___es"
   }, {
     path: "/es/calle",
     component: _462c72fc,
@@ -675,6 +690,10 @@ export const routerOptions = {
     component: _87586256,
     name: "lista-liquidacion___es"
   }, {
+    path: "/es/lista-notacredito",
+    component: _e5d2805a,
+    name: "lista-notacredito___es"
+  }, {
     path: "/es/lista-pago",
     component: _40a423be,
     name: "lista-pago___es"
@@ -722,6 +741,10 @@ export const routerOptions = {
     path: "/es/recaudacion-multiple",
     component: _5a615ad2,
     name: "recaudacion-multiple___es"
+  }, {
+    path: "/es/recaudacion-multiple%20copy",
+    component: _0128289a,
+    name: "recaudacion-multiple copy___es"
   }, {
     path: "/es/regimen",
     component: _422c3f54,
@@ -830,6 +853,10 @@ export const routerOptions = {
     path: "/es/upload-corrida",
     component: _065529c9,
     name: "upload-corrida___es"
+  }, {
+    path: "/es/upload-corrida%20copy",
+    component: _01b441c8,
+    name: "upload-corrida copy___es"
   }, {
     path: "/es/urbanizacion-barrio",
     component: _24993a24,

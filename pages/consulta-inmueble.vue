@@ -250,7 +250,6 @@ export default {
     }
   },
 
-  //mounted(){     this.getInmueble()   },
 
   methods: {
     openSelecciona(item) {

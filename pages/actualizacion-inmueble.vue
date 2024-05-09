@@ -967,7 +967,7 @@ export default {
       startY = startY + 7
 
 
-      let longText = "El suscrito Director(a) de la dirección de catastro de la Alcaldía Bolivariana de Naguanagua del Estado Carabobo, hace constar que el (los) ciudadano(s) " + concatenacionNombres
+      let longText = "El suscrito Director(a) de la dirección de catastro de la Alcaldía Bolivariana de Naguanagua del Estado Carabobo, hace constar que el (los) ciudadano(s) " + concatenacionNombresPropietarios
       longText = longText + " ha(n) suminstrado para su inscripción o actualización los recaudos correspondientes a un inmueble"
       longText = longText + " de su propiedad debidamente identificado en este documento. Quedando a salvo derecho de terceras personas."
 

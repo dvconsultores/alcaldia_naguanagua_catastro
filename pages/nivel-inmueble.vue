@@ -1,9 +1,9 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-nivel-inmueble">
-      <div class="datos-nivel-inmueble-container">
+    <section class="section1-ambito">
+      <div class="datos-ambito-container">
         <div class="title-morado">
-          <p class="datos-nivel-inmueble-title">
+          <p class="datos-ambito-title">
             Nivel de Inmueble
           </p>
 
@@ -304,4 +304,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/nivel-inmueble.scss" lang="scss" />
+<style src="~/assets/styles/pages/ambito.scss" lang="scss" />

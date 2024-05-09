@@ -1,22 +1,15 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section2-manzana">
-      <div class="datos-manzana-container">
+    <section class="section1-ambito">
+      <div class="datos-ambito-container">
         <div class="title-morado">
-          <p class="datos-manzana-title">
+          <p class="datos-ambito-title">
             Manzanas
           </p>
 
-          <v-dialog
-            v-model="dialog"
-            max-width="1600px"
-          >
+          <v-dialog v-model="dialog" max-width="1600px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                class="btn-add-tabla"
-                v-bind="attrs"
-                v-on="on"
-              >
+              <v-btn v-if="accesos.escribir" class="btn-add-tabla" v-bind="attrs" v-on="on">
                 +
               </v-btn>
             </template>
@@ -31,63 +24,38 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.ambito"
-                        label="Ambito"
-                        class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
+                      <v-autocomplete v-model="nuevoRegistro.ambito" label="Ambito" class="input-dialog"
+                        :items="ambitoData" item-text="descripcion" item-value="id"></v-autocomplete>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="nuevoRegistro.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
+                      <v-autocomplete v-model="nuevoRegistro.sector" label="Sector" class="input-dialog"
+                        :items="sectoresData" item-text="descripcion" item-value="id"></v-autocomplete>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="nuevoRegistro.codigo"
-                        label="Código Manzana"
-                        class="input-dialog"
-                      ></v-text-field>
+                      <v-text-field v-model="nuevoRegistro.codigo" label="Código Manzana"
+                        class="input-dialog"></v-text-field>
                     </v-col>
 
-                    
+
                   </v-row>
                 </v-container>
               </v-card-text>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="dialog = false"
-                >
+                <v-btn class="btn dialog-btn" @click="dialog = false">
                   Cancelar
                 </v-btn>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="createManzana()"
-                  style="background-color:#ED057E!important;"
-                >
+                <v-btn class="btn dialog-btn" @click="createManzana()" style="background-color:#ED057E!important;">
                   Guardar
                 </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
 
-          <v-dialog
-            v-model="dialog_editar"
-            max-width="1600px"
-          >
+          <v-dialog v-model="dialog_editar" max-width="1600px">
             <v-card id="dialog-editar-crear">
               <v-card-title>
                 <span class="title">Editar Manzana</span>
@@ -99,50 +67,28 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.ambito"
-                        label="Ambito"
-                        class="input-dialog"
-                        :items="ambitoData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
+                      <v-autocomplete v-model="defaultItem.ambito" label="Ambito" class="input-dialog"
+                        :items="ambitoData" item-text="descripcion" item-value="id"></v-autocomplete>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-autocomplete
-                        v-model="defaultItem.sector"
-                        label="Sector"
-                        class="input-dialog"
-                        :items="sectoresData"
-                        item-text="descripcion"
-                        item-value="id"
-                      ></v-autocomplete>
+                      <v-autocomplete v-model="defaultItem.sector" label="Sector" class="input-dialog"
+                        :items="sectoresData" item-text="descripcion" item-value="id"></v-autocomplete>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="defaultItem.codigo"
-                        label="Descripción"
-                        class="input-dialog"
-                      ></v-text-field>
+                      <v-text-field v-model="defaultItem.codigo" label="Descripción"
+                        class="input-dialog"></v-text-field>
                     </v-col>
-                   
+
                   </v-row>
                 </v-container>
               </v-card-text>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="dialog_editar = false"
-                >
+                <v-btn class="btn dialog-btn" @click="dialog_editar = false">
                   Cancelar
                 </v-btn>
-                <v-btn
-                  class="btn dialog-btn"
-                  @click="saveData()"
-                  style="background-color:#ED057E!important;"
-                >
+                <v-btn class="btn dialog-btn" @click="saveData()" style="background-color:#ED057E!important;">
                   Guardar
                 </v-btn>
               </v-card-actions>
@@ -151,31 +97,14 @@
         </div>
 
         <div class="data-table-container">
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Buscar"
-            hide-details
-            class="input-data-table"
-          ></v-text-field>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
+            class="input-data-table"></v-text-field>
 
-          <v-data-table
-            :headers="headers"
-            :items="sectoresManzana"
-            :items-per-page="10"
-            :search="search"
-            :footer-props="{
-              itemsPerPageText: 'Items por página',
-            }"
-            sort-by="codigo"
-            class="mytabla"
-            mobile-breakpoint="840"
-          >
+          <v-data-table :headers="headers" :items="sectoresManzana" :items-per-page="10" :search="search" :footer-props="{
+            itemsPerPageText: 'Items por página',
+          }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
-              <v-toolbar
-                flat
-                class="toolbar-tabla"
-              >                
+              <v-toolbar flat class="toolbar-tabla">
                 <v-dialog v-model="dialogDelete" max-width="500px">
                   <v-card id="dialog-eliminar-card">
                     <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
@@ -183,7 +112,8 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false"
+                        style="background-color:#ED057E!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -191,102 +121,16 @@
               </v-toolbar>
             </template>
             <template #[`item.actions`]="{ item }">
-              <v-icon
-                color="#810880"
-                big
-                @click="editItem(item)"
-              >
+              <v-icon v-if="accesos.actualizar" color="#810880" big @click="editItem(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon
-                color="#810880"
-                big
-                @click="openDelete(item)"
-              >
+              <v-icon v-if="accesos.borrar" color="#810880" big @click="openDelete(item)">
                 mdi-delete
               </v-icon>
             </template>
           </v-data-table>
         </div>
 
-
-
-        <!-- <div v-for="(item,index) in datosManzanas" :key="index" class="manzana-inputs-container">
-          <v-text-field
-          v-model="item.ambito"
-          class="small-input mobile-inputs"
-          label="Ambito"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.sector"
-          class="small-input mobile-inputs"
-          label="Sector"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.codigo_manzana"
-          class="small-input mobile-inputs"
-          label="Codigo Manzana"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.area"
-          class="small-input mobile-inputs"
-          label="Area"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.perimetro"
-          class="small-input mobile-inputs"
-          label="Peimetro"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.via_norte"
-          class="small-input mobile-inputs"
-          label="Via Norte"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.via_sur"
-          class="small-input mobile-inputs"
-          label="Via Sur"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.via_este"
-          class="small-input mobile-inputs"
-          label="Via Este"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-text-field
-          v-model="item.via_oeste"
-          class="small-input mobile-inputs"
-          label="Via Oeste"
-          :disabled="editingIndex !== index"
-          ></v-text-field>
-
-          <v-btn class="btns-add-remove"  @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-
-          <v-btn v-if="editingIndex !== index" class="btns-add-remove" @click="editingIndex = index">
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-
-          <v-btn v-if="editingIndex === index" class="btns-add-remove" @click="saveChanges">
-            <v-icon>mdi-content-save</v-icon>
-          </v-btn>
-        </div> -->
       </div>
     </section>
   </div>
@@ -299,22 +143,22 @@ export default {
   name: "ManzanaPage",
   mixins: [computeds],
   data() {
-    return {  
+    return {
       search: '',
       dialog: false,
       dialog_editar: false,
       dialogDelete: false,
-      nuevoRegistro:{},
+      nuevoRegistro: {},
       headers: [
-        { text: 'Ambito', align: 'start', value: 'descripcion_ambito',},
-        { text: 'Sector', value: 'descripcion_sector', align:'center' },
-        { text: 'Código Manzana', value: 'codigo', align:'center' },
-        { text: '', value: 'actions', sortable: false, align:'center' },
+        { text: 'Ambito', align: 'start', value: 'descripcion_ambito', },
+        { text: 'Sector', value: 'descripcion_sector', align: 'center' },
+        { text: 'Código Manzana', value: 'codigo', align: 'center' },
+        { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
 
       sectoresManzana: [],
-      ambitoData:[],
-      sectoresData:[],
+      ambitoData: [],
+      sectoresData: [],
       dataCalle: [],
 
       defaultItem: {
@@ -323,6 +167,8 @@ export default {
         codigo: '',
 
       },
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
+      accesos: {},
     }
   },
   head() {
@@ -332,61 +178,78 @@ export default {
     }
   },
 
-  mounted(){
-    this.getDataSector(),
-    this.getDataAmbito(),
+  mounted() {
+    this.permisos()
+    this.getDataSector()
+    this.getDataAmbito()
     this.getDataManzana()
     this.getCalle()
   },
 
   methods: {
+    permisos() {
+      /********************************************************************************************************
+        Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser
+      ******************************************************************************************************* */
+      const longitud = this.$options.name.length;
+      this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
+      // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
+      console.log('permiso: 1 si , 0 no:', this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
+        console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
+      } else {
+        this.$router.push('index')
+        this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
+      }
+    },
     getCalle() {
       this.$axios.$get('calle').then(response => {
-          this.dataCalle = response
-        }).catch(err => {
-          console.log(err)
-        })
+        this.dataCalle = response
+      }).catch(err => {
+        console.log(err)
+      })
     },
 
     getDataAmbito() {
       this.$axios.$get('ambito').then(response => {
-          this.ambitoData = response
-        }).catch(err => {
-          console.log(err)
-        })
+        this.ambitoData = response
+      }).catch(err => {
+        console.log(err)
+      })
     },
 
     getDataSector() {
       this.$axios.$get('sector').then(response => {
-          this.sectoresData = response
-        }).catch(err => {
-          console.log(err)
-        })
+        this.sectoresData = response
+      }).catch(err => {
+        console.log(err)
+      })
     },
 
     getDataManzana() {
       this.$axios.$get('manzana').then(response => {
-          this.sectoresManzana = response
-        }).catch(err => {
-          console.log(err)
-        })
+        this.sectoresManzana = response
+      }).catch(err => {
+        console.log(err)
+      })
     },
 
-    createManzana(){
+    createManzana() {
       this.$axios.$post('manzana/', this.nuevoRegistro).then(res => {
         console.log(res.data)
         this.nuevoRegistro = {}
         this.sectoresManzana.push(res)
-        this.$alert("success", {desc: "Se ha creado una nueva mazana con éxito", hash: 'knsddcssdc', title:'Creación de Manzana'})
-        this.getDataManzana()        
+        this.$alert("success", { desc: "Se ha creado una nueva mazana con éxito", hash: 'knsddcssdc', title: 'Creación de Manzana' })
+        this.getDataManzana()
       }).catch(err => {
         console.log(err)
       })
 
       this.dialog = false
-    },  
+    },
 
-    editItem(item){
+    editItem(item) {
       console.log(item)
       this.dialog_editar = true
       this.defaultItem.id = item.id
@@ -396,34 +259,34 @@ export default {
 
     },
 
-    saveData(){
+    saveData() {
       const formData = new FormData()
       formData.append('codigo', this.defaultItem.codigo)
       formData.append('sector', this.defaultItem.sector)
 
 
-      this.$axios.$patch('manzana/'+ this.defaultItem.id + '/', formData).then((res) => {
+      this.$axios.$patch('manzana/' + this.defaultItem.id + '/', formData).then((res) => {
         console.log(res.data)
-        this.$alert("success", {desc: "Se ha editado una manzana con éxito", hash: 'knsddcssdc', title:'Edición de manzana'})
-        this.getDataManzana()          
+        this.$alert("success", { desc: "Se ha editado una manzana con éxito", hash: 'knsddcssdc', title: 'Edición de manzana' })
+        this.getDataManzana()
       }).catch((err) => {
         console.log(err)
       });
 
       this.dialog_editar = false
-    },  
+    },
 
-    openDelete(item){
+    openDelete(item) {
       this.defaultItem = item
       this.dialogDelete = true
     },
 
-    deleteItem(){
-      this.$axios.$delete('manzana/'+ this.defaultItem.id + '/').then((res) => {
+    deleteItem() {
+      this.$axios.$delete('manzana/' + this.defaultItem.id + '/').then((res) => {
         console.log(res.data)
         this.dialogDelete = false
-        this.$alert("success", {desc: "Se ha eliminado una manzana con éxito", hash: 'knsddcssdc', title:'Eliminación de Manzana'}) 
-        this.getDataManzana()        
+        this.$alert("success", { desc: "Se ha eliminado una manzana con éxito", hash: 'knsddcssdc', title: 'Eliminación de Manzana' })
+        this.getDataManzana()
       }).catch((err) => {
         console.log(err)
       });
@@ -432,4 +295,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/manzana.scss" lang="scss" />
+<style src="~/assets/styles/pages/ambito.scss" lang="scss" />

@@ -1,9 +1,9 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-forma">
-      <div class="datos-forma-container">
+    <section class="section1-ambito">
+      <div class="datos-ambito-container">
         <div class="title-morado">
-          <p class="datos-forma-title">
+          <p class="datos-ambito-title">
             Forma
           </p>
 
@@ -310,4 +310,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/forma.scss" lang="scss" />
+<style src="~/assets/styles/pages/ambito.scss" lang="scss" />

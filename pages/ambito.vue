@@ -86,7 +86,8 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table"></v-text-field>
 
-          <v-data-table :headers="headers" dense :items="ambitoData" :loading="loading"  :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table :headers="headers" dense :items="ambitoData" :loading="loading" :items-per-page="10"
+            :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
@@ -106,12 +107,11 @@
                 </v-dialog>
               </v-toolbar>
             </template>
-
             <template #[`item.actions`]="{ item }">
-              <v-icon color="#810880" big @click="editItem(item)">
+              <v-icon v-if="accesos.actualizar" color="#810880" big @click="editItem(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon color="#810880" big @click="openDelete(item)">
+              <v-icon v-if="accesos.borrar" color="#810880" big @click="openDelete(item)">
                 mdi-delete
               </v-icon>
             </template>
@@ -141,7 +141,6 @@ export default {
         { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
       ambitoData: [],
-      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       menu: [],
       menu_opciones: [],
       defaultItem: {
@@ -149,6 +148,7 @@ export default {
         descripcion: '',
         id: '',
       },
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       accesos: {},
     }
   },
@@ -172,20 +172,20 @@ export default {
       const longitud = this.$options.name.length;
       this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
       // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
-      console.log('permiso: 1 si , 0 no:',this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
-      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) { 
-        console.log('leer:',(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
-        this.accesos=(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
-      }else{
+      console.log('permiso: 1 si , 0 no:', this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
+        console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
+      } else {
         this.$router.push('index')
-        this.$alert("cancel", {desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title:'Error'})
+        this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
       }
     },
     getAmbito() {
       this.$axios.$get('ambito').then(response => {
         this.ambitoData = response
         this.loading = false
-        console.log('this.ambitoData',this.ambitoData)
+        console.log('this.ambitoData', this.ambitoData)
       }).catch(err => {
         console.log(err)
       })

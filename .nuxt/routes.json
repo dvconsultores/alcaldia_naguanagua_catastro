@@ -98,11 +98,11 @@
     "_name": "_3d728fbd"
   },
   {
-    "name": "bcv___en",
-    "path": "/bcv",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/bcv.vue",
-    "chunkName": "pages/bcv",
-    "_name": "_20f1ec6c"
+    "name": "bcv_old___en",
+    "path": "/bcv_old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/bcv_old.vue",
+    "chunkName": "pages/bcv_old",
+    "_name": "_8317eb9c"
   },
   {
     "name": "calle___en",
@@ -350,6 +350,13 @@
     "_name": "_87586256"
   },
   {
+    "name": "lista-notacredito___en",
+    "path": "/lista-notacredito",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-notacredito.vue",
+    "chunkName": "pages/lista-notacredito",
+    "_name": "_e5d2805a"
+  },
+  {
     "name": "lista-pago___en",
     "path": "/lista-pago",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-pago.vue",
@@ -432,6 +439,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple.vue",
     "chunkName": "pages/recaudacion-multiple",
     "_name": "_5a615ad2"
+  },
+  {
+    "name": "recaudacion-multiple copy___en",
+    "path": "/recaudacion-multiple%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple copy.vue",
+    "chunkName": "pages/recaudacion-multiple copy",
+    "_name": "_0128289a"
   },
   {
     "name": "regimen___en",
@@ -623,6 +637,13 @@
     "_name": "_065529c9"
   },
   {
+    "name": "upload-corrida copy___en",
+    "path": "/upload-corrida%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/upload-corrida copy.vue",
+    "chunkName": "pages/upload-corrida copy",
+    "_name": "_01b441c8"
+  },
+  {
     "name": "urbanizacion-barrio___en",
     "path": "/urbanizacion-barrio",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/urbanizacion-barrio.vue",
@@ -742,11 +763,11 @@
     "_name": "_3d728fbd"
   },
   {
-    "name": "bcv___es",
-    "path": "/es/bcv",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/bcv.vue",
-    "chunkName": "pages/bcv",
-    "_name": "_20f1ec6c"
+    "name": "bcv_old___es",
+    "path": "/es/bcv_old",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/bcv_old.vue",
+    "chunkName": "pages/bcv_old",
+    "_name": "_8317eb9c"
   },
   {
     "name": "calle___es",
@@ -987,6 +1008,13 @@
     "_name": "_87586256"
   },
   {
+    "name": "lista-notacredito___es",
+    "path": "/es/lista-notacredito",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-notacredito.vue",
+    "chunkName": "pages/lista-notacredito",
+    "_name": "_e5d2805a"
+  },
+  {
     "name": "lista-pago___es",
     "path": "/es/lista-pago",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-pago.vue",
@@ -1069,6 +1097,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple.vue",
     "chunkName": "pages/recaudacion-multiple",
     "_name": "_5a615ad2"
+  },
+  {
+    "name": "recaudacion-multiple copy___es",
+    "path": "/es/recaudacion-multiple%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple copy.vue",
+    "chunkName": "pages/recaudacion-multiple copy",
+    "_name": "_0128289a"
   },
   {
     "name": "regimen___es",
@@ -1258,6 +1293,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/upload-corrida.vue",
     "chunkName": "pages/upload-corrida",
     "_name": "_065529c9"
+  },
+  {
+    "name": "upload-corrida copy___es",
+    "path": "/es/upload-corrida%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/upload-corrida copy.vue",
+    "chunkName": "pages/upload-corrida copy",
+    "_name": "_01b441c8"
   },
   {
     "name": "urbanizacion-barrio___es",

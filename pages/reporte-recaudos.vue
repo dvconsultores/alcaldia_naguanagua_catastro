@@ -135,9 +135,11 @@
                   class="custom-date-picker"
                 ></v-date-picker>
               </v-menu>
-          <v-data-table :headers="headers" :items="filteredPropietarioData" :items-per-page="10" :search="search" :footer-props="{
+          <v-data-table :headers="headers" :items="filteredPropietarioData" :loading="loading" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
-          }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
+          }" sort-by="numero_recibo" class="mytabla" mobile-breakpoint="840">
+
+
             <template v-slot:top>
               <v-toolbar flat class="toolbar-tabla">
                 <v-dialog v-model="dialogDelete" max-width="500px">
@@ -180,6 +182,7 @@ export default {
   mixins: [computeds],
   data() {
     return {
+      loading: true,
       fechaFiltro: null, // Inicialmente no se selecciona ninguna fecha de filtro
       filteredPropietarioData: [], // Agrega esta propiedad
       search: '',
@@ -870,9 +873,22 @@ export default {
     filtrarPorFecha() {
     if (this.fechaFiltro) {
       const fechaSeleccionada = new Date(this.fechaFiltro);
+      const fechaSeleccionadaUTC = new Date(
+      fechaSeleccionada.getUTCFullYear(),
+      fechaSeleccionada.getUTCMonth(),
+      fechaSeleccionada.getUTCDate());
+
       this.filteredPropietarioData = this.propietarioData.filter((registro) => {
         const fechaRegistro = new Date(registro.fecha_recibo);
-        return fechaRegistro.toDateString() === fechaSeleccionada.toDateString();
+        const fechaRegistroUTC = new Date(
+        fechaRegistro.getUTCFullYear(),
+        fechaRegistro.getUTCMonth(),
+        fechaRegistro.getUTCDate()
+      );
+        return fechaRegistroUTC.toDateString() === fechaSeleccionadaUTC.toDateString();
+
+
+        //return fechaRegistro.toDateString() === fechaSeleccionada.toDateString();
       });
     } else {
       this.filteredPropietarioData = this.propietarioData;
@@ -884,6 +900,7 @@ export default {
     getContribuyente() {
       this.$axios.$get('pagoestadocuentadetalle').then(response => {
         this.propietarioData = response
+        this.loading = false
         console.log('this.propietarioData',this.propietarioData)
         this.originalData = response
       }).catch(err => {

@@ -461,10 +461,7 @@ export default {
 
   created(){
     this.redireccionIdVacio()
-    this.getDocumentoPropiedad()
-    this.getTipoDocumento()
-    this.getTipoEspecial()
-    this.getTipoTenencia()
+
 
   },
 
@@ -474,7 +471,10 @@ export default {
         this.$router.push('consulta-inmueble')
         this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
       }else{
-        ''
+        this.getDocumentoPropiedad()
+        this.getTipoDocumento()
+        this.getTipoEspecial()
+        this.getTipoTenencia()
       }
     },
 

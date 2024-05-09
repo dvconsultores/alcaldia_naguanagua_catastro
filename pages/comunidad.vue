@@ -154,7 +154,6 @@ export default {
         { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
       ComunidadData: [],
-      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       menu: [],
       menu_opciones: [],
       defaultItem: {
@@ -163,6 +162,7 @@ export default {
         id: '',
       },
       accesos: {},
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       itemsTipo: [
         { text: 'Categoría A', value: 'A' },
         { text: 'Categoría B', value: 'B' },

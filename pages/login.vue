@@ -6,49 +6,31 @@
         <section>
           <img src="~/assets/sources/logos/logo.svg" alt="logo" class="mb-16" style="--w: max(150px, 13em)">
 
-          <v-form
-            ref="formLogin" class="card divcol"
-            style="--bg: var(--primary); --w: 100%; gap: 1em"
-            @submit.prevent="login()"
-          >
+          <v-form ref="formLogin" class="card divcol" style="--bg: var(--primary); --w: 100%; gap: 1em"
+            @submit.prevent="login()">
             <div class="divcol" style="gap: .5em">
               <label for="username-login">USUARIO:</label>
-              <v-text-field
-                id="username-login"
-                v-model="formLogin.username"
-                :rules="rules.required"
-                placeholder="Ingresa tu usuario"
-                hide-details solo
-              ></v-text-field>
+              <v-text-field id="username-login" v-model="formLogin.username" :rules="rules.required"
+                placeholder="Ingresa tu usuario" hide-details solo></v-text-field>
             </div>
-            
+
             <div class="divcol" style="gap: .5em">
               <label for="password-login">CONTRASEÑA:</label>
-              <v-text-field
-                id="password-login"
-                v-model="formLogin.password"
-                type="password"
-                :rules="rules.required"
-                placeholder="Ingresa tu contraseña"
-                hide-details solo
-              ></v-text-field>
+              <v-text-field id="password-login" v-model="formLogin.password" type="password" :rules="rules.required"
+                placeholder="Ingresa tu contraseña" hide-details solo></v-text-field>
             </div>
-            
-            <v-btn
-              class="btn align" style="--bg: var(--active)"
-              @click="login()">
+
+            <v-btn class="btn align" style="--bg: var(--active)" @click="login()">
               Iniciar sesión
             </v-btn>
           </v-form>
 
           <aside class="divcol center tcenter" style="gap: inherit; --fs: max(15px, 1.25em)">
-            <a
-              style="--fw: 800"
-              @click="
-                $store.state.verificationEmail
-                ? windowStep = 3
-                : $router.push(localePath('/verification-email/:login:recover'))
-              ">
+            <a style="--fw: 800" @click="
+      $store.state.verificationEmail
+        ? windowStep = 3
+        : $router.push(localePath('/verification-email/:login:recover'))
+      ">
               ¿Olvidaste tu contraseña?
             </a>
 
@@ -69,90 +51,56 @@
           <v-form ref="formRegister" class="fill_w divcol" style="gap: 1em">
             <div class="divcol" style="gap: .5em">
               <label for="email-register">CORREO <sup>*</sup></label>
-              <v-text-field
-                id="email-register"
-                v-model="formRegister.email"
-                solo hide-details
-                :rules="rules.email"
-              ></v-text-field>
+              <v-text-field id="email-register" v-model="formRegister.email" solo hide-details
+                :rules="rules.email"></v-text-field>
             </div>
-            
+
             <div class="divcol" style="gap: .5em">
               <label class="relative" for="username-register">USUARIO <sup>*</sup></label>
-              <v-text-field
-                id="username-register"
-                v-model="formRegister.username"
-                solo hide-details
-                :rules="rules.required"
-              ></v-text-field>
+              <v-text-field id="username-register" v-model="formRegister.username" solo hide-details
+                :rules="rules.required"></v-text-field>
             </div>
-            
+
             <div class="divcol" style="gap: inherit">
               <div class="divcol" style="gap: .5em">
                 <label class="relative" for="password-register">CONTRASEÑA <sup>*</sup></label>
-                <v-text-field
-                  :id="formRegister.password ? '' : 'password-register'"
-                  v-model="formRegister.password"
-                  type="password"
-                  solo hide-details
-                  :rules="rules.required"
-                ></v-text-field>
+                <v-text-field :id="formRegister.password ? '' : 'password-register'" v-model="formRegister.password"
+                  type="password" solo hide-details :rules="rules.required"></v-text-field>
               </div>
-              
-              <v-text-field
-                :id="formRegister.password ? 'password-register' : ''"
-                v-model="passwordConfirmerRegister"
-                type="password"
-                solo hide-details
-                :rules="rules.confirmPasswordRegister"
-              ></v-text-field>
+
+              <v-text-field :id="formRegister.password ? 'password-register' : ''" v-model="passwordConfirmerRegister"
+                type="password" solo hide-details :rules="rules.confirmPasswordRegister"></v-text-field>
             </div>
-            
+
             <div class="divcol" style="gap: .5em">
               <label for="partner-register">PATROCINADOR</label>
-              <v-text-field
-                id="partner-register"
-                v-model="formRegister.partner"
-                solo hide-details
-              ></v-text-field>
+              <v-text-field id="partner-register" v-model="formRegister.partner" solo hide-details></v-text-field>
             </div>
-            
+
             <div class="divcol" style="gap: .5em">
               <label for="phone-register">TELÉFONO <sup>*</sup></label>
-              <v-text-field
-                id="phone-register"
-                v-model="formRegister.phone"
-                type="number"
-                hide-spin-buttons
-                solo hide-details
-                :rules="rules.required"
-              >
+              <v-text-field id="phone-register" v-model="formRegister.phone" type="number" hide-spin-buttons solo
+                hide-details :rules="rules.required">
                 <template #prepend>
-                  <v-select
-                    v-model="formRegister.phonePrefix"
-                    :items="countryPhoneList"
-                    item-text="number"
-                    solo hide-details
-                    menu-props="auto"
-                    append-icon="mdi-chevron-down"
-                  >
+                  <v-select v-model="formRegister.phonePrefix" :items="countryPhoneList" item-text="number" solo
+                    hide-details menu-props="auto" append-icon="mdi-chevron-down">
                     <template #selection="{ item }">
-                      <img :src="item.icon" alt="country flag" class="mr-2 aspect" style="--w: 22px; --of: cover; --br: 50%; --b: 1px solid #fff">
-                      <span style="--fw: 100">{{item.number}}</span>
+                      <img :src="item.icon" alt="country flag" class="mr-2 aspect"
+                        style="--w: 22px; --of: cover; --br: 50%; --b: 1px solid #fff">
+                      <span style="--fw: 100">{{ item.number }}</span>
                     </template>
-                    
+
                     <template #item="{ item }">
-                      <img :src="item.icon" alt="country flag" class="mr-2 aspect" style="--w: 22px; --of: cover; --br: 50%; --b: 1px solid #fff">
-                      <span class="not_clr" style="--fw: 100">{{item.number}}</span>
+                      <img :src="item.icon" alt="country flag" class="mr-2 aspect"
+                        style="--w: 22px; --of: cover; --br: 50%; --b: 1px solid #fff">
+                      <span class="not_clr" style="--fw: 100">{{ item.number }}</span>
                     </template>
                   </v-select>
                 </template>
               </v-text-field>
             </div>
-            
-            <v-btn
-              class="btn align mt-5" style="--bg: var(--primary)"
-              @click="register()">
+
+            <v-btn class="btn align mt-5" style="--bg: var(--primary)" @click="register()">
               REGISTER
             </v-btn>
           </v-form>
@@ -165,38 +113,22 @@
         <section>
           <img src="~/assets/sources/logos/logo.svg" alt="logo" class="mb-10" style="--w: max(190px, 17em)">
 
-          <v-form
-            ref="formRecover" class="card divcol"
-            style="--bg: var(--primary); --w: 100%; gap: 1em"
-            @submit.prevent="recover()"
-          >
+          <v-form ref="formRecover" class="card divcol" style="--bg: var(--primary); --w: 100%; gap: 1em"
+            @submit.prevent="recover()">
             <div class="divcol" style="gap: .5em">
               <label class="relative" for="password-recover">NUEVA CONTRASEÑA:</label>
-              <v-text-field
-                id="password-recover"
-                v-model="formRecover.password"
-                type="password"
-                :rules="rules.required"
-                placeholder="Ingresa nueva contraseña"
-                hide-details solo
-              ></v-text-field>
+              <v-text-field id="password-recover" v-model="formRecover.password" type="password" :rules="rules.required"
+                placeholder="Ingresa nueva contraseña" hide-details solo></v-text-field>
             </div>
-            
+
             <div class="divcol" style="gap: .5em">
               <label for="confirm-password-recover">CONFIRMAR CONTRASEÑA:</label>
-              <v-text-field
-                id="confirm-password-login"
-                v-model="passwordConfirmerRecover"
-                type="password"
-                :rules="rules.confirmPasswordRecover"
-                placeholder="Confirma contraseña"
-                hide-details solo
-              ></v-text-field>
+              <v-text-field id="confirm-password-login" v-model="passwordConfirmerRecover" type="password"
+                :rules="rules.confirmPasswordRecover" placeholder="Confirma contraseña" hide-details
+                solo></v-text-field>
             </div>
-            
-            <v-btn
-              class="btn align" style="--bg: var(--active)"
-              @click="recover()">
+
+            <v-btn class="btn align" style="--bg: var(--active)" @click="recover()">
               Recuperar
             </v-btn>
           </v-form>
@@ -294,7 +226,7 @@ export default {
     recover() {
       if (!this.$refs.formRecover.validate()) return alert("verifica que los campos sean correctos");
       console.log("recovered")
-      this.$alert("success", {title: "recovered"})
+      this.$alert("success", { title: "recovered" })
       this.$router.go()
     }
   }

@@ -46,7 +46,7 @@ export default {
       search: '',
       menu: true,
       headersCorridasBancarias: [
-        { text: 'Fecha', align: 'center', value: 'fecha', },
+        { text: 'Fecha', align: 'center', value: 'fecha_corrida', },
         { text: 'referencia', value: 'referencia', align: 'center' },
         { text: 'Descripción', value: 'descripcion', align: 'center' },
         { text: 'Monto', value: 'monto', align: 'center' },
@@ -91,7 +91,7 @@ export default {
         console.log(this.corridasbancariasData, 'corridasbancariasData')
 
       }).catch(err => {
-        console.log(err)
+        console.log(err) 
       })
     },
     getBancoCuenta() {
