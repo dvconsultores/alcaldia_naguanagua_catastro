@@ -1005,10 +1005,7 @@ export default {
       pdf.text('2.2- Observaciones', 15, startY);
       pdf.setFont("helvetica", "normal");
       startY = startY + 5
-
-
-      longText = (this.dataValoracionTerreno.observaciones != null && this.dataValoracionTerreno.observaciones !== 'null' && this.dataValoracionTerreno.observaciones !== '') ? this.dataValoracionTerreno.observaciones : ' '
-
+      longText = (this.dataFinesFiscales.observaciones != null && this.dataFinesFiscales.observaciones !== 'null' && this.dataFinesFiscales.observaciones !== '') ? this.dataFinesFiscales.observaciones : ' '
       // Dividir el texto en líneas
       textLines = pdf.splitTextToSize(longText, maxWidth);
 
@@ -1057,7 +1054,7 @@ export default {
       startY = startY + 3
       longText = "ESTA ADMINISTRACIÓN SE RESERVA EL DERECHO A INSPECCIONAR EL INMUEBLE EN CUALQUIER MOMENTO CON POSTERIORIDAD A LA EMISIÓN DE LA CÉDULA CATASTRAL O CERTIFICADO DE EMPADRONAMIENTO, "
       longText = longText + "Y EN CASO DE QUE SE CONSTATE ALTERACIÓN, MODIFICACIÓN O DISPARIDAD EN EL INMUEBLE CON RESPECTO A LOS DATOS SUMINISTRADOS O DISPARIDAD EN RELACIÓN A LOS DATOS DEL DOCUMENTO DE PROPIEDAD, "
-      longText = longText + "SE PROCEDERA A APERTURAR EL PROCEDIMIENTO ADMINISTRATIVO CORRESPONDIENTE, CONFORME A LO DISPUESTO EN LA LEY QUE RIGE LA MATERIA URBANÍSTICA."
+      longText = longText + "SE PROCEDERÁ A APERTURAR EL PROCEDIMIENTO ADMINISTRATIVO CORRESPONDIENTE, CONFORME A LO DISPUESTO EN LA LEY QUE RIGE LA MATERIA URBANÍSTICA."
 
       textLines = pdf.splitTextToSize(longText, maxWidth);
       textLines.forEach((line) => {

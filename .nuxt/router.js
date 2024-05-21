@@ -34,8 +34,10 @@ const _2c9402c7 = () => interopDefault(import('../pages/desincorporacion-propiet
 const _39d4beec = () => interopDefault(import('../pages/edificios.vue' /* webpackChunkName: "pages/edificios" */))
 const _541e4c87 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 const _eefaca78 = () => interopDefault(import('../pages/estado-cuenta.vue' /* webpackChunkName: "pages/estado-cuenta" */))
+const _3381f0ae = () => interopDefault(import('../pages/estado-cuenta-caja.vue' /* webpackChunkName: "pages/estado-cuenta-caja" */))
 const _3233eb7c = () => interopDefault(import('../pages/estado-cuenta-catastro.vue' /* webpackChunkName: "pages/estado-cuenta-catastro" */))
 const _2691ab24 = () => interopDefault(import('../pages/estado-cuenta-detalle.vue' /* webpackChunkName: "pages/estado-cuenta-detalle" */))
+const _76e69b44 = () => interopDefault(import('../pages/estado-cuenta-detalle-caja.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-caja" */))
 const _3c2779d8 = () => interopDefault(import('../pages/estado-cuenta-detalle-catastro.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-catastro" */))
 const _70f89f98 = () => interopDefault(import('../pages/estado-cuenta-detalle-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-hacienda" */))
 const _7242409e = () => interopDefault(import('../pages/estado-cuenta-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-hacienda" */))
@@ -44,8 +46,10 @@ const _41a5b15b = () => interopDefault(import('../pages/fines-fiscales.vue' /* w
 const _74e90b09 = () => interopDefault(import('../pages/flow.vue' /* webpackChunkName: "pages/flow" */))
 const _abcb5ae6 = () => interopDefault(import('../pages/flow-devueltos.vue' /* webpackChunkName: "pages/flow-devueltos" */))
 const _2166fa7b = () => interopDefault(import('../pages/flow-por-enviar.vue' /* webpackChunkName: "pages/flow-por-enviar" */))
+const _4674adaa = () => interopDefault(import('../pages/flow-por-enviar copy.vue' /* webpackChunkName: "pages/flow-por-enviar copy" */))
 const _0f443c63 = () => interopDefault(import('../pages/flow-por-procesar.vue' /* webpackChunkName: "pages/flow-por-procesar" */))
 const _2c9458d4 = () => interopDefault(import('../pages/flow-por-recibir.vue' /* webpackChunkName: "pages/flow-por-recibir" */))
+const _140cc5dc = () => interopDefault(import('../pages/flow copy.vue' /* webpackChunkName: "pages/flow copy" */))
 const _1fa7db5c = () => interopDefault(import('../pages/forma.vue' /* webpackChunkName: "pages/forma" */))
 const _be24b512 = () => interopDefault(import('../pages/IC-estado-cuenta.vue' /* webpackChunkName: "pages/IC-estado-cuenta" */))
 const _f29babc0 = () => interopDefault(import('../pages/impuestos-pago.vue' /* webpackChunkName: "pages/impuestos-pago" */))
@@ -234,6 +238,10 @@ export const routerOptions = {
     component: _eefaca78,
     name: "estado-cuenta___en"
   }, {
+    path: "/estado-cuenta-caja",
+    component: _3381f0ae,
+    name: "estado-cuenta-caja___en"
+  }, {
     path: "/estado-cuenta-catastro",
     component: _3233eb7c,
     name: "estado-cuenta-catastro___en"
@@ -241,6 +249,10 @@ export const routerOptions = {
     path: "/estado-cuenta-detalle",
     component: _2691ab24,
     name: "estado-cuenta-detalle___en"
+  }, {
+    path: "/estado-cuenta-detalle-caja",
+    component: _76e69b44,
+    name: "estado-cuenta-detalle-caja___en"
   }, {
     path: "/estado-cuenta-detalle-catastro",
     component: _3c2779d8,
@@ -274,6 +286,10 @@ export const routerOptions = {
     component: _2166fa7b,
     name: "flow-por-enviar___en"
   }, {
+    path: "/flow-por-enviar%20copy",
+    component: _4674adaa,
+    name: "flow-por-enviar copy___en"
+  }, {
     path: "/flow-por-procesar",
     component: _0f443c63,
     name: "flow-por-procesar___en"
@@ -281,6 +297,10 @@ export const routerOptions = {
     path: "/flow-por-recibir",
     component: _2c9458d4,
     name: "flow-por-recibir___en"
+  }, {
+    path: "/flow%20copy",
+    component: _140cc5dc,
+    name: "flow copy___en"
   }, {
     path: "/forma",
     component: _1fa7db5c,
@@ -610,6 +630,10 @@ export const routerOptions = {
     component: _eefaca78,
     name: "estado-cuenta___es"
   }, {
+    path: "/es/estado-cuenta-caja",
+    component: _3381f0ae,
+    name: "estado-cuenta-caja___es"
+  }, {
     path: "/es/estado-cuenta-catastro",
     component: _3233eb7c,
     name: "estado-cuenta-catastro___es"
@@ -617,6 +641,10 @@ export const routerOptions = {
     path: "/es/estado-cuenta-detalle",
     component: _2691ab24,
     name: "estado-cuenta-detalle___es"
+  }, {
+    path: "/es/estado-cuenta-detalle-caja",
+    component: _76e69b44,
+    name: "estado-cuenta-detalle-caja___es"
   }, {
     path: "/es/estado-cuenta-detalle-catastro",
     component: _3c2779d8,
@@ -650,6 +678,10 @@ export const routerOptions = {
     component: _2166fa7b,
     name: "flow-por-enviar___es"
   }, {
+    path: "/es/flow-por-enviar%20copy",
+    component: _4674adaa,
+    name: "flow-por-enviar copy___es"
+  }, {
     path: "/es/flow-por-procesar",
     component: _0f443c63,
     name: "flow-por-procesar___es"
@@ -657,6 +689,10 @@ export const routerOptions = {
     path: "/es/flow-por-recibir",
     component: _2c9458d4,
     name: "flow-por-recibir___es"
+  }, {
+    path: "/es/flow%20copy",
+    component: _140cc5dc,
+    name: "flow copy___es"
   }, {
     path: "/es/forma",
     component: _1fa7db5c,

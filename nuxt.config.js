@@ -91,9 +91,11 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
+
+
     //baseURL: development ? 'https://develop.globaldv.tech/catastro_back/api/' : 'https://develop.globaldv.tech/catastro_back/api/',
     baseURL: development ? 'http://127.0.0.1:8081/api/' : 'http://127.0.0.1:8081/api/', 
-
+    //baseURL: development ? 'https://backend.alcaldiadenaguanagua.gob.ve/catastro_back/api/' : 'https://backend.alcaldiadenaguanagua.gob.ve/catastro_back/api/'
 
 
 
@@ -158,7 +160,9 @@ export default {
 
   // Router property -  https://nuxtjs.org/docs/2.x/features/file-system-routing#the-router-property
   router: {
+    //base: development ? '/' : '/',
     base: development ? '/alcaldia_catastro' : '/catastro/',
+
     // middleware: ['route-validator'],
   },
 
@@ -171,6 +175,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    //publicPath: development ? '/' : '/',
     publicPath: development ? '/alcaldia_catastro' : '/catastro/',
     plugins: [
       new webpack.ProvidePlugin({

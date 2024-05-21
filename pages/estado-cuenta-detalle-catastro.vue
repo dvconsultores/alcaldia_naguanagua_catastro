@@ -4,11 +4,11 @@
       <div class="creacion-container">
         <div class="divrow jspace" style="width:100%;">
           <p class="title-inscripcion-inmueble">
-            Creación de estado de cuenta
+            Estado de cuenta {{ descripcionflujo }}
           </p>
 
           <span class="title-inscripcion-inmueble">
-            Base Imponible Bs.: {{ montoBCV }}
+            Base Imponible Bs.: {{ formatNumber(montoBCV) }}
           </span>
         </div>
 
@@ -82,7 +82,7 @@
           </p>
 
           <p class="solicitud-title">
-            Monto total: {{ montoTotal() }}
+            Monto Total Bs.: {{ formatNumber(montoTotal()) }}
           </p>
 
           <v-dialog
@@ -441,7 +441,7 @@
           ></v-autocomplete>
 
           <v-text-field
-          class="small-input mobile-inputs"
+          class="small-input mobile-inputs justify-right"
           label="Monto"
           readonly
           v-model="div.monto_unidad_tributaria"
@@ -449,7 +449,7 @@
 
           <v-text-field
           v-model="div.cantidad"
-          class="small-input mobile-inputs"
+          class="small-input mobile-inputs justify-right" 
           label="Cantidad"
           @input="multiplicarValor(index)"
           :value="1"
@@ -459,7 +459,7 @@
 
           <v-text-field
           v-model="div.calculo"
-          class="small-input mobile-inputs"
+          class="small-input mobile-inputs justify-right"
           label="Total"
           readonly
           :value="0"
@@ -525,6 +525,7 @@ export default{
       dataTipoInmueble: [],
       idflujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo.codigo)),
       crea_expediente_flujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo.crea_expediente)),
+      descripcionflujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo.descripcion)),
       IC_Cabecera:[],
       IC_Detalle:[],
       IC_Descuento:[],
@@ -630,7 +631,7 @@ export default{
     multiplicarValor(index) {
       const div = this.divs[index];
       if (div.cantidad !== null) {
-        div.calculo = (div.monto_unidad_tributaria * div.cantidad  * this.montoBCV).toFixed(2);
+        div.calculo = (div.monto_unidad_tributaria * div.cantidad  * this.montoBCV).toFixed(2); 
       }
     },
    async getTasaMulta(){
@@ -732,7 +733,7 @@ export default{
 
     async getBCV() {
       try {
-        const response = await this.$axios.$get('unidadtributaria/')
+        const response = await this.$axios.$get('tasabcv/')
           this.bcvData = response
           this.montoBCV = this.bcvData[0].monto
         } catch (err) {
@@ -754,7 +755,7 @@ export default{
       const div = this.divs[index]
       const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasa_multa_id)
       if (tasa_encontrada) {
-        div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria;
+        div.monto_unidad_tributaria = tasa_encontrada.unidad_tributaria; 
       }
 
       this.multiplicarValor(index)

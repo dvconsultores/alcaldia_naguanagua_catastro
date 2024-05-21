@@ -86,10 +86,14 @@
         </div>
 
         <div class="data-table-container">
-          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
-            class="input-data-table"></v-text-field>
 
-          <v-data-table :loading="dialogWait" :headers="headers" :items="propietarioData" :items-per-page="10" :search="search" :footer-props="{
+          <div>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar FLUJO por número de expediente"
+              hide-details class="input-data-table" @keyup.enter="getFlow"></v-text-field>
+            <!--v-btn @click="getInmueble" color="primary">Buscar INMUEBLE</v-btn-->
+          </div>
+
+          <v-data-table :loading="dialogWait" :headers="headers" :items="CabeceraFlujoData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="id" sort-desc class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
@@ -128,7 +132,7 @@ export default {
   mixins: [computeds],
   data() {
     return {
-      dialogWait : true,
+      dialogWait : false,
       search: '',
       dialog_editar: false,
       headers: [
@@ -141,7 +145,7 @@ export default {
         { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
       flujoData: [],
-      propietarioData: [],
+      CabeceraFlujoData: [],
       flujoId: null,
     }
   },
@@ -153,21 +157,31 @@ export default {
   },
 
   async mounted() {
-    await this.getFlow();
+    //await this.getFlow();
   },
 
   methods: {
+    async getFlow() {
+      this.inmuebleData = []
+      this.numeroDocumento = this.search
+      if (this.search.trim() == '') {
+        this.$alert("cancel", { desc: "Debe colocar un número de expediente válido.", hash: 'knsddcssdc', title: 'Advertencia' })
 
-    async getFlow() { 
-      this.dialogWait = true;
-      try {
-        const response = await this.$axios.$get('flujo/');
-        this.propietarioData = response
-        console.log('this.propietarioData)',this.propietarioData)
-      } catch (err) {
-        console.log(err); 
+      }else{
+        try {
+          this.dialogWait = true
+          const response = await this.$axios.$get(`filtrar_flujos/?numero_expediente=${this.numeroDocumento}`)
+          if (response.length>0){
+            this.CabeceraFlujoData = response
+            this.dialogWait = false
+          }else{
+            this.dialogWait = false
+            this.$alert("cancel", { desc: "No se encontraron expedientes.", hash: 'knsddcssdc', title: 'Advertencia' })
+          }
+        } catch (err) {
+          console.log(err);
+        }
       }
-      this.dialogWait = false;
     },
 
     async getFlujo(item) { 

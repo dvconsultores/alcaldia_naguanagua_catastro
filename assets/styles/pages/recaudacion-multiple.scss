@@ -27,7 +27,7 @@
     .title-recaudacion-multiple{
       --c: var(--primary);
       --fw: 500;
-      font-size: 22px;
+      font-size: 20px;
     }
 
     hr{
@@ -111,7 +111,7 @@
     .title-modificar{
       --c: var(--primary);
       --fw: 500;
-      font-size: 22px;
+      font-size: 20px;
     }
   }
 
@@ -166,7 +166,7 @@
         --c: #fff;
         --fw: 700;
         margin-bottom: 0px;
-        font-size: 22px;
+        font-size: 20px;
       }
 
       .icon-chevron{
@@ -209,7 +209,7 @@
         .nombre-desc{
           --c:var(--primary);
           --fw: 700;
-          font-size: 22px;
+          font-size: 20px;
           text-align: center;
         }
       }
@@ -245,7 +245,7 @@
     .title-impuestos-tasa{
       --c: var(--primary);
       --fw: 700;
-      font-size: 22px;
+      font-size: 20px;
     }
 
     hr{
@@ -318,7 +318,7 @@
           span{
             color:var(--primary)!important;
             font-weight: 500!important;
-            font-size: 1.8em!important;
+            font-size: 1.5em!important;
             font-weight:700!important;
           }
         }
@@ -531,7 +531,7 @@
         .title-observaciones{
           --c: var(--primary);
           --fw: 700;
-          font-size: 22px;
+          font-size: 20px;
           margin-bottom: 0px;
         }
     
@@ -590,7 +590,7 @@
             --c: #fff;
             --fw: 700;
             margin-bottom: 0px;
-            font-size: 22px;
+            font-size: 20px;
           }
         }
   
@@ -609,7 +609,7 @@
             border-radius: 10px;
             border: 1px solid var(--primary);
             padding-inline: 10px;
-            height: 65px;
+            height: 50px;
             max-width: 200px;
             min-width: 150px;
   
@@ -665,7 +665,7 @@
                   background-color: #fff;  
           
                   .v-chip__content{
-                    font-size: 20px!important;
+                    font-size: 18px!important;
                   }
                 }
           
@@ -697,7 +697,7 @@
                 span{
                   color:var(--primary)!important;
                   font-weight: 500!important;
-                  font-size: 1.8em!important;
+                  font-size: 1.5em!important;
                   font-weight:700!important;
                 }
               }
@@ -716,7 +716,7 @@
                 --c:#000;
                 --fw:500;
                 font-family: var(--font2);
-                font-size: 16px!important;
+                font-size: 14px!important;
                 border-bottom: solid 2px var(--primary)!important;
                 height: 80px;
               }
@@ -736,50 +736,6 @@
               }
             }
       
-            // .mobile-input{
-            //   @include media(max, 700px){
-            //     width: 250px;
-            //     max-width: 250px;
-            //   }
-            // }
-      
-            // .inputs-container{
-            //   width: 90%;
-            //   display: flex;
-            //   flex-wrap: wrap;
-            //   gap: 10px;
-      
-            //   @include media(max, 630px){
-            //     justify-content: center;
-            //   }
-      
-            //   .small-input{
-            //     border-radius: 10px;
-            //     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-            //     width: 150px;
-            //     padding-inline: 10px;
-            //     padding-top: 20px;
-            //     border:1px solid var(--primary);
-            //   }
-      
-            //   .medio-input{
-            //     border-radius: 10px;
-            //     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-            //     width: 220px;
-            //     padding-inline: 10px;
-            //     padding-top: 20px;
-            //     border:1px solid var(--primary);
-            //   }
-      
-            //   .big-input{
-            //     border-radius: 10px;
-            //     box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-            //     width: 300px;
-            //     padding-inline: 10px;
-            //     padding-top: 20px;
-            //     border:1px solid var(--primary);
-            //   }
-            // }
       
             .btn-liquidar{
               background-color: var(--primary);
@@ -813,7 +769,7 @@
         position: relative;
         width: 100%;
         border-radius: 10px;
-        padding: 70px 20px 20px 0px;
+        padding: 50px 20px 20px 0px;
         background-color: #fff;
         box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
         display: grid;
@@ -840,7 +796,7 @@
             --c: #fff;
             --fw: 700;
             margin-bottom: 0px;
-            font-size: 22px;
+            font-size: 20px;
           }
         }
     
@@ -877,27 +833,6 @@
           @include media(max, 650px){
             justify-content: center;
           }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
           .big-autocomplete{
             max-width: 500px;
@@ -917,7 +852,7 @@
             border-radius: 10px;
             border: 1px solid var(--primary);
             padding-inline: 10px;
-            height: 65px;
+            height: 50px;
             max-width: 150px;
             min-width: 100px;
           }
@@ -1048,7 +983,7 @@
         span{
           color:var(--primary)!important;
           font-weight: 500!important;
-          font-size: 1.8em!important;
+          font-size: 1.5em!important;
           font-weight:700!important;
         }
       }

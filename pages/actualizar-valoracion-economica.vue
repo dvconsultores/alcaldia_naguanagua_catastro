@@ -148,7 +148,7 @@
 
               <div class="center" style="width: 100%; margin-bottom: 30px;">
                 <v-textarea class="input-300" v-model="defaultItem.observaciones"
-                  label="Observaciones (Fines Fiscales)"></v-textarea>
+                  label="Observaciones"></v-textarea>
               </div>
 
             </v-row>

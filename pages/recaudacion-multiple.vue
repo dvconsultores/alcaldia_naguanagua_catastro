@@ -34,7 +34,7 @@
         </div>
       </div>
     </section>
-    <v-dialog v-model="openDialog" transition="dialog-bottom-transition"  scrollable
+    <v-dialog v-model="openDialog" transition="dialog-bottom-transition" scrollable
       content-class="dialog-recaudacion-multiple">
       <div class="div-dialog">
         <section class="section1-descripcion-inmueble">
@@ -347,6 +347,26 @@ export default {
       partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       return partes.join('.');
     },
+
+    formatNumber(input) {
+      // Convierte cadena a número si es necesario
+      const number = typeof input === 'string' ? parseFloat(input.replace(/,/g, '')) : input;
+      // Verifica si el número es válido
+      if (isNaN(number)) {
+        return 'Número inválido';
+      }
+      // Formatea el número con dos decimales y separadores de miles
+      const formattedNumber = number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return formattedNumber;
+    },
+    formatDate(inputDate) {
+      // Divide la fecha en año, mes y día
+      const [year, month, day] = inputDate.split('-');
+
+      // Formatea la fecha en el formato dd/mm/yyyy
+      return `${day}/${month}/${year}`;
+    },
+
     filtrarCorridasBancarias(idbancocuenta) {
       if (idbancocuenta) {
         this.filtrocorridasbancariasData = this.corridasbancariasData.filter((registro) => {
@@ -379,13 +399,13 @@ export default {
       // Aquí puedes realizar alguna acción con el valor numérico (this.numero)
       this.dialog = false;
     },
-  
+
     async getNotaCreditoNew(numeroPago) {
-      var numerofiltro=numeroPago
+      var numerofiltro = numeroPago
       try {
-        var response = await this.$axios.$get (`notacredito/?pagoestadocuenta=${numerofiltro}`)
+        var response = await this.$axios.$get(`notacredito/?pagoestadocuenta=${numerofiltro}`)
         this.NotaCreditoDataNew = response
-        console.log('this.NotaCreditoDataNew',this.NotaCreditoDataNew) 
+        console.log('this.NotaCreditoDataNew', this.NotaCreditoDataNew)
       } catch (err) {
         console.log(err);
       }
@@ -436,8 +456,10 @@ export default {
                 monto: this.formatNumber(montonc),
                 bloqueado: true,
                 bancocuenta: null,
-                nro_aprobacion: div2.propietario,
-                nro_lote: div2.propietario.nombre,
+                nro_aprobacion: '',
+                nro_lote: '',
+                //nro_aprobacion: div2.propietario,
+                //nro_lote: div2.propietario.nombre,
               });
             }
             else {
@@ -501,14 +523,14 @@ export default {
       console.log('selectedLiq', this.selectedLiq)
       this.montoTotalCxC = this.selectedLiq.reduce((total, item) => total + parseFloat(item.monto_total), 0);
       console.log('montoTotalCxC', this.montoTotalCxC)
-      console.log('item',item.id)
+      console.log('item', item.id)
       if (this.divs.monto == 0) {
         this.divs.monto = this.montoTotalCxC
       }
       try {
         const response = await this.$axios.$get(`liquidacion/${item.id}`)
         this.liquidacionIdData = response
-        console.log('ID Liquidacion',this.liquidacionIdData)
+        console.log('ID Liquidacion', this.liquidacionIdData)
         this.openDialog = true
         await this.getNotaCredito()
       } catch (err) {
@@ -585,8 +607,7 @@ export default {
       if (mensaje) { this.$alert("cancel", { desc: "Error: " + mensaje, hash: 'knsddcssdc', title: 'Falta dato' }) }
       else {
         if ((this.montoTotalPagado()).toFixed(8) == (this.montoTotalCxC).toFixed(8)) { this.$alert("success", { desc: "El pago está completo.", hash: 'knsddcssdc', title: 'Error' }) }
-        if ((this.montoTotalCxC).toFixed(8)-(this.montoTotalPagado()).toFixed(8)>0) 
-        { this.valido = true}
+        if ((this.montoTotalCxC).toFixed(8) - (this.montoTotalPagado()).toFixed(8) > 0) { this.valido = true }
       }
 
       if (this.valido) {
@@ -645,7 +666,7 @@ export default {
       return `${dia}/${mes}/${anio}`;
     },
     async generarPDF(Contribuyente, CabeceraPago, DetallePago, Montos, liquidacionDetalleData) {
-     console.log('CabeceraPago',CabeceraPago)
+      console.log('CabeceraPago', CabeceraPago)
       const pdf = new jsPDF('p', 'mm', 'letter');
       const tipoMapeo = {
         'I': 'Impuesto',
@@ -855,13 +876,13 @@ export default {
       });
       startY += 10 + DetallePago.length * 7;
       startY = startY + 5
-      var totalMontoNC=0
+      var totalMontoNC = 0
 
-      if (this.NotaCreditoDataNew){
+      if (this.NotaCreditoDataNew) {
         pdf.setFont("helvetica", "bold");
         pdf.text('NOTA DE CREDITO GENERADAS:', 15, startY);
         pdf.setFont("helvetica", "normal");
-        columns = [ 'Número', 'Fecha',  'Monto Bs'];
+        columns = ['Número', 'Fecha', 'Monto Bs'];
         data = this.NotaCreditoDataNew.map((item) => [
           item.numeronotacredito,
           item.fecha,
@@ -879,14 +900,14 @@ export default {
         totalMontoNC = this.NotaCreditoDataNew.reduce((total, item) => total + item.monto, 0);
 
       }
-     
+
       pdf.text('MONTO X COBRAR (BS.):', 15, startY);
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(fontSizeTitle);
       pdf.text(100, startY, this.formatNumber(Montos.monto_total), null, null, 'right');
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "normal");
-      if (this.NotaCreditoDataNew){
+      if (this.NotaCreditoDataNew) {
         startY = startY + 5
         pdf.text('NOTA DE CREDITO (BS.):', 15, startY);
         pdf.setFont("helvetica", "bold");
@@ -1300,7 +1321,7 @@ export default {
         console.log('backend CorrelativoPago:', this.CorrelativoPago)
         console.log('backend liquidacionDetalleData:', detail)
 
-        await this.getNotaCreditoNew(this.IdPago) 
+        await this.getNotaCreditoNew(this.IdPago)
 
 
         //console.log('this.NotaCreditoDataNew',this.NotaCreditoDataNew) 
@@ -1316,25 +1337,8 @@ export default {
         console.log(err);
       }
     },
-    formatNumber(input) {
-    // Convierte cadena a número si es necesario
-    const number = typeof input === 'string' ? parseFloat(input.replace(/,/g, '')) : input;
-    // Verifica si el número es válido
-    if (isNaN(number)) {
-        return 'Número inválido';
-    }
-    // Formatea el número con dos decimales y separadores de miles
-    const formattedNumber = number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return formattedNumber; 
-    },
-    formatDate(inputDate) {
-    // Divide la fecha en año, mes y día
-    const [year, month, day] = inputDate.split('-');
 
-    // Formatea la fecha en el formato dd/mm/yyyy
-    return `${day}/${month}/${year}`;
-    },
-    
+
 
 
   }

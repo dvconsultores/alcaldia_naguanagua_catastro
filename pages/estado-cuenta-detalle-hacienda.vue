@@ -4,11 +4,11 @@
       <div class="creacion-container">
         <div class="divrow jspace" style="width:100%;">
           <p class="title-inscripcion-inmueble">
-            Creación de estado de cuenta
+            Estado de cuenta {{ descripcionflujo }}
           </p>
 
           <span class="title-inscripcion-inmueble">
-            Base Imponible Bs.: {{ montoBCV }}
+            Base Imponible Bs.: {{ formatNumber(montoBCV) }}
           </span>
         </div>
 
@@ -82,7 +82,7 @@
           </p>
 
           <p class="solicitud-title">
-            Monto total: {{ montoTotal() }}
+            Monto Total Bs.: {{ formatNumber(montoTotal()) }}
           </p>
 
           <v-dialog
@@ -437,7 +437,7 @@
           ></v-autocomplete>
 
           <v-text-field
-          class="small-input mobile-inputs"
+          class="small-input mobile-inputs justify-right"
           label="Monto"
           readonly
           v-model="div.monto_unidad_tributaria"
@@ -445,7 +445,7 @@
 
           <v-text-field
           v-model="div.cantidad"
-          class="small-input mobile-inputs"
+          class="small-input mobile-inputs justify-right"
           label="Cantidad"
           @input="multiplicarValor(index)"
           :value="1"
@@ -455,7 +455,7 @@
 
           <v-text-field
           v-model="div.calculo"
-          class="small-input mobile-inputs"
+          class="small-input mobile-inputs justify-right"
           label="Total"
           readonly
           :value="0"
@@ -571,6 +571,7 @@ export default{
       flujoData:[],
       dataTipoInmueble: [],
       idflujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo.codigo)),
+      descripcionflujo: this.$store.getters.getFlujo=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getFlujo.descripcion)),
       IC_Cabecera:[],
       IC_Detalle:[],
       IC_Descuento:[],
@@ -632,6 +633,7 @@ export default{
 
 
   methods: {
+    
     async getDataPeriodo() {
       try {
         const response = await this.$axios.$get('ic_periodo/?aplica=C')
@@ -1188,6 +1190,7 @@ export default{
 
     return formattedNumber; 
     },
+    
   }
 }
 </script>

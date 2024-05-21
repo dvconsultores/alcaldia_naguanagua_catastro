@@ -456,34 +456,36 @@
 
 #dialog-editar-crear{
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 8px; /* Reduce border radius */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-bottom: 20px;
+  padding-bottom: 16px; /* Reduced padding-bottom */
+  max-width: 800px; /* Set max-width */
+  margin: 0 auto; /* Center the dialog horizontally */
 
-  hr{
-    border: solid 1px rgba(#000000,0.1);
-    width: 130%;
-    margin-left: -20px;
-    margin-block: 20px;
+  hr {
+    border: solid 0.8px rgba(0, 0, 0, 0.1); /* Reduced border thickness */
+    width: 90%; /* Adjusted width */
+    margin-block: 16px;
   }
 
-  .title{
-    color:var(--primary);
-    font-weight:700!important;
-    font-size: 1.5em!important;
+  .title {
+    color: var(--primary);
+    font-weight: 700!important;
+    font-size: 1.2em!important; /* Reduce font size */
   }
 
-  .dialog-btn{
-    max-width: 150px!important;
+  .dialog-btn {
+    max-width: 120px!important; /* Reduced max-width */
   }
 
-  .input-dialog{
-    box-shadow: 3px 3px 3px 3px rgba( #000000, 0.1)!important;
-    padding-inline: 10px;
-    border-radius: 10px;
+  .input-dialog {
+    box-shadow: 1.6px 1.6px 1.6px 1.6px rgba(0, 0, 0, 0.1)!important; /* Reduced box-shadow */
+    padding-inline: 6.4px; /* Adjusted padding */
+    border-radius: 6.4px; /* Reduced border radius */
+    height: 55px; /* Adjusted height */
   }
 
   .input-dialog:active, .input-dialog:focus-within{

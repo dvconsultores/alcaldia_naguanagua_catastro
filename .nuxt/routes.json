@@ -210,6 +210,13 @@
     "_name": "_eefaca78"
   },
   {
+    "name": "estado-cuenta-caja___en",
+    "path": "/estado-cuenta-caja",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-caja.vue",
+    "chunkName": "pages/estado-cuenta-caja",
+    "_name": "_3381f0ae"
+  },
+  {
     "name": "estado-cuenta-catastro___en",
     "path": "/estado-cuenta-catastro",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-catastro.vue",
@@ -222,6 +229,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle.vue",
     "chunkName": "pages/estado-cuenta-detalle",
     "_name": "_2691ab24"
+  },
+  {
+    "name": "estado-cuenta-detalle-caja___en",
+    "path": "/estado-cuenta-detalle-caja",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-caja.vue",
+    "chunkName": "pages/estado-cuenta-detalle-caja",
+    "_name": "_76e69b44"
   },
   {
     "name": "estado-cuenta-detalle-catastro___en",
@@ -280,6 +294,13 @@
     "_name": "_2166fa7b"
   },
   {
+    "name": "flow-por-enviar copy___en",
+    "path": "/flow-por-enviar%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-enviar copy.vue",
+    "chunkName": "pages/flow-por-enviar copy",
+    "_name": "_4674adaa"
+  },
+  {
     "name": "flow-por-procesar___en",
     "path": "/flow-por-procesar",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-procesar.vue",
@@ -292,6 +313,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-recibir.vue",
     "chunkName": "pages/flow-por-recibir",
     "_name": "_2c9458d4"
+  },
+  {
+    "name": "flow copy___en",
+    "path": "/flow%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow copy.vue",
+    "chunkName": "pages/flow copy",
+    "_name": "_140cc5dc"
   },
   {
     "name": "forma___en",
@@ -868,6 +896,13 @@
     "_name": "_eefaca78"
   },
   {
+    "name": "estado-cuenta-caja___es",
+    "path": "/es/estado-cuenta-caja",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-caja.vue",
+    "chunkName": "pages/estado-cuenta-caja",
+    "_name": "_3381f0ae"
+  },
+  {
     "name": "estado-cuenta-catastro___es",
     "path": "/es/estado-cuenta-catastro",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-catastro.vue",
@@ -880,6 +915,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle.vue",
     "chunkName": "pages/estado-cuenta-detalle",
     "_name": "_2691ab24"
+  },
+  {
+    "name": "estado-cuenta-detalle-caja___es",
+    "path": "/es/estado-cuenta-detalle-caja",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-caja.vue",
+    "chunkName": "pages/estado-cuenta-detalle-caja",
+    "_name": "_76e69b44"
   },
   {
     "name": "estado-cuenta-detalle-catastro___es",
@@ -938,6 +980,13 @@
     "_name": "_2166fa7b"
   },
   {
+    "name": "flow-por-enviar copy___es",
+    "path": "/es/flow-por-enviar%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-enviar copy.vue",
+    "chunkName": "pages/flow-por-enviar copy",
+    "_name": "_4674adaa"
+  },
+  {
     "name": "flow-por-procesar___es",
     "path": "/es/flow-por-procesar",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-procesar.vue",
@@ -950,6 +999,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-por-recibir.vue",
     "chunkName": "pages/flow-por-recibir",
     "_name": "_2c9458d4"
+  },
+  {
+    "name": "flow copy___es",
+    "path": "/es/flow%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow copy.vue",
+    "chunkName": "pages/flow copy",
+    "_name": "_140cc5dc"
   },
   {
     "name": "forma___es",
