@@ -204,7 +204,7 @@ export default {
         nro_aprobacion: '',
         nro_lote: '',
         nro_referencia: '',
-        monto: 1,
+        monto: 0,
         bloqueado: false,
       }],
       headersCorridasBancarias: [
@@ -219,12 +219,14 @@ export default {
       correlativoData: [],
       tasaMultaData: [],
       idflujo: this.$store.getters.getFlujo == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getFlujo.codigo)),
+      flujoid: this.$store.getters.getFlujo == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getFlujo.id)),
       crea_expediente_flujo: this.$store.getters.getFlujo == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getFlujo.crea_expediente)),
       descripcionflujo: this.$store.getters.getFlujo == 'Sin Seleccionar' ? '' : JSON.parse(JSON.stringify(this.$store.getters.getFlujo.descripcion)),
 
       tasa_multa_id: null,
       Correlativo: 0,
       Id: 0,
+      IdLiq: 0,
       CorrelativoData: [],
       botonDeshabilitado: false,
 
@@ -248,7 +250,6 @@ export default {
       valido: false,
       CorrelativoPago: 0,
       mostrarVentana: false,
-      montoTotalCxC: 0,
       ValidarTransferenciaData: [],
 
 
@@ -326,6 +327,7 @@ export default {
           total += parseFloat(div.monto)
         }
       }
+      
       return total
     },
 
@@ -381,45 +383,109 @@ export default {
           total += parseFloat(div.calculo)
         }
       }
-      return total.toFixed(2)
+      return total
     },
 
 
 
 
     async createEstadoCuenta() {
-      if (this.montoTotal()) {
+      if (this.montoTotalPagado()) {
         this.tasa_multa_id=this.tasaMultaData.find(tasa => tasa.codigo === '305000000')
-
+        // CREA ESTADO DE CIUENTA
         const divs2 =[{
-              tasa_multa_id: this.tasa_multa_id, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)
-              monto_unidad_tributaria: this.montoTotal(), // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
+              tasa_multa_id: this.tasa_multa_id.id, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)                         estado de cuenta
+              tasamulta: this.tasa_multa_id.id, // Valor para tasa_multa_id (puedes reemplazarlo con el valor que desees)                             liquidacion
+              monto_unidad_tributaria: this.montoTotalPagado(), // Valor para monto_unidad_tributaria (puedes reemplazarlo con el valor que desees)
               cantidad: 1, // Valor para cantidad (puedes reemplazarlo con el valor que desees)
-              calculo: this.montoTotal(), // Valor para calculo (puedes reemplazarlo con el valor que desees)
+              calculo: this.montoTotalPagado(), // Valor para calculo (puedes reemplazarlo con el valor que desees)                                   estado de cuenta
+              monto_tasa: this.montoTotalPagado(), // Valor para calculo (puedes reemplazarlo con el valor que desees)                                liquidacion
               editable: false
             }];
         const data = {
-          inmueble: (!this.crea_expediente_flujo) ? this.$store.getters.getExpediente.id : null,
+          inmueble: null,
           flujo: this.idflujo,
           propietario: this.$store.getters.getContribuyente.id,
           observacion: this.observaciones,
           detalle: divs2,
-          monto_total: this.montoTotal(),
+          monto_total: this.montoTotalPagado(),
         }
         try {
           this.botonDeshabilitado = true
           this.dialogWait = true
           console.log('data',data)
-          //const res = await this.$axios.$post('crearestadocuenta/', data)
-          //console.log(res)
+          const res = await this.$axios.$post('crearestadocuenta/', data)
+          console.log(res)
+          this.Id=res.id
           this.dialogWait = false
           this.botonDeshabilitado = false
           //this.$router.push('modificar-datos')
           this.$alert("success", { desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title: 'Creado' })
-          this.$router.push('consulta-inmueble')
         } catch (err) {
           console.log(err);
         }
+
+      // CREA LIQUIDACION
+       const data2 = {
+          estadocuenta:this.Id,
+          inmueble: null,
+          flujo: this.flujoid,
+          propietario: this.$store.getters.getContribuyente.id,
+          observacion: this.observaciones,
+          detalle: divs2,
+          monto_total: this.montoTotalPagado(),
+        }
+        try {
+          this.botonDeshabilitado = true
+          this.dialogWait = true
+          console.log('data2',data2)
+          const res = await this.$axios.$post('crearliquidacion/', data2)
+          console.log(res)
+          this.IdLiq=res.id
+          this.dialogWait = false
+          this.botonDeshabilitado = false
+          //this.$router.push('modificar-datos')
+          this.$alert("success", { desc: "Se ha creado una prefactura con éxito", hash: 'knsddcssdc', title: 'Creado' })
+        } catch (err) {
+          console.log(err);
+        }
+
+        // CREA PAGO
+        let tipopagonew=''
+        if (this.idflujo == '305030102' || this.idflujo == '305030200') {
+          tipopagonew=this.tipoPagoData.find(tipodepago => tipodepago.operacion === '14')
+        }
+
+        if (this.idflujo == '301100401' ) {
+          tipopagonew=this.tipoPagoData.find(tipodepago => tipodepago.operacion === '4')
+        }
+        for (const divs of this.divs) {
+          divs.tipopago=tipopagonew.codigo
+        }
+
+        const data3 = {
+            liquidacion: this.IdLiq,
+            propietario: this.$store.getters.getContribuyente.id,
+            observacion: this.observaciones,
+            monto: this.montoTotalPagado(),
+            monto_cxc: this.montoTotalPagado(),
+            caja: this.$store.getters.getUser.caja,
+            detalle: this.divs
+          }
+          try {
+          this.botonDeshabilitado = true
+          this.dialogWait = true
+          console.log('data3',data3)
+          const res = await this.$axios.$post('crearPago/', data3);
+          console.log(res)
+          this.dialogWait = false
+          this.botonDeshabilitado = false
+          //this.$router.push('modificar-datos')
+          this.$alert("success", { desc: "Se ha creado UN PAGO con éxito", hash: 'knsddcssdc', title: 'Creado' })
+        } catch (err) {
+          console.log(err);
+        }
+
       }
       else{
         this.$alert("cancel", { desc: 'Debe colocar un monto.', hash: 'knsddcssdc', title: 'Alerta' })

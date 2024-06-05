@@ -1,9 +1,9 @@
 <template>
   <div class="center no-padding divcol" style="margin-bottom:20px; padding-left: 256px;">
-    <section class="section1-tipo-inmueble">
-      <div class="datos-tipo-inmueble-container">
+    <section class="section1-ambito">
+      <div class="datos-ambito-container">
         <div class="title-morado">
-          <p class="datos-tipo-inmueble-title">
+          <p class="datos-ambito-title">
             Tipo de Inmueble
           </p>
 
@@ -310,4 +310,4 @@ export default {
 };
 </script>
 
-<style src="~/assets/styles/pages/tipo-inmuble.scss" lang="scss" />
+<style src="~/assets/styles/pages/ambito.scss" lang="scss" />

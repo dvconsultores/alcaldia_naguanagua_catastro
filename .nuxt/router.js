@@ -49,7 +49,8 @@ const _2166fa7b = () => interopDefault(import('../pages/flow-por-enviar.vue' /* 
 const _4674adaa = () => interopDefault(import('../pages/flow-por-enviar copy.vue' /* webpackChunkName: "pages/flow-por-enviar copy" */))
 const _0f443c63 = () => interopDefault(import('../pages/flow-por-procesar.vue' /* webpackChunkName: "pages/flow-por-procesar" */))
 const _2c9458d4 = () => interopDefault(import('../pages/flow-por-recibir.vue' /* webpackChunkName: "pages/flow-por-recibir" */))
-const _140cc5dc = () => interopDefault(import('../pages/flow copy.vue' /* webpackChunkName: "pages/flow copy" */))
+const _7227a626 = () => interopDefault(import('../pages/flow-reporte.vue' /* webpackChunkName: "pages/flow-reporte" */))
+const _2830afee = () => interopDefault(import('../pages/flow copy 2.vue' /* webpackChunkName: "pages/flow copy 2" */))
 const _1fa7db5c = () => interopDefault(import('../pages/forma.vue' /* webpackChunkName: "pages/forma" */))
 const _be24b512 = () => interopDefault(import('../pages/IC-estado-cuenta.vue' /* webpackChunkName: "pages/IC-estado-cuenta" */))
 const _f29babc0 = () => interopDefault(import('../pages/impuestos-pago.vue' /* webpackChunkName: "pages/impuestos-pago" */))
@@ -60,6 +61,7 @@ const _1353825a = () => interopDefault(import('../pages/lista-estadocuenta.vue' 
 const _87586256 = () => interopDefault(import('../pages/lista-liquidacion.vue' /* webpackChunkName: "pages/lista-liquidacion" */))
 const _e5d2805a = () => interopDefault(import('../pages/lista-notacredito.vue' /* webpackChunkName: "pages/lista-notacredito" */))
 const _40a423be = () => interopDefault(import('../pages/lista-pago.vue' /* webpackChunkName: "pages/lista-pago" */))
+const _dc811e46 = () => interopDefault(import('../pages/listado-inmueble.vue' /* webpackChunkName: "pages/listado-inmueble" */))
 const _1dc5ef9e = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _2124f254 = () => interopDefault(import('../pages/maestro-patente.vue' /* webpackChunkName: "pages/maestro-patente" */))
 const _a60d722e = () => interopDefault(import('../pages/manzana.vue' /* webpackChunkName: "pages/manzana" */))
@@ -298,9 +300,13 @@ export const routerOptions = {
     component: _2c9458d4,
     name: "flow-por-recibir___en"
   }, {
-    path: "/flow%20copy",
-    component: _140cc5dc,
-    name: "flow copy___en"
+    path: "/flow-reporte",
+    component: _7227a626,
+    name: "flow-reporte___en"
+  }, {
+    path: "/flow%20copy%202",
+    component: _2830afee,
+    name: "flow copy 2___en"
   }, {
     path: "/forma",
     component: _1fa7db5c,
@@ -341,6 +347,10 @@ export const routerOptions = {
     path: "/lista-pago",
     component: _40a423be,
     name: "lista-pago___en"
+  }, {
+    path: "/listado-inmueble",
+    component: _dc811e46,
+    name: "listado-inmueble___en"
   }, {
     path: "/login",
     component: _1dc5ef9e,
@@ -690,9 +700,13 @@ export const routerOptions = {
     component: _2c9458d4,
     name: "flow-por-recibir___es"
   }, {
-    path: "/es/flow%20copy",
-    component: _140cc5dc,
-    name: "flow copy___es"
+    path: "/es/flow-reporte",
+    component: _7227a626,
+    name: "flow-reporte___es"
+  }, {
+    path: "/es/flow%20copy%202",
+    component: _2830afee,
+    name: "flow copy 2___es"
   }, {
     path: "/es/forma",
     component: _1fa7db5c,
@@ -733,6 +747,10 @@ export const routerOptions = {
     path: "/es/lista-pago",
     component: _40a423be,
     name: "lista-pago___es"
+  }, {
+    path: "/es/listado-inmueble",
+    component: _dc811e46,
+    name: "listado-inmueble___es"
   }, {
     path: "/es/login",
     component: _1dc5ef9e,

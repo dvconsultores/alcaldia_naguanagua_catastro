@@ -7,99 +7,6 @@
             Recaudos
           </p>
 
-          <v-dialog v-model="dialog" max-width="1600px" >
-            <template v-slot:activator="{ on, attrs }"  >
-              <v-btn class="btn-add-tabla" v-bind="attrs" v-on="on">
-                +
-              </v-btn>
-            </template>
-            <v-card id="dialog-editar-crear">
-              <v-card-title>
-                <span class="title">Crear Contribuyente</span>
-              </v-card-title>
-
-              <hr>
-
-              <div class="section1-crear">
-                <div class="datos-contribuyente-div">
-                  <div class="inputs-datos-container">
-
-                    <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
-
-                      <v-text-field v-model="nuevoRegistro.numero_documento" class="input-big" label="Nro de Documento RIF"
-                        style="max-width: 490px;"></v-text-field>
-                    </div>
-
-                    <v-text-field v-model="nuevoRegistro.nombre" class="input-big"
-                      label="Nombre / Razón social"></v-text-field>
-
-                    <v-textarea class="input-textarea" label="Dirección fiscal"></v-textarea>
-
-                    <v-text-field v-model="nuevoRegistro.telefono_principal" class="input-medium"
-                      label="Teléfono"></v-text-field>
-
-                    <v-text-field v-model="nuevoRegistro.email_principal" class="input-correo"
-                      label="Correo electrónico"></v-text-field>
-
-                  </div>
-                </div>
-
-                <div class="div-btns">
-                  <v-btn @click="createContribuyente()">
-                    Guardar
-                  </v-btn>
-
-                  <v-btn style="background-color:#ED057E!important;" @click="dialog = false">
-                    Cancelar
-                  </v-btn>
-                </div>
-              </div>
-            </v-card>
-          </v-dialog>
-
-          <v-dialog v-model="dialog_editar" max-width="1600px">
-            <v-card id="dialog-editar-crear">
-              <v-card-title>
-                <span class="title">Editar contribuyente</span>
-              </v-card-title>
-
-              <hr>
-              <div class="section1-crear">
-                <div class="datos-contribuyente-div">
-                  <div class="inputs-datos-container">
-
-                    <div class="divrow center col-mobile" style="max-width:500px; gap:10px; width:100%;">
-
-                      <v-text-field v-model="defaultItem.numero_documento" class="input-big" label="Nro de Documento (RIF)"
-                        style="max-width: 490px;"></v-text-field>
-                    </div>
-
-                    <v-text-field v-model="defaultItem.nombre" class="input-big"
-                      label="Nombre / Razón social"></v-text-field>
-
-                    <v-textarea class="input-textarea" label="Dirección fiscal"></v-textarea>
-
-                    <v-text-field v-model="defaultItem.telefono_principal" class="input-medium"
-                      label="Teléfono"></v-text-field>
-
-                    <v-text-field v-model="defaultItem.email_principal" class="input-correo"
-                      label="Correo electrónico"></v-text-field>
-
-                  </div>
-                </div>
-
-                <div class="div-btns">
-                  <v-btn @click="saveData()">
-                    Guardar
-                  </v-btn>
-
-                  <v-btn style="background-color:#ED057E!important;" @click="dialog_editar = false">
-                    Cancelar
-                  </v-btn>
-                </div>
-              </div>
-            </v-card>
-          </v-dialog>
         </div>
 
         <div class="data-table-container">
@@ -139,32 +46,6 @@
             itemsPerPageText: 'Items por página',
           }" sort-by="numero_recibo" class="mytabla" mobile-breakpoint="840">
 
-
-            <template v-slot:top>
-              <v-toolbar flat class="toolbar-tabla">
-                <v-dialog v-model="dialogDelete" max-width="500px">
-                  <v-card id="dialog-eliminar-card">
-                    <v-card-title class="center title">¿Desea eliminarlo?</v-card-title>
-                    <span class="alerta-text">Esta acción no se puede revertir</span>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-toolbar>
-            </template>
-            <template #[`item.actions`]="{ item }">
-              <v-icon v-if="accesos.actualizar" color="#810880" big @click="editItem(item)">
-                mdi-pencil
-              </v-icon>
-              <v-icon v-if="accesos.borrar"  color="#810880" big @click="openDelete(item)">
-                mdi-delete
-              </v-icon>
-            </template>
           </v-data-table>
         </div>
       </div>
@@ -186,11 +67,7 @@ export default {
       fechaFiltro: null, // Inicialmente no se selecciona ninguna fecha de filtro
       filteredPropietarioData: [], // Agrega esta propiedad
       search: '',
-      dialog: false,
       menu: true,
-      dialog_editar: false,
-      dialogDelete: false,
-      nuevoRegistro: {},
       headers: [
         { text: '#Recibo', align: 'center', value: 'numero_recibo', },
         { text: 'Tipo', align: 'center', value: 'tipopago_nombre', },
@@ -200,23 +77,9 @@ export default {
         { text: 'Banco Código', value: 'banco_codigo', align: 'center' },
         { text: 'Banco Cuenta', value: 'banco_cuenta', align: 'center' },
         { text: 'Monto', value: 'monto', align: 'center' },
-        { text: '', value: 'actions', sortable: false, align: 'center' },
-        { text: '', value: 'actions2', sortable: false, align: 'center' },
       ],
       propietarioData: [],
       originalData: [],
-      items2: ['V', 'J', 'G', 'E'],
-
-      defaultItem: {
-        tipo_documento: '',
-        nacionalidad: '',
-        numero_documento: '',
-        nombre: '',
-        telefono_principal: '',
-        telefono_secundario: '',
-        email_principal: '',
-        emaill_secundario: '',
-      },
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       accesos:null,
     }
@@ -288,6 +151,50 @@ export default {
     cajasTotalesTransferencia() {
       const cajas = {};
       this.TransferenciaRecaudos.forEach(item => {
+        if (cajas[item.numero_caja]) {
+          cajas[item.numero_caja].recaudos.push(item);
+          cajas[item.numero_caja].total += parseFloat(item.monto);
+        } else {
+          cajas[item.numero_caja] = {
+            recaudos: [item],
+            total: parseFloat(item.monto),
+          };
+        }
+      });
+      return cajas;
+    },
+    //*****************************Situado
+    SituadoRecaudos() {
+      return this.filteredPropietarioData.filter(item => item.tipopago_nombre === "SITUADO");
+    },
+    sumaMontosSituado() {
+      return this.SituadoRecaudos.reduce((total, item) => total + parseFloat(item.monto), 0);
+    },
+    cajasTotalesSituado() {
+      const cajas = {};
+      this.SituadoRecaudos.forEach(item => {
+        if (cajas[item.numero_caja]) {
+          cajas[item.numero_caja].recaudos.push(item);
+          cajas[item.numero_caja].total += parseFloat(item.monto);
+        } else {
+          cajas[item.numero_caja] = {
+            recaudos: [item],
+            total: parseFloat(item.monto),
+          };
+        }
+      });
+      return cajas;
+    },
+    //*****************************Interes
+    InteresRecaudos() {
+      return this.filteredPropietarioData.filter(item => item.tipopago_nombre === "INTERESES");
+    },
+    sumaMontosInteres() {
+      return this.InteresRecaudos.reduce((total, item) => total + parseFloat(item.monto), 0);
+    },
+    cajasTotalesInteres() {
+      const cajas = {};
+      this.InteresRecaudos.forEach(item => {
         if (cajas[item.numero_caja]) {
           cajas[item.numero_caja].recaudos.push(item);
           cajas[item.numero_caja].total += parseFloat(item.monto);
@@ -681,7 +588,7 @@ export default {
       pdf.text('DEBITO: ', 15, startY);
       pdf.text(80, startY, this.sumaMontosDebito.toFixed(2), null, null, 'right');
       startY=startY+5
-      pdf.text('TRASFERENCIA: ', 15, startY);
+      pdf.text('TRANSFERENCIA: ', 15, startY);
       pdf.text(80, startY, this.sumaMontosTransferencia.toFixed(2), null, null, 'right');
       startY=startY+5
       pdf.text('DEPOSITO: ', 15, startY);
@@ -689,6 +596,16 @@ export default {
       startY=startY+5
       pdf.text('NOTA DE CREDITO: ', 15, startY);
       pdf.text(80, startY, this.sumaMontosNotaCredito.toFixed(2), null, null, 'right');
+      if (this.sumaMontosSituado>0){
+        startY=startY+5
+        pdf.text('SITUADO: ', 15, startY);
+        pdf.text(80, startY, this.sumaMontosSituado.toFixed(2), null, null, 'right');
+      }
+      if (this.sumaMontosInteres>0){
+        startY=startY+5
+        pdf.text('INTERESES: ', 15, startY);
+        pdf.text(80, startY, this.sumaMontosInteres.toFixed(2), null, null, 'right');
+      }
       startY=startY+15
       if (this.sumaMontosEfectivo){
         pdf.setFontSize(fontSizeHead+5);
@@ -756,6 +673,8 @@ export default {
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
         pdf.text(80, startY, this.cajasTotalesDebito[caja].total.toFixed(2), null, null, 'right');
       }
+
+
       if (this.sumaMontosTransferencia){
         startY = startY+8
         pdf.setFontSize(fontSizeHead+5);
@@ -784,12 +703,81 @@ export default {
           //margin: { top: startY + 10 + 10 },
           styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
           headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-
         });
         startY += 10 + this.cajasTotalesTransferencia[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
         pdf.text(80, startY, this.cajasTotalesTransferencia[caja].total.toFixed(2), null, null, 'right');
       }
+
+      if (this.sumaMontosSituado){
+        startY = startY+8
+        pdf.setFontSize(fontSizeHead+5);
+        pdf.text('SITUADO',15, startY);
+        pdf.setFontSize(fontSizeHead);
+        startY = startY+1
+        pageHeight = pdf.internal.pageSize.height;
+      }
+      for (const caja in this.cajasTotalesSituado) {
+        if (startY + this.cajasTotalesSituado[caja].recaudos.length * 7 + 10 > pageHeight) {
+          pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
+          startY = 10;
+        }
+        //pdf.text(`Caja: ${caja}`, 15, startY);
+        pdf.autoTable({
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
+          body: this.cajasTotalesSituado[caja].recaudos.map(item => [
+            item.numero_recibo,
+            item.banco_nombre,
+            item.banco_cuenta,
+            item.nro_referencia,
+            item.monto,
+            this.formatDate(item.fechapago),
+          ]),
+          startY: startY + 2,
+          //margin: { top: startY + 10 + 10 },
+          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
+          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
+        });
+        startY += 10 + this.cajasTotalesSituado[caja].recaudos.length * 7;
+        pdf.text(`Total de la Caja ${caja}:`, 15, startY);
+        pdf.text(80, startY, this.cajasTotalesSituado[caja].total.toFixed(2), null, null, 'right');
+      }
+
+
+      if (this.sumaMontosInteres){
+        startY = startY+8
+        pdf.setFontSize(fontSizeHead+5);
+        pdf.text('INTERESES',15, startY);
+        pdf.setFontSize(fontSizeHead);
+        startY = startY+1
+        pageHeight = pdf.internal.pageSize.height;
+      }
+      for (const caja in this.cajasTotalesInteres) {
+        if (startY + this.cajasTotalesInteres[caja].recaudos.length * 7 + 10 > pageHeight) {
+          pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
+          startY = 10;
+        }
+        //pdf.text(`Caja: ${caja}`, 15, startY);
+        pdf.autoTable({
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
+          body: this.cajasTotalesInteres[caja].recaudos.map(item => [
+            item.numero_recibo,
+            item.banco_nombre,
+            item.banco_cuenta,
+            item.nro_referencia,
+            item.monto,
+            this.formatDate(item.fechapago),
+          ]),
+          startY: startY + 2,
+          //margin: { top: startY + 10 + 10 },
+          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
+          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
+        });
+        startY += 10 + this.cajasTotalesInteres[caja].recaudos.length * 7;
+        pdf.text(`Total de la Caja ${caja}:`, 15, startY);
+        pdf.text(80, startY, this.cajasTotalesInteres[caja].total.toFixed(2), null, null, 'right');
+      }
+
 
       if (this.sumaMontosDeposito){
         startY = startY+8
@@ -906,76 +894,6 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-    },
-
-    createContribuyente() {
-      this.$axios.$post('propietario/', this.nuevoRegistro).then(res => {
-        console.log(res.data)
-        this.nuevoRegistro = {}
-        this.propietarioData.push(res)
-        this.dialog = false
-        this.$alert("success", { desc: "Se ha creado un nuevo contribuyente con éxito", hash: 'knsddcssdc', title: 'Creación de contribuyente' })
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-
-    editItem(item) {
-      console.log(item)
-      this.dialog_editar = true
-      this.defaultItem.id = item.id
-      this.defaultItem.tipo_documento = item.tipo_documento
-      this.defaultItem.nacionalidad = item.nacionalidad
-      this.defaultItem.numero_documento = item.numero_documento
-      this.defaultItem.nombre = item.nombre
-      this.defaultItem.telefono_principal = item.telefono_principal
-      this.defaultItem.telefono_secundario = item.telefono_secundario
-      this.defaultItem.email_principal = item.email_principal
-      this.defaultItem.emaill_secundario = item.emaill_secundario
-    },
-
-    saveData() {
-      const formData = new FormData()
-      formData.append('tipo_documento', this.defaultItem.tipo_documento)
-      formData.append('nacionalidad', this.defaultItem.nacionalidad)
-      formData.append('numero_documento', this.defaultItem.numero_documento)
-      formData.append('nombre', this.defaultItem.nombre)
-      formData.append('telefono_principal', this.defaultItem.telefono_principal)
-      formData.append('telefono_secundario', this.defaultItem.telefono_secundario)
-      formData.append('email_principal', this.defaultItem.email_principal)
-      formData.append('email_secundario', this.defaultItem.emaill_secundario)
-
-      this.$axios.$patch('propietario/' + this.defaultItem.id + '/', formData).then((res) => {
-        console.log(res.data)
-        this.$alert("success", { desc: "Se ha editado un contribuyente con éxito", hash: 'knsddcssdc', title: 'Edición de contribuyente' })
-        const index = this.propietarioData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.$set(this.propietarioData, index, { ...this.defaultItem });
-        }
-      }).catch((err) => {
-        console.log(err)
-      });
-
-      this.dialog_editar = false
-    },
-
-    openDelete(item) {
-      this.defaultItem = item
-      this.dialogDelete = true
-    },
-
-    deleteItem() {
-      this.$axios.$delete('propietario/' + this.defaultItem.id + '/').then((res) => {
-        console.log(res.data)
-        this.dialogDelete = false
-        this.$alert("success", { desc: "Se ha eliminado un contribuyente con éxito", hash: 'knsddcssdc', title: 'Eliminación de contribuyente' })
-        const index = this.propietarioData.findIndex((item) => item.id === this.defaultItem.id);
-        if (index !== -1) {
-          this.propietarioData.splice(index, 1);
-        }
-      }).catch((err) => {
-        console.log(err)
-      });
     },
   }
 };

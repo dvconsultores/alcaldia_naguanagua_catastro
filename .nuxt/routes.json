@@ -315,11 +315,18 @@
     "_name": "_2c9458d4"
   },
   {
-    "name": "flow copy___en",
-    "path": "/flow%20copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow copy.vue",
-    "chunkName": "pages/flow copy",
-    "_name": "_140cc5dc"
+    "name": "flow-reporte___en",
+    "path": "/flow-reporte",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-reporte.vue",
+    "chunkName": "pages/flow-reporte",
+    "_name": "_7227a626"
+  },
+  {
+    "name": "flow copy 2___en",
+    "path": "/flow%20copy%202",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow copy 2.vue",
+    "chunkName": "pages/flow copy 2",
+    "_name": "_2830afee"
   },
   {
     "name": "forma___en",
@@ -390,6 +397,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-pago.vue",
     "chunkName": "pages/lista-pago",
     "_name": "_40a423be"
+  },
+  {
+    "name": "listado-inmueble___en",
+    "path": "/listado-inmueble",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/listado-inmueble.vue",
+    "chunkName": "pages/listado-inmueble",
+    "_name": "_dc811e46"
   },
   {
     "name": "login___en",
@@ -1001,11 +1015,18 @@
     "_name": "_2c9458d4"
   },
   {
-    "name": "flow copy___es",
-    "path": "/es/flow%20copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow copy.vue",
-    "chunkName": "pages/flow copy",
-    "_name": "_140cc5dc"
+    "name": "flow-reporte___es",
+    "path": "/es/flow-reporte",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow-reporte.vue",
+    "chunkName": "pages/flow-reporte",
+    "_name": "_7227a626"
+  },
+  {
+    "name": "flow copy 2___es",
+    "path": "/es/flow%20copy%202",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/flow copy 2.vue",
+    "chunkName": "pages/flow copy 2",
+    "_name": "_2830afee"
   },
   {
     "name": "forma___es",
@@ -1076,6 +1097,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-pago.vue",
     "chunkName": "pages/lista-pago",
     "_name": "_40a423be"
+  },
+  {
+    "name": "listado-inmueble___es",
+    "path": "/es/listado-inmueble",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/listado-inmueble.vue",
+    "chunkName": "pages/listado-inmueble",
+    "_name": "_dc811e46"
   },
   {
     "name": "login___es",

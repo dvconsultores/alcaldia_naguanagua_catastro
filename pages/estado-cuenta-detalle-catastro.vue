@@ -782,6 +782,7 @@ export default{
         detalle: this.divs,
         monto_total: this.montoTotal(),
       }
+      console.log('data',data)
       try {
         this.botonDeshabilitado=true  
         this.dialogWait = true
