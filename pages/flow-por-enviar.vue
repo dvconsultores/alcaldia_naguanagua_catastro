@@ -91,7 +91,6 @@ export default {
       flujoData: [],
       perfilData: [],
       defaultItem: [],
-      //fecha:new Date().toISOString().replace('T', ' '), //.slice(0, 19),
       fecha: new Date().toISOString().slice(0, 19).replace('Z', ''),
       selectedLiq: [],
     }

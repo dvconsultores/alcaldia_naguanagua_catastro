@@ -175,6 +175,13 @@
     "_name": "_4772cfce"
   },
   {
+    "name": "deposito-efectivo___en",
+    "path": "/deposito-efectivo",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/deposito-efectivo.vue",
+    "chunkName": "pages/deposito-efectivo",
+    "_name": "_d0e7f244"
+  },
+  {
     "name": "desincorporacion-inmueble___en",
     "path": "/desincorporacion-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/desincorporacion-inmueble.vue",
@@ -194,6 +201,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/edificios.vue",
     "chunkName": "pages/edificios",
     "_name": "_39d4beec"
+  },
+  {
+    "name": "edita-pago___en",
+    "path": "/edita-pago",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/edita-pago.vue",
+    "chunkName": "pages/edita-pago",
+    "_name": "_1e140a2a"
   },
   {
     "name": "index___es",
@@ -397,6 +411,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-pago.vue",
     "chunkName": "pages/lista-pago",
     "_name": "_40a423be"
+  },
+  {
+    "name": "lista-pago copy 2___en",
+    "path": "/lista-pago%20copy%202",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-pago copy 2.vue",
+    "chunkName": "pages/lista-pago copy 2",
+    "_name": "_527f5199"
   },
   {
     "name": "listado-inmueble___en",
@@ -882,6 +903,13 @@
     "_name": "_4772cfce"
   },
   {
+    "name": "deposito-efectivo___es",
+    "path": "/es/deposito-efectivo",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/deposito-efectivo.vue",
+    "chunkName": "pages/deposito-efectivo",
+    "_name": "_d0e7f244"
+  },
+  {
     "name": "desincorporacion-inmueble___es",
     "path": "/es/desincorporacion-inmueble",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/desincorporacion-inmueble.vue",
@@ -901,6 +929,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/edificios.vue",
     "chunkName": "pages/edificios",
     "_name": "_39d4beec"
+  },
+  {
+    "name": "edita-pago___es",
+    "path": "/es/edita-pago",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/edita-pago.vue",
+    "chunkName": "pages/edita-pago",
+    "_name": "_1e140a2a"
   },
   {
     "name": "estado-cuenta___es",
@@ -1097,6 +1132,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-pago.vue",
     "chunkName": "pages/lista-pago",
     "_name": "_40a423be"
+  },
+  {
+    "name": "lista-pago copy 2___es",
+    "path": "/es/lista-pago%20copy%202",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/lista-pago copy 2.vue",
+    "chunkName": "pages/lista-pago copy 2",
+    "_name": "_527f5199"
   },
   {
     "name": "listado-inmueble___es",

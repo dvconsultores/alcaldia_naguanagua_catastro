@@ -29,9 +29,11 @@ const _79a71a56 = () => interopDefault(import('../pages/consulta-inmueble copy.v
 const _57841e06 = () => interopDefault(import('../pages/crear-contribuyente.vue' /* webpackChunkName: "pages/crear-contribuyente" */))
 const _1b8706c9 = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
 const _4772cfce = () => interopDefault(import('../pages/dashboard -flujo.vue' /* webpackChunkName: "pages/dashboard -flujo" */))
+const _d0e7f244 = () => interopDefault(import('../pages/deposito-efectivo.vue' /* webpackChunkName: "pages/deposito-efectivo" */))
 const _3fe333e3 = () => interopDefault(import('../pages/desincorporacion-inmueble.vue' /* webpackChunkName: "pages/desincorporacion-inmueble" */))
 const _2c9402c7 = () => interopDefault(import('../pages/desincorporacion-propietarios.vue' /* webpackChunkName: "pages/desincorporacion-propietarios" */))
 const _39d4beec = () => interopDefault(import('../pages/edificios.vue' /* webpackChunkName: "pages/edificios" */))
+const _1e140a2a = () => interopDefault(import('../pages/edita-pago.vue' /* webpackChunkName: "pages/edita-pago" */))
 const _541e4c87 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 const _eefaca78 = () => interopDefault(import('../pages/estado-cuenta.vue' /* webpackChunkName: "pages/estado-cuenta" */))
 const _3381f0ae = () => interopDefault(import('../pages/estado-cuenta-caja.vue' /* webpackChunkName: "pages/estado-cuenta-caja" */))
@@ -61,6 +63,7 @@ const _1353825a = () => interopDefault(import('../pages/lista-estadocuenta.vue' 
 const _87586256 = () => interopDefault(import('../pages/lista-liquidacion.vue' /* webpackChunkName: "pages/lista-liquidacion" */))
 const _e5d2805a = () => interopDefault(import('../pages/lista-notacredito.vue' /* webpackChunkName: "pages/lista-notacredito" */))
 const _40a423be = () => interopDefault(import('../pages/lista-pago.vue' /* webpackChunkName: "pages/lista-pago" */))
+const _527f5199 = () => interopDefault(import('../pages/lista-pago copy 2.vue' /* webpackChunkName: "pages/lista-pago copy 2" */))
 const _dc811e46 = () => interopDefault(import('../pages/listado-inmueble.vue' /* webpackChunkName: "pages/listado-inmueble" */))
 const _1dc5ef9e = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _2124f254 = () => interopDefault(import('../pages/maestro-patente.vue' /* webpackChunkName: "pages/maestro-patente" */))
@@ -220,6 +223,10 @@ export const routerOptions = {
     component: _4772cfce,
     name: "dashboard -flujo___en"
   }, {
+    path: "/deposito-efectivo",
+    component: _d0e7f244,
+    name: "deposito-efectivo___en"
+  }, {
     path: "/desincorporacion-inmueble",
     component: _3fe333e3,
     name: "desincorporacion-inmueble___en"
@@ -231,6 +238,10 @@ export const routerOptions = {
     path: "/edificios",
     component: _39d4beec,
     name: "edificios___en"
+  }, {
+    path: "/edita-pago",
+    component: _1e140a2a,
+    name: "edita-pago___en"
   }, {
     path: "/es",
     component: _541e4c87,
@@ -347,6 +358,10 @@ export const routerOptions = {
     path: "/lista-pago",
     component: _40a423be,
     name: "lista-pago___en"
+  }, {
+    path: "/lista-pago%20copy%202",
+    component: _527f5199,
+    name: "lista-pago copy 2___en"
   }, {
     path: "/listado-inmueble",
     component: _dc811e46,
@@ -624,6 +639,10 @@ export const routerOptions = {
     component: _4772cfce,
     name: "dashboard -flujo___es"
   }, {
+    path: "/es/deposito-efectivo",
+    component: _d0e7f244,
+    name: "deposito-efectivo___es"
+  }, {
     path: "/es/desincorporacion-inmueble",
     component: _3fe333e3,
     name: "desincorporacion-inmueble___es"
@@ -635,6 +654,10 @@ export const routerOptions = {
     path: "/es/edificios",
     component: _39d4beec,
     name: "edificios___es"
+  }, {
+    path: "/es/edita-pago",
+    component: _1e140a2a,
+    name: "edita-pago___es"
   }, {
     path: "/es/estado-cuenta",
     component: _eefaca78,
@@ -747,6 +770,10 @@ export const routerOptions = {
     path: "/es/lista-pago",
     component: _40a423be,
     name: "lista-pago___es"
+  }, {
+    path: "/es/lista-pago%20copy%202",
+    component: _527f5199,
+    name: "lista-pago copy 2___es"
   }, {
     path: "/es/listado-inmueble",
     component: _dc811e46,

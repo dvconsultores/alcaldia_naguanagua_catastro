@@ -11,6 +11,7 @@
 
         <div class="data-table-container">
           <v-btn class="btn dialog-btn" text @click="generarPDF()">Genera reporte</v-btn>
+          <v-btn class="btn dialog-btn" text @click="generarTXT()">Genera txt</v-btn> 
 
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
             class="input-data-table">
@@ -41,7 +42,7 @@
                   header-color="#810880"
                   class="custom-date-picker"
                 ></v-date-picker>
-              </v-menu>
+              </v-menu> 
           <v-data-table :headers="headers" :items="filteredPropietarioData" :loading="loading" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="numero_recibo" class="mytabla" mobile-breakpoint="840">
@@ -99,17 +100,20 @@ export default {
   computed: {
     //*****************************Efectivo
     efectivoRecaudos() {
-      return this.filteredPropietarioData.filter(item => item.tipopago_nombre === "Efectivo");
+      return this.filteredPropietarioData.filter(item => item.tipopago_nombre === "Efectivo" );
     },
     sumaMontosEfectivo() {
-      return this.efectivoRecaudos.reduce((total, item) => total + parseFloat(item.monto), 0);
+      return this.efectivoRecaudos.filter(item => item.bancocuenta === null)
+      .reduce((total, item) => total + parseFloat(item.monto), 0);
     },
     cajasTotales() {
       const cajas = {};
       this.efectivoRecaudos.forEach(item => {
         if (cajas[item.numero_caja]) {
           cajas[item.numero_caja].recaudos.push(item);
-          cajas[item.numero_caja].total += parseFloat(item.monto);
+          if (item.bancocuenta === null) {
+            cajas[item.numero_caja].total += parseFloat(item.monto);
+          }
         } else {
           cajas[item.numero_caja] = {
             recaudos: [item],
@@ -380,19 +384,24 @@ export default {
           startY = 10;
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
+
         pdf.autoTable({
-          head: [['#Recibo', 'Monto', 'Fecha de Pago']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
           body: this.cajasTotales[caja].recaudos.map(item => [
             item.numero_recibo,
+            item.banco_nombre,
+            item.banco_cuenta,
+            item.nro_referencia,
             item.monto,
             this.formatDate(item.fechapago),
           ]),
           startY: startY + 2,
-         // margin: { top: startY + 10 + 10 },
+          //margin: { top: startY + 10 + 10 },
           styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
           headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
 
         });
+        
         console.log('startY',startY,'this.cajasTotales[caja].recaudos.length ',this.cajasTotales[caja].recaudos.length )
         pdf.text(`Total de la Caja ${caja}:`, 15, startY + 10 + this.cajasTotales[caja].recaudos.length * 10);
         pdf.text(80, startY + 10 + this.cajasTotales[caja].recaudos.length * 10, this.cajasTotales[caja].total.toFixed(2), null, null, 'right');
@@ -563,7 +572,38 @@ export default {
 
       pdf.save('reporte.pdf');
     },
+
+
+    formatDateTXT(dateString) {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    },
+
+    generarTXT() {
+      const rows = this.filteredPropietarioData.map(pago => {
+        const { monto, fecha, banco_cuenta, banco_codigo,nro_lote,nro_aprobacion,operacion_tipo,nro_referencia } = pago;
+        const formattedMonto = parseFloat(monto).toFixed(2);
+        const formattedFecha = this.formatDateTXT(fecha);
+        const formattedFechacuadre = this.formatDateTXT(this.fechaFiltro);
+        return `<${formattedFechacuadre}|${formattedFecha}|${banco_codigo === null ? '' : banco_codigo}|${banco_cuenta === null ? '' : banco_cuenta}|${nro_lote === null ? '' : nro_lote}|${nro_aprobacion === null ? '' : nro_aprobacion}|${operacion_tipo}|${nro_referencia === null ? '' : nro_referencia}|${formattedMonto}|0|Z|>`;
+      });
+
+      const content = rows.join('\n');
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'pagos.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    },
+
+
     generarPDF() {
+      console.log('txt',this.filteredPropietarioData)
       const pdf = new jsPDF('p', 'mm', 'letter');
       //const img1 = new Image();
       //img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
@@ -620,19 +660,25 @@ export default {
           startY = 10;
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
+
+
         pdf.autoTable({
-          head: [['#Recibo', 'Monto', 'Fecha de Pago']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
           body: this.cajasTotales[caja].recaudos.map(item => [
             item.numero_recibo,
+            item.banco_nombre,
+            item.banco_cuenta,
+            item.nro_referencia,
             item.monto,
             this.formatDate(item.fechapago),
           ]),
           startY: startY + 2,
-         // margin: { top: startY + 10 + 10 },
+          //margin: { top: startY + 10 + 10 },
           styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
           headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
 
         });
+
         startY += 10 + this.cajasTotales[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
         pdf.text(80, startY , this.cajasTotales[caja].total.toFixed(2), null, null, 'right');

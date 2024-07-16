@@ -152,7 +152,7 @@
             </span>
           </div>
 
-          <div>
+          <!--div>
             <span class="desc-dialog">Ingrese la Fecha de Compra del Inmueble</span>
             <v-menu
             v-model="menu1"
@@ -181,7 +181,8 @@
                 class="custom-date-picker"
               ></v-date-picker>
             </v-menu>
-          </div>
+          </div-->
+
           <div class="center divrow" style="gap:10px;">
             <v-btn @click="agregarContribuyente()" class="btn btn-small">
               Agregar
@@ -319,13 +320,13 @@ export default {
 
     },
     agregarContribuyente(){
-      const fechaValida = this.esFechaValida(this.fecha_compra);
+      //const fechaValida = this.esFechaValida(this.fecha_compra);
 
-      if (fechaValida) {
+      //if (fechaValida) {
         const formData = new FormData()
         formData.append('inmueble', this.$store.getters.getExpediente.id)
         formData.append('propietario', this.$store.getters.getContribuyente.id)
-        formData.append('fecha_compra', this.fecha_compra)
+        //formData.append('fecha_compra', this.fecha_compra)
         this.$axios.$post('CrearInmueblePropietario/', formData).then(res => {
           this.inmueblePropietariosData.push(res)
           this.$alert("success", {desc: "Se ha agregado el contribuyente con éxito", hash: 'knsddcssdc', title:'Agregado'})        
@@ -335,9 +336,9 @@ export default {
         })
 
         this.openDialog = false
-      }else{
-        this.$alert("cancel", {desc: "Debe colocar una fecha Válida", hash: 'knsddcssdc', title:'Error'})
-      }
+      //}else{
+      //  this.$alert("cancel", {desc: "Debe colocar una fecha Válida", hash: 'knsddcssdc', title:'Error'})
+     // }
 
     },
     esFechaValida(fecha) {
@@ -446,11 +447,10 @@ export default {
         styles: { fontSize: fontSizeBody },
         headStyles: { fontSize: fontSizeHead },
       };
-      const columns = ['RIF', 'NOMBRE','FECHA COMPRA'];
+      const columns = ['RIF', 'NOMBRE'];
       const data = this.inmueblePropietariosData.map((item) => [
         item.propietario.numero_documento,
         item.propietario.nombre,
-        item.fecha_compra,
       ]);
       pdf.autoTable(columns, data, options);
       startY += 10 + this.inmueblePropietariosData.length * 7;

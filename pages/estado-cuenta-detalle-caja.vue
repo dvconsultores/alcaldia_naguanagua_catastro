@@ -283,6 +283,10 @@ export default {
   },
 
   methods: {
+    saveValue() {
+      // Aquí puedes realizar alguna acción con el valor numérico (this.numero)
+      this.dialog = false;
+    },
     closeopenDialog() {
       this.divs = []
       this.openDialog = false;

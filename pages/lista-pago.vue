@@ -89,13 +89,12 @@ export default {
         { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
       PagoData: [],
-      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
-      menu: [],
-      menu_opciones: [],
+     
       defaultItem: {
         observaciones: '',
         id: '',
-      },
+      }, 
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       accesos: {},
     }
   },

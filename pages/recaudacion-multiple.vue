@@ -155,6 +155,9 @@
                 <v-date-picker v-model="div.fechapago" label="Fecha" @input="formatoFecha()" color="blue"
                   header-color="#810880" class="custom-date-picker"></v-date-picker>
               </v-menu>
+
+
+
               <v-text-field @click="openDialogMonto" v-model="div.monto" class="small-input mobile-inputs" label="Monto"
                 :disabled="div.bloqueado" style="font-size: 20px; " reverse>
                 {{ parseFloat(div.monto).toFixed(2) }}</v-text-field>
