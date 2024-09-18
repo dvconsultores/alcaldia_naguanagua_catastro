@@ -128,6 +128,7 @@
                               <th style="padding: 4px;"> Multa Bs({{ IC_Cabecera.fmulta }}%)</th>
                               <th style="padding: 4px;"> Recargo Bs  ({{ IC_Cabecera.frecargo }}%)</th>
                               <th style="padding: 4px;"> Interés Bs</th>
+                              <th style="padding: 4px;"> Exonerado Bs </th>
                               <th style="padding: 4px;"> Total Bs </th>
                             </tr>
                           </thead>
@@ -140,6 +141,7 @@
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.multa, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.recargo, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.interes, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.exonerado, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera.total, 2) }} </td>
                               
 
@@ -226,6 +228,38 @@
 
                      <v-card class="card-flow">
                         <v-card-title class="title-flow">
+                          Detalle de Exoneraciones aplicadas
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 2px;"> Descripcion </th>
+                              <th style="padding: 2px;"> % </th>
+                              <th style="padding: 2px;"> Fecha desde </th>
+                              <th style="padding: 2px;"> Fecha hasta </th>
+                              <th style="padding: 2px;"> Descripción Uso</th>
+                              <th style="padding: 2px;"> ExoneraMulta</th>
+                              <th style="padding: 2px;"> ExoneraRecargo </th>
+                              <th style="padding: 2px;"> ExoneraInteres </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in IC_Exonerado" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;"> {{ item.descripcion }} </td> 
+                              <td style="padding: 2px;"> {{ roundNumber(item.exonerado, 2)}} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.fechadesde }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.fechahasta }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.uso_descripcion }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ item.ExoneraMulta  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ item.ExoneraRecargo  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ item.ExoneraInteres }} </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                     </v-card>
+
+                     <v-card class="card-flow">
+                        <v-card-title class="title-flow">
                           Detalle del interés moratorio aplicado (BCV Tasas de interés activas.)
                         </v-card-title>
                         <table>
@@ -284,6 +318,7 @@
                               <th style="padding: 4px;"> Multa Bs({{ IC_Cabecera.fmulta }}%)</th>
                               <th style="padding: 4px;"> Recargo Bs  ({{ IC_Cabecera.frecargo }}%)</th>
                               <th style="padding: 4px;"> Interés Bs</th>
+                              <th style="padding: 4px;"> Exonerado Bs</th>
                               <th style="padding: 4px;"> Total Bs </th>
                             </tr>
                           </thead>
@@ -296,8 +331,8 @@
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.multa, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.recargo, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.interes, 2) }} </td>
+                              <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.exonerado, 2) }} </td>
                               <td style="padding: 4px;text-align: center;"> {{ roundNumber(IC_Cabecera2023.total, 2) }} </td>
-                              
 
                             </tr>
                           </tbody>
@@ -379,6 +414,41 @@
                           </tbody>
                         </table>
                      </v-card>
+
+
+                     <v-card class="card-flow">
+                        <v-card-title class="title-flow">
+                          Detalle de Exoneraciones aplicadas
+                        </v-card-title>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th style="padding: 2px;"> Descripcion </th>
+                              <th style="padding: 2px;"> % </th>
+                              <th style="padding: 2px;"> Fecha desde </th>
+                              <th style="padding: 2px;"> Fecha hasta </th>
+                              <th style="padding: 2px;"> Descripción Uso</th>
+                              <th style="padding: 2px;"> ExoneraMulta</th>
+                              <th style="padding: 2px;"> ExoneraRecargo </th>
+                              <th style="padding: 2px;"> ExoneraInteres </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in IC_Exonerado2023" :key="index" class="solicitud-inputs-container">
+                              <td style="padding: 2px;"> {{ item.descripcion }} </td> 
+                              <td style="padding: 2px;"> {{ roundNumber(item.exonerado, 2)}} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.fechadesde }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.fechahasta }} </td>
+                              <td style="padding: 2px;text-align: center;"> {{ item.uso_descripcion }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ item.ExoneraMulta  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ item.ExoneraRecargo  }} </td>
+                              <td style="padding: 2px;text-align: right;"> {{ item.ExoneraInteres }} </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                     </v-card>
+
+
 
                      <v-card class="card-flow">
                         <v-card-title class="title-flow">
@@ -575,10 +645,12 @@ export default{
       IC_Cabecera:[],
       IC_Detalle:[],
       IC_Descuento:[],
+      IC_Exonerado:[],
       IC_Interes:[],
       IC_Cabecera2023:[],
       IC_Detalle2023:[],
       IC_Descuento2023:[],
+      IC_Exonerado2023:[],
       IC_Interes2023:[],
       periodoData:[],
       tasa_multa_id: null,
@@ -724,6 +796,8 @@ export default{
             this.IC_Cabecera2023 = res[0].cabacera
             this.IC_Detalle2023 = res[0].detalle
             this.IC_Descuento2023 = res[0].descuento
+            this.IC_Exonerado2023 = res[0].exonerado
+
             this.IC_Interes2023 = res[0].interes
             this.tasa_multa_id = this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
             console.log('this.IC_Cabecera', this.IC_Cabecera)
@@ -792,6 +866,7 @@ export default{
             this.IC_Cabecera = res[0].cabacera
             this.IC_Detalle = res[0].detalle
             this.IC_Descuento = res[0].descuento
+            this.IC_Exonerado = res[0].exonerado
             this.IC_Interes = res[0].interes
             this.tasa_multa_id = this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
             console.log('this.IC_Cabecera', this.IC_Cabecera)
@@ -901,6 +976,7 @@ export default{
         this.IC_Cabecera=[]
         this.IC_Detalle=[]
         this.IC_Descuento=[]
+        this.IC_Exonerado=[]
         this.IC_Interes=[]     
         this.generarPDF()
         this.dialogWait = false
@@ -919,6 +995,7 @@ export default{
         cabecera:this.IC_Cabecera ,
         detalle:this.IC_Detalle ,
         descuento:this.IC_Descuento ,
+        exoonerado:this.IC_Exonerado ,
         interes:this.IC_Interes,
       }
       try {

@@ -28,7 +28,7 @@ const _350d6670 = () => interopDefault(import('../pages/consulta-inmueble.vue' /
 const _79a71a56 = () => interopDefault(import('../pages/consulta-inmueble copy.vue' /* webpackChunkName: "pages/consulta-inmueble copy" */))
 const _57841e06 = () => interopDefault(import('../pages/crear-contribuyente.vue' /* webpackChunkName: "pages/crear-contribuyente" */))
 const _1b8706c9 = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
-const _4772cfce = () => interopDefault(import('../pages/dashboard -flujo.vue' /* webpackChunkName: "pages/dashboard -flujo" */))
+const _326c6070 = () => interopDefault(import('../pages/dashboard-flujo.vue' /* webpackChunkName: "pages/dashboard-flujo" */))
 const _d0e7f244 = () => interopDefault(import('../pages/deposito-efectivo.vue' /* webpackChunkName: "pages/deposito-efectivo" */))
 const _3fe333e3 = () => interopDefault(import('../pages/desincorporacion-inmueble.vue' /* webpackChunkName: "pages/desincorporacion-inmueble" */))
 const _2c9402c7 = () => interopDefault(import('../pages/desincorporacion-propietarios.vue' /* webpackChunkName: "pages/desincorporacion-propietarios" */))
@@ -44,6 +44,7 @@ const _3c2779d8 = () => interopDefault(import('../pages/estado-cuenta-detalle-ca
 const _70f89f98 = () => interopDefault(import('../pages/estado-cuenta-detalle-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-hacienda" */))
 const _7242409e = () => interopDefault(import('../pages/estado-cuenta-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-hacienda" */))
 const _49cd7a34 = () => interopDefault(import('../pages/estatus-inmueble.vue' /* webpackChunkName: "pages/estatus-inmueble" */))
+const _6af9057c = () => interopDefault(import('../pages/exoneracion.vue' /* webpackChunkName: "pages/exoneracion" */))
 const _41a5b15b = () => interopDefault(import('../pages/fines-fiscales.vue' /* webpackChunkName: "pages/fines-fiscales" */))
 const _74e90b09 = () => interopDefault(import('../pages/flow.vue' /* webpackChunkName: "pages/flow" */))
 const _abcb5ae6 = () => interopDefault(import('../pages/flow-devueltos.vue' /* webpackChunkName: "pages/flow-devueltos" */))
@@ -82,6 +83,7 @@ const _d47f4554 = () => interopDefault(import('../pages/reporte-corridasbancaria
 const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
 const _fe89d8bc = () => interopDefault(import('../pages/reporte-ejemplo1.vue' /* webpackChunkName: "pages/reporte-ejemplo1" */))
 const _f7520a0a = () => interopDefault(import('../pages/reporte-recaudos.vue' /* webpackChunkName: "pages/reporte-recaudos" */))
+const _13f0fd2a = () => interopDefault(import('../pages/reporte-recaudos copy.vue' /* webpackChunkName: "pages/reporte-recaudos copy" */))
 const _17e835c0 = () => interopDefault(import('../pages/reporte-taquilla.vue' /* webpackChunkName: "pages/reporte-taquilla" */))
 const _2a000081 = () => interopDefault(import('../pages/sector.vue' /* webpackChunkName: "pages/sector" */))
 const _655bcbdc = () => interopDefault(import('../pages/servicios.vue' /* webpackChunkName: "pages/servicios" */))
@@ -219,9 +221,9 @@ export const routerOptions = {
     component: _1b8706c9,
     name: "dashboard___en"
   }, {
-    path: "/dashboard%20-flujo",
-    component: _4772cfce,
-    name: "dashboard -flujo___en"
+    path: "/dashboard-flujo",
+    component: _326c6070,
+    name: "dashboard-flujo___en"
   }, {
     path: "/deposito-efectivo",
     component: _d0e7f244,
@@ -282,6 +284,10 @@ export const routerOptions = {
     path: "/estatus-inmueble",
     component: _49cd7a34,
     name: "estatus-inmueble___en"
+  }, {
+    path: "/exoneracion",
+    component: _6af9057c,
+    name: "exoneracion___en"
   }, {
     path: "/fines-fiscales",
     component: _41a5b15b,
@@ -434,6 +440,10 @@ export const routerOptions = {
     path: "/reporte-recaudos",
     component: _f7520a0a,
     name: "reporte-recaudos___en"
+  }, {
+    path: "/reporte-recaudos%20copy",
+    component: _13f0fd2a,
+    name: "reporte-recaudos copy___en"
   }, {
     path: "/reporte-taquilla",
     component: _17e835c0,
@@ -635,9 +645,9 @@ export const routerOptions = {
     component: _1b8706c9,
     name: "dashboard___es"
   }, {
-    path: "/es/dashboard%20-flujo",
-    component: _4772cfce,
-    name: "dashboard -flujo___es"
+    path: "/es/dashboard-flujo",
+    component: _326c6070,
+    name: "dashboard-flujo___es"
   }, {
     path: "/es/deposito-efectivo",
     component: _d0e7f244,
@@ -694,6 +704,10 @@ export const routerOptions = {
     path: "/es/estatus-inmueble",
     component: _49cd7a34,
     name: "estatus-inmueble___es"
+  }, {
+    path: "/es/exoneracion",
+    component: _6af9057c,
+    name: "exoneracion___es"
   }, {
     path: "/es/fines-fiscales",
     component: _41a5b15b,
@@ -846,6 +860,10 @@ export const routerOptions = {
     path: "/es/reporte-recaudos",
     component: _f7520a0a,
     name: "reporte-recaudos___es"
+  }, {
+    path: "/es/reporte-recaudos%20copy",
+    component: _13f0fd2a,
+    name: "reporte-recaudos copy___es"
   }, {
     path: "/es/reporte-taquilla",
     component: _17e835c0,

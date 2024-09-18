@@ -11,39 +11,21 @@
 
         <div class="data-table-container">
           <v-btn class="btn dialog-btn" text @click="generarPDF()">Genera reporte</v-btn>
-          <v-btn class="btn dialog-btn" text @click="generarTXT()">Genera txt</v-btn> 
+          <v-btn class="btn dialog-btn" text @click="generarTXT()">Genera txt</v-btn>
 
-          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details
-            class="input-data-table">
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details class="input-data-table">
           </v-text-field>
-            <v-menu
-              v-model="menu"
-              :close-on-content-click="false"
-              :nudge-right="5"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-              >
-                <template #activator="{ on, attrs }">
-                  <v-text-field
-                  v-model="fechaFiltro"
-                  class="input-data-table"
-                  label="Fecha"
-                  append-icon="mdi-calendar"
-                  v-bind="attrs"
-                  v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-date-picker
-                  v-model="fechaFiltro"
-                  label="Fecha"
-                  @input="filtrarPorFecha"
-                  color="blue"
-                  header-color="#810880"
-                  class="custom-date-picker"
-                ></v-date-picker>
-              </v-menu> 
-          <v-data-table :headers="headers" :items="filteredPropietarioData" :loading="loading" :items-per-page="10" :search="search" :footer-props="{
+          <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="5" transition="scale-transition" offset-y
+            min-width="auto">
+            <template #activator="{ on, attrs }">
+              <v-text-field v-model="fechaFiltro" class="input-data-table" label="Fecha" append-icon="mdi-calendar"
+                v-bind="attrs" v-on="on"></v-text-field>
+            </template>
+            <v-date-picker v-model="fechaFiltro" label="Fecha" @input="filtrarPorFecha" color="blue"
+              header-color="#810880" class="custom-date-picker"></v-date-picker>
+          </v-menu>
+          <v-data-table :headers="headers" :items="filteredPropietarioData" :loading="loading" :items-per-page="10"
+            :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="numero_recibo" class="mytabla" mobile-breakpoint="840">
 
@@ -66,6 +48,7 @@ export default {
     return {
       loading: true,
       fechaFiltro: null, // Inicialmente no se selecciona ninguna fecha de filtro
+      fechaSeleccionadaUTC: null,
       filteredPropietarioData: [], // Agrega esta propiedad
       search: '',
       menu: true,
@@ -83,6 +66,7 @@ export default {
       originalData: [],
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       accesos:null,
+      CorrelativoData: [],
     }
   },
   head() {
@@ -95,6 +79,9 @@ export default {
   mounted() {
     this.permisos()
     this.getContribuyente()
+    this.getCorrelativo()
+    
+
     //this.imprime()
   },
   computed: {
@@ -111,9 +98,9 @@ export default {
       this.efectivoRecaudos.forEach(item => {
         if (cajas[item.numero_caja]) {
           cajas[item.numero_caja].recaudos.push(item);
-          if (item.bancocuenta === null) {
+          //if (item.bancocuenta === null) {
             cajas[item.numero_caja].total += parseFloat(item.monto);
-          }
+          //}
         } else {
           cajas[item.numero_caja] = {
             recaudos: [item],
@@ -260,6 +247,15 @@ export default {
 
   },
   methods: {
+    async getCorrelativo() {
+      try {
+        const response = await this.$axios.$get('correlativo');
+        this.CorrelativoData = response
+        console.log('CorrelativoData', this.CorrelativoData)
+      } catch (err) {
+        console.log(err);
+      }
+    },
     permisos() {
       /********************************************************************************************************
         Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser
@@ -282,299 +278,10 @@ export default {
       return new Date(dateString).toLocaleDateString('es-ES', options);
     },
 
-    generarPDF2() {
-      const pdf = new jsPDF('p', 'mm', 'letter');
-
-      // Agregar el encabezado con dos logotipos y un título centrado
-      const img1 = new Image();
-      img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
-      const img2 = new Image();
-      img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
-      const title = 'Reporte PDF';
-
-      pdf.addImage(img1, 'PNG', 10, 10, 40, 10); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 150, 10, 40, 10); // Logotipo derecho
-      pdf.setFontSize(16);
-      pdf.text(80, 20, title, null, null, 'center');
-
-      // Agregar la tabla de "Depósito"
-      const depositoData = [['Columna1', 'Columna2', 'Columna3', 'Columna4', 'Columna5', 'Columna6', 'Columna7', 'Columna8']];
-      pdf.autoTable({
-        head: depositoData,
-        startY: 40, // Ajusta la posición de inicio según tus necesidades
-      });
-
-      // Agregar la tabla de "Débito"
-      const debitoData = [['Columna1', 'Columna2', 'Columna3', 'Columna4', 'Columna5', 'Columna6', 'Columna7', 'Columna8', 'Columna9']];
-      pdf.autoTable({
-        head: debitoData,
-        startY: pdf.autoTable.previous.finalY + 10, // Ajusta la posición de inicio según tus necesidades
-      });
-
-      // Guardar el PDF
-      pdf.save('reporte.pdf');
-      
-    },
-    generarPDF1() {
-      const pdf = new jsPDF('p', 'mm', 'letter');
-      //const pdf = new jsPDF()
-      
-      const img1 = new Image();
-      img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
-      const img2 = new Image();
-      img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
-      const title = 'Cuadre detallado de caja';
-        // Establecer el tamaño de fuente para el encabezado de la tabla
-      const fontSizeHead = 8; // Tamaño de fuente para el encabezado
-      const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
-      let pageHeight = pdf.internal.pageSize.height;
-      let startY = 60 ;
-
-      pdf.addImage(img1, 'PNG', 10, 10, 30, 30); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 160, 10, 40, 30); // Logotipo derecho
-      pdf.setFontSize(16);
-      pdf.text(100, 40, title, null, null, 'center');
-      pdf.setFontSize(fontSizeHead); // Establecer el tamaño de fuente solo para esta línea
-
-      pdf.text('EFECTIVO: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosEfectivo.toFixed(2), null, null, 'right');
-      startY=startY+5
-      pdf.text('DEBITO: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosDebito.toFixed(2), null, null, 'right');
-      startY=startY+5
-      pdf.text('TRASFERENCIA: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosTransferencia.toFixed(2), null, null, 'right');
-      startY=startY+5
-      pdf.text('DEPOSITO: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosDeposito.toFixed(2), null, null, 'right');
-      startY=startY+5
-      pdf.text('NOTA DE CREDITO: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosNotaCredito.toFixed(2), null, null, 'right');
-      startY=startY+15
-
-      //pdf.setFontSize(16); // Establecer el tamaño de fuente solo para esta línea
-//********************************************************************************** 
-
-      //  pdf.autoTable({
-      //    startY: 60,
-      //    head: [['ID', 'Tipo de Pago', 'Número de Recibo', 'Monto', 'Fecha de Pago']],
-      //    body: this.efectivoRecaudos.map(item => [
-      //      item.id,
-      //      item.tipopago_nombre,
-      //      item.numero_recibo,
-      //      item.monto,
-      //      this.formatDate(item.fechapago),
-      //    ]),
-      //    styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
-      //    headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-      //  });
-
-
-      // Imprimir totales por caja
-
-      //let startY = pdf.autoTable.previous.finalY + 5; // Ajusta la posición de inicio según tus necesidades
-      pdf.setFontSize(fontSizeHead+5);
-      pdf.text('EFECTIVO',15, startY);
-      pdf.setFontSize(fontSizeHead);
-      startY = startY+1
-      pageHeight = pdf.internal.pageSize.height;
-      for (const caja in this.cajasTotales) {
-        if (startY + this.cajasTotales[caja].recaudos.length * 10 + 10 > pageHeight) {
-          pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
-          startY = 10;
-        }
-        //pdf.text(`Caja: ${caja}`, 15, startY);
-
-        pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
-          body: this.cajasTotales[caja].recaudos.map(item => [
-            item.numero_recibo,
-            item.banco_nombre,
-            item.banco_cuenta,
-            item.nro_referencia,
-            item.monto,
-            this.formatDate(item.fechapago),
-          ]),
-          startY: startY + 2,
-          //margin: { top: startY + 10 + 10 },
-          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
-          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-
-        });
-        
-        console.log('startY',startY,'this.cajasTotales[caja].recaudos.length ',this.cajasTotales[caja].recaudos.length )
-        pdf.text(`Total de la Caja ${caja}:`, 15, startY + 10 + this.cajasTotales[caja].recaudos.length * 10);
-        pdf.text(80, startY + 10 + this.cajasTotales[caja].recaudos.length * 10, this.cajasTotales[caja].total.toFixed(2), null, null, 'right');
-
-        startY += 10 + this.cajasTotales[caja].recaudos.length * 10;
-      }
-      // Imprimir total general efectivo
-      //const totalEfectivo = Object.values(this.cajasTotales).reduce((acc, caja) => acc + caja.total, 0);
-      //startY = startY+3
-      //pdf.text('Total EFECTIVO: ', 15, startY);
-      //pdf.text(80, startY, totalEfectivo.toFixed(2), null, null, 'right');
-
-      startY = startY+8
-      pdf.setFontSize(fontSizeHead+5);
-      pdf.text('DEBITO',15, startY);
-      pdf.setFontSize(fontSizeHead);
-      startY = startY+1
-      pageHeight = pdf.internal.pageSize.height;
-      for (const caja in this.cajasTotalesDebito) {
-        if (startY + this.cajasTotalesDebito[caja].recaudos.length * 10 + 10 > pageHeight) {
-          pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
-          startY = 10;
-        }
-        //pdf.text(`Caja: ${caja}`, 15, startY);
-        pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', 'Aprobación', '# Lote', '# Referencia', 'Monto', 'Fecha de Pago']],
-          body: this.cajasTotalesDebito[caja].recaudos.map(item => [
-            item.numero_recibo,
-            item.banco_nombre,
-            item.banco_cuenta,
-            item.nro_aprobacion,
-            item.nro_lote,
-            item.nro_referencia,
-            item.monto,
-            this.formatDate(item.fechapago),
-          ]),
-          startY: startY + 2,
-          //margin: { top: startY + 10 + 10 },
-          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
-          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-
-        });
-        pdf.text(`Total de la Caja ${caja}:`, 15, startY + 10 + this.cajasTotalesDebito[caja].recaudos.length * 10);
-        pdf.text(80, startY + 10 + this.cajasTotalesDebito[caja].recaudos.length * 10, this.cajasTotalesDebito[caja].total.toFixed(2), null, null, 'right');
-
-        startY += 10 + this.cajasTotalesDebito[caja].recaudos.length * 10;
-      }
-      // Imprimir total general efectivo
-      //const totalDebito= Object.values(this.cajasTotalesDebito).reduce((acc, caja) => acc + caja.total, 0);
-      //startY = startY+3
-      //pdf.text('Total DEBITO: ', 15, startY);
-      //pdf.text(80, startY, totalDebito.toFixed(2), null, null, 'right');
-
-      startY = startY+8
-      pdf.setFontSize(fontSizeHead+5);
-      pdf.text('TRANSFERENCIA',15, startY);
-      pdf.setFontSize(fontSizeHead);
-      startY = startY+1
-      pageHeight = pdf.internal.pageSize.height;
-      for (const caja in this.cajasTotalesTransferencia) {
-        if (startY + this.cajasTotalesTransferencia[caja].recaudos.length * 10 + 10 > pageHeight) {
-          pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
-          startY = 10;
-        }
-        //pdf.text(`Caja: ${caja}`, 15, startY);
-        pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
-          body: this.cajasTotalesTransferencia[caja].recaudos.map(item => [
-            item.numero_recibo,
-            item.banco_nombre,
-            item.banco_cuenta,
-            item.nro_referencia,
-            item.monto,
-            this.formatDate(item.fechapago),
-          ]),
-          startY: startY + 2,
-          //margin: { top: startY + 10 + 10 },
-          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
-          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-
-        });
-        pdf.text(`Total de la Caja ${caja}:`, 15, startY + 10 + this.cajasTotalesTransferencia[caja].recaudos.length * 10);
-        pdf.text(80, startY + 10 + this.cajasTotalesTransferencia[caja].recaudos.length * 10, this.cajasTotalesTransferencia[caja].total.toFixed(2), null, null, 'right');
-
-        startY += 10 + this.cajasTotalesTransferencia[caja].recaudos.length * 10;
-      }
-      // Imprimir total general TRANSFERENCIA
-      //const totalTransferencia= Object.values(this.cajasTotalesTransferencia).reduce((acc, caja) => acc + caja.total, 0);
-      //startY = startY+3
-      //pdf.text('Total TRANSFERENCIA: ', 15, startY);
-      //pdf.text(80, startY, totalTransferencia.toFixed(2), null, null, 'right');
-
-      startY = startY+8
-      pdf.setFontSize(fontSizeHead+5);
-      pdf.text('DEPOSITO',15, startY);
-      pdf.setFontSize(fontSizeHead);
-      startY = startY+1
-      pageHeight = pdf.internal.pageSize.height;
-      for (const caja in this.cajasTotalesDeposito) {
-        if (startY + this.cajasTotalesDeposito[caja].recaudos.length * 10 + 10 > pageHeight) {
-          pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
-          startY = 10;
-        }
-        //pdf.text(`Caja: ${caja}`, 15, startY);
-        pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
-          body: this.cajasTotalesDeposito[caja].recaudos.map(item => [
-            item.numero_recibo,
-            item.banco_nombre,
-            item.banco_cuenta,
-            item.nro_referencia,
-            item.monto,
-            this.formatDate(item.fechapago),
-          ]),
-          startY: startY + 2,
-          //margin: { top: startY + 10 + 10 },
-          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
-          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-
-        });
-        pdf.text(`Total de la Caja ${caja}:`, 15, startY + 10 + this.cajasTotalesTransferencia[caja].recaudos.length * 10);
-        pdf.text(80, startY + 10 + this.cajasTotalesDeposito[caja].recaudos.length * 10, this.cajasTotalesDeposito[caja].total.toFixed(2), null, null, 'right');
-
-        startY += 10 + this.cajasTotalesDeposito[caja].recaudos.length * 10;
-      }
-      // Imprimir total general DEPOSITO
-      //const totalDeposito= Object.values(this.cajasTotalesDeposito).reduce((acc, caja) => acc + caja.total, 0);
-      //startY = startY+3
-      //pdf.text('Total DEPOSITO: ', 15, startY);
-      //pdf.text(80, startY, totalDeposito.toFixed(2), null, null, 'right');
-
-      startY = startY+8
-      pdf.setFontSize(fontSizeHead+5);
-      pdf.text('NOTA DE CREDITO',15, startY);
-      pdf.setFontSize(fontSizeHead);
-      startY = startY+1
-      pageHeight = pdf.internal.pageSize.height;
-      for (const caja in this.cajasTotalesNotaCredito) {
-        if (startY + this.cajasTotalesNotaCredito[caja].recaudos.length * 10 + 10 > pageHeight) {
-          pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
-          startY = 10;
-        }
-        //pdf.text(`Caja: ${caja}`, 15, startY);
-        pdf.autoTable({
-          head: [['#Recibo', 'Monto', 'Fecha de Pago']],
-          body: this.cajasTotalesNotaCredito[caja].recaudos.map(item => [
-            item.numero_recibo,
-            item.monto,
-            this.formatDate(item.fechapago),
-          ]),
-          startY: startY + 2,
-          //margin: { top: startY + 10 + 10 },
-          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
-          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-
-        });
-        pdf.text(`Total de la Caja ${caja}:`, 15, startY + 10 + this.cajasTotalesNotaCredito[caja].recaudos.length * 10);
-        pdf.text(80, startY + 10 + this.cajasTotalesNotaCredito[caja].recaudos.length * 10, this.cajasTotalesNotaCredito[caja].total.toFixed(2), null, null, 'right');
-
-        startY += 10 + this.cajasTotalesNotaCredito[caja].recaudos.length * 10;
-      }
-      // Imprimir total general efectivo
-      //const totalNotaCreadito = Object.values(this.cajasTotalesNotaCredito).reduce((acc, caja) => acc + caja.total, 0);
-      //startY = startY+3
-      //pdf.text('Total NOTA DE CREDITO: ', 15, startY);
-      //pdf.text(80, startY, totalNotaCreadito.toFixed(2), null, null, 'right');
-
-
-      pdf.save('reporte.pdf');
-    },
 
 
     formatDateTXT(dateString) {
+      console.log('fecha delpago',dateString)
       const date = new Date(dateString);
       const day = String(date.getDate()).padStart(2, '0');
       const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -583,11 +290,11 @@ export default {
     },
 
     generarTXT() {
-      const rows = this.filteredPropietarioData.map(pago => {
-        const { monto, fecha, banco_cuenta, banco_codigo,nro_lote,nro_aprobacion,operacion_tipo,nro_referencia } = pago;
+      const rows = this.filteredPropietarioData.filter(pago => pago.operacion_tipo !== 'X').map(pago => {
+        const { monto, fechapago, banco_cuenta, banco_codigo,nro_lote,nro_aprobacion,operacion_tipo,nro_referencia } = pago;
         const formattedMonto = parseFloat(monto).toFixed(2);
-        const formattedFecha = this.formatDateTXT(fecha);
-        const formattedFechacuadre = this.formatDateTXT(this.fechaFiltro);
+        const formattedFecha = this.formatDateTXT(fechapago);
+        const formattedFechacuadre = this.formatDateTXT(this.fechaSeleccionadaUTC);
         return `<${formattedFechacuadre}|${formattedFecha}|${banco_codigo === null ? '' : banco_codigo}|${banco_cuenta === null ? '' : banco_cuenta}|${nro_lote === null ? '' : nro_lote}|${nro_aprobacion === null ? '' : nro_aprobacion}|${operacion_tipo}|${nro_referencia === null ? '' : nro_referencia}|${formattedMonto}|0|Z|>`;
       });
 
@@ -605,36 +312,85 @@ export default {
     generarPDF() {
       console.log('txt',this.filteredPropietarioData)
       const pdf = new jsPDF('p', 'mm', 'letter');
-      //const img1 = new Image();
-      //img1.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png'; // Ruta a tu primer logotipo
-      //const img2 = new Image();
-      //img2.src = '/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/logo.png'; // Ruta a tu segundo logotipo
-      const title = `Cuadre detallado de caja a la fecha  ${this.fechaFiltro}`;
-        // Establecer el tamaño de fuente para el encabezado de la tabla
+      const fechaActual = new Date();
+      const dia = fechaActual.getDate().toString().padStart(2, '0'); // Obtén el día y asegúrate de tener 2 dígitos.
+      const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); // El mes comienza desde 0, por lo que sumamos 1.
+      const anio = fechaActual.getFullYear();
+      const hora = fechaActual.getHours().toString().padStart(2, '0');
+      const minutos = fechaActual.getMinutes().toString().padStart(2, '0');
+      const segundos = fechaActual.getSeconds().toString().padStart(2, '0');
+      console.log('fechaActual')
+      // Tamaño máximo de la línea
+      const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
+
+      const img1 = new Image();
+      const img2 = new Image();
+      var ruta1 = this.CorrelativoData[0].Logo1;
+      if (ruta1.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
+      }
+      var ruta2 = this.CorrelativoData[0].Logo2;
+      if (ruta2.includes("catastro_back")) {
+        // Concatenar "/catastro_back"
+        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
+      }
+      img1.src = ruta1;
+      img2.src = ruta2;
+      img1.onload = function () {
+        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+        img2.onload = function () {
+          pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+        };
+      };
+      let startY = 40;
+      // Establecer el tamaño de fuente para el encabezado de la tabla
+      const fontSizeTitle = 15; // Tamaño de fuente para el encabezado
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
       const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
+      //let pageHeight = pdf.internal.pageSize.height;
+      pdf.addImage(img1, 'PNG', 10, 5, 30, 30); // Logotipo izquierdo
+      pdf.addImage(img2, 'PNG', 160, 3, 40, 30); // Logotipo derecho
+      pdf.setFontSize(fontSizeHead);
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(fontSizeHead + 2);
+      pdf.text(100, 10, 'REPÚBLICA BOLIVARIANA DE VENEZUELA', null, null, 'center');
+      pdf.text(100, 15, 'ESTADO CARABOBO', null, null, 'center');
+      pdf.text(100, 20, 'ALCALDÍA DEL MUNICIPIO NAGUANAGUA', null, null, 'center');
+      pdf.text(100, 25, 'R.I.F.: G-20004231-1', null, null, 'center');
+      pdf.setFontSize(fontSizeHead);
+      pdf.text(200, 35, `FECHA DE IMPRESIÓN: ${fechaConHora}`, null, null, 'right');
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(fontSizeTitle);
+      pdf.setFontSize(fontSizeHead);
+      pdf.setFont("helvetica", "normal");
+      pdf.setDrawColor(0); // Color de línea (negro en este caso)
+      pdf.setLineWidth(0.5); // Ancho de la línea (1 en este caso)
+      pdf.line(15, startY, 200, startY); // Coordenadas de inicio (x1, y1) y final (x2, y2) de la línea
+      const title = `Cuadre detallado de caja a la fecha  ${this.fechaFiltro}`;
+        // Establecer el tamaño de fuente para el encabezado de la tabla
       let pageHeight = pdf.internal.pageSize.height;
-      let startY = 60 ;
+      let tTotal=this.sumaMontosEfectivo+this.sumaMontosDebito+this.sumaMontosTransferencia+this.sumaMontosDeposito+this.sumaMontosNotaCredito+this.sumaMontosSituado+this.sumaMontosInteres;
 
       //pdf.addImage(img1, 'PNG', 10, 10, 30, 30); // Logotipo izquierdo
       //pdf.addImage(img2, 'PNG', 160, 10, 40, 30); // Logotipo derecho
-      pdf.setFontSize(16);
-      pdf.text(100, 40, title, null, null, 'center');
+      pdf.setFontSize(14);
+      pdf.text(100, 30, title, null, null, 'center');
       pdf.setFontSize(fontSizeHead); // Establecer el tamaño de fuente solo para esta línea
-
+      startY=startY+5
       pdf.text('EFECTIVO: ', 15, startY);
       pdf.text(80, startY, this.sumaMontosEfectivo.toFixed(2), null, null, 'right');
       startY=startY+5
-      pdf.text('DEBITO: ', 15, startY);
+      pdf.text('DÉBITO: ', 15, startY);
       pdf.text(80, startY, this.sumaMontosDebito.toFixed(2), null, null, 'right');
       startY=startY+5
       pdf.text('TRANSFERENCIA: ', 15, startY);
       pdf.text(80, startY, this.sumaMontosTransferencia.toFixed(2), null, null, 'right');
       startY=startY+5
-      pdf.text('DEPOSITO: ', 15, startY);
+      pdf.text('DEPÓSITO: ', 15, startY);
       pdf.text(80, startY, this.sumaMontosDeposito.toFixed(2), null, null, 'right');
       startY=startY+5
-      pdf.text('NOTA DE CREDITO: ', 15, startY);
+      pdf.text('NOTA DE CRÉDITO: ', 15, startY);
       pdf.text(80, startY, this.sumaMontosNotaCredito.toFixed(2), null, null, 'right');
       if (this.sumaMontosSituado>0){
         startY=startY+5
@@ -646,12 +402,15 @@ export default {
         pdf.text('INTERESES: ', 15, startY);
         pdf.text(80, startY, this.sumaMontosInteres.toFixed(2), null, null, 'right');
       }
-      startY=startY+15
-      if (this.sumaMontosEfectivo){
+      startY=startY+5
+      pdf.text('TOTAL: ', 15, startY);
+      pdf.text(80, startY, tTotal.toFixed(2), null, null, 'right');
+      startY=startY+7
+      if (this.cajasTotales){
         pdf.setFontSize(fontSizeHead+5);
         pdf.text('EFECTIVO',15, startY);
         pdf.setFontSize(fontSizeHead);
-        startY = startY+1
+        //startY = startY+1
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotales) {
@@ -663,7 +422,7 @@ export default {
 
 
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
           body: this.cajasTotales[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -686,9 +445,9 @@ export default {
       if (this.sumaMontosDebito){
         startY = startY+8
         pdf.setFontSize(fontSizeHead+5);
-        pdf.text('DEBITO',15, startY);
+        pdf.text('DÉBITO',15, startY);
         pdf.setFontSize(fontSizeHead);
-        startY = startY+1
+        //startY = startY+1
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotalesDebito) {
@@ -698,7 +457,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', 'Aprobación', '# Lote', '# Referencia', 'Monto', 'Fecha de Pago']],
+          head: [['#Recibo','Banco','Número de cuenta', 'Aprobación', '# Lote', '# Referencia', 'Monto', 'Fecha del Documento']],
           body: this.cajasTotalesDebito[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -726,7 +485,7 @@ export default {
         pdf.setFontSize(fontSizeHead+5);
         pdf.text('TRANSFERENCIA',15, startY);
         pdf.setFontSize(fontSizeHead);
-        startY = startY+1
+        //startY = startY+1
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotalesTransferencia) {
@@ -736,7 +495,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
           body: this.cajasTotalesTransferencia[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -760,7 +519,7 @@ export default {
         pdf.setFontSize(fontSizeHead+5);
         pdf.text('SITUADO',15, startY);
         pdf.setFontSize(fontSizeHead);
-        startY = startY+1
+        //startY = startY+1
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotalesSituado) {
@@ -770,7 +529,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
           body: this.cajasTotalesSituado[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -795,7 +554,7 @@ export default {
         pdf.setFontSize(fontSizeHead+5);
         pdf.text('INTERESES',15, startY);
         pdf.setFontSize(fontSizeHead);
-        startY = startY+1
+        //startY = startY+1
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotalesInteres) {
@@ -805,7 +564,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
           body: this.cajasTotalesInteres[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -828,9 +587,9 @@ export default {
       if (this.sumaMontosDeposito){
         startY = startY+8
         pdf.setFontSize(fontSizeHead+5);
-        pdf.text('DEPOSITO',15, startY);
+        pdf.text('DEPÓSITO',15, startY);
         pdf.setFontSize(fontSizeHead);
-        startY = startY+1
+        //startY = startY+1
         pageHeight = pdf.internal.pageSize.height;
       }
 
@@ -841,7 +600,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha de Pago']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
           body: this.cajasTotalesDeposito[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -863,9 +622,9 @@ export default {
       if (this.sumaMontosNotaCredito){
         startY = startY+8
         pdf.setFontSize(fontSizeHead+5);
-        pdf.text('NOTA DE CREDITO',15, startY);
+        pdf.text('NOTA DE CRÉDITO',15, startY);
         pdf.setFontSize(fontSizeHead);
-        startY = startY+1
+        //startY = startY+1
         pageHeight = pdf.internal.pageSize.height;
       }
       for (const caja in this.cajasTotalesNotaCredito) {
@@ -875,7 +634,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo', 'Monto', 'Fecha de Pago']],
+          head: [['#Recibo', 'Monto', 'Fecha del Documento']],
           body: this.cajasTotalesNotaCredito[caja].recaudos.map(item => [
             item.numero_recibo,
             item.monto,
@@ -907,7 +666,7 @@ export default {
     filtrarPorFecha() {
     if (this.fechaFiltro) {
       const fechaSeleccionada = new Date(this.fechaFiltro);
-      const fechaSeleccionadaUTC = new Date(
+      this.fechaSeleccionadaUTC = new Date(
       fechaSeleccionada.getUTCFullYear(),
       fechaSeleccionada.getUTCMonth(),
       fechaSeleccionada.getUTCDate());
@@ -919,7 +678,7 @@ export default {
         fechaRegistro.getUTCMonth(),
         fechaRegistro.getUTCDate()
       );
-        return fechaRegistroUTC.toDateString() === fechaSeleccionadaUTC.toDateString();
+        return fechaRegistroUTC.toDateString() === this.fechaSeleccionadaUTC.toDateString();
 
 
         //return fechaRegistro.toDateString() === fechaSeleccionada.toDateString();

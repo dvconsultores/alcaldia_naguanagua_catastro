@@ -168,11 +168,11 @@
     "_name": "_1b8706c9"
   },
   {
-    "name": "dashboard -flujo___en",
-    "path": "/dashboard%20-flujo",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/dashboard -flujo.vue",
-    "chunkName": "pages/dashboard -flujo",
-    "_name": "_4772cfce"
+    "name": "dashboard-flujo___en",
+    "path": "/dashboard-flujo",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/dashboard-flujo.vue",
+    "chunkName": "pages/dashboard-flujo",
+    "_name": "_326c6070"
   },
   {
     "name": "deposito-efectivo___en",
@@ -278,6 +278,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estatus-inmueble.vue",
     "chunkName": "pages/estatus-inmueble",
     "_name": "_49cd7a34"
+  },
+  {
+    "name": "exoneracion___en",
+    "path": "/exoneracion",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/exoneracion.vue",
+    "chunkName": "pages/exoneracion",
+    "_name": "_6af9057c"
   },
   {
     "name": "fines-fiscales___en",
@@ -544,6 +551,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-recaudos.vue",
     "chunkName": "pages/reporte-recaudos",
     "_name": "_f7520a0a"
+  },
+  {
+    "name": "reporte-recaudos copy___en",
+    "path": "/reporte-recaudos%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-recaudos copy.vue",
+    "chunkName": "pages/reporte-recaudos copy",
+    "_name": "_13f0fd2a"
   },
   {
     "name": "reporte-taquilla___en",
@@ -896,11 +910,11 @@
     "_name": "_1b8706c9"
   },
   {
-    "name": "dashboard -flujo___es",
-    "path": "/es/dashboard%20-flujo",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/dashboard -flujo.vue",
-    "chunkName": "pages/dashboard -flujo",
-    "_name": "_4772cfce"
+    "name": "dashboard-flujo___es",
+    "path": "/es/dashboard-flujo",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/dashboard-flujo.vue",
+    "chunkName": "pages/dashboard-flujo",
+    "_name": "_326c6070"
   },
   {
     "name": "deposito-efectivo___es",
@@ -999,6 +1013,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estatus-inmueble.vue",
     "chunkName": "pages/estatus-inmueble",
     "_name": "_49cd7a34"
+  },
+  {
+    "name": "exoneracion___es",
+    "path": "/es/exoneracion",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/exoneracion.vue",
+    "chunkName": "pages/exoneracion",
+    "_name": "_6af9057c"
   },
   {
     "name": "fines-fiscales___es",
@@ -1265,6 +1286,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-recaudos.vue",
     "chunkName": "pages/reporte-recaudos",
     "_name": "_f7520a0a"
+  },
+  {
+    "name": "reporte-recaudos copy___es",
+    "path": "/es/reporte-recaudos%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/reporte-recaudos copy.vue",
+    "chunkName": "pages/reporte-recaudos copy",
+    "_name": "_13f0fd2a"
   },
   {
     "name": "reporte-taquilla___es",
