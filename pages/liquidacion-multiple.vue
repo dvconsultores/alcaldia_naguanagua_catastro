@@ -26,11 +26,11 @@
               <template v-slot:[`item.monto_total`]="{ item }">
                 {{ numeroFormateado(item.monto_total) }}
               </template>
-              <template #[`item.actions`]="{ item }">
+              <!--template #[`item.actions`]="{ item }">
                 <v-btn :disabled="botonDeshabilitado" class="btn-liquidar" @click="getEstadoDetalles(item)">
                   <v-icon>mdi-eye</v-icon>
                 </v-btn>
-              </template>
+              </template-->
               <template #[`item.actions2`]="{ item }">
                 <v-btn  :disabled="botonDeshabilitado" class="btn-liquidar" @click="getEstadoDetallesFast(item)">
                   <v-icon>mdi-gavel</v-icon>

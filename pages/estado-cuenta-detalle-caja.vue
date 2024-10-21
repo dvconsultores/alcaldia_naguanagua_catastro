@@ -229,12 +229,6 @@ export default {
       IdLiq: 0,
       CorrelativoData: [],
       botonDeshabilitado: false,
-
-
-
-
-
-
       botonDeshabilitado1: false,
       botonDeshabilitado2: false,
       menu: false,
@@ -251,11 +245,6 @@ export default {
       CorrelativoPago: 0,
       mostrarVentana: false,
       ValidarTransferenciaData: [],
-
-
-
-
-
     }
   },
 
@@ -315,7 +304,7 @@ export default {
       this.dialog = true;
     },
     mostrarVentanaNueva(tipopago) {
-      console.log('tipopago', tipopago)
+      //console.log('tipopago', tipopago)
       // Verifica si "codigo" es igual a "T"
       if (tipopago === "T") {
         this.filtrocorridasbancariasData = []
@@ -348,7 +337,7 @@ export default {
       try {
         const response = await this.$axios.$get('bancocuenta')
         this.bancoCuentaData = response
-        console.log('bancoCuentaData', this.bancoCuentaData)
+        //console.log('bancoCuentaData', this.bancoCuentaData)
       } catch (err) {
         console.log(err);
       }
@@ -358,7 +347,7 @@ export default {
       try {
         const response = await this.$axios.$get('correlativo');
         this.CorrelativoData = response
-        console.log('CorrelativoData', this.CorrelativoData)
+        //console.log('CorrelativoData', this.CorrelativoData)
       } catch (err) {
         console.log(err);
       }
@@ -373,7 +362,7 @@ export default {
       try {
         const response = await this.$axios.$get('tasamulta');
         this.tasaMultaData = response
-        console.log('this.tasaMultaData0', this.tasaMultaData)
+        //console.log('this.tasaMultaData0', this.tasaMultaData)
       } catch (err) {
         console.log(err);
       }
@@ -417,14 +406,13 @@ export default {
         try {
           this.botonDeshabilitado = true
           this.dialogWait = true
-          console.log('data',data)
+          //console.log('data',data)
           const res = await this.$axios.$post('crearestadocuenta/', data)
-          console.log(res)
+          //console.log(res)
           this.Id=res.id
           this.dialogWait = false
           this.botonDeshabilitado = false
-          //this.$router.push('modificar-datos')
-          this.$alert("success", { desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title: 'Creado' })
+          //this.$alert("success", { desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title: 'Creado' })
         } catch (err) {
           console.log(err);
         }
@@ -442,14 +430,13 @@ export default {
         try {
           this.botonDeshabilitado = true
           this.dialogWait = true
-          console.log('data2',data2)
+          //console.log('data2',data2)
           const res = await this.$axios.$post('crearliquidacion/', data2)
-          console.log(res)
+          //console.log(res)
           this.IdLiq=res.id
           this.dialogWait = false
           this.botonDeshabilitado = false
-          //this.$router.push('modificar-datos')
-          this.$alert("success", { desc: "Se ha creado una prefactura con éxito", hash: 'knsddcssdc', title: 'Creado' })
+          //this.$alert("success", { desc: "Se ha creado una prefactura con éxito", hash: 'knsddcssdc', title: 'Creado' })
         } catch (err) {
           console.log(err);
         }
@@ -479,13 +466,12 @@ export default {
           try {
           this.botonDeshabilitado = true
           this.dialogWait = true
-          console.log('data3',data3)
+          //console.log('data3',data3)
           const res = await this.$axios.$post('crearPago/', data3);
           console.log(res)
           this.dialogWait = false
           this.botonDeshabilitado = false
-          //this.$router.push('modificar-datos')
-          this.$alert("success", { desc: "Se ha creado UN PAGO con éxito", hash: 'knsddcssdc', title: 'Creado' })
+          //this.$alert("success", { desc: "Se ha creado UN PAGO con éxito", hash: 'knsddcssdc', title: 'Creado' })
         } catch (err) {
           console.log(err);
         }
@@ -502,7 +488,7 @@ export default {
       var mensaje = ""
       if (this.divs.length > 0) {
         const div = this.divs[this.divs.length - 1];
-        console.log('addDiv', div);
+        //console.log('addDiv', div);
         if (!div.tipopago) { mensaje = mensaje + 'Debe colocar un tipo de pago.' }
         else {
           if (div.tipopago == "D") { // Tarjeta de debito
@@ -803,7 +789,7 @@ export default {
       try {
         const response = await this.$axios.$get(`estadocuenta/${this.Id}/`)
 
-        console.log('response', response.ReportePdf)
+        //console.log('response', response.ReportePdf)
         var pdfData = response.ReportePdf;
         if (pdfData.includes("catastro_back")) {
           // Concatenar "/catastro_back"

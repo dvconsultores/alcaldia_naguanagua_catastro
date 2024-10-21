@@ -217,7 +217,7 @@ export default {
   mixins: [computeds],
   data() {
     return{
-      menu1: false,
+      menu1: true,
       dialogDelete: false,
       inmuebleData:[],
       inmueblePropietariosData:[],
@@ -230,6 +230,7 @@ export default {
         { text: 'Nombre', align: 'center', value: 'propietario.nombre',},
         { text: 'Nacionalidad', value: 'propietario.nacionalidad', align:'center' },
         { text: 'Nro. Documento', value: 'propietario.numero_documento', align:'center' },
+        { text: 'F. Compra', value: 'fecha_de_compra', align:'center' },
         { text: '', value: 'actions', sortable: false, align:'center' },
       ],
 
@@ -331,7 +332,7 @@ export default {
           this.inmueblePropietariosData.push(res)
           console.log('inmueblePropietariosData',this.inmueblePropietariosData)
           this.$alert("success", {desc: "Se ha agregado el contribuyente con éxito"+this.fecha_compra, hash: 'knsddcssdc', title:'Agregado'})        
-          this. getIdInmueblePropietarios()
+          this.getIdInmueblePropietarios()
         }).catch(err => {
           console.log(err)
         })
@@ -452,7 +453,7 @@ export default {
       const data = this.inmueblePropietariosData.map((item) => [
         item.propietario.numero_documento,
         item.propietario.nombre,
-        this.fecha_compra,
+        item.fecha_de_compra,
       ]);
       pdf.autoTable(columns, data, options);
       startY += 10 + this.inmueblePropietariosData.length * 7;

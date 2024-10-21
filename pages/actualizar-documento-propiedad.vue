@@ -16,6 +16,7 @@
           :items="dataTipoDocumento"
           item-text="descripcion"
           item-value="id"
+          :disabled="!accesos.actualizar"
           ></v-autocomplete>
 
           <v-autocomplete
@@ -25,6 +26,7 @@
           :items="dataTipoEspecial"
           item-text="descripcion"
           item-value="id"
+          :disabled="!accesos.actualizar"
           ></v-autocomplete>
         </div>
 
@@ -51,6 +53,7 @@
                 readonly
                 v-bind="attrs"
                 v-on="on"
+                :disabled="!accesos.actualizar"
                 ></v-text-field>
               </template>
               <v-date-picker
@@ -71,6 +74,7 @@
             :items="dataTipoTenencia"
             item-text="descripcion"
             item-value="id"
+            :disabled="!accesos.actualizar"
             ></v-autocomplete>
           </v-row>
 
@@ -96,6 +100,7 @@
                 readonly
                 v-bind="attrs"
                 v-on="on"
+                :disabled="!accesos.actualizar"
                 ></v-text-field>
               </template>
               <v-date-picker
@@ -139,6 +144,7 @@
                 readonly
                 v-bind="attrs"
                 v-on="on"
+                :disabled="!accesos.actualizar"
                 ></v-text-field>
               </template>
               <v-date-picker
@@ -156,6 +162,7 @@
             v-model="dataDocumentoPropiedad.numero_documento"
             class="input-300"
             label="Nro. de Documento"
+            :disabled="!accesos.actualizar"
             ></v-text-field>
           </v-row>
 
@@ -164,6 +171,7 @@
             v-model="dataDocumentoPropiedad.matricula_documento"
             class="input-300"
             label="Matricula"
+            :disabled="!accesos.actualizar"
             ></v-text-field>
           </v-row>
 
@@ -173,6 +181,7 @@
             class="input-300"
             label="Año del Folio Real"
             type="number"
+            :disabled="!accesos.actualizar"
             ></v-text-field>
           </v-row>
         </div>
@@ -209,6 +218,7 @@
                     readonly
                     v-bind="attrs"
                     v-on="on"
+                    :disabled="!accesos.actualizar"
                     ></v-text-field>
                   </template>
                   <v-date-picker
@@ -227,6 +237,7 @@
               v-model="dataDocumentoPropiedad.numero_terreno"
               class="input-300"
               label="Nro. de Documento"
+              :disabled="!accesos.actualizar"
               ></v-text-field>  
             </v-col>
 
@@ -235,6 +246,7 @@
               v-model="dataDocumentoPropiedad.folio_terreno" 
               class="input-300"
               label="Folios"
+              :disabled="!accesos.actualizar"
               ></v-text-field>
             </v-col>
 
@@ -243,6 +255,7 @@
               v-model="dataDocumentoPropiedad.protocolo_terreno"
               class="input-300"
               label="Protocolo"
+              :disabled="!accesos.actualizar"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -252,19 +265,24 @@
               <v-text-field
               v-model="dataDocumentoPropiedad.tomo_terreno" 
               class="input-middle" label="Tomo"
+              :disabled="!accesos.actualizar"
               ></v-text-field>
             </v-col>
 
             <v-col cols="3">
               <v-text-field 
               v-model="dataDocumentoPropiedad.area_terreno"
-              class="input-300" label="Area" type="number"></v-text-field>
+              class="input-300" label="Area" type="number"
+              :disabled="!accesos.actualizar">
+            </v-text-field>
             </v-col>
 
             <v-col cols="3">
               <v-text-field 
               v-model="dataDocumentoPropiedad.valor_terreno"
-              class="input-300" label="Valor" type="number"></v-text-field>
+              class="input-300" label="Valor" type="number"
+              :disabled="!accesos.actualizar">
+            </v-text-field>
             </v-col>
           </v-row>
         </div>
@@ -301,6 +319,7 @@
                     readonly
                     v-bind="attrs"
                     v-on="on"
+                    :disabled="!accesos.actualizar"
                     ></v-text-field>
                   </template>
                   <v-date-picker
@@ -319,6 +338,7 @@
               v-model="dataDocumentoPropiedad.numero_construccion"
               class="input-300"
               label="Nro. de Documento"
+              :disabled="!accesos.actualizar"
               ></v-text-field>  
             </v-col>
 
@@ -327,6 +347,7 @@
               v-model="dataDocumentoPropiedad.folio_construccion"
               class="input-300"
               label="Folios"
+              :disabled="!accesos.actualizar"
               ></v-text-field>
             </v-col>
 
@@ -335,6 +356,7 @@
               v-model="dataDocumentoPropiedad.protocolo_construccion"
               class="input-300"
               label="Protocolo"
+              :disabled="!accesos.actualizar"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -343,19 +365,22 @@
             <v-col cols="6">
               <v-text-field 
               v-model="dataDocumentoPropiedad.tomo_construccion"
-              class="input-middle" label="Tomo"></v-text-field>
+              class="input-middle" label="Tomo"
+              :disabled="!accesos.actualizar"></v-text-field>
             </v-col>
 
             <v-col cols="3">
               <v-text-field 
               v-model="dataDocumentoPropiedad.area_construccion"
-              class="input-300" label="Area"></v-text-field>
+              class="input-300" label="Area"
+              :disabled="!accesos.actualizar"></v-text-field>
             </v-col>
 
             <v-col cols="3">
               <v-text-field 
               v-model="dataDocumentoPropiedad.valor_construccion"
-              class="input-300" label="Valor"></v-text-field>
+              class="input-300" label="Valor"
+              :disabled="!accesos.actualizar"></v-text-field>
             </v-col>
           </v-row>
         </div>
@@ -374,6 +399,7 @@
               v-model="dataDocumentoPropiedad.lindero_norte"
               class="input-middle"
               label="Norte"
+              :disabled="!accesos.actualizar"
               ></v-text-field> 
             </v-col>
 
@@ -382,6 +408,7 @@
               v-model="dataDocumentoPropiedad.lindero_sur"
               class="input-middle"
               label="Sur"
+              :disabled="!accesos.actualizar"
               ></v-text-field>  
             </v-col>
           </v-row>
@@ -391,6 +418,7 @@
               v-model="dataDocumentoPropiedad.lindero_este"
               class="input-middle"
               label="Este"
+              :disabled="!accesos.actualizar"
               ></v-text-field> 
             </v-col>
 
@@ -399,6 +427,7 @@
               v-model="dataDocumentoPropiedad.lindero_oeste"
               class="input-middle"
               label="Oeste"
+              :disabled="!accesos.actualizar"
               ></v-text-field>  
             </v-col>
           </v-row>
@@ -406,7 +435,7 @@
       </div>
 
       <div class="center" @click="dialog_confirmar = true">
-        <v-btn class="btn btn-mobile">
+        <v-btn v-if="accesos.escribir" class="btn btn-mobile">
           Guardar
         </v-btn>
       </div>
@@ -432,7 +461,7 @@
 import computeds from '~/mixins/computeds'
 
 export default {
-  name: "actualizar-terrenoPage",
+  name: "actualizar-documento-propiedadPage",
   mixins: [computeds],
   data() {
     return {  
@@ -449,7 +478,9 @@ export default {
       dataDocumentoPropiedad: [],
       dataTipoDocumento: [],
       dataTipoEspecial: [],
-      dataTipoTenencia: []
+      dataTipoTenencia: [],
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
+      accesos: {},
     }
   },
   head() {
@@ -461,8 +492,6 @@ export default {
 
   created(){
     this.redireccionIdVacio()
-
-
   },
 
   methods: {
@@ -471,10 +500,27 @@ export default {
         this.$router.push('consulta-inmueble')
         this.$alert("cancel", {desc: "Debe seleccionar un inmueble para ingresar a este módulo", hash: 'knsddcssdc', title:'Error'})
       }else{
+        this.permisos()
         this.getDocumentoPropiedad()
         this.getTipoDocumento()
         this.getTipoEspecial()
         this.getTipoTenencia()
+      }
+    },
+    permisos() {
+      /********************************************************************************************************
+        Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser
+      ******************************************************************************************************* */
+      const longitud = this.$options.name.length;
+      this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
+      // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
+      console.log('permiso: 1 si , 0 no:', this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
+        console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
+      } else {
+        this.$router.push('index')
+        this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
       }
     },
 

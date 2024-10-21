@@ -241,7 +241,8 @@ export default {
       selectedLiq: [],
       selectedunique: [],
       headers_selected: [
-        { text: 'ID', align: 'center', value: 'id', },
+        //{ text: 'ID', align: 'center', value: 'id', },
+        { text: '# Edo Cuenta', align: 'center', value: 'estadocuenta_numero', },
         { text: '# Pre-Factura', align: 'center', value: 'numero', },
         { text: 'Concepto', value: 'tipoflujo_descripcion', align: 'center' },
         { text: 'Contribuyente', value: 'propietario_nombre', align: 'center' },
@@ -250,6 +251,7 @@ export default {
         { text: 'Monto', value: 'monto_total', align: 'right' },
       ],
       headers: [
+        { text: '# Edo Cuenta', align: 'center', value: 'estadocuenta_numero', },
         { text: '# Pre-Factura', align: 'center', value: 'numero', },
         { text: 'Tipo de Flujo', value: 'tipoflujo_descripcion', align: 'center' },
         { text: 'Contribuyente', value: 'propietario_nombre', align: 'center' },
@@ -609,8 +611,8 @@ export default {
       else { mensaje = mensaje + 'No hay pagos para procesar.' }
       if (mensaje) { this.$alert("cancel", { desc: "Error: " + mensaje, hash: 'knsddcssdc', title: 'Falta dato' }) }
       else {
-        if ((this.montoTotalPagado()).toFixed(8) == (this.montoTotalCxC).toFixed(8)) { this.$alert("success", { desc: "El pago está completo.", hash: 'knsddcssdc', title: 'Error' }) }
-        if ((this.montoTotalCxC).toFixed(8) - (this.montoTotalPagado()).toFixed(8) > 0) { this.valido = true }
+        if ((this.montoTotalPagado()).toFixed(2) == (this.montoTotalCxC).toFixed(2)) { this.$alert("success", { desc: "El pago está completo.", hash: 'knsddcssdc', title: 'Error' }) }
+        if ((this.montoTotalCxC).toFixed(2) - (this.montoTotalPagado()).toFixed(2) > 0) { this.valido = true }
       }
 
       if (this.valido) {
@@ -621,7 +623,7 @@ export default {
           nro_aprobacion: '',
           nro_lote: '',
           nro_referencia: '',
-          monto: this.formatNumber((this.montoTotalCxC - this.montoTotalPagado()).toFixed(8)),
+          monto: ((this.montoTotalCxC - this.montoTotalPagado()).toFixed(2)),
           bloqueado: false,
         })
       }
@@ -638,7 +640,7 @@ export default {
           nro_aprobacion: '',
           nro_lote: '',
           nro_referencia: '',
-          monto: this.formatNumber((this.montoTotalCxC - this.montoTotalPagado()).toFixed(8)),
+          monto: ((this.montoTotalCxC - this.montoTotalPagado()).toFixed(2)),
           bloqueado: false,
         })
       }
@@ -1295,8 +1297,8 @@ export default {
             liquidacion: divLiq.id,
             propietario: divLiq.propietario,
             observacion: this.selectedItem.observaciones != null ? this.selectedItem.observaciones : '',
-            monto: CabeceraPagoApi.montoPagado.toFixed(8),
-            monto_cxc: parseFloat(CabeceraPagoApi.monto_total).toFixed(8),
+            monto: CabeceraPagoApi.montoPagado.toFixed(2),
+            monto_cxc: parseFloat(CabeceraPagoApi.monto_total).toFixed(2),
             caja: this.$store.getters.getUser.caja,
             detalle: DetallePagoApi
           }
