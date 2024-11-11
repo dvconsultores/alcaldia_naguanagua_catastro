@@ -511,13 +511,6 @@
     "_name": "_5a615ad2"
   },
   {
-    "name": "recaudacion-multiple copy___en",
-    "path": "/recaudacion-multiple%20copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple copy.vue",
-    "chunkName": "pages/recaudacion-multiple copy",
-    "_name": "_0128289a"
-  },
-  {
     "name": "regimen___en",
     "path": "/regimen",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/regimen.vue",
@@ -677,6 +670,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/torres.vue",
     "chunkName": "pages/torres",
     "_name": "_f74ed8f8"
+  },
+  {
+    "name": "transferencias-no-conciliadas___en",
+    "path": "/transferencias-no-conciliadas",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/transferencias-no-conciliadas.vue",
+    "chunkName": "pages/transferencias-no-conciliadas",
+    "_name": "_7b31a9b8"
   },
   {
     "name": "ubicacion___en",
@@ -1246,13 +1246,6 @@
     "_name": "_5a615ad2"
   },
   {
-    "name": "recaudacion-multiple copy___es",
-    "path": "/es/recaudacion-multiple%20copy",
-    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple copy.vue",
-    "chunkName": "pages/recaudacion-multiple copy",
-    "_name": "_0128289a"
-  },
-  {
     "name": "regimen___es",
     "path": "/es/regimen",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/regimen.vue",
@@ -1412,6 +1405,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/torres.vue",
     "chunkName": "pages/torres",
     "_name": "_f74ed8f8"
+  },
+  {
+    "name": "transferencias-no-conciliadas___es",
+    "path": "/es/transferencias-no-conciliadas",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/transferencias-no-conciliadas.vue",
+    "chunkName": "pages/transferencias-no-conciliadas",
+    "_name": "_7b31a9b8"
   },
   {
     "name": "ubicacion___es",

@@ -92,12 +92,16 @@ export default {
           password: this.formLogin.password,
           // ip:'1900',
         }).then((res) => {
-          console.log('login', res)
+          
+          //console.log('login', res)
+          
           // this.$toast.success('Autentificación exitosa') // instalar libreria para que funcione
           this.$axios.setToken(res.token, 'Token')
           this.$store.dispatch('storeUser', res)
           //this.$router.push('dashboard')
-          console.log('modulo', res.modulo)
+          
+          //console.log('modulo', res.modulo)
+          
           this.$router.push(res.modulo)
 
         }).catch((err) => {

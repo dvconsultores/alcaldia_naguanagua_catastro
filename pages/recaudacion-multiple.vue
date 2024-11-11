@@ -123,15 +123,15 @@
                           hide-details class="input-data-table"></v-text-field>
                         <v-data-table :headers="headersCorridasBancarias" :items="filtrocorridasbancariasData"
                           :search="searchTransferencia" :items-per-page="5" :footer-props="{
-              itemsPerPageText: 'Items por página',
-            }" sort-by="nombre" class="mytabla" mobile-breakpoint="840">
+                              itemsPerPageText: 'Items por página',
+                            }" sort-by="nombre" class="mytabla" mobile-breakpoint="840">
                           <template v-slot:[`item.monto`]="{ item }">
                             {{ numeroFormateado(item.monto) }}
                           </template>
                           <template #[`item.actions`]="{ item }">
                             <v-btn class="btn-tabla"
-                              @click="div.fechapago = item.fecha; div.monto = item.monto; div.nro_referencia = item.referencia; mostrarVentana = false">
-                              Seleccionar Transferencia
+                              @click="div.fechapago = item.fecha; div.monto = item.monto; div.nro_referencia = item.referencia_complemento;observaciontransferencia=item.observaciones;div.corridasbancarias = item.id; validacontabilidad()">
+                              Selecciona
                             </v-btn>
                           </template>
                         </v-data-table>
@@ -261,9 +261,10 @@ export default {
         { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
       headersCorridasBancarias: [
-        { text: 'ID', align: 'center', value: 'id' },
+        //{ text: 'ID', align: 'center', value: 'id' },
         { text: 'Fecha', align: 'center', value: 'fecha' },
-        { text: 'referencia', value: 'referencia', align: 'center' },
+        { text: 'Referencia Banco', value: 'referencia', align: 'center' },
+        { text: 'Referencia', value: 'referencia_complemento', align: 'center' },
         { text: 'Descripción', value: 'descripcion', align: 'center' },
         { text: 'Monto', value: 'monto', align: 'right' },
         { text: '', value: 'actions', sortable: false, align: 'center' },
@@ -286,6 +287,7 @@ export default {
       divs: [{
         tipopago: null,
         bancocuenta: null,
+        corridasbancarias: null,
         fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
         nro_aprobacion: '',
         nro_lote: '',
@@ -300,7 +302,8 @@ export default {
       montoTotalCxC: 0,
       CorrelativoData: [],
       dialogWait: false,
-      ValidarTransferenciaData: [],
+      observaciontransferencia:'',
+
     }
   },
   head() {
@@ -322,22 +325,13 @@ export default {
   },
 
   methods: {
-
-    async ValidarTransferencia(item) {
-      try {
-        const response = await this.$axios.$post('ValidarTransferencia/', item);
-        this.ValidarTransferenciaData = response
-        console.log('this.ValidarTransferenciaData', this.ValidarTransferenciaData)
-
-        this.div.fechapago = item.fecha;
-        this.div.monto = item.monto;
-        this.div.nro_referencia = item.referencia;
-        this.mostrarVentana = false
-
-      } catch (err) {
-        console.log(err);
-      }
+    validacontabilidad() {
+      if (this.observaciontransferencia){
+         this.$alert("cancel", { desc: this.observaciontransferencia, hash: 'knsddcssdc', title: 'Transferencia Conciliada por contabilidad' }) ;
+      } 
+      this.mostrarVentana = false;
     },
+
     numeroFormateado(numero) {
       // Convertir a número si es una cadena
       const numeroComoNumero = typeof numero === 'string' ? parseFloat(numero) : numero;
@@ -461,6 +455,7 @@ export default {
                 monto: this.formatNumber(montonc),
                 bloqueado: true,
                 bancocuenta: null,
+                corridasbancarias: null,
                 nro_aprobacion: '',
                 nro_lote: '',
                 //nro_aprobacion: div2.propietario,
@@ -472,6 +467,7 @@ export default {
                 this.divs.push({
                   tipopago: null,
                   bancocuenta: null,
+                  corridasbancarias: null,
                   fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
                   nro_aprobacion: '',
                   nro_lote: '',
@@ -511,7 +507,8 @@ export default {
     },
     async getCorridasBancarias() {
       try {
-        const response = await this.$axios.$get('corridasbancarias/?situado=T')
+        //const response = await this.$axios.$get('corridasbancarias/?situado=T')
+        const response = await this.$axios.$get('corridaancaria-sin-pago-recaudos/')
         this.corridasbancariasData = response
         //console.log(this.corridasbancariasData, 'dataa')
       } catch (err) {
@@ -545,7 +542,7 @@ export default {
 
     async getTipoPago() {
       try {
-        const response = await this.$axios.$get('tipopago')
+        const response = await this.$axios.$get('tipopago/?lstar=true')
         this.tipoPagoData = response
       } catch (err) {
         console.log(err);
@@ -619,6 +616,7 @@ export default {
         this.divs.push({
           tipopago: null,
           bancocuenta: null,
+          corridasbancarias: null,
           fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
           nro_aprobacion: '',
           nro_lote: '',
@@ -636,6 +634,7 @@ export default {
         this.divs.push({
           tipopago: null,
           bancocuenta: null,
+          corridasbancarias: null,
           fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
           nro_aprobacion: '',
           nro_lote: '',
@@ -1053,6 +1052,7 @@ export default {
                 monto: parseFloat(monto_nc),
                 bloqueado: true,
                 bancocuenta: null,
+                corridasbancarias: null,
                 nro_aprobacion: null,
                 nro_lote: null,
                 id: divLiquidacion.id,
@@ -1107,6 +1107,7 @@ export default {
                 monto: parseFloat(monto_tr),
                 bloqueado: true,
                 bancocuenta: divTR.bancocuenta,
+                corridasbancarias: divTR.corridasbancarias,
                 nro_aprobacion: null,
                 nro_lote: null,
                 id: divLiquidacionTR.id,
@@ -1162,6 +1163,7 @@ export default {
                 monto: parseFloat(monto_dp),
                 bloqueado: true,
                 bancocuenta: divdp.bancocuenta,
+                corridasbancarias: null,
                 nro_aprobacion: null,
                 nro_lote: null,
                 id: divLiquidaciondp.id,
@@ -1217,6 +1219,7 @@ export default {
                 monto: parseFloat(monto_TD),
                 bloqueado: true,
                 bancocuenta: div_TD.bancocuenta,
+                corridasbancarias: null,
                 nro_aprobacion: div_TD.nro_aprobacion,
                 nro_lote: div_TD.nro_lote,
                 id: divLiquidacion_TD.id,
@@ -1273,6 +1276,7 @@ export default {
                 monto: parseFloat(monto_EF),
                 bloqueado: true,
                 bancocuenta: null,
+                corridasbancarias: null,
                 nro_aprobacion: null,
                 nro_lote: null,
                 id: divLiquidacionEF.id,
@@ -1289,7 +1293,7 @@ export default {
         //console.log('CabeceraPago',CabeceraPago)
         //console.log('DetallePago', DetallePago )   
 
-        // inicial el proceso de envio de datos a backend para genere el pago por cada liquidacion y su recibo
+        // inicia el proceso de envio de datos a backend para genere el pago por cada liquidacion y su recibo
         for (const divLiq of this.selectedLiq) {
           var CabeceraPagoApi = CabeceraPago.find(obj => obj.id == divLiq.id); //liquidaciones
           var DetallePagoApi = DetallePago.filter(obj => obj.id == divLiq.id)

@@ -77,7 +77,6 @@ const _19efbef2 = () => interopDefault(import('../pages/patente.vue' /* webpackC
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _5a615ad2 = () => interopDefault(import('../pages/recaudacion-multiple.vue' /* webpackChunkName: "pages/recaudacion-multiple" */))
-const _0128289a = () => interopDefault(import('../pages/recaudacion-multiple copy.vue' /* webpackChunkName: "pages/recaudacion-multiple copy" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
 const _d47f4554 = () => interopDefault(import('../pages/reporte-corridasbancarias.vue' /* webpackChunkName: "pages/reporte-corridasbancarias" */))
 const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
@@ -101,6 +100,7 @@ const _ae2eae5e = () => interopDefault(import('../pages/tipo-transaccion.vue' /*
 const _29246edd = () => interopDefault(import('../pages/tipologia.vue' /* webpackChunkName: "pages/tipologia" */))
 const _e796a986 = () => interopDefault(import('../pages/topografia.vue' /* webpackChunkName: "pages/topografia" */))
 const _f74ed8f8 = () => interopDefault(import('../pages/torres.vue' /* webpackChunkName: "pages/torres" */))
+const _7b31a9b8 = () => interopDefault(import('../pages/transferencias-no-conciliadas.vue' /* webpackChunkName: "pages/transferencias-no-conciliadas" */))
 const _d948c958 = () => interopDefault(import('../pages/ubicacion.vue' /* webpackChunkName: "pages/ubicacion" */))
 const _34e7ea4e = () => interopDefault(import('../pages/unidad-inmueble.vue' /* webpackChunkName: "pages/unidad-inmueble" */))
 const _2b3b74aa = () => interopDefault(import('../pages/unidad-tributaria.vue' /* webpackChunkName: "pages/unidad-tributaria" */))
@@ -417,10 +417,6 @@ export const routerOptions = {
     component: _5a615ad2,
     name: "recaudacion-multiple___en"
   }, {
-    path: "/recaudacion-multiple%20copy",
-    component: _0128289a,
-    name: "recaudacion-multiple copy___en"
-  }, {
     path: "/regimen",
     component: _422c3f54,
     name: "regimen___en"
@@ -512,6 +508,10 @@ export const routerOptions = {
     path: "/torres",
     component: _f74ed8f8,
     name: "torres___en"
+  }, {
+    path: "/transferencias-no-conciliadas",
+    component: _7b31a9b8,
+    name: "transferencias-no-conciliadas___en"
   }, {
     path: "/ubicacion",
     component: _d948c958,
@@ -837,10 +837,6 @@ export const routerOptions = {
     component: _5a615ad2,
     name: "recaudacion-multiple___es"
   }, {
-    path: "/es/recaudacion-multiple%20copy",
-    component: _0128289a,
-    name: "recaudacion-multiple copy___es"
-  }, {
     path: "/es/regimen",
     component: _422c3f54,
     name: "regimen___es"
@@ -932,6 +928,10 @@ export const routerOptions = {
     path: "/es/torres",
     component: _f74ed8f8,
     name: "torres___es"
+  }, {
+    path: "/es/transferencias-no-conciliadas",
+    component: _7b31a9b8,
+    name: "transferencias-no-conciliadas___es"
   }, {
     path: "/es/ubicacion",
     component: _d948c958,

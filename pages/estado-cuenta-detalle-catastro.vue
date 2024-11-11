@@ -479,8 +479,8 @@
 
         <div class="divrow center div-btns" style="gap:30px;">
 
-          <v-btn :disable="botonDeshabilitado" class="btn size-btn" @click="createEstadoCuenta()">
-            Guardar
+          <v-btn :disabled="botonDeshabilitado" class="btn size-btn" @click="createEstadoCuenta()">
+            Guardar.
           </v-btn>
         </div>
       </div>
@@ -784,18 +784,20 @@ export default{
       }
       console.log('data',data)
       try {
+
         this.botonDeshabilitado=true  
         this.dialogWait = true
-        const res = await this.$axios.$post('crearestadocuenta/', data)
-        console.log(res)
-        this.Correlativo=res.documento
-        this.Id=res.id
-        this.generarPDF()
-        this.dialogWait = false
-        this.botonDeshabilitado=false  
-        //this.$router.push('modificar-datos')
+        //const res = await this.$axios.$post('crearestadocuenta/', data)
+        //console.log(res)
+        //this.Correlativo=res.documento
+        //this.Id=res.id
+        //this.generarPDF()
         this.$alert("success", {desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title:'Creado'}) 
-        this.$router.push('consulta-inmueble')
+        this.dialogWait = false
+        //this.botonDeshabilitado=true  
+        //this.$router.push('modificar-datos')
+        
+        //this.$router.push('consulta-inmueble')
       } catch (err) {
         console.log(err);
       }

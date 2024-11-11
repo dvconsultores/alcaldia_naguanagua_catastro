@@ -102,7 +102,7 @@
                       </template>
                       <template #[`item.actions`]="{ item }">
                         <v-btn class="btn-tabla"
-                          @click="div.fechapago = item.fecha; div.monto = item.monto; div.nro_referencia = item.referencia; mostrarVentana = false">
+                          @click="div.fechapago = item.fecha; div.monto = item.monto; div.nro_referencia = item.referencia_complemento;observaciontransferencia=item.observaciones;div.corridasbancarias = item.id;  validacontabilidad()">
                           Seleccionar Transferencia
                         </v-btn>
                       </template>
@@ -200,6 +200,7 @@ export default {
       divs: [{
         tipopago: null,
         bancocuenta: null,
+        corridasbancarias: null,
         fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
         nro_aprobacion: '',
         nro_lote: '',
@@ -245,6 +246,7 @@ export default {
       CorrelativoPago: 0,
       mostrarVentana: false,
       ValidarTransferenciaData: [],
+      observaciontransferencia:'',
     }
   },
 
@@ -272,6 +274,12 @@ export default {
   },
 
   methods: {
+    validacontabilidad() {
+      if (this.observaciontransferencia){
+         this.$alert("cancel", { desc: this.observaciontransferencia, hash: 'knsddcssdc', title: 'Transferencia Conciliada por contabilidad' }) ;
+      } 
+      this.mostrarVentana = false;
+    },
     saveValue() {
       // Aquí puedes realizar alguna acción con el valor numérico (this.numero)
       this.dialog = false;
@@ -293,7 +301,8 @@ export default {
 
     async getCorridasBancarias() {
       try {
-        const response = await this.$axios.$get('corridasbancarias/?situado=T')
+        //const response = await this.$axios.$get('corridasbancarias/?situado=T')
+        const response = await this.$axios.$get('corridaancaria-sin-pago-recaudos/')
         this.corridasbancariasData = response
         //console.log(this.corridasbancariasData, 'dataa')
       } catch (err) {
@@ -326,7 +335,7 @@ export default {
 
     async getTipoPago() {
       try {
-        const response = await this.$axios.$get('tipopago')
+        const response = await this.$axios.$get('tipopago/?codigo=T')
         this.tipoPagoData = response
       } catch (err) {
         console.log(err);
@@ -515,6 +524,7 @@ export default {
         this.divs.push({
           tipopago: null,
           bancocuenta: null,
+          corridasbancarias: null,
           fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
           nro_aprobacion: '',
           nro_lote: '',
@@ -532,6 +542,7 @@ export default {
         this.divs.push({
           tipopago: null,
           bancocuenta: null,
+          corridasbancarias: null,
           fechapago: new Date().toISOString().substr(0, 10),// Formato ISO para la fecha
           nro_aprobacion: '',
           nro_lote: '',

@@ -22,7 +22,7 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details class="input-data-table">
           </v-text-field>
           <v-data-table :headers="headersCorridasBancarias" :items="filtrocorridasbancariasData" :items-per-page="10" :search="search"
-            :footer-props="{
+          :loading="loading" :footer-props="{
               itemsPerPageText: 'Items por página',
             }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
 
@@ -59,6 +59,7 @@ export default {
       corridasbancariasData: [],
       filtrocorridasbancariasData: [],
       bancocuenta: null,
+      loading: true,
     }
   },
   head() {
@@ -72,6 +73,7 @@ export default {
     this.permisos()
     this.getBancoCuenta()
     this.getCorridasBancarias()
+
   },
 
   methods: {
@@ -89,6 +91,7 @@ export default {
       this.$axios.$get('corridasbancarias').then(response => {
         this.corridasbancariasData = response
         console.log(this.corridasbancariasData, 'corridasbancariasData')
+        this.loading=false
 
       }).catch(err => {
         console.log(err) 
@@ -97,6 +100,7 @@ export default {
     getBancoCuenta() {
       this.$axios.$get('bancocuenta').then(response => {
         this.bancoCuentaData = response
+        console.log('this.bancoCuentaData',this.bancoCuentaData)
       }).catch(error => {
         console.log(error)
       })

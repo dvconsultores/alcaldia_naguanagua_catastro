@@ -4,22 +4,19 @@
       <div class="reporte-recaudos-container">
         <div class="title-morado">
           <p class="reporte-recaudos-title">
-            Recaudos
+            Recaudos. Cuadre de Caja
           </p>
-
         </div>
-
         <div class="data-table-container">
-          <v-btn class="btn dialog-btn" text @click="generarPDF()">Genera reporte</v-btn>
+          <v-btn class="btn dialog-btn" text @click="generarPDF()">Genera Cuadre de Caja</v-btn>
           <v-btn class="btn dialog-btn" text @click="generarTXT()">Genera txt</v-btn>
-
-          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details class="input-data-table">
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" hide-details class="input-data-table" >
           </v-text-field>
           <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="5" transition="scale-transition" offset-y
             min-width="auto">
             <template #activator="{ on, attrs }">
               <v-text-field v-model="fechaFiltro" class="input-data-table" label="Fecha" append-icon="mdi-calendar"
-                v-bind="attrs" v-on="on"></v-text-field>
+                v-bind="attrs" v-on="on" ></v-text-field>
             </template>
             <v-date-picker v-model="fechaFiltro" label="Fecha" @input="filtrarPorFecha" color="blue"
               header-color="#810880" class="custom-date-picker"></v-date-picker>
@@ -28,7 +25,6 @@
             :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="numero_recibo" class="mytabla" mobile-breakpoint="840">
-
           </v-data-table>
         </div>
       </div>
@@ -50,6 +46,7 @@ export default {
       fechaFiltro: null, // Inicialmente no se selecciona ninguna fecha de filtro
       fechaSeleccionadaUTC: null,
       filteredPropietarioData: [], // Agrega esta propiedad
+      filteredpagoestadocuentaData: [], // Agrega esta propiedad
       search: '',
       menu: true,
       headers: [
@@ -63,7 +60,7 @@ export default {
         { text: 'Monto', value: 'monto', align: 'center' },
       ],
       propietarioData: [],
-      originalData: [],
+      pagoestadocuentaData:[],
       permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
       accesos:null,
       CorrelativoData: [],
@@ -76,13 +73,13 @@ export default {
     }
   },
 
-  mounted() {
-    this.permisos()
-    this.getContribuyente()
-    this.getCorrelativo()
+  async mounted() {
+    this.permisos();
+    await this.getpagoestadocuentadetalle();
+    await this.getpagoestadocuenta();
+    await this.getCorrelativo();
     
-
-    //this.imprime()
+    
   },
   computed: {
     //*****************************Efectivo
@@ -142,6 +139,50 @@ export default {
     cajasTotalesTransferencia() {
       const cajas = {};
       this.TransferenciaRecaudos.forEach(item => {
+        if (cajas[item.numero_caja]) {
+          cajas[item.numero_caja].recaudos.push(item);
+          cajas[item.numero_caja].total += parseFloat(item.monto);
+        } else {
+          cajas[item.numero_caja] = {
+            recaudos: [item],
+            total: parseFloat(item.monto),
+          };
+        }
+      });
+      return cajas;
+    },
+    //*****************************Transferencias NO RECAUDADAS
+    TransferenciaRecaudosNO() {
+      return this.filteredPropietarioData.filter(item => item.tipopago_nombre === "TRANSFERENCIAS CONTABILIZADAS NO RECAUDADAS");
+    },
+    sumaMontosTransferenciaNO() {
+      return this.TransferenciaRecaudosNO.reduce((total, item) => total + parseFloat(item.monto), 0);
+    },
+    cajasTotalesTransferenciaNO() {
+      const cajas = {};
+      this.TransferenciaRecaudosNO.forEach(item => {
+        if (cajas[item.numero_caja]) {
+          cajas[item.numero_caja].recaudos.push(item);
+          cajas[item.numero_caja].total += parseFloat(item.monto);
+        } else {
+          cajas[item.numero_caja] = {
+            recaudos: [item],
+            total: parseFloat(item.monto),
+          };
+        }
+      });
+      return cajas;
+    },
+        //*****************************Transferencias NO RECAUDADAS
+    TransferenciaRecaudosSI() {
+      return this.filteredPropietarioData.filter(item => item.tipopago_nombre === "TRANSFERENCIAS CONTABILIZADAS RECAUDADAS");
+    },
+    sumaMontosTransferenciaSI() {
+      return this.TransferenciaRecaudosSI.reduce((total, item) => total + parseFloat(item.monto), 0);
+    },
+    cajasTotalesTransferenciaSI() {
+      const cajas = {};
+      this.TransferenciaRecaudosSI.forEach(item => {
         if (cajas[item.numero_caja]) {
           cajas[item.numero_caja].recaudos.push(item);
           cajas[item.numero_caja].total += parseFloat(item.monto);
@@ -251,7 +292,7 @@ export default {
       try {
         const response = await this.$axios.$get('correlativo');
         this.CorrelativoData = response
-        console.log('CorrelativoData', this.CorrelativoData)
+        //console.log('CorrelativoData', this.CorrelativoData)
       } catch (err) {
         console.log(err);
       }
@@ -263,11 +304,11 @@ export default {
       const longitud = this.$options.name.length;
       this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
       // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
-      console.log('permiso: 1 si , 0 no:',this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      //console.log('permiso: 1 si , 0 no:',this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
       if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) { 
-        console.log('leer:',(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        //console.log('leer:',(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
         this.accesos=(this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
-        console.log('this.accesos',this.accesos.borrar)
+        //console.log('this.accesos',this.accesos.borrar)
       }else{
         this.$router.push('index')
         this.$alert("cancel", {desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title:'Error'})
@@ -277,18 +318,14 @@ export default {
       const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
       return new Date(dateString).toLocaleDateString('es-ES', options);
     },
-
-
-
     formatDateTXT(dateString) {
-      console.log('fecha delpago',dateString)
+      //console.log('fecha delpago',dateString)
       const date = new Date(dateString);
       const day = String(date.getDate()).padStart(2, '0');
       const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
       const year = date.getFullYear();
       return `${day}/${month}/${year}`;
     },
-
     generarTXT() {
       const rows = this.filteredPropietarioData.filter(pago => pago.operacion_tipo !== 'X').map(pago => {
         const { monto, fechapago, banco_cuenta, banco_codigo,nro_lote,nro_aprobacion,operacion_tipo,nro_referencia } = pago;
@@ -297,7 +334,6 @@ export default {
         const formattedFechacuadre = this.formatDateTXT(this.fechaSeleccionadaUTC);
         return `<${formattedFechacuadre}|${formattedFecha}|${banco_codigo === null ? '' : banco_codigo}|${banco_cuenta === null ? '' : banco_cuenta}|${nro_lote === null ? '' : nro_lote}|${nro_aprobacion === null ? '' : nro_aprobacion}|${operacion_tipo}|${nro_referencia === null ? '' : nro_referencia}|${formattedMonto}|0|Z|>`;
       });
-
       const content = rows.join('\n');
       const blob = new Blob([content], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
@@ -308,9 +344,8 @@ export default {
       URL.revokeObjectURL(url);
     },
 
-
     generarPDF() {
-      console.log('txt',this.filteredPropietarioData)
+      //console.log('txt',this.filteredPropietarioData)
       const pdf = new jsPDF('p', 'mm', 'letter');
       const fechaActual = new Date();
       const dia = fechaActual.getDate().toString().padStart(2, '0'); // Obtén el día y asegúrate de tener 2 dígitos.
@@ -319,10 +354,9 @@ export default {
       const hora = fechaActual.getHours().toString().padStart(2, '0');
       const minutos = fechaActual.getMinutes().toString().padStart(2, '0');
       const segundos = fechaActual.getSeconds().toString().padStart(2, '0');
-      console.log('fechaActual')
+      //console.log('fechaActual')
       // Tamaño máximo de la línea
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
-
       const img1 = new Image();
       const img2 = new Image();
       var ruta1 = this.CorrelativoData[0].Logo1;
@@ -370,43 +404,46 @@ export default {
       const title = `Cuadre detallado de caja a la fecha  ${this.fechaFiltro}`;
         // Establecer el tamaño de fuente para el encabezado de la tabla
       let pageHeight = pdf.internal.pageSize.height;
-      let tTotal=this.sumaMontosEfectivo+this.sumaMontosDebito+this.sumaMontosTransferencia+this.sumaMontosDeposito+this.sumaMontosNotaCredito+this.sumaMontosSituado+this.sumaMontosInteres;
-
-      //pdf.addImage(img1, 'PNG', 10, 10, 30, 30); // Logotipo izquierdo
-      //pdf.addImage(img2, 'PNG', 160, 10, 40, 30); // Logotipo derecho
+      let tTotal=this.sumaMontosEfectivo+this.sumaMontosDebito+this.sumaMontosTransferencia+this.sumaMontosTransferenciaNO+this.sumaMontosDeposito+this.sumaMontosNotaCredito+this.sumaMontosSituado+this.sumaMontosInteres;
       pdf.setFontSize(14);
       pdf.text(100, 30, title, null, null, 'center');
       pdf.setFontSize(fontSizeHead); // Establecer el tamaño de fuente solo para esta línea
       startY=startY+5
       pdf.text('EFECTIVO: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosEfectivo.toFixed(2), null, null, 'right');
+      pdf.text(200, startY, this.sumaMontosEfectivo.toFixed(2), null, null, 'right');
       startY=startY+5
       pdf.text('DÉBITO: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosDebito.toFixed(2), null, null, 'right');
+      pdf.text(200, startY, this.sumaMontosDebito.toFixed(2), null, null, 'right');
       startY=startY+5
       pdf.text('TRANSFERENCIA: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosTransferencia.toFixed(2), null, null, 'right');
+      pdf.text(200, startY, this.sumaMontosTransferencia.toFixed(2), null, null, 'right');
       startY=startY+5
       pdf.text('DEPÓSITO: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosDeposito.toFixed(2), null, null, 'right');
+      pdf.text(200, startY, this.sumaMontosDeposito.toFixed(2), null, null, 'right');
       startY=startY+5
       pdf.text('NOTA DE CRÉDITO: ', 15, startY);
-      pdf.text(80, startY, this.sumaMontosNotaCredito.toFixed(2), null, null, 'right');
+      pdf.text(200, startY, this.sumaMontosNotaCredito.toFixed(2), null, null, 'right');
       if (this.sumaMontosSituado>0){
         startY=startY+5
         pdf.text('SITUADO: ', 15, startY);
-        pdf.text(80, startY, this.sumaMontosSituado.toFixed(2), null, null, 'right');
+        pdf.text(200, startY, this.sumaMontosSituado.toFixed(2), null, null, 'right');
       }
       if (this.sumaMontosInteres>0){
         startY=startY+5
         pdf.text('INTERESES: ', 15, startY);
-        pdf.text(80, startY, this.sumaMontosInteres.toFixed(2), null, null, 'right');
+        pdf.text(200, startY, this.sumaMontosInteres.toFixed(2), null, null, 'right');
+      }
+
+      for (let i = 0; i < this.filteredpagoestadocuentaData.length; i++) {
+        startY=startY+5
+        pdf.text(this.filteredpagoestadocuentaData[i].observaciones, 15, startY);
+        pdf.text(200, startY, parseFloat(this.filteredpagoestadocuentaData[i].monto).toFixed(2), null, null, 'right');
       }
       startY=startY+5
       pdf.text('TOTAL: ', 15, startY);
-      pdf.text(80, startY, tTotal.toFixed(2), null, null, 'right');
+      pdf.text(200, startY, tTotal.toFixed(2), null, null, 'right');
       startY=startY+7
-      if (this.cajasTotales){
+      if (this.sumaMontosEfectivo){
         pdf.setFontSize(fontSizeHead+5);
         pdf.text('EFECTIVO',15, startY);
         pdf.setFontSize(fontSizeHead);
@@ -419,8 +456,6 @@ export default {
           startY = 10;
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
-
-
         pdf.autoTable({
           head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
           body: this.cajasTotales[caja].recaudos.map(item => [
@@ -440,7 +475,7 @@ export default {
 
         startY += 10 + this.cajasTotales[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
-        pdf.text(80, startY , this.cajasTotales[caja].total.toFixed(2), null, null, 'right');
+        pdf.text(200, startY , this.cajasTotales[caja].total.toFixed(2), null, null, 'right');
       }
       if (this.sumaMontosDebito){
         startY = startY+8
@@ -472,14 +507,11 @@ export default {
           //margin: { top: startY + 10 + 10 },
           styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
           headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
-
         });
         startY += 10 + this.cajasTotalesDebito[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
-        pdf.text(80, startY, this.cajasTotalesDebito[caja].total.toFixed(2), null, null, 'right');
+        pdf.text(200, startY, this.cajasTotalesDebito[caja].total.toFixed(2), null, null, 'right');
       }
-
-
       if (this.sumaMontosTransferencia){
         startY = startY+8
         pdf.setFontSize(fontSizeHead+5);
@@ -511,7 +543,73 @@ export default {
         });
         startY += 10 + this.cajasTotalesTransferencia[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
-        pdf.text(80, startY, this.cajasTotalesTransferencia[caja].total.toFixed(2), null, null, 'right');
+        pdf.text(200, startY, this.cajasTotalesTransferencia[caja].total.toFixed(2), null, null, 'right');
+      }
+      if (this.sumaMontosTransferenciaNO){
+        startY = startY+8
+        pdf.setFontSize(fontSizeHead+5);
+        pdf.text('TRANSFERENCIAS CONTABILIZADAS NO LIQUIDADAS',15, startY);
+        pdf.setFontSize(fontSizeHead);
+        //startY = startY+1
+        pageHeight = pdf.internal.pageSize.height;
+      }
+      for (const caja in this.cajasTotalesTransferenciaNO) {
+        if (startY + this.cajasTotalesTransferenciaNO[caja].recaudos.length * 7 + 10 > pageHeight) {
+          pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
+          startY = 10;
+        }
+        //pdf.text(`Caja: ${caja}`, 15, startY);
+        pdf.autoTable({
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
+          body: this.cajasTotalesTransferenciaNO[caja].recaudos.map(item => [
+            item.numero_recibo,
+            item.banco_nombre,
+            item.banco_cuenta,
+            item.nro_referencia,
+            item.monto,
+            this.formatDate(item.fechapago),
+          ]),
+          startY: startY + 2,
+          //margin: { top: startY + 10 + 10 },
+          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
+          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
+        });
+        startY += 10 + this.cajasTotalesTransferenciaNO[caja].recaudos.length * 7;
+        pdf.text(`Total de la Caja ${caja}:`, 15, startY);
+        pdf.text(200, startY, this.cajasTotalesTransferenciaNO[caja].total.toFixed(2), null, null, 'right');
+      }
+      if (this.sumaMontosTransferenciaSI){
+        startY = startY+8
+        pdf.setFontSize(fontSizeHead+5);
+        pdf.text('TRANSFERENCIAS CONTABILIZADAS LIQUIDADAS',15, startY);
+        pdf.setFontSize(fontSizeHead);
+        //startY = startY+1
+        pageHeight = pdf.internal.pageSize.height;
+      }
+      for (const caja in this.cajasTotalesTransferenciaSI) {
+        if (startY + this.cajasTotalesTransferenciaSI[caja].recaudos.length * 7 + 10 > pageHeight) {
+          pdf.addPage(); // Si el contenido se desborda, agrega una nueva página
+          startY = 10;
+        }
+        //pdf.text(`Caja: ${caja}`, 15, startY);
+        pdf.autoTable({
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
+          body: this.cajasTotalesTransferenciaSI[caja].recaudos.map(item => [
+            item.numero_recibo,
+            item.banco_nombre,
+            item.banco_cuenta,
+            item.nro_referencia,
+            item.monto,
+            this.formatDate(item.fechapago),
+          ]),
+          startY: startY + 2,
+          //margin: { top: startY + 10 + 10 },
+          styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
+          headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
+        });
+        startY += 10 + this.cajasTotalesTransferenciaSI[caja].recaudos.length * 7;
+        pdf.text(`Total de la Caja ${caja}:`, 15, startY);
+        pdf.text(200, startY, this.cajasTotalesTransferenciaSI[caja].total.toFixed(2), null, null, 'right');
       }
 
       if (this.sumaMontosSituado){
@@ -545,9 +643,8 @@ export default {
         });
         startY += 10 + this.cajasTotalesSituado[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
-        pdf.text(80, startY, this.cajasTotalesSituado[caja].total.toFixed(2), null, null, 'right');
+        pdf.text(200, startY, this.cajasTotalesSituado[caja].total.toFixed(2), null, null, 'right');
       }
-
 
       if (this.sumaMontosInteres){
         startY = startY+8
@@ -580,9 +677,8 @@ export default {
         });
         startY += 10 + this.cajasTotalesInteres[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
-        pdf.text(80, startY, this.cajasTotalesInteres[caja].total.toFixed(2), null, null, 'right');
+        pdf.text(200, startY, this.cajasTotalesInteres[caja].total.toFixed(2), null, null, 'right');
       }
-
 
       if (this.sumaMontosDeposito){
         startY = startY+8
@@ -617,7 +713,7 @@ export default {
         });
         startY += 10 + this.cajasTotalesDeposito[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
-        pdf.text(80, startY, this.cajasTotalesDeposito[caja].total.toFixed(2), null, null, 'right');
+        pdf.text(200, startY, this.cajasTotalesDeposito[caja].total.toFixed(2), null, null, 'right');
       }
       if (this.sumaMontosNotaCredito){
         startY = startY+8
@@ -648,57 +744,70 @@ export default {
         });
         startY += 10 + this.cajasTotalesNotaCredito[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
-        pdf.text(80, startY, this.cajasTotalesNotaCredito[caja].total.toFixed(2), null, null, 'right');
+        pdf.text(200, startY, this.cajasTotalesNotaCredito[caja].total.toFixed(2), null, null, 'right');
       }
       const nombreArchivoPDF = `Cuadre detallado de caja a la fecha ${this.fechaFiltro}.pdf`;
-
       pdf.save(nombreArchivoPDF);
-      
-      //const newWindow = window.open();
-      //newWindow.document.open();
-      //newWindow.document.write('<iframe width="100%" height="100%" src="${nombreArchivoPDF}"></iframe>');
-      //newWindow.document.close();
-
     },
-    imprime(){
-      this.$router.push('reporte-ejemplo')
+    async filtrarPorFecha() {
+      await this.filtrarPorFechaFunc()
     },
-    filtrarPorFecha() {
-    if (this.fechaFiltro) {
-      const fechaSeleccionada = new Date(this.fechaFiltro);
-      this.fechaSeleccionadaUTC = new Date(
-      fechaSeleccionada.getUTCFullYear(),
-      fechaSeleccionada.getUTCMonth(),
-      fechaSeleccionada.getUTCDate());
 
-      this.filteredPropietarioData = this.propietarioData.filter((registro) => {
-        const fechaRegistro = new Date(registro.fecha_recibo);
-        const fechaRegistroUTC = new Date(
-        fechaRegistro.getUTCFullYear(),
-        fechaRegistro.getUTCMonth(),
-        fechaRegistro.getUTCDate()
-      );
-        return fechaRegistroUTC.toDateString() === this.fechaSeleccionadaUTC.toDateString();
+    async filtrarPorFechaFunc() {
+      if (this.fechaFiltro) {
+        const fechaSeleccionada = new Date(this.fechaFiltro+ 'T00:00:00.000-04:00');
+        this.fechaSeleccionadaUTC = new Date(
+          fechaSeleccionada.getFullYear(),
+          fechaSeleccionada.getMonth(),
+          fechaSeleccionada.getDate()
+        );
+        this.filteredPropietarioData = this.propietarioData.filter((registro) => {
+          const fechaRegistro = new Date(registro.fecha_recibo); 
+          const fechaRegistroUTC = new Date(
+            fechaRegistro.getFullYear(),
+            fechaRegistro.getMonth(),
+            fechaRegistro.getDate()
+          );
+          return fechaRegistroUTC.toDateString() === this.fechaSeleccionadaUTC.toDateString();
+        });
+        this.filteredpagoestadocuentaData = this.pagoestadocuentaData.filter((registro) => {
+          const fechaRegistro = new Date(registro.fecha_recibo);
+          const fechaRegistroUTC = new Date(
+            fechaRegistro.getUTCFullYear(),
+            fechaRegistro.getUTCMonth(),
+            fechaRegistro.getUTCDate()
+          );
+          return fechaRegistroUTC.toDateString() === this.fechaSeleccionadaUTC.toDateString()
+            && registro.observaciones.includes("NO RECAUDADAS");
 
-
-        //return fechaRegistro.toDateString() === fechaSeleccionada.toDateString();
+        });
+      } else {
+        this.filteredPropietarioData = this.propietarioData;
+        this.filteredpagoestadocuentaData = this.pagoestadocuentaData
+      }
+      await new Promise(resolve => {
+        resolve(); // Resuelve la promesa inmediatamente
       });
-    } else {
-      this.filteredPropietarioData = this.propietarioData;
-    }
-  },
+    },
 
-
-
-    getContribuyente() {
-      this.$axios.$get('pagoestadocuentadetalle').then(response => {
+    async getpagoestadocuentadetalle() {
+      try {
+        const response = await this.$axios.$get('pagoestadocuentadetalle')
         this.propietarioData = response
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async getpagoestadocuenta() {
+      try {
+        const response = await this.$axios.$get('pagoestadocuenta')
+        this.pagoestadocuentaData = response
         this.loading = false
-        console.log('this.propietarioData',this.propietarioData)
-        this.originalData = response
-      }).catch(err => {
-        console.log(err)
-      })
+        this.menu = true
+      } catch (err) {
+        console.log(err);
+      }
     },
   }
 };

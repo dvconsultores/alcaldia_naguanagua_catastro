@@ -177,6 +177,7 @@ export default {
       const divs = [{
         tipopago: this.tipopagoDataDeposito.codigo,
         bancocuenta: this.defaultItem.bancocuenta,
+        corridasbancarias: null,
         fechapago: this.defaultItem.fechapago,// Formato ISO para la fecha
         nro_aprobacion: '',
         nro_lote: '',
