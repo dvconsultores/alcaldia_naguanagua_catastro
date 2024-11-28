@@ -639,7 +639,7 @@ export default {
       iPeriodo: this.$store.getters.getExpediente == 'Sin Seleccionar' ? 0 : JSON.parse(JSON.stringify(this.$store.getters.getExpediente.codigo_periodo)),
       fAnio: (new Date()).getFullYear(),
       fPeriodo: 4,
-      disableBotonGuardar: true,
+      disableBotonGuardar: false,
 
     }
   },
@@ -815,7 +815,6 @@ export default {
             editable: false
           });
         }
-        this.disableBotonGuardar = false
       } catch (err) {
         console.log(err);
       }
@@ -890,7 +889,6 @@ export default {
             editable: false
           });
         }
-        this.disableBotonGuardar = false
       } catch (err) {
         console.log(err);
       }
@@ -925,8 +923,6 @@ export default {
       this.multiplicarValor(index)
     },
 
-
-
     async getTipoInmueble() {
       try {
         const response = await this.$axios.$get('tipoinmueble')
@@ -939,6 +935,7 @@ export default {
 
 
     async createEstadoCuenta() {
+      this.disableBotonGuardar = true
       const data = {
         inmueble: (this.idflujo == '2' || this.idflujo == '3' || this.idflujo == '4') ? this.$store.getters.getExpediente.id : null,
         flujo: this.idflujo,
@@ -970,6 +967,7 @@ export default {
         this.dialogWait = false
 
         //this.$alert("success", { desc: "Se ha creado un estado de cuenta con éxito", hash: 'knsddcssdc', title: 'Creado' })
+        //this.disableBotonGuardar = false
         this.$router.push('consulta-contribuyente')
       } catch (err) {
         console.log(err);
@@ -996,8 +994,32 @@ export default {
       }
     },
 
-
     addDiv() {
+      this.valido = false
+      var mensaje = ""
+      if (this.divs.length > 0) {
+        const div = this.divs[this.divs.length - 1];
+        console.log(div);
+        if (!div.tasa_multa_id) { mensaje = mensaje + 'Debe colocar un Trámite o Servicio.' }
+        else {
+          if (div.utiliza_m2 && div.cantidad == 0) { //Deposito
+            mensaje = mensaje + 'Falta Metros Cuadrados, '
+          }
+        }
+      }
+      if (mensaje) {
+        this.$alert("cancel", { desc: "Error: " + mensaje, hash: 'knsddcssdc', title: 'Falta dato' })
+      }
+      else {
+        this.valido = true
+      }
+      if (this.valido) {
+        this.divs.push({ cantidad: 1, calculo: 0, editable: false });
+        console.log(' this.divs', this.divs)
+      }
+    },
+
+    addDiv_() {
       this.divs.push({ cantidad: 1, calculo: 0, editable: false });
       console.log(' this.divs', this.divs)
     },

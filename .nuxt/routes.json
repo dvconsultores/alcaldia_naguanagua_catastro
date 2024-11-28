@@ -259,6 +259,13 @@
     "_name": "_3c2779d8"
   },
   {
+    "name": "estado-cuenta-detalle-catastro copy___en",
+    "path": "/estado-cuenta-detalle-catastro%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-catastro copy.vue",
+    "chunkName": "pages/estado-cuenta-detalle-catastro copy",
+    "_name": "_39de406d"
+  },
+  {
     "name": "estado-cuenta-detalle-hacienda___en",
     "path": "/estado-cuenta-detalle-hacienda",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-hacienda.vue",
@@ -992,6 +999,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-catastro.vue",
     "chunkName": "pages/estado-cuenta-detalle-catastro",
     "_name": "_3c2779d8"
+  },
+  {
+    "name": "estado-cuenta-detalle-catastro copy___es",
+    "path": "/es/estado-cuenta-detalle-catastro%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-catastro copy.vue",
+    "chunkName": "pages/estado-cuenta-detalle-catastro copy",
+    "_name": "_39de406d"
   },
   {
     "name": "estado-cuenta-detalle-hacienda___es",

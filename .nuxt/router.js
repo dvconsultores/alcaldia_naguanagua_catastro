@@ -41,6 +41,7 @@ const _3233eb7c = () => interopDefault(import('../pages/estado-cuenta-catastro.v
 const _2691ab24 = () => interopDefault(import('../pages/estado-cuenta-detalle.vue' /* webpackChunkName: "pages/estado-cuenta-detalle" */))
 const _76e69b44 = () => interopDefault(import('../pages/estado-cuenta-detalle-caja.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-caja" */))
 const _3c2779d8 = () => interopDefault(import('../pages/estado-cuenta-detalle-catastro.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-catastro" */))
+const _39de406d = () => interopDefault(import('../pages/estado-cuenta-detalle-catastro copy.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-catastro copy" */))
 const _70f89f98 = () => interopDefault(import('../pages/estado-cuenta-detalle-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-hacienda" */))
 const _7242409e = () => interopDefault(import('../pages/estado-cuenta-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-hacienda" */))
 const _49cd7a34 = () => interopDefault(import('../pages/estatus-inmueble.vue' /* webpackChunkName: "pages/estatus-inmueble" */))
@@ -272,6 +273,10 @@ export const routerOptions = {
     path: "/estado-cuenta-detalle-catastro",
     component: _3c2779d8,
     name: "estado-cuenta-detalle-catastro___en"
+  }, {
+    path: "/estado-cuenta-detalle-catastro%20copy",
+    component: _39de406d,
+    name: "estado-cuenta-detalle-catastro copy___en"
   }, {
     path: "/estado-cuenta-detalle-hacienda",
     component: _70f89f98,
@@ -692,6 +697,10 @@ export const routerOptions = {
     path: "/es/estado-cuenta-detalle-catastro",
     component: _3c2779d8,
     name: "estado-cuenta-detalle-catastro___es"
+  }, {
+    path: "/es/estado-cuenta-detalle-catastro%20copy",
+    component: _39de406d,
+    name: "estado-cuenta-detalle-catastro copy___es"
   }, {
     path: "/es/estado-cuenta-detalle-hacienda",
     component: _70f89f98,

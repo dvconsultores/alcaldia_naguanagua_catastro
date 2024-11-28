@@ -339,7 +339,8 @@ export default {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'pagos.txt';
+      //a.download = 'pagos.txt';
+      a.download = `CUADRE${this.fechaFiltro}.txt`;
       a.click();
       URL.revokeObjectURL(url);
     },
