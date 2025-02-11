@@ -252,6 +252,7 @@ export default {
 
 
   methods: {
+
     openSelecciona(item) {
       this.defaultItem = item.propietario
       console.log('this.defaultItem', this.defaultItem)
@@ -301,11 +302,29 @@ export default {
             this.inmuebleData = [response1]
             this.dialogWait = false
             if (this.inmuebleData[0].codigo_categorizacion == 'X' ) {
-                 this.$alert("cancel", { desc: "EL INMUEBLE TIENE COMUNIDAD INDEFINIDA. DEBE COLOCAR EN FICHA UNA COMUNIDAD!!!", hash: 'knsddcssdc', title: 'Advertencia' })
-             }
-             if (this.inmuebleData[0].codigo_categorizacion == null ) {
-                 this.$alert("cancel", { desc: "EL INMUEBLE NO TIENE COMUNIDAD!!!. DEBE COLOCAR EN FICHA UNA COMUNIDAD!!!", hash: 'knsddcssdc', title: 'Advertencia' })
-             }
+              this.$alert("cancel", { desc: "EL INMUEBLE TIENE COMUNIDAD INDEFINIDA. DEBE COLOCAR EN FICHA UNA COMUNIDAD!!!", hash: 'knsddcssdc', title: 'Advertencia' })
+            }
+            if (this.inmuebleData[0].codigo_categorizacion == null ) {
+              this.$alert("cancel", { desc: "EL INMUEBLE NO TIENE COMUNIDAD!!!. DEBE COLOCAR EN FICHA UNA COMUNIDAD!!!", hash: 'knsddcssdc', title: 'Advertencia' })
+            }
+
+            const data = {
+            inmueble: this.inmuebleData[0].numero_expediente
+            }
+            try {
+              const response = await this.$axios.$post('DatosInmueblesPublic/',data)
+              this.error = response.error
+              this.mensaje = response.mensaje
+              if (this.error != 0) {
+                this.$alert("cancel", {desc: this.mensaje, hash: 'knsddcssdc', title:'Se debe corregir los datos. Error Id:'+this.error})
+                this.$router.push('consulta-inmueble')
+              }
+            } catch (err) {
+              console.log(err);
+            }
+
+
+
             console.log('COMUNIDAD',this.inmuebleData[0].comunidad)
             console.log('CATEGORIZACION',this.inmuebleData[0].categorizacion)
             console.log('inmuebleData',this.inmuebleData[0])

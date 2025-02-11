@@ -69,6 +69,14 @@
       </div>
 
     </section>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -80,9 +88,12 @@ export default {
   mixins: [computeds],
   data() {
     return{
+      error:'0',
+      mensaje:'',
       inmueblePropietariosData: [],
       flujoData:[],
       flujo:null,
+      dialogWait: false,
       nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
       nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
       numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
@@ -96,10 +107,13 @@ export default {
     }
   },
 
-  mounted(){
+  async mounted(){
+    await this.DatosInmueblesPublic()
+    this.dialogWait = true
     this.getFlujo()
     this.getInmueblePropietarios()
     this.updateStoreExpediente()
+    this.dialogWait = false
     this.redireccionIdVacio()
   },
 
@@ -110,6 +124,22 @@ export default {
       try {
         const response = await this.$axios.$get('inmueble/' + this.$store.getters.getExpediente.id)
         this.$store.dispatch('storeExpediente', response)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async DatosInmueblesPublic() {
+      const data = {
+        inmueble: this.$store.getters.getExpediente.numero_expediente
+      }
+     try {
+        const response = await this.$axios.$post('DatosInmueblesPublic/',data)
+        this.error = response.error
+        this.mensaje = response.mensaje
+        if (this.error != 0) {
+          this.$alert("cancel", {desc: this.mensaje, hash: 'knsddcssdc', title:'Se debe corregir los datos. Error Id:'+this.error})
+          this.$router.push('consulta-inmueble')
+        }
       } catch (err) {
         console.log(err);
       }

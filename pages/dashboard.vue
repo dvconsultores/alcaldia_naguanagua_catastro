@@ -241,7 +241,7 @@ export default {
           percent:"-1.8%"
         },
         {
-          title:"Inmubeles Actualizados",
+          title:"Inmuebles Actualizados",
           number:"322",
           percent:"-1.8%%"
         },

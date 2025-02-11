@@ -373,9 +373,9 @@ export default {
       img1.src = ruta1;
       img2.src = ruta2;
       img1.onload = function () {
-        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+        pdf.addImage(img1, 'PNG', 10, 5, 30, 30); // Logotipo izquierdo
         img2.onload = function () {
-          pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+          pdf.addImage(img2, 'PNG', 160, 3, 40, 30); // Logotipo derecho
         };
       };
       let startY = 40;
@@ -444,7 +444,7 @@ export default {
       pdf.text('TOTAL: ', 15, startY);
       pdf.text(200, startY, tTotal.toFixed(2), null, null, 'right');
       startY=startY+7
-      if (this.sumaMontosEfectivo){
+      if (this.efectivoRecaudos){
         pdf.setFontSize(fontSizeHead+5);
         pdf.text('EFECTIVO',15, startY);
         pdf.setFontSize(fontSizeHead);

@@ -77,6 +77,7 @@ export default {
       this.$store.dispatch('storeContribuyente', undefined)
       this.$store.dispatch('storeExpediente', undefined)
       this.$store.dispatch('storeFlujo', undefined)
+      this.$store.dispatch('storePrefactura', undefined)
     },
 
     login() {

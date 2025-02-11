@@ -23,6 +23,9 @@
               :footer-props="{
                 itemsPerPageText: 'Items por página',
               }" sort-by="numero" sort-desc class="mytabla" mobile-breakpoint="840">
+              <template v-slot:[`item.fechaformato`]="{ item }">
+                {{ formatearFecha(item.fechaformato) }}
+              </template>
               <template v-slot:[`item.monto_total`]="{ item }">
                 {{ numeroFormateado(item.monto_total) }}
               </template>
@@ -243,10 +246,11 @@ export default {
   async mounted() {
     this.dialogWait = true
     //this.redireccionIdVacio()
-    await this.getEstadosCuentas()
+    
     await this.getBCV()
     await this.getCorrelativo()
     await this.getTasaMulta()
+    await this.getEstadosCuentas()
     this.dialogWait = false
   },
 
@@ -268,6 +272,18 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    formatearFecha(fechaOriginal) {
+      if (!fechaOriginal) return '--/--/----';
+      
+      const [fechaStr] = fechaOriginal.split(' ');
+      const [dia, mes, anio] = fechaStr.split('/');
+      
+      // Asegura 2 dígitos para día y mes
+      const diaFormateado = dia.padStart(2, '0');
+      const mesFormateado = mes.padStart(2, '0');
+      
+      return `${diaFormateado}/${mesFormateado}/${anio}`;
     },
     numeroFormateado(numero) {
       // Convertir a número si es una cadena
@@ -291,6 +307,7 @@ export default {
         ''
       }
     },
+
 
     selectedField(index) {
       const div = this.divs[index]
@@ -330,14 +347,20 @@ export default {
       try {
         this.dialogWait = true
         const res = await this.$axios.$post('crearliquidacion/', data)
-        console.log(res)
+        console.log('createLiquidacion',res)
+        this.$store.dispatch('storePrefactura',res)
         this.Correlativo = res.documento
         this.IdEdoCuenta = res.idedocuenta
         this.Id = res.id
         console.log('this.divs', this.divs)
         await this.generarPDF()
-        await this.getEstadosCuentas()
-        this.$router.push('liquidacion-multiple')
+        this.$store.getters.getPrefactura == undefined ? console.log('vacio') : console.log('lleno', this.$store.getters.getPrefactura.id)
+        this.$router.push(`recaudacion-multiple`)
+        //-----------------
+
+
+        //await this.getEstadosCuentas()
+        //this.$router.push('liquidacion-multiple')
         
 
         //this.$alert("success", { desc: "Se ha creado una pre-factura con éxito", hash: 'knsddcssdc', title: 'Creado' })
@@ -399,7 +422,7 @@ export default {
 
       return fecha;
     },
-    formatearFecha(fecha) {
+    formatearFecha_old(fecha) {
       const dia = fecha.getDate().toString().padStart(2, '0');
       const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
       const anio = fecha.getFullYear();
@@ -584,7 +607,7 @@ export default {
           headers: { 'Content-Type': 'application/pdf' },
         })
         console.log(response)
-        await this.getPDF()
+        //await this.getPDF() se comenta para que luego de grabar la prfatura se redirecciona al pago directamente
       } catch (err) {
         console.log(err);
       }

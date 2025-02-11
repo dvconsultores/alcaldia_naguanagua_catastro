@@ -20,6 +20,9 @@
               :search="search" :footer-props="{
               itemsPerPageText: 'Items por página',
             }" sort-by="numero" sort-desc class="mytabla" mobile-breakpoint="840" show-select>
+              <template v-slot:[`item.fecha`]="{ item }">
+              {{ formatearFecha(item.fecha) }}
+            </template>
               <template v-slot:[`item.monto_total`]="{ item }">
                 {{ numeroFormateado(item.monto_total) }}
               </template>
@@ -34,7 +37,7 @@
         </div>
       </div>
     </section>
-    <v-dialog v-model="openDialog" transition="dialog-bottom-transition" scrollable
+    <v-dialog v-model="openDialog" transition="dialog-bottom-transition" scrollable persistent
       content-class="dialog-recaudacion-multiple">
       <div class="div-dialog">
         <section class="section1-descripcion-inmueble">
@@ -59,10 +62,10 @@
           <div class="descripcion-impuestos">
             <div class="title-morado">
               <p class="impuestos-title">
-                Documento a cancelar
+                GENERAR RECIBO DE PAGO. Documento(s) a cancelar
               </p>
               <p v-if="selectedItem && montoTotalCxC" class="impuestos-title" style="--fw: 500; font-size: 22px;">
-                Total: {{ numeroFormateado(montoTotalCxC) }}
+                TOTAL DEUDA Bs.: {{ numeroFormateado(montoTotalCxC) }}
               </p>
             </div>
             <div
@@ -74,6 +77,9 @@
                     :footer-props="{
               itemsPerPageText: 'Items por página',
             }" sort-by="codigo" class="mytabla" mobile-breakpoint="840">
+                    <template v-slot:[`item.fecha`]="{ item }">
+                      {{ formatearFecha(item.fecha) }}
+                    </template>
                     <template v-slot:[`item.monto_total`]="{ item }">
                       {{ numeroFormateado(item.monto_total) }}
                     </template>
@@ -88,7 +94,7 @@
                 Tipos de pago
               </p>
               <p class="solicitud-title">
-                TOTAL PAGADO: {{ numeroFormateado(montoTotalPagado()) }} {{ MensajeNotaCredito }}
+                TOTAL PAGADO Bs.: {{ numeroFormateado(montoTotalPagado()) }} {{ MensajeNotaCredito }}
               </p>
             </div>
             <v-btn class="btns-add-remove no-shadow" @click="addDiv(index)">
@@ -97,9 +103,10 @@
             <div v-for="(div, index) in divs" :key="index" class="solicitud-inputs-container2">
 
               <v-autocomplete v-model="div.tipopago" class="small-input mobile-inputs" label="Tipo de Pago"
-                :items="tipoPagoData" item-text="descripcion" item-value="codigo" :disabled="div.bloqueado"
+              :items="tipoPagoData.filter(item => item.codigo !== 'N')" 
+                item-text="descripcion" item-value="codigo" :disabled="div.bloqueado"
                 @change="mostrarVentanaNueva(div.tipopago)"></v-autocomplete>
-              <v-dialog v-model="mostrarVentana" max-width="1600px">
+              <v-dialog v-model="mostrarVentana" max-width="1600px" persistent>
                 <v-card id="dialog-editar-crear-a">
                   <v-card-title>
                     <span class="title">TRANSFERENCIAS</span>
@@ -125,6 +132,9 @@
                           :search="searchTransferencia" :items-per-page="5" :footer-props="{
                               itemsPerPageText: 'Items por página',
                             }" sort-by="nombre" class="mytabla" mobile-breakpoint="840">
+                            <template v-slot:[`item.fecha`]="{ item }">
+                            {{ formatearFecha(item.fecha) }}
+                          </template>
                           <template v-slot:[`item.monto`]="{ item }">
                             {{ numeroFormateado(item.monto) }}
                           </template>
@@ -247,7 +257,6 @@ export default {
         { text: 'Concepto', value: 'tipoflujo_descripcion', align: 'center' },
         { text: 'Contribuyente', value: 'propietario_nombre', align: 'center' },
         { text: 'Fecha', value: 'fecha', align: 'center' },
-        //{ text: 'Observaciones', value: 'observaciones', align: 'center' },
         { text: 'Monto', value: 'monto_total', align: 'right' },
       ],
       headers: [
@@ -256,7 +265,6 @@ export default {
         { text: 'Tipo de Flujo', value: 'tipoflujo_descripcion', align: 'center' },
         { text: 'Contribuyente', value: 'propietario_nombre', align: 'center' },
         { text: 'Fecha', value: 'fecha', align: 'center' },
-        //{ text: 'Observaciones', value: 'observaciones', align: 'center' },
         { text: 'Total', value: 'monto_total', align: 'right' },
         { text: '', value: 'actions', sortable: false, align: 'center' },
       ],
@@ -274,6 +282,7 @@ export default {
       NotaCreditoData: [],
       NotaCreditoDataNew: [],
       tipoPagoData: [],
+      tipoPagoDataReporte: [],
       bancoCuentaData: [],
       corridasbancariasData: [],
       filtrocorridasbancariasData: [],
@@ -303,6 +312,8 @@ export default {
       CorrelativoData: [],
       dialogWait: false,
       observaciontransferencia:'',
+      idPrefactura: this.$store.getters.getPrefactura == undefined ? 'Sin Seleccionar' : this.$store.getters.getPrefactura.id,
+
 
     }
   },
@@ -313,14 +324,23 @@ export default {
     }
   },
   async mounted() {
+    this.$store.getters.getPrefactura == undefined ? console.log('vacio en pago') : console.log('lleno en pago', this.$store.getters.getPrefactura.id)
     this.dialogWait = true
-    await this.getLiquidacionPropietario()
+    
     await this.getTipoPago()
     await this.getBancoCuenta()
     await this.getCorridasBancarias()
     await this.getTasaMulta()
     await this.getCorrelativo()
+    await this.getLiquidacionPropietario()
     this.dialogWait = false
+    console.log('idPrefactura',this.idPrefactura,this.$store.getters.getPrefactura.id,this.$store.getters.getPrefactura)
+
+    if (this.idPrefactura != 'Sin Seleccionar') {
+        this.getLiquidacionId()
+
+    }
+
 
   },
 
@@ -332,7 +352,7 @@ export default {
       this.mostrarVentana = false;
     },
 
-    numeroFormateado(numero) {
+    numeroFormateado_old(numero) {
       // Convertir a número si es una cadena
       const numeroComoNumero = typeof numero === 'string' ? parseFloat(numero) : numero;
 
@@ -346,7 +366,18 @@ export default {
       partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       return partes.join('.');
     },
+    numeroFormateado(numero) {
+      // Convertir a número si es una cadena
+      const numeroComoNumero = typeof numero === 'string' ? parseFloat(numero) : numero;
 
+      // Verificar si es un número válido
+      if (isNaN(numeroComoNumero)) {
+        return 'Error: No es un número válido';
+      }
+
+      // Formatear directamente con 2 decimales y punto
+      return numeroComoNumero.toFixed(2);
+    },
     formatNumber(input) {
       // Convierte cadena a número si es necesario
       const number = typeof input === 'string' ? parseFloat(input.replace(/,/g, '')) : input;
@@ -355,7 +386,7 @@ export default {
         return 'Número inválido';
       }
       // Formatea el número con dos decimales y separadores de miles
-      const formattedNumber = number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      const formattedNumber = number.toFixed(2) //.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       return formattedNumber;
     },
     formatDate(inputDate) {
@@ -389,6 +420,7 @@ export default {
       this.dialog = true;
     },
     closeopenDialog() {
+      this.$store.dispatch('storePrefactura', 'Sin Seleccionar')
       this.divs = []
       this.selectedLiq = []
       this.getLiquidacionPropietario()
@@ -519,18 +551,29 @@ export default {
       this.dialog = false
     },
     async getLiquidacionId(item) {
+      //liquidacionData
       this.MensajeNotaCredito = ''
-      this.selectedItem = item
+      if (this.idPrefactura == 'Sin Seleccionar' || this.idPrefactura == undefined) {
+        this.selectedItem = item
+        this.montoTotalCxC = this.selectedLiq.reduce((total, item) => total + parseFloat(item.monto_total), 0);
+      } else {
+        this.selectedItem =this.liquidacionData.find(PREFACTURAS => PREFACTURAS.id ===this.idPrefactura)
+        this.selectedLiq=[this.selectedItem]
+        console.log('idPrefactura', this.idPrefactura)
+        console.log('liquidacionData', this.liquidacionData)
+        console.log('selectedItem', this.selectedItem)
+        this.montoTotalCxC = this.selectedItem.monto_total;
+      }
       //console.log('this.selectedItem ', this.selectedItem)
-      console.log('selectedLiq', this.selectedLiq)
-      this.montoTotalCxC = this.selectedLiq.reduce((total, item) => total + parseFloat(item.monto_total), 0);
+      
+      //this.montoTotalCxC = this.selectedLiq.reduce((total, item) => total + parseFloat(item.monto_total), 0);
       console.log('montoTotalCxC', this.montoTotalCxC)
-      console.log('item', item.id)
+      console.log('item', this.selectedItem.id)
       if (this.divs.monto == 0) {
         this.divs.monto = this.montoTotalCxC
       }
       try {
-        const response = await this.$axios.$get(`liquidacion/${item.id}`)
+        const response = await this.$axios.$get(`liquidacion/${this.selectedItem.id}`)
         this.liquidacionIdData = response
         console.log('ID Liquidacion', this.liquidacionIdData)
         this.openDialog = true
@@ -544,6 +587,7 @@ export default {
       try {
         const response = await this.$axios.$get('tipopago/?lstar=true')
         this.tipoPagoData = response
+        console.log('tipoPagoData', this.tipoPagoData)
       } catch (err) {
         console.log(err);
       }
@@ -568,6 +612,9 @@ export default {
 
             if (total > this.montoTotalCxC) {
               this.MensajeNotaCredito = '. Se generará una NOTA DE CREDITO por: ' + this.numeroFormateado(total - this.montoTotalCxC) + '';
+            }
+            else {
+              this.MensajeNotaCredito = ''
             }
 
           }
@@ -663,12 +710,21 @@ export default {
       // Formatear con dos decimales y separación de miles
       return '{:,.2f}'.format(numero);
     },
-    formatearFecha(fecha) {
+    formatearFecha_old(fecha) {
       const dia = fecha.getDate().toString().padStart(2, '0');
       const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
       const anio = fecha.getFullYear();
       return `${dia}/${mes}/${anio}`;
     },
+    formatearFecha(fechaISO) {
+    if (!fechaISO) return '--/--/----';
+    
+    // Extrae solo la parte de la fecha (antes de la 'T')
+    const [fechaStr] = fechaISO.split('T'); 
+    const [anio, mes, dia] = fechaStr.split('-');
+    
+    return `${dia}/${mes}/${anio}`;
+  },
     async generarPDF(Contribuyente, CabeceraPago, DetallePago, Montos, liquidacionDetalleData) {
       console.log('CabeceraPago', CabeceraPago)
       const pdf = new jsPDF('p', 'mm', 'letter');

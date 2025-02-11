@@ -422,12 +422,14 @@
             {{this.max_rate_key}}
           </span>
           <span class="span-saludo tcenter">
-            {{this.montoBCV}} 
+            Tasa BCV: {{this.montoBCV}} 
           </span> 
           <span class="span-saludo tcenter">
-            {{this.currentDateTime}}
+            Ult. Act: {{this.formatDateAxios(this.fechaBCV)}}
           </span>
-         
+          <span class="span-saludo tcenter">
+            Sistema: {{this.formatDate2(this.originalDate)}}
+          </span>
         </div>
         <div class="divcol center">
            <v-btn class="btn-liquidar"  @click="clearStoreExpediente()">
@@ -451,8 +453,11 @@ export default {
       max_rate_key:null,
       max_rate_value:null,
       montoBCV:0,
+      fechaBCV:null,
       bcvData:[],
-      currentDateTime: new Date().toLocaleString()
+      ApiChafa:[],
+      currentDateTime: new Date().toLocaleString(),
+      originalDate: new Date() // Fecha actual
     };
   },
   mounted() {
@@ -460,21 +465,64 @@ export default {
     this.getBCV()
   },
   methods: {
+    formatDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Sumar 1 porque los meses empiezan en 0
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    },
+    formatDate2(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Sumar 1 porque los meses empiezan en 0
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${day}/${month}/${year}`;
+    },
+    formatDateAxios(date) {
+      if (!date) return ''; // Verifica si la fecha existe
+      const [year, month, day] = date.split('-'); // Divide la fecha en partes
+      return `${day}/${month}/${year}`; // Formato DD/MM/AAAA
+    },
     goBack() {
       this.$router.go(-1);
     },
-    getBCV() {
-      this.$axios.$get('tasabcv/').then(response => {
+    async getBCV() {
+      try {
+        const response = await this.$axios.$get('tasabcv/');
           this.bcvData = response
+          console.log(this.bcvData)
           this.montoBCV = this.bcvData[0].monto
-        }).catch(err => {
-          console.log(err)
-        })
+          this.fechaBCV = this.bcvData[0].fecha
+          //console.log(this.formatDate(this.originalDate))
+          if (this.fechaBCV!=this.formatDate(this.originalDate)){
+            console.log('Fecha BCV no coincide con la fecha actual');
+            try {
+              const response2 = await this.$axios.$post('MuestraTasa');
+              this.ApiChafa = response2.tasa
+              if (this.ApiChafa>0){
+                const formData = new FormData()
+                formData.append('monto', this.ApiChafa)
+                formData.append('fecha', this.formatDate(this.originalDate))
+                this.$axios.$patch('tasabcv/' + this.bcvData[0].id + '/', formData).then((res) => {
+                  console.log(res)
+                  this.montoBCV=this.ApiChafa
+                  this.fechaBCV=this.formatDate(this.originalDate)
+                }).catch((err) => {
+                  console.log(err)
+                })
+            }
+            } catch (error) {
+            console.error('Error en la solicitud GET', error);
+            }
+          }
+      } catch (error) {
+        console.error('Error en la solicitud GET', error);
+      }
     },
     clearStoreExpediente(){
       this.$store.dispatch('storeExpediente', 'Sin Seleccionar')
       this.$store.dispatch('storeContribuyente', 'Sin Seleccionar')
       this.$store.dispatch('storePatente', 'Sin Seleccionar')
+      this.$store.dispatch('storePrefactura', 'Sin Seleccionar')
 
     },
     async fetchData() {

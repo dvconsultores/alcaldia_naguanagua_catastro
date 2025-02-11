@@ -540,12 +540,14 @@
 
         <hr>
 
-        <div class="divrow center div-btns" style="gap:30px;">
-
-          <v-btn class="btn size-btn" :disabled="disableBotonGuardar" @click="createEstadoCuenta()">
+        <div class="center divrow" style="gap:10px;">
+          <v-btn class="btn btn-small" :disabled="disableBotonGuardar" @click="createEstadoCuenta()">
             Guardar
           </v-btn>
-
+          <v-btn class="btn btn-small" :disabled="disableBotonGuardar" @click="retorna()"
+            style="background-color:#ED057E!important;">
+            Cancelar
+          </v-btn>
         </div>
       </div>
     </section>
@@ -568,8 +570,13 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field v-model="fAnio" class="small-input mobile-inputs" label="Año fin deuda" readonly
-              :value="0"></v-text-field>
+            <v-text-field 
+              v-model.number="fAnio" 
+              class="small-input mobile-inputs" 
+              label="Año fin deuda" 
+              :value="0" 
+              :readonly="!accesos.actualizar">
+            </v-text-field>
           </v-col>
           <v-col>
             <v-autocomplete v-model="fPeriodo" class="big-autocomplete mobile-inputs" label="Periodo fin deuda*"
@@ -578,8 +585,12 @@
         </v-row>
         <div class="center divrow" style="gap:10px;">
           <v-btn class="btn btn-small" @click="openDialogPeriodo = false; getDeuda()"
-            style="background-color:#ED057E!important;">
+            >
             Procesar
+          </v-btn>
+          <v-btn class="btn btn-small" @click="openDialogPeriodo = false; retorna()"
+            style="background-color:#ED057E!important;">
+            Cancelar
           </v-btn>
         </div>
       </v-card>
@@ -593,7 +604,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 export default {
-  name: "Estado-Cuenta-Detalle-HaciendaPage",
+  name: "Estado-Cuenta-HaciendaPage",
   mixins: [computeds],
   data() {
     return {
@@ -640,6 +651,12 @@ export default {
       fAnio: (new Date()).getFullYear(),
       fPeriodo: 4,
       disableBotonGuardar: false,
+      aAnioHasta:[
+        {anio:2024},
+        {anio:2025},
+      ],
+      permido: JSON.parse(JSON.stringify(this.$store.getters.getUser.permisos)),
+      accesos: {},
 
     }
   },
@@ -657,6 +674,7 @@ export default {
       this.$alert("cancel", { desc: "Debe seleccionar un tipo de transacción o trámite", hash: 'knsddcssdc', title: 'Error' })
     }
     else {
+      this.permisos()
       console.log('this.$store.getters.getExpediente', this.$store.getters.getExpediente)
       this.dialogWait = true
       await this.updateStoreExpediente()
@@ -684,6 +702,26 @@ export default {
 
 
   methods: {
+    retorna(){
+      this.$router.push('estado-cuenta-hacienda')
+    },
+    permisos() {
+      /********************************************************************************************************
+        Validar si este modulo esta dentro de modulos con accceso desde la variable this.$store.getters.getUser
+      ******************************************************************************************************* */
+      const longitud = this.$options.name.length;
+      this.modulo = this.$options.name.substring(0, longitud - 4).toLowerCase();
+      // esto valida si este modulo esta dentro de la lista de permitidos segun el modelo de permisos
+      console.log('permiso: 1 si , 0 no:', this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length);
+      if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
+        console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
+        this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
+        console.log('this.accesos',this.accesos)
+      } else {
+        this.$router.push('index')
+        this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
+      }
+    },
 
     async getDataPeriodo() {
       try {
@@ -773,15 +811,15 @@ export default {
               editable: false
             });
           } else {
-            //this.IC_Cabecera2023 = res[0].cabacera
-            //this.IC_Detalle2023 = res[0].detalle
-            //this.IC_Descuento2023 = res[0].descuento
-            //this.IC_Exonerado2023 = res[0].exonerado
-            //this.IC_ObservacionRecibo2023=res[0].ObservacionRecibo
-            //this.IC_Interes2023 = res[0].interes
+            this.IC_Cabecera2023 = res[0].cabacera
+            this.IC_Detalle2023 = res[0].detalle
+            this.IC_Descuento2023 = res[0].descuento
+            this.IC_Exonerado2023 = res[0].exonerado
+            this.IC_ObservacionRecibo2023=res[0].ObservacionRecibo
+            this.IC_Interes2023 = res[0].interes
             this.tasa_multa_id = this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
-            //console.log('this.IC_Cabecera 2023', this.IC_Cabecera2023)
-            //console.log('this.IC_ObservacionRecibo2023 2023', this.IC_ObservacionRecibo2023)
+            console.log('this.IC_Cabecera 2023', this.IC_Cabecera2023)
+            console.log('this.IC_ObservacionRecibo2023 2023', this.IC_ObservacionRecibo2023)
             this.observaciones = "CÁLCULO desde el año:" + this.IC_Cabecera.anioini + " - período:" + this.IC_Cabecera.mesini + ", hasta el año: 2023 - período: 4. "
             this.observaciones = this.observaciones + "Zona: " + this.IC_Cabecera.zona + ", "
             this.observaciones = this.observaciones + "Area total de Terreno: " + (this.IC_ObservacionRecibo.total_area_terreno).toFixed(2) + "m2, de Uso "+this.IC_ObservacionRecibo.uso_area_terreno+". "
@@ -846,15 +884,15 @@ export default {
               editable: false
             });
           } else {
-            //this.IC_Cabecera = res[0].cabacera
-            //this.IC_Detalle = res[0].detalle
-            //this.IC_Descuento = res[0].descuento
-            //this.IC_Exonerado = res[0].exonerado
-            //this.IC_Interes = res[0].interes
+            this.IC_Cabecera = res[0].cabacera
+            this.IC_Detalle = res[0].detalle
+            this.IC_Descuento = res[0].descuento
+            this.IC_Exonerado = res[0].exonerado
+            this.IC_Interes = res[0].interes
             //
             this.tasa_multa_id = this.tasaMultaData.find((TasaMulta) => TasaMulta.codigo === 'IC')
-            //console.log('this.IC_Cabecera 2024', this.IC_Cabecera)
-            //console.log('this.IC_ObservacionRecibo 2024', this.IC_ObservacionRecibo)
+            console.log('this.IC_Cabecera 2024', this.IC_Cabecera)
+            console.log('this.IC_ObservacionRecibo 2024', this.IC_ObservacionRecibo)
             this.observaciones = this.observaciones + "\n"
             this.observaciones = this.observaciones + "CÁLCULO desde el año:" + this.IC_Cabecera.anioini + " - período:" + this.IC_Cabecera.mesini + ", hasta el año:" + this.IC_Cabecera.aniofin + " - período: " + this.IC_Cabecera.mesfin + ". "
             this.observaciones = this.observaciones + "Categoria: " + this.IC_Cabecera.zona + ". "
@@ -902,17 +940,18 @@ export default {
         console.log(err);
       }
     },
-
     montoTotal() {
-      let total = 0
+      let total = 0;
       for (const div of this.divs) {
         if (div.calculo !== null) {
-          total += parseFloat(div.calculo)
+          // Redondea cada valor a dos decimales antes de sumar
+          const valorRedondeado = Math.round(parseFloat(div.calculo) * 100) / 100;
+          total += valorRedondeado;
         }
+        //console.log('total', total.toFixed(2)); // Muestra el total parcial con dos decimales
       }
-      return total.toFixed(2)
+      return total.toFixed(2); // Retorna el total final formateado
     },
-
     selectedField(index) {
       const div = this.divs[index]
       const tasa_encontrada = this.tasaMultaData.find(tasa => tasa.id === div.tasa_multa_id)

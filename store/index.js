@@ -4,6 +4,7 @@ export const state = () => ({
   contribuyente: undefined,//creacion de variable GLOBAL para Catastro
   expediente: undefined,//creacion de variable GLOBAL para Catastro
   flujo: undefined,//creacion de variable para usarla en creacion de estados/ de cuenta/liquidacion de catastro
+  prefactura: undefined,//creacion de variable para usarla en los pagos automaticos una vez que se grabe la prefactura
   inmueble: undefined,//creacion de variable para usarla en creacion de estados/ de cuenta/liquidacion de catastro
 
   theme: "light",
@@ -48,6 +49,9 @@ export const mutations = {
 
   STORE_flujo(state, flujo) { // seteo de data
     state.flujo = flujo
+  },
+  STORE_prefactura(state, prefactura) { // seteo de data
+    state.prefactura = prefactura
   },
   STORE_inmueble(state, inmueble) { // seteo de data
     state.inmueble = inmueble
@@ -155,7 +159,9 @@ export const actions = {
   storeFlujo({commit}, flujo) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_flujo', flujo)
   },
-
+  storePrefactura({commit}, prefactura) { // recibe la data y la manda a store user para ser seteada
+    commit('STORE_prefactura', prefactura)
+  },
   storeInmueble({commit}, inmueble) { // recibe la data y la manda a store user para ser seteada
     commit('STORE_inmueble', inmueble)
   },
@@ -217,7 +223,10 @@ export const getters = {
   },
   getFlujo(state) { // consulta la variable
     return state.flujo == undefined ? 'Sin Seleccionar' : state.flujo
-  },  
+  }, 
+  getPrefactura(state) { // consulta la variable
+    return state.prefactura == undefined ? 'Sin Seleccionar' : state.prefactura
+  },
   getInmueble(state) { // consulta la variable
     return state.inmueble == undefined ? 'Sin Seleccionar' : state.inmueble
   },    

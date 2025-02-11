@@ -33,7 +33,7 @@
               </v-btn>
             </v-col>
             <v-col lg="1" class="divrow pl-0">
-              <span style="color: red;" v-if="ValidaCategorizacion != dataValoracionTerreno.zona_codigo">
+              <span style="color: red;" v-if="(ValidaCategorizacion != dataValoracionTerreno.zona_codigo)&& dataValoracionTerreno.zona_codigo"> 
                 !ERROR EN ZONA!
               </span>
             </v-col>

@@ -231,10 +231,15 @@ export default {
 
   async mounted() {
     this.dialogWait = true;
-    this.disableBotonGuardar = true;
-    this.disableBotonImprimir = true;
     await this.redireccionIdVacio();
-
+    console.log(this.accesos.actualizar)
+    if (!this.accesos.actualizar) {
+      this.disableBotonGuardar = true;
+      this.disableBotonImprimir = true;
+    }else{
+      this.disableBotonGuardar = false;
+      this.disableBotonImprimir = false;
+    }
   },
 
   methods: {
@@ -249,7 +254,7 @@ export default {
       if (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)).length) {
         //console.log('leer:', (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0].leer);
         this.accesos = (this.permido.filter(permido => permido.modulo.toLowerCase().includes(this.modulo)))[0]
-        //console.log('this.accesos',this.accesos)
+        console.log('this.accesos',this.accesos)
       } else {
         this.$router.push('index')
         this.$alert("cancel", { desc: "No está autorizado para accesar a este módulo!!!", hash: 'knsddcssdc', title: 'Error' })
@@ -1074,7 +1079,7 @@ export default {
       pdf.addPage();
 
 
-//*********************************************************************************************************** */
+      //*********************************************************************************************************** */
 
       img1.onload = function () {
         pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo

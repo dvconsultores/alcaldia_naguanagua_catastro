@@ -221,7 +221,6 @@ export default {
       dataDocumentoPropiedad: [],
       dataFinesFiscales: [],
       dataUbicacionInmueble:[],
-
       dataValoracionTerreno: [],
       dialogWait: true,
     }

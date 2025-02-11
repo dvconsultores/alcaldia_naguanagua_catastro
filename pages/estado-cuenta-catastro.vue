@@ -69,6 +69,14 @@
       </div>
 
     </section>
+    <v-dialog v-model="dialogWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Por favor espere!!!
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -83,6 +91,7 @@ export default {
       inmueblePropietariosData: [],
       flujoData:[],
       flujo:null,
+      dialogWait: false,
       nombrecontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nombre)),
       nacionalidadcontribuyente:this.$store.getters.getContribuyente=='Sin Seleccionar' ?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.nacionalidad)),
       numero_documento: this.$store.getters.getContribuyente=='Sin Seleccionar'?'':JSON.parse(JSON.stringify(this.$store.getters.getContribuyente.numero_documento)),
@@ -97,9 +106,11 @@ export default {
   },
 
   mounted(){
+    this.dialogWait = true
     this.getFlujo()
     this.getInmueblePropietarios()
     this.updateStoreExpediente()
+    this.dialogWait = false
     this.redireccionIdVacio()
   },
 

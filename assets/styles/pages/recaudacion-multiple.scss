@@ -231,6 +231,8 @@
   padding-bottom: 10px;
   padding-inline: 10px 10px;
 
+
+
   .impuestos-tasa-container{
     display: flex;
     flex-direction: column;
@@ -423,10 +425,13 @@
   padding-inline: 10px 10px;
 
 
-  .div-dialog{
+  .div-dialog{ 
     max-height: 85vh;
     display: grid;
-    place-items: center;
+    place-items: start; // Cambiado de center a start para mejor control del scroll
+    overflow-y: auto; // Añade scroll vertical cuando el contenido exceda la altura
+    width: 100%; // Asegura ancho completo
+    padding: 20px 0; // Espaciado vertical
 
     .section1-descripcion-inmueble{
       display: flex;
@@ -885,13 +890,18 @@
 #dialog-editar-crear-a{
   background-color: #fff;
   border-radius: 10px;
-  display: flex;
+  //display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding-bottom: 20px;
 
-
+    max-height: 85vh;
+    display: grid;
+    place-items: start; // Cambiado de center a start para mejor control del scroll
+    overflow-y: auto; // Añade scroll vertical cuando el contenido exceda la altura
+    width: 100%; // Asegura ancho completo
+    padding: 20px 0; // Espaciado vertical
   
 
   hr{
@@ -905,6 +915,7 @@
     color:var(--primary);
     font-weight:700!important;
     font-size: 1.5em!important;
+    text-align: center;
   }
 
   .dialog-btn{
