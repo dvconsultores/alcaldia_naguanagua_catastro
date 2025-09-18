@@ -171,7 +171,7 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:var(--error)!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -180,14 +180,14 @@
             </template>
             <template #[`item.actions`]="{ item }">
               <v-icon
-                color="#810880"
+                color="var(--success)"
                 big
                 @click="editItem(item)"
               >
                 mdi-pencil
               </v-icon>
               <v-icon
-                color="#810880"
+                color="var(--error)"
                 big
                 @click="openDelete(item)"
               >

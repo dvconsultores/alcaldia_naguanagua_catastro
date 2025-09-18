@@ -60,7 +60,7 @@
           ></v-text-field>
 
           <v-btn class="search-btn">
-            <v-icon color="#810880">mdi-magnify</v-icon>
+            <v-icon color="var(--primary)">mdi-magnify</v-icon>
           </v-btn>
         </div>
       </div>
@@ -135,7 +135,7 @@ export default {
         stroke: {
           curve: 'smooth'
         },
-        colors: ['#810880'],
+        colors: ['var(--primary)'],
         xaxis: {
           labels: {
             show: false

@@ -1,6 +1,9 @@
 .section-login{
   padding-top: 20px;
   padding-bottom: 100px;
+  background: url('~/assets/sources/images/azul.png') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
 
   img[alt="Escudo-Naguanagua"]{
     position: absolute;
@@ -10,12 +13,6 @@
     @include media(max , 630px){
       width: 50px;
     }
-  }
-
-  img[alt="morado"]{
-    position: absolute;
-    bottom: 0px;
-    width: 100vw;
   }
 
   .container-login{

@@ -102,10 +102,24 @@
             </v-btn>
             <div v-for="(div, index) in divs" :key="index" class="solicitud-inputs-container2">
 
-              <v-autocomplete v-model="div.tipopago" class="small-input mobile-inputs" label="Tipo de Pago"
+              <!--v-autocomplete v-model="div.tipopago" class="small-input mobile-inputs" label="Tipo de Pago"
               :items="tipoPagoData.filter(item => item.codigo !== 'N')" 
                 item-text="descripcion" item-value="codigo" :disabled="div.bloqueado"
-                @change="mostrarVentanaNueva(div.tipopago)"></v-autocomplete>
+                @change="mostrarVentanaNueva(div.tipopago)"></v-autocomplete-->
+
+                <v-autocomplete
+                v-model="div.tipopago"
+                class="small-input mobile-inputs"
+                label="Tipo de Pago"
+                :items="tipoPagoData"
+                item-text="descripcion"
+                item-value="codigo"
+                :disabled="div.bloqueado "
+                @change="mostrarVentanaNueva(div.tipopago)"
+              >
+ 
+              </v-autocomplete>
+                
               <v-dialog v-model="mostrarVentana" max-width="1600px" persistent>
                 <v-card id="dialog-editar-crear-a">
                   <v-card-title>
@@ -156,6 +170,7 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+
               <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="5" transition="scale-transition"
                 offset-y min-width="auto" :disabled="div.bloqueado">
                 <template #activator="{ on, attrs }">
@@ -163,13 +178,13 @@
                     append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                 </template>
                 <v-date-picker v-model="div.fechapago" label="Fecha" @input="formatoFecha()" color="blue"
-                  header-color="#810880" class="custom-date-picker"></v-date-picker>
+                  header-color="var(--primary)" class="custom-date-picker"></v-date-picker>
               </v-menu>
 
 
 
-              <v-text-field @click="openDialogMonto" v-model="div.monto" class="small-input mobile-inputs" label="Monto"
-                :disabled="div.bloqueado" style="font-size: 20px; " reverse>
+              <v-text-field v-model="div.monto" @click="openDialogMonto()" class="small-input mobile-inputs" label="Monto"
+                :disabled="div.bloqueado" style="font-size: 22px; " reverse>
                 {{ parseFloat(div.monto).toFixed(2) }}</v-text-field>
               <v-dialog v-model="dialog" max-width="400px">
                 <v-card>
@@ -201,22 +216,73 @@
                 :label="div.tipopago !== 'D' ? '' : 'Nro. aprobación'"
                 :disabled="div.tipopago !== 'D' || div.bloqueado"></v-text-field>
               <v-btn class="btns-add-remove" :disabled="div.bloqueado" @click="removeDiv(index)">
-                <v-icon>mdi-delete</v-icon>
+                <v-icon color="var(--error)">mdi-delete</v-icon>
               </v-btn>
 
 
             </div>
+
+
+
+
+
             <hr>
             <div class="divrow center div-btns" style="gap:30px;">
-              <v-btn :disabled="botonDeshabilitado1" class="btn size-btn" @click="validaPago()">
+              <v-btn :disabled="botonDeshabilitado1" class="btn size-btn" @click="validaPago()" style="background-color:var(--primary)!important;">
                 Guardar
               </v-btn>
 
-              <v-btn :disabled="botonDeshabilitado2" class="btn size-btn" style="background-color:#ED057E!important;"
+              <v-btn :disabled="botonDeshabilitado2" class="btn size-btn" style="background-color:var(--error)!important;"
                 @click="closeopenDialog()">
                 Cancelar
               </v-btn>
+
+              
             </div>
+
+            <v-dialog v-model="mostrarVentanaContribuyenteNotaCredito" max-width="1600px" persistent>
+                <v-card id="dialog-editar-crear-a">
+                  <v-card-title>
+                    <span class="title">Contribuyente</span>
+                  </v-card-title>
+                  <hr>
+                  <v-card-text>
+
+                    <div class="data-liquidacion-container divrow">
+                      <div class="data-table-container">
+                        <v-text-field v-model="searchTransferencia" append-icon="mdi-magnify" label="Buscar"
+                          hide-details class="input-data-table"></v-text-field>
+                        <v-data-table :headers="headersCorridasBancarias" :items="filtrocorridasbancariasData"
+                          :search="searchTransferencia" :items-per-page="5" :footer-props="{
+                              itemsPerPageText: 'Items por página',
+                            }" sort-by="nombre" class="mytabla" mobile-breakpoint="840">
+                            <template v-slot:[`item.fecha`]="{ item }">
+                            {{ formatearFecha(item.fecha) }}
+                          </template>
+                          <template v-slot:[`item.monto`]="{ item }">
+                            {{ numeroFormateado(item.monto) }}
+                          </template>
+                          <template #[`item.actions`]="{ item }">
+                            <v-btn class="btn-tabla"
+                              @click="div.fechapago = item.fecha; div.monto = item.monto; div.nro_referencia = item.referencia_complemento;observaciontransferencia=item.observaciones;div.corridasbancarias = item.id; validacontabilidad()">
+                              Selecciona
+                            </v-btn>
+                          </template>
+                        </v-data-table>
+                      </div>
+                    </div>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="btn dialog-btn" @click="div.tipopago = null; mostrarVentanaContribuyenteNotaCredito = false">
+                      Cerrar
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+
+
+
           </div>
         </section>
       </div>
@@ -237,6 +303,8 @@ import computeds from '~/mixins/computeds'
 import moment from 'moment'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import logoIzquierdo from '~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png';
+import logoDerecho from '~/assets/sources/logos/logo.png';
 
 export default {
   name: "recaudacion-multiplePage",
@@ -313,6 +381,7 @@ export default {
       dialogWait: false,
       observaciontransferencia:'',
       idPrefactura: this.$store.getters.getPrefactura == undefined ? 'Sin Seleccionar' : this.$store.getters.getPrefactura.id,
+      mostrarVentanaContribuyenteNotaCredito:false,
 
 
     }
@@ -416,6 +485,9 @@ export default {
         this.mostrarVentana = false;
       }
     },
+
+
+
     openDialogMonto() {
       this.dialog = true;
     },
@@ -462,6 +534,7 @@ export default {
         }, 0);
 
         console.log('div2.propietario', div2.propietario, 'total cxc por contribuyente', sumaMontos)
+        // esto es para que no se repita el contribuyente, si se seleccionar dos o mas pre-faturas de un mismo contribuyente solo lo tamara una vez para aplicad la NC
         const ownerId = div2.propietario;
 
         if (!uniqueOwnersMap.has(ownerId)) {
@@ -605,20 +678,26 @@ export default {
     montoTotalPagado() {
       if (this.montoTotalCxC) {
         var total = 0
-        console.log('total cxc', this.montoTotalCxC)
+        //console.log('total cxc', this.montoTotalCxC) 
+        //console.log('this.divs)', this.divs)
         for (const div of this.divs) {
           if (div.monto !== null) {
             total += parseFloat(div.monto)
-
-            if (total > this.montoTotalCxC) {
-              this.MensajeNotaCredito = '. Se generará una NOTA DE CREDITO por: ' + this.numeroFormateado(total - this.montoTotalCxC) + '';
-            }
-            else {
-              this.MensajeNotaCredito = ''
-            }
-
           }
         }
+        total = Math.round(total * 100) / 100; 
+        if (total > this.montoTotalCxC) {
+          this.MensajeNotaCredito = '. Se generará una NOTA DE CREDITO por: ' + this.numeroFormateado(total - this.montoTotalCxC) + '';
+        }
+        else {
+          this.MensajeNotaCredito = ' '
+        }
+        console.log('total', total) 
+        console.log('this.montoTotalCxC', this.montoTotalCxC) 
+        this.montoTotalCxC = parseFloat(this.montoTotalCxC);
+        console.log('this.montoTotalCxC', this.montoTotalCxC) 
+
+
         return total
       }
     },
@@ -671,8 +750,10 @@ export default {
           monto: ((this.montoTotalCxC - this.montoTotalPagado()).toFixed(2)),
           bloqueado: false,
         })
+        this.montoTotalPagado()
       }
     },
+
 
 
     removeDiv(index) {
@@ -747,34 +828,15 @@ export default {
       // Tamaño máximo de la línea
       const maxWidth = 180;
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
-      const img1 = new Image();
-      const img2 = new Image();
-      var ruta1 = this.CorrelativoData[0].Logo1;
-      if (ruta1.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      var ruta2 = this.CorrelativoData[0].Logo2;
-      if (ruta2.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      img1.src = ruta1;
-      img2.src = ruta2;
-      img1.onload = function () {
-        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-        img2.onload = function () {
-          pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
-        };
-      };
+ 
       let startY = 55;
       // Establecer el tamaño de fuente para el encabezado de la tabla
       const fontSizeTitle = 15; // Tamaño de fuente para el encabezado
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
       const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
       //let pageHeight = pdf.internal.pageSize.height;
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(logoDerecho, 'PNG', 160, 13, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE PLANILLA. ${this.CorrelativoPago}`, null, null, 'right');
@@ -1036,7 +1098,9 @@ export default {
       }
     },
 
-    validaPago() {
+    
+
+    async validaPago() {
       var mensaje = ""
       if (this.divs.length > 0) {
         const div = this.divs[this.divs.length - 1];
@@ -1057,8 +1121,23 @@ export default {
       }
       else { mensaje = mensaje + 'No hay pagos para procesar.' }
       if (mensaje) { this.$alert("cancel", { desc: "Error: " + mensaje, hash: 'knsddcssdc', title: 'Falta dato' }) }
-      else { this.createPago() }
+      else { 
+        //if (this.montoTotalPagado>this.montoTotalCxC){
+        //  this.ValidaNotaCredito()
+       // }
+       // else{
+          
+      //  }
+      this.createPago() 
+      }
     },
+
+    ValidaNotaCredito() {
+
+      this.mostrarVentanaContribuyenteNotaCredito = true;
+
+    },
+
 
     async createPago() {
       this.montoTotalSelectedItem = this.selectedLiq ? (this.montoTotalCxC) : null

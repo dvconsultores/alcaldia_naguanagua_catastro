@@ -412,8 +412,8 @@
         <v-card-title class="center title">¿Desea guardar este registro?</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
-          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble" style="background-color:var(--primary)!important;">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color:var(--error)!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>

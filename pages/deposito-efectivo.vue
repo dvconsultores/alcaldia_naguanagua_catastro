@@ -34,7 +34,7 @@
                             append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                         </template>
                         <v-date-picker v-model="defaultItem.fechapago" label="Fecha" @input="formatoFecha()" color="blue"
-                          header-color="#810880" class="custom-date-picker"></v-date-picker>
+                          header-color="var(--primary)" class="custom-date-picker"></v-date-picker>
                       </v-menu>
 
                     </div>
@@ -68,10 +68,10 @@
                   </div>
                 </div>
                 <div class="div-btns">
-                  <v-btn :disabled="disableBoton" @click="saveEstado()">
+                  <v-btn :disabled="disableBoton" @click="saveEstado()" style="background-color:var(--primary)!important;">
                     Guardar
                   </v-btn>
-                  <v-btn :disabled="disableBoton" style="background-color:#ED057E!important;"
+                  <v-btn :disabled="disableBoton" style="background-color:var(--error)!important;"
                     @click="dialog_editar = false">
                     Cancelar
                   </v-btn>

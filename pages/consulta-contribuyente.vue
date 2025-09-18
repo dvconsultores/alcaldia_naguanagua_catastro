@@ -66,7 +66,7 @@
                                   <v-spacer></v-spacer>
                                   <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
                                   <v-btn class="btn dialog-btn" text @click="dialogSelecciona = false"
-                                    style="background-color:#ED057E!important;">No</v-btn>
+                                    style="background-color:var(--error)!important;">No</v-btn>
                                   <v-spacer></v-spacer>
                                 </v-card-actions>
                               </v-card>

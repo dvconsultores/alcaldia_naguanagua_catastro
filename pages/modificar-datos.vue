@@ -66,11 +66,11 @@
                 </div>
 
                 <div class="div-btns">
-                  <v-btn @click="createContribuyente()">
+                  <v-btn @click="createContribuyente()" style="background-color:var(--primary)!important;">
                     Guardar
                   </v-btn>
 
-                  <v-btn style="background-color:#ED057E!important;" @click="dialog = false">
+                  <v-btn style="background-color:var(--error)!important;" @click="dialog = false">
                     Cancelar
                   </v-btn>
                 </div>
@@ -131,11 +131,11 @@
                 </div>
 
                 <div class="div-btns">
-                  <v-btn @click="saveData()">
+                  <v-btn @click="saveData()" style="background-color:var(--primary)!important;">
                     Guardar
                   </v-btn>
 
-                  <v-btn style="background-color:#ED057E!important;" @click="dialog_editar = false">
+                  <v-btn style="background-color:var(--error)!important;" @click="dialog_editar = false">
                     Cancelar
                   </v-btn>
                 </div>
@@ -162,7 +162,7 @@
                         <v-spacer></v-spacer>
                         <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
                         <v-btn class="btn dialog-btn" text @click="dialogDelete = false"
-                          style="background-color:#ED057E!important;">No</v-btn>
+                          style="background-color:var(--error)!important;">No</v-btn>
                         <v-spacer></v-spacer>
                       </v-card-actions>
                     </v-card>
@@ -176,7 +176,7 @@
                         <v-spacer></v-spacer>
                         <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
                         <v-btn class="btn dialog-btn" text @click="dialogSelecciona = false"
-                          style="background-color:#ED057E!important;">No</v-btn>
+                          style="background-color:var(--error)!important;">No</v-btn>
                         <v-spacer></v-spacer>
                       </v-card-actions>
                     </v-card>
@@ -184,10 +184,10 @@
                 </v-toolbar>
               </template>
               <template #[`item.actions`]="{ item }">
-                <v-icon color="#810880" big @click="editItem(item)">
+                <v-icon color="var(--success)" big @click="editItem(item)">
                   mdi-pencil
                 </v-icon>
-                <v-icon color="#810880" big @click="openDelete(item)">
+                <v-icon color="var(--error)" big @click="openDelete(item)">
                   mdi-delete
                 </v-icon>
               </template>

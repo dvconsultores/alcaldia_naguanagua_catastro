@@ -18,7 +18,7 @@
               <v-text-field v-model="inmuebleData.fecha_creacion" class="small-input mobile-inputs"
                 label="Fecha de Inscripcion" append-icon="mdi-calendar" v-bind="attrs" v-on="on"></v-text-field>
             </template>
-            <v-date-picker v-model="nuevaFechaCrea" label="Fecha" color="blue" header-color="#810880"
+            <v-date-picker v-model="nuevaFechaCrea" label="Fecha" color="blue" header-color="var(--primary)"
               class="custom-date-picker" @input="formatoFechaCrea()"></v-date-picker>
           </v-menu>
           <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="5" transition="scale-transition" offset-y
@@ -27,7 +27,7 @@
               <v-text-field v-model="inmuebleData.fecha_inscripcion" class="small-input mobile-inputs"
                 label="Fecha de última Compra" append-icon="mdi-calendar" v-bind="attrs" v-on="on"></v-text-field>
             </template>
-            <v-date-picker v-model="nuevaFecha" label="Fecha" color="blue" header-color="#810880"
+            <v-date-picker v-model="nuevaFecha" label="Fecha" color="blue" header-color="var(--primary)"
               class="custom-date-picker" @input="formatoFecha()"></v-date-picker>
           </v-menu>
           <v-autocomplete v-model="inmuebleData.tipo" class="big-autocomplete mobile-inputs" label="Tipo de Inmueble"
@@ -140,7 +140,7 @@
           <v-spacer></v-spacer>
           <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
           <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false"
-            style="background-color:#ED057E!important;">No</v-btn>
+            style="background-color:var(--error)!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -174,6 +174,8 @@ import moment from 'moment'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import QRCode from 'qrcode';
+import logoIzquierdo from '~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png';
+
 
 export default {
   name: "Actualizacion-InmueblePage",
@@ -620,6 +622,16 @@ export default {
           this.btnGuardarInmuble = false;
           this.dialog_confirmar = false;
           this.$alert("success", { desc: "Se ha editado un inmueble con éxito", hash: 'knsddcssdc', title: 'Edición de inmueble' });
+
+      try {
+        await this.generarPDF()
+      } catch (err) {
+       this.$alert("cancel", { desc: "No se ha generado una cédula catastral para este inmueble."+err, hash: 'knsddcssdc', title: 'Error' })
+
+        console.log("error generando PDF", err);
+      }
+
+
           await this.generarPDF()
           this.dialogWait = false
           this.disableBotonGuardar = false;
@@ -660,26 +672,9 @@ export default {
       //pdf.addImage(qrCodeDataURL, 'PNG', qrX, qrY, qrWidth, qrHeight);
 
 
-      const img1 = new Image();
-      const img2 = new Image();
+   
       const img3 = new Image();
-      //var ruta1 = "http://localhost:8000/alcaldia_catastro/alcaldia_catastro/assets/sources/logos/Escudo_Naguanagua_Carabobo.png" // this.CorrelativoData[0].Logo1;
-      var ruta1 = this.CorrelativoData[0].Logo1; 
-      console.log('ruta1',ruta1)
-      if (ruta1.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      var ruta2 = this.CorrelativoData[0].Logo2;
-      if (ruta2.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      img1.src = ruta1;
-      img2.src = ruta2;
-      img1.onload = function () {
-        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      };
+      
       //----------------------------------------------------- MESURA
       var ruta3 = this.dataUbicacionInmueble.imagan_plano_mesura;
       console.log('ruta3',ruta3)
@@ -700,7 +695,7 @@ export default {
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
       //const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
       //let pageHeight = pdf.internal.pageSize.height;
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
 
       pdf.addImage(qrCodeDataURL, 'PNG', 175, 12, 23, 23); // CODIGO QR
       pdf.setFontSize(fontSizeHead + 2);
@@ -1081,10 +1076,8 @@ export default {
 
       //*********************************************************************************************************** */
 
-      img1.onload = function () {
-        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      };
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+   
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
       pdf.addImage(qrCodeDataURL, 'PNG', 175, 13, 23, 23); // CODIGO QR
       pdf.setFontSize(fontSizeHead + 2);
       pdf.text(100, 20, 'REPÚBLICA BOLIVARIANA DE VENEZUELA', null, null, 'center');
@@ -1359,7 +1352,9 @@ export default {
         //await this.getPDF()
         console.log('ReportePdfCedulaCatastral', response)
       } catch (err) {
-        console.log(err);
+       this.$alert("cancel", { desc: "No se ha generado una cédula catastral para este inmueble."+err, hash: 'knsddcssdc', title: 'Error' })
+
+        console.log("error grabando PDF", err);
       }
     },
 

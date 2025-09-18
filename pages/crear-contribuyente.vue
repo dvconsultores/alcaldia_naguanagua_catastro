@@ -108,11 +108,11 @@
                 </div>
 
                 <div class="div-btns">
-                  <v-btn @click="createContribuyente()">
+                  <v-btn @click="createContribuyente()" style="background-color:var(--primary)!important;">
                     Guardar
                   </v-btn>
-                  
-                  <v-btn style="background-color:#ED057E!important;" @click="dialog = false">
+
+                  <v-btn style="background-color:var(--error)!important;" @click="dialog = false">
                     Cancelar
                   </v-btn>
                 </div>

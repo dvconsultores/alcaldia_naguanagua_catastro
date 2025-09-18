@@ -43,6 +43,7 @@ const _76e69b44 = () => interopDefault(import('../pages/estado-cuenta-detalle-ca
 const _3c2779d8 = () => interopDefault(import('../pages/estado-cuenta-detalle-catastro.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-catastro" */))
 const _39de406d = () => interopDefault(import('../pages/estado-cuenta-detalle-catastro copy.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-catastro copy" */))
 const _70f89f98 = () => interopDefault(import('../pages/estado-cuenta-detalle-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-hacienda" */))
+const _2ab1a391 = () => interopDefault(import('../pages/estado-cuenta-detalle-hacienda copy.vue' /* webpackChunkName: "pages/estado-cuenta-detalle-hacienda copy" */))
 const _7242409e = () => interopDefault(import('../pages/estado-cuenta-hacienda.vue' /* webpackChunkName: "pages/estado-cuenta-hacienda" */))
 const _49cd7a34 = () => interopDefault(import('../pages/estatus-inmueble.vue' /* webpackChunkName: "pages/estatus-inmueble" */))
 const _6af9057c = () => interopDefault(import('../pages/exoneracion.vue' /* webpackChunkName: "pages/exoneracion" */))
@@ -78,6 +79,7 @@ const _19efbef2 = () => interopDefault(import('../pages/patente.vue' /* webpackC
 const _44e0d9a3 = () => interopDefault(import('../pages/planilla-desincorporacion.vue' /* webpackChunkName: "pages/planilla-desincorporacion" */))
 const _d076870a = () => interopDefault(import('../pages/recaudacion.vue' /* webpackChunkName: "pages/recaudacion" */))
 const _5a615ad2 = () => interopDefault(import('../pages/recaudacion-multiple.vue' /* webpackChunkName: "pages/recaudacion-multiple" */))
+const _0128289a = () => interopDefault(import('../pages/recaudacion-multiple copy.vue' /* webpackChunkName: "pages/recaudacion-multiple copy" */))
 const _422c3f54 = () => interopDefault(import('../pages/regimen.vue' /* webpackChunkName: "pages/regimen" */))
 const _d47f4554 = () => interopDefault(import('../pages/reporte-corridasbancarias.vue' /* webpackChunkName: "pages/reporte-corridasbancarias" */))
 const _0426c21f = () => interopDefault(import('../pages/reporte-ejemplo.vue' /* webpackChunkName: "pages/reporte-ejemplo" */))
@@ -282,6 +284,10 @@ export const routerOptions = {
     component: _70f89f98,
     name: "estado-cuenta-detalle-hacienda___en"
   }, {
+    path: "/estado-cuenta-detalle-hacienda%20copy",
+    component: _2ab1a391,
+    name: "estado-cuenta-detalle-hacienda copy___en"
+  }, {
     path: "/estado-cuenta-hacienda",
     component: _7242409e,
     name: "estado-cuenta-hacienda___en"
@@ -421,6 +427,10 @@ export const routerOptions = {
     path: "/recaudacion-multiple",
     component: _5a615ad2,
     name: "recaudacion-multiple___en"
+  }, {
+    path: "/recaudacion-multiple%20copy",
+    component: _0128289a,
+    name: "recaudacion-multiple copy___en"
   }, {
     path: "/regimen",
     component: _422c3f54,
@@ -706,6 +716,10 @@ export const routerOptions = {
     component: _70f89f98,
     name: "estado-cuenta-detalle-hacienda___es"
   }, {
+    path: "/es/estado-cuenta-detalle-hacienda%20copy",
+    component: _2ab1a391,
+    name: "estado-cuenta-detalle-hacienda copy___es"
+  }, {
     path: "/es/estado-cuenta-hacienda",
     component: _7242409e,
     name: "estado-cuenta-hacienda___es"
@@ -845,6 +859,10 @@ export const routerOptions = {
     path: "/es/recaudacion-multiple",
     component: _5a615ad2,
     name: "recaudacion-multiple___es"
+  }, {
+    path: "/es/recaudacion-multiple%20copy",
+    component: _0128289a,
+    name: "recaudacion-multiple copy___es"
   }, {
     path: "/es/regimen",
     component: _422c3f54,

@@ -52,11 +52,11 @@
                 </div>
 
                 <div class="div-btns">
-                  <v-btn :disabled="disableBoton" @click="saveEstado()">
+                  <v-btn :disabled="disableBoton" @click="saveEstado()" style="background-color:var(--primary)!important;">
                     Guardar
                   </v-btn>
 
-                  <v-btn :disabled="disableBoton" style="background-color:#ED057E!important;" @click="dialog_editar = false">
+                  <v-btn :disabled="disableBoton" style="background-color:var(--error)!important;" @click="dialog_editar = false">
                     Cancelar
                   </v-btn>
                 </div>
@@ -80,9 +80,9 @@
                       <span class="alerta-text" style="text-align:center;">El documento retornará a quien lo envio.</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="saveDevuelve()">Si</v-btn>
+                      <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="saveDevuelve()" style="background-color:var(--primary)!important;">Si</v-btn>
                       <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="dialogDevuelve = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
+                        style="background-color:var(--error)!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>

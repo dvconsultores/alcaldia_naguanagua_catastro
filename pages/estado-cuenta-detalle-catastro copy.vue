@@ -466,7 +466,7 @@
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  :disabled="div.editable"  @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
+            <v-icon color="var(--error)">mdi-delete</v-icon>
           </v-btn>
 
           <v-btn class="btns-add-remove" :disabled="!div.editable" @click="DetalleIC(div.detalle)">
@@ -480,7 +480,7 @@
         <div class="divrow center div-btns" style="gap:30px;">
 
           <v-btn :disabled="botonDeshabilitado" class="btn size-btn" @click="createEstadoCuenta()">
-            Guardar.
+            Guardar
           </v-btn>
         </div>
       </div>

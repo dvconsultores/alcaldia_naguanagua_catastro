@@ -24,7 +24,7 @@
                       <v-spacer></v-spacer>
                       <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="saveDevuelve()">Si</v-btn>
                       <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="dialogDevuelve = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
+                        style="background-color:var(--error)!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -38,7 +38,7 @@
                       <v-spacer></v-spacer>
                       <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="saveRecibe()">Si</v-btn>
                       <v-btn :disabled="disableBoton" class="btn dialog-btn" text @click="dialogRecibe = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
+                        style="background-color:var(--error)!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>

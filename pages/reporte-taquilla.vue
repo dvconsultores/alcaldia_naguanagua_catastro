@@ -32,7 +32,7 @@
             v-model="date"
             @input="menu = false"
             color="blue"
-            header-color="#810880"
+            header-color="var(--primary)"
             class="custom-date-picker"
           ></v-date-picker>
         </v-menu>
@@ -60,7 +60,7 @@
             v-model="date"
             @input="menu2 = false"
             color="blue"
-            header-color="#810880"
+            header-color="var(--primary)"
             class="custom-date-picker"
           ></v-date-picker>
         </v-menu>

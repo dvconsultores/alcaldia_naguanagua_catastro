@@ -27,7 +27,7 @@
             <v-col lg="1" class="divrow pl-0">
 
               <v-btn v-if="accesos.actualizar" class="btn-delete" @click="editTerreno()">
-                <v-icon>
+                <v-icon color="var(--success)" >
                   mdi-pencil
                 </v-icon>
               </v-btn>
@@ -76,7 +76,7 @@
 
             <v-col lg="1" class="divrow pl-0">
               <v-btn v-if="accesos.borrar" class="btn-delete" @click="openDelete(item)">
-                <v-icon>
+                <v-icon color="var(--error)">
                   mdi-delete
                 </v-icon>
               </v-btn>
@@ -155,11 +155,11 @@
           </v-container>
         </v-card-text>
         <v-card-actions class=center>
-          <v-btn class="btn dialog-btn" @click="dialog_edit_terreno = false">
+          <v-btn class="btn dialog-btn" @click="dialog_edit_terreno = false"  style="background-color:var(--error)!important;">
             Cancelar
           </v-btn>
 
-          <v-btn class="btn dialog-btn" @click="saveTerreno()" style="background-color:#ED057E!important;"
+          <v-btn class="btn dialog-btn" @click="saveTerreno()" style="background-color:var(--primary)!important;"
             :loading="btnAddTerreno">
             Guardar
           </v-btn>
@@ -214,12 +214,12 @@
           </v-container>
         </v-card-text>
         <v-card-actions class=center>
-          <v-btn class="btn dialog-btn" @click="dialog_crear = false">
+          <v-btn class="btn dialog-btn" @click="dialog_crear = false"  style="background-color:var(--error)!important;">
             Cancelar
           </v-btn>
 
           <v-btn class="btn dialog-btn" @click="postInmuebleValoracionConstruccion()"
-            style="background-color:#ED057E!important;" :loading="btnAddConstruccion">
+            style="background-color:var(--primary)!important;" :loading="btnAddConstruccion">
             Guardar
           </v-btn>
         </v-card-actions>
@@ -236,7 +236,7 @@
           <v-spacer></v-spacer>
           <v-btn class="btnconfirmDeletesTopografia dialog-btn" text @click="confirmDelete()">Si</v-btn>
           <v-btn class="btn dialog-btn" text @click="dialog_eliminar = false"
-            style="background-color:#ED057E!important;">No</v-btn>
+            style="background-color:var(--error)!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>

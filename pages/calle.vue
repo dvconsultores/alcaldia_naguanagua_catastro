@@ -37,10 +37,10 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn class="btn dialog-btn" @click="dialog = false">
+                <v-btn class="btn dialog-btn" @click="dialog = false" style="background-color:var(--error)!important;">
                   Cancelar
                 </v-btn>
-                <v-btn class="btn dialog-btn" @click="createCalle()" style="background-color:#ED057E!important;">
+                <v-btn class="btn dialog-btn" @click="createCalle()" style="background-color:var(--primary)!important;">
                   Guardar
                 </v-btn>
               </v-card-actions>
@@ -72,11 +72,11 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn class="btn dialog-btn" @click="dialog_editar = false">
+                <v-btn class="btn dialog-btn" @click="dialog_editar = false" style="background-color:var(--error)!important;">
                   Cancelar
                 </v-btn>
 
-                <v-btn class="btn dialog-btn" @click="saveData()" style="background-color:#ED057E!important;">
+                <v-btn class="btn dialog-btn" @click="saveData()" style="background-color:var(--primary)!important;">
                   Guardar
                 </v-btn>
               </v-card-actions>
@@ -101,7 +101,7 @@
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
                       <v-btn class="btn dialog-btn" text @click="dialogDelete = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
+                        style="background-color:var(--error)!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -109,10 +109,10 @@
               </v-toolbar>
             </template>
             <template #[`item.actions`]="{ item }">
-              <v-icon v-if="accesos.actualizar" color="#810880" big @click="editItem(item)">
+              <v-icon v-if="accesos.actualizar" color="var(--success)" big @click="editItem(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon v-if="accesos.borrar" color="#810880" big @click="openDelete(item)">
+              <v-icon v-if="accesos.borrar" color="var(--error)" big @click="openDelete(item)">
                 mdi-delete
               </v-icon>
             </template>

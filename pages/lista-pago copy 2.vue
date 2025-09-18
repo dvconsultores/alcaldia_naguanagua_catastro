@@ -32,7 +32,7 @@
                   Cancelar
                 </v-btn>
 
-                <v-btn class="btn dialog-btn" @click="saveData()" style="background-color:#ED057E!important;">
+                <v-btn class="btn dialog-btn" @click="saveData()" style="background-color:var(--error)!important;">
                   Borrar Registro
                 </v-btn>
               </v-card-actions>
@@ -146,7 +146,7 @@
                   :label="div.tipopago !== 'D' ? '' : 'Nro. aprobación'"
                   :disabled="div.tipopago !== 'D' || div.bloqueado"></v-text-field>
                 <v-btn class="btns-add-remove" :disabled="div.bloqueado" @click="removeDiv(index)">
-                  <v-icon>mdi-delete</v-icon>
+                  <v-icon color="var(--error)">mdi-delete</v-icon>
                 </v-btn>
 
 
@@ -179,13 +179,13 @@
 
 
             <template #[`item.actions`]="{ item }">
-              <v-icon v-if="accesos.borrar" color="#810880" big @click="deleteItem(item)">
+              <v-icon v-if="accesos.borrar" color="var(--error)" big @click="deleteItem(item)">
                 mdi-delete
               </v-icon>
-              <v-icon v-if="accesos.actualizar" color="#810880" big @click="editItem(item)">
+              <v-icon v-if="accesos.actualizar" color="var(--success)" big @click="editItem(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon v-if="accesos.escribir" color="#810880" big @click="getPDF(item)">
+              <v-icon v-if="accesos.escribir" color="var(--primary)" big @click="getPDF(item)">
                 mdi-printer
               </v-icon>
             </template>

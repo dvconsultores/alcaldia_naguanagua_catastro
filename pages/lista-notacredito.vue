@@ -34,7 +34,7 @@
                   Cancelar
                 </v-btn>
 
-                <v-btn class="btn dialog-btn" @click="saveData()" style="background-color:#ED057E!important;">
+                <v-btn class="btn dialog-btn" @click="saveData()" style="background-color:var(--error)!important;">
                   Borrar Registro
                 </v-btn>
               </v-card-actions>
@@ -53,10 +53,10 @@
 
           
             <template #[`item.actions`]="{ item }">
-              <v-icon v-if="accesos.actualizar" color="#810880" big @click="editItem(item)">
+              <v-icon v-if="accesos.actualizar" color="var(--error)" big @click="editItem(item)">
                 mdi-delete
               </v-icon>
-              <v-icon v-if="accesos.escribir" color="#810880" big @click="getPDF(item)">
+              <v-icon v-if="accesos.escribir" color="var(--primary)" big @click="getPDF(item)">
                 mdi-printer
               </v-icon>
             </template>

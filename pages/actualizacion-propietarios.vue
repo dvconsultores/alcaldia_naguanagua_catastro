@@ -80,7 +80,7 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn class="btn dialog-btn" text @click="deleteItem()">Si</v-btn>
-                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:#ED057E!important;">No</v-btn>
+                      <v-btn class="btn dialog-btn" text @click="dialogDelete = false" style="background-color:var(--error)!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -89,7 +89,7 @@
             </template>
             <template #[`item.actions`]="{ item }">
               <v-icon
-                color="#810880"
+                color="var(--error)"
                 big
                 @click="openDelete(item)"
               >
@@ -139,7 +139,7 @@
                 v-model="fecha_compra"
                 label="Fecha de Compra"
                 color="blue"
-                header-color="#810880"
+                header-color="var(--primary)"
                 class="custom-date-picker"
               ></v-date-picker>
             </v-menu>

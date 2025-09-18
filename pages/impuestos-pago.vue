@@ -143,7 +143,7 @@
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
+            <v-icon color="var(--error)">mdi-delete</v-icon>
           </v-btn>
         </div>
       </div>
@@ -218,7 +218,7 @@
             <div class="divrow center flex-column" style="gap:10px;">
               <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
                 <template #activator="{attrs, on}">
-                  <v-btn class="btn btn-dialog" v-bind="attrs" v-on="on" @click="dialog_guardar = false, dialog_exito = true">
+                  <v-btn class="btn btn-dialog" v-bind="attrs" v-on="on" @click="dialog_guardar = false, dialog_exito = true" style="background-color:var(--primary)!important;">
                     Guardar
                   </v-btn>
                 </template>
@@ -227,8 +227,8 @@
                   <p class="p-dialog">¡Se ha guardado con éxito!</p>
                 </v-card>
               </v-dialog>
-              
-              <v-btn class="btn btn-dialog" style="background-color:#ED057E!important;">
+
+              <v-btn class="btn btn-dialog" style="background-color:var(--error)!important;">
                 Cancelar
               </v-btn>
             </div>

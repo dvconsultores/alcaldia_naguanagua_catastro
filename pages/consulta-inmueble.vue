@@ -73,7 +73,7 @@
                       <v-btn>
                         Seleccionar Expediente
                       </v-btn>
-                      <v-btn style="background-color:#ED057E!important;" @click="dialog_mostrar = false">
+                      <v-btn style="background-color:var(--error)!important;" @click="dialog_mostrar = false">
                         Cancelar
                       </v-btn>
                     </div>
@@ -99,7 +99,7 @@
                       <v-btn>
                         Seleccionar Expediente
                       </v-btn>
-                      <v-btn style="background-color:#ED057E!important;" @click="dialog_mostrar = false">
+                      <v-btn style="background-color:var(--error)!important;" @click="dialog_mostrar = false">
                         Cancelar
                       </v-btn>
                     </div>
@@ -122,7 +122,7 @@
                                   <v-spacer></v-spacer>
                                   <v-btn class="btn dialog-btn" text @click="StoreContribuyenteId()">Si</v-btn>
                                   <v-btn class="btn dialog-btn" text @click="dialogSelecciona = false"
-                                    style="background-color:#ED057E!important;">No</v-btn>
+                                    style="background-color:var(--error)!important;">No</v-btn>
                                   <v-spacer></v-spacer>
                                 </v-card-actions>
                               </v-card>
@@ -137,7 +137,7 @@
                       </v-data-table>
                     </div>
                     <div class="center" style="margin-top:30px;">
-                      <v-btn class="btn" style="background-color:#ED057E!important; width: 200px!important;"
+                      <v-btn class="btn" style="background-color:var(--error)!important; width: 200px!important;"
                         @click="dialog_mostrar = false">
                         Cancelar
                       </v-btn>
@@ -240,6 +240,8 @@ export default {
         telefono_secundario: '',
         email_principal: '',
         emaill_secundario: '',
+        error:0,
+        mensaje:'',
       },
     }
   },
@@ -308,22 +310,21 @@ export default {
               this.$alert("cancel", { desc: "EL INMUEBLE NO TIENE COMUNIDAD!!!. DEBE COLOCAR EN FICHA UNA COMUNIDAD!!!", hash: 'knsddcssdc', title: 'Advertencia' })
             }
 
-            const data = {
+            const data = {  // 
             inmueble: this.inmuebleData[0].numero_expediente
             }
             try {
               const response = await this.$axios.$post('DatosInmueblesPublic/',data)
               this.error = response.error
               this.mensaje = response.mensaje
-              if (this.error != 0) {
+              console.log('error',this.error) 
+              if (this.error > 0 ) {
                 this.$alert("cancel", {desc: this.mensaje, hash: 'knsddcssdc', title:'Se debe corregir los datos. Error Id:'+this.error})
                 this.$router.push('consulta-inmueble')
               }
             } catch (err) {
               console.log(err);
             }
-
-
 
             console.log('COMUNIDAD',this.inmuebleData[0].comunidad)
             console.log('CATEGORIZACION',this.inmuebleData[0].categorizacion)

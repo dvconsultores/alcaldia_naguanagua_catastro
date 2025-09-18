@@ -237,7 +237,7 @@
                     append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                 </template>
                 <v-date-picker v-model="div.fechapago" label="Fecha" @input="formatoFecha()" color="blue"
-                  header-color="#810880" class="custom-date-picker"></v-date-picker>
+                  header-color="var(--primary)" class="custom-date-picker"></v-date-picker>
               </v-menu>
               <v-text-field @click="openDialogMonto" v-model="div.monto" class="small-input mobile-inputs" label="Monto"
                 :disabled="div.bloqueado"></v-text-field>
@@ -269,17 +269,17 @@
                 :label="div.tipopago !== 'D' ? '' : 'Nro. aprobación'"
                 :disabled="div.tipopago !== 'D' || div.bloqueado"></v-text-field>
               <v-btn class="btns-add-remove" :disabled="div.bloqueado" @click="removeDiv(index)">
-                <v-icon>mdi-delete</v-icon>
+                <v-icon color="var(--error)">mdi-delete</v-icon>
               </v-btn>
             </div>
             <hr>
             <div class="divrow center div-btns" style="gap:30px;">
 
-              <v-btn class="btn size-btn" @click="createPago()">
+              <v-btn class="btn size-btn" @click="createPago()" style="background-color:var(--primary)!important;">
                 Guardar
               </v-btn>
 
-              <v-btn class="btn size-btn" style="background-color:#ED057E!important;" @click="openDialog = false">
+              <v-btn class="btn size-btn" style="background-color:var(--error)!important;" @click="openDialog = false">
                 Cancelar
               </v-btn>
             </div>
@@ -296,6 +296,8 @@ import computeds from '~/mixins/computeds'
 import moment from 'moment'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import logoIzquierdo from '~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png';
+import logoDerecho from '~/assets/sources/logos/logo.png';
 
 export default {
   name: "RecaudacionPage",
@@ -635,27 +637,7 @@ export default {
 
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
 
-      const img1 = new Image();
-      const img2 = new Image();
-      var ruta1=this.CorrelativoData[0].Logo1;
-      if (ruta1.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      var ruta2=this.CorrelativoData[0].Logo2;
-      if (ruta2.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      img1.src = ruta1;
-      img2.src = ruta2; 
 
-      img1.onload = function () {
-        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-        img2.onload = function () {
-          pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
-        };
-      };
 
       let startY = 55;
 
@@ -666,8 +648,8 @@ export default {
       //let pageHeight = pdf.internal.pageSize.height;
 
 
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(logoDerecho, 'PNG', 160, 13, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE PLANILLA. ${this.Correlativo}`, null, null, 'right');

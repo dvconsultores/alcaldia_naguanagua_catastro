@@ -635,7 +635,7 @@
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  :disabled="div.editable"  @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
+            <v-icon color="var(--error)">mdi-delete</v-icon>
           </v-btn>
 
           <v-btn class="btns-add-remove" :disabled="!div.editable" @click="DetalleIC(div.detalle)">

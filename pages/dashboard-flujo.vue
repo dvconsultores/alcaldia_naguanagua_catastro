@@ -139,7 +139,7 @@ export default {
         stroke: {
           curve: 'smooth'
         },
-        colors: ['#810880'],
+        colors: ['var(--primary)'],
         xaxis: {
           labels: {
             categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',

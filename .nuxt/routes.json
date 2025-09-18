@@ -273,6 +273,13 @@
     "_name": "_70f89f98"
   },
   {
+    "name": "estado-cuenta-detalle-hacienda copy___en",
+    "path": "/estado-cuenta-detalle-hacienda%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-hacienda copy.vue",
+    "chunkName": "pages/estado-cuenta-detalle-hacienda copy",
+    "_name": "_2ab1a391"
+  },
+  {
     "name": "estado-cuenta-hacienda___en",
     "path": "/estado-cuenta-hacienda",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-hacienda.vue",
@@ -516,6 +523,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple.vue",
     "chunkName": "pages/recaudacion-multiple",
     "_name": "_5a615ad2"
+  },
+  {
+    "name": "recaudacion-multiple copy___en",
+    "path": "/recaudacion-multiple%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple copy.vue",
+    "chunkName": "pages/recaudacion-multiple copy",
+    "_name": "_0128289a"
   },
   {
     "name": "regimen___en",
@@ -1015,6 +1029,13 @@
     "_name": "_70f89f98"
   },
   {
+    "name": "estado-cuenta-detalle-hacienda copy___es",
+    "path": "/es/estado-cuenta-detalle-hacienda%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-detalle-hacienda copy.vue",
+    "chunkName": "pages/estado-cuenta-detalle-hacienda copy",
+    "_name": "_2ab1a391"
+  },
+  {
     "name": "estado-cuenta-hacienda___es",
     "path": "/es/estado-cuenta-hacienda",
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/estado-cuenta-hacienda.vue",
@@ -1258,6 +1279,13 @@
     "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple.vue",
     "chunkName": "pages/recaudacion-multiple",
     "_name": "_5a615ad2"
+  },
+  {
+    "name": "recaudacion-multiple copy___es",
+    "path": "/es/recaudacion-multiple%20copy",
+    "component": "/home/jorge/Documentos/alcaldia_naguanagua_catastro/pages/recaudacion-multiple copy.vue",
+    "chunkName": "pages/recaudacion-multiple copy",
+    "_name": "_0128289a"
   },
   {
     "name": "regimen___es",

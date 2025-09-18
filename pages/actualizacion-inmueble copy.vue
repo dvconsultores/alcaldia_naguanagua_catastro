@@ -41,7 +41,7 @@
               <v-text-field v-model="inmuebleData.fecha_inscripcion" class="small-input mobile-inputs"
                 label="Fecha de última Compra" append-icon="mdi-calendar" v-bind="attrs" v-on="on"></v-text-field>
             </template>
-            <v-date-picker v-model="nuevaFecha" label="Fecha" color="blue" header-color="#810880"
+            <v-date-picker v-model="nuevaFecha" label="Fecha" color="blue" header-color="var(--primary)"
               class="custom-date-picker" @input="formatoFecha()"></v-date-picker>
           </v-menu>
 
@@ -154,7 +154,7 @@
           <v-spacer></v-spacer>
           <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
           <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false"
-            style="background-color:#ED057E!important;">No</v-btn>
+            style="background-color:var(--error)!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -188,6 +188,8 @@ import moment from 'moment'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import QRCode from 'qrcode';
+import logoIzquierdo from '~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png';
+
 
 export default {
   name: "Actualizacion-InmueblePage",
@@ -660,7 +662,7 @@ export default {
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
       //const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
       //let pageHeight = pdf.internal.pageSize.height;
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
 
       pdf.addImage(qrCodeDataURL, 'PNG', 175, 12, 23, 23); // CODIGO QR
       pdf.setFontSize(fontSizeHead + 2);
@@ -1037,10 +1039,7 @@ export default {
 
 //*********************************************************************************************************** */
 
-      img1.onload = function () {
-        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      };
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
       pdf.addImage(qrCodeDataURL, 'PNG', 175, 13, 23, 23); // CODIGO QR
       pdf.setFontSize(fontSizeHead + 2);
       pdf.text(100, 20, 'REPÚBLICA BOLIVARIANA DE VENEZUELA', null, null, 'center');

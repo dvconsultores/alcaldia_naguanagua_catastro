@@ -12,14 +12,13 @@
           </span>
         </div>
 
-        <hr>
+        <hr> 
 
         <div class="container-creacion-datos">
           <div class="title-description-div">
             <p class="nombre-razon">
               Fecha
             </p>
-
             <p class="nombre-desc">
               {{ obtenerFechaActual() }}
             </p>
@@ -529,7 +528,7 @@
             :value="0"></v-text-field>
 
           <v-btn class="btns-add-remove" :disabled="div.editable" @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
+            <v-icon color="var(--error)">mdi-delete</v-icon>
           </v-btn>
 
           <v-btn class="btns-add-remove" :disabled="!div.editable" @click="DetalleIC(div.detalle)">
@@ -541,11 +540,11 @@
         <hr>
 
         <div class="center divrow" style="gap:10px;">
-          <v-btn class="btn btn-small" :disabled="disableBotonGuardar" @click="createEstadoCuenta()">
+          <v-btn class="btn btn-small" :disabled="disableBotonGuardar" @click="createEstadoCuenta()" style="background-color:var(--primary)!important;">
             Guardar
           </v-btn>
           <v-btn class="btn btn-small" :disabled="disableBotonGuardar" @click="retorna()"
-            style="background-color:#ED057E!important;">
+            style="background-color:var(--error)!important;">
             Cancelar
           </v-btn>
         </div>
@@ -602,6 +601,8 @@
 import computeds from '~/mixins/computeds'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import logoIzquierdo from '~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png';
+import logoDerecho from '~/assets/sources/logos/logo.png';
 
 export default {
   name: "Estado-Cuenta-HaciendaPage",
@@ -983,6 +984,8 @@ export default {
         observacion: this.observaciones,
         detalle: this.divs,
         monto_total: this.montoTotal(),
+        fanio:this.fAnio,
+        fperiodo:this.fPeriodo,
       }
       try {
         this.dialogWait = true
@@ -1117,27 +1120,27 @@ export default {
 
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
 
-      const img1 = new Image();
-      const img2 = new Image();
-      var ruta1 = this.CorrelativoData[0].Logo1;
-      if (ruta1.includes("catastro_back")) {
+      //const img1 = new Image();
+      //const img2 = new Image();
+      //var ruta1 = this.CorrelativoData[0].Logo1;
+      //if (ruta1.includes("catastro_back")) {
         // Concatenar "/catastro_back"
-        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      var ruta2 = this.CorrelativoData[0].Logo2;
-      if (ruta2.includes("catastro_back")) {
+      //  ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
+      //}
+      //var ruta2 = this.CorrelativoData[0].Logo2;
+      //if (ruta2.includes("catastro_back")) {
         // Concatenar "/catastro_back"
-        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      img1.src = ruta1;
-      img2.src = ruta2;
+      //  ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
+     // }
+      //img1.src = logoIzquierdo; 
+      
+      // Usar logo derecho importado
+      //img2.src = logoDerecho;
 
-      img1.onload = function () {
-        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-        img2.onload = function () {
-          pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
-        };
-      };
+      //img1.onload = function () {
+      //  pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      //  pdf.addImage(logoDerecho, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      //};
 
       let startY = 55;
 
@@ -1148,8 +1151,8 @@ export default {
       //let pageHeight = pdf.internal.pageSize.height;
 
 
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(logoDerecho, 'PNG', 160, 13, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE CONTROL. ${this.Correlativo}`, null, null, 'right');

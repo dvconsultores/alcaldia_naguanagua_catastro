@@ -86,19 +86,16 @@
         </div>
 
         <div class="data-table-container">
-
           <div>
-            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar FLUJO por número de expediente"
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar FLUJO por número de expediente o por nombre de propieario."
               hide-details class="input-data-table" @keyup.enter="getFlow"></v-text-field>
             <!--v-btn @click="getInmueble" color="primary">Buscar INMUEBLE</v-btn-->
           </div>
-
           <v-data-table :loading="dialogWait" :headers="headers" :items="CabeceraFlujoData" :items-per-page="10" :search="search" :footer-props="{
             itemsPerPageText: 'Items por página',
           }" sort-by="id" sort-desc class="mytabla" mobile-breakpoint="840">
             <template v-slot:top>
               <v-toolbar flat class="toolbar-tabla">
-
               </v-toolbar>
             </template>
             <template #[`item.actions`]="{ item }">

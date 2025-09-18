@@ -177,7 +177,7 @@
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
+            <v-icon color="var(--error)">mdi-delete</v-icon>
           </v-btn>
         </div>
 

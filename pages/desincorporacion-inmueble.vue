@@ -79,7 +79,7 @@
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
+            <v-icon color="var(--error)">mdi-delete</v-icon>
           </v-btn>
         </div>
 
@@ -89,7 +89,7 @@
 
           <v-dialog v-model="dialog_exito" persistent class="dialog-exito">
             <template #activator="{attrs, on}">
-              <v-btn class="btn size-btn" v-bind="attrs" v-on="on" @click="dialog_exito = true">
+              <v-btn class="btn size-btn" v-bind="attrs" v-on="on" @click="dialog_exito = true"   style="background-color:var(--primary)!important;">
                 Guardar
               </v-btn>
             </template>
@@ -99,7 +99,7 @@
             </v-card>
           </v-dialog>
 
-          <v-btn class="btn size-btn" style="background-color:#ED057E!important;">
+          <v-btn class="btn size-btn" style="background-color:var(--error)!important;">
             Cancelar
           </v-btn>
         </div>

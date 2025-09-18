@@ -4,7 +4,7 @@
       <div class="reporte-recaudos-container">
         <div class="title-morado">
           <p class="reporte-recaudos-title">
-            Recaudos. Cuadre de Caja
+            Recaudos. Cuadre de Caja.
           </p>
         </div>
         <div class="data-table-container">
@@ -19,7 +19,7 @@
                 v-bind="attrs" v-on="on" ></v-text-field>
             </template>
             <v-date-picker v-model="fechaFiltro" label="Fecha" @input="filtrarPorFecha" color="blue"
-              header-color="#810880" class="custom-date-picker"></v-date-picker>
+              header-color="var(--primary)" class="custom-date-picker"></v-date-picker>
           </v-menu>
           <v-data-table :headers="headers" :items="filteredPropietarioData" :loading="loading" :items-per-page="10"
             :search="search" :footer-props="{
@@ -36,6 +36,8 @@
 import computeds from '~/mixins/computeds'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import logoIzquierdo from '~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png';
+import logoDerecho from '~/assets/sources/logos/logo.png';
 
 export default {
   name: "Reporte-RecaudosPage",
@@ -326,7 +328,7 @@ export default {
       const year = date.getFullYear();
       return `${day}/${month}/${year}`;
     },
-    generarTXT() {
+    generarTXTold() {
       const rows = this.filteredPropietarioData.filter(pago => pago.operacion_tipo !== 'X').map(pago => {
         const { monto, fechapago, banco_cuenta, banco_codigo,nro_lote,nro_aprobacion,operacion_tipo,nro_referencia } = pago;
         const formattedMonto = parseFloat(monto).toFixed(2);
@@ -340,6 +342,42 @@ export default {
       const a = document.createElement('a');
       a.href = url;
       //a.download = 'pagos.txt';
+      a.download = `CUADRE${this.fechaFiltro}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    },
+    generarTXT() {
+      const rows = this.filteredPropietarioData.filter(pago => pago.operacion_tipo !== 'X').map(pago => {
+        const { monto, fechapago, banco_cuenta, banco_codigo, nro_lote, nro_aprobacion, operacion_tipo, nro_referencia } = pago;
+        const formattedMonto = parseFloat(monto).toFixed(2);
+        const formattedFecha = this.formatDateTXT(fechapago);
+        const formattedFechacuadre = this.formatDateTXT(this.fechaSeleccionadaUTC);
+
+        // Lógica para procesar nro_referencia
+        let newNroReferencia = nro_referencia;
+        console.log('nro_referencia', nro_referencia);
+        if (nro_referencia && nro_referencia.length > 20) {
+        
+          const refIndex = nro_referencia.indexOf('Ref. ');
+          console.log('refIndex', refIndex);
+          if (refIndex !== -1) {
+            const startIndex = refIndex + 'Ref. '.length;
+            const endIndex = nro_referencia.indexOf(' ', startIndex);
+            newNroReferencia = nro_referencia.substring(startIndex, endIndex).trim();
+            if (newNroReferencia.length > 19) {
+              newNroReferencia = newNroReferencia.substring(0, 19);
+            }
+          }
+        }
+
+        return `<${formattedFechacuadre}|${formattedFecha}|${banco_codigo === null ? '' : banco_codigo}|${banco_cuenta === null ? '' : banco_cuenta}|${nro_lote === null ? '' : nro_lote}|${nro_aprobacion === null ? '' : nro_aprobacion}|${operacion_tipo}|${newNroReferencia}|${formattedMonto}|0|Z|>`;
+      });
+
+      const content = rows.join('\n');
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
       a.download = `CUADRE${this.fechaFiltro}.txt`;
       a.click();
       URL.revokeObjectURL(url);
@@ -358,36 +396,17 @@ export default {
       //console.log('fechaActual')
       // Tamaño máximo de la línea
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
-      const img1 = new Image();
-      const img2 = new Image();
-      var ruta1 = this.CorrelativoData[0].Logo1;
-      if (ruta1.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      var ruta2 = this.CorrelativoData[0].Logo2;
-      if (ruta2.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      img1.src = ruta1;
-      img2.src = ruta2;
-      img1.onload = function () {
-        pdf.addImage(img1, 'PNG', 10, 5, 30, 30); // Logotipo izquierdo
-        img2.onload = function () {
-          pdf.addImage(img2, 'PNG', 160, 3, 40, 30); // Logotipo derecho
-        };
-      };
+ 
       let startY = 40;
       // Establecer el tamaño de fuente para el encabezado de la tabla
       const fontSizeTitle = 15; // Tamaño de fuente para el encabezado
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
       const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
       //let pageHeight = pdf.internal.pageSize.height;
-      pdf.addImage(img1, 'PNG', 10, 5, 30, 30); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 160, 3, 40, 30); // Logotipo derecho
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 5, 30, 30); // Logotipo izquierdo
+      pdf.addImage(logoDerecho, 'PNG', 160, 3, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);
-      pdf.setFont("helvetica", "normal");
+      pdf.setFont("helvetica", "normal"); 
       pdf.setFontSize(fontSizeHead + 2);
       pdf.text(100, 10, 'REPÚBLICA BOLIVARIANA DE VENEZUELA', null, null, 'center');
       pdf.text(100, 15, 'ESTADO CARABOBO', null, null, 'center');
@@ -458,12 +477,12 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha']],
           body: this.cajasTotales[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
             item.banco_cuenta,
-            item.nro_referencia,
+            item.nro_referencia.substring(0,30),
             item.monto,
             this.formatDate(item.fechapago),
           ]),
@@ -471,6 +490,14 @@ export default {
           //margin: { top: startY + 10 + 10 },
           styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
           headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
+          columnStyles: {
+                0: { cellWidth: 15 }, // Ancho fijo para la columna '#Recibo'
+                1: { cellWidth: 40 }, // Ancho fijo para la columna 'Banco'
+                2: { cellWidth: 35 }, // Ancho fijo para la columna 'Número de cuenta'
+                3: { cellWidth: 50 }, // Ancho fijo para la columna 'Referencia'
+                4: { cellWidth: 30 }, // Ancho fijo para la columna '# Monto'
+                5: { cellWidth: 18 }, // Ancho fijo para la columna '# Fecha'
+            },
 
         });
 
@@ -492,8 +519,9 @@ export default {
           startY = 10;
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
+        
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', 'Aprobación', '# Lote', '# Referencia', 'Monto', 'Fecha del Documento']],
+          head: [['#Recibo','Banco','Número de cuenta', 'Aprobación', '# Lote', '# Referencia', 'Monto', 'Fecha']],
           body: this.cajasTotalesDebito[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -509,6 +537,8 @@ export default {
           styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
           headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
         });
+
+
         startY += 10 + this.cajasTotalesDebito[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
         pdf.text(200, startY, this.cajasTotalesDebito[caja].total.toFixed(2), null, null, 'right');
@@ -527,21 +557,33 @@ export default {
           startY = 10;
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
+
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha']],
           body: this.cajasTotalesTransferencia[caja].recaudos.map(item => [
-            item.numero_recibo,
-            item.banco_nombre,
-            item.banco_cuenta,
-            item.nro_referencia,
-            item.monto,
+            item.numero_recibo.substring(0, 15),
+            item.banco_nombre.substring(0, 40),
+            item.banco_cuenta.substring(0, 35),
+            item.nro_referencia.substring(0, 30),
+            item.monto.substring(0, 30),
             this.formatDate(item.fechapago),
           ]),
           startY: startY + 2,
           //margin: { top: startY + 10 + 10 },
           styles: { fontSize: fontSizeBody }, // Establecer el tamaño de fuente para el cuerpo de la tabla
           headStyles: { fontSize: fontSizeHead }, // Establecer el tamaño de fuente para el encabezado
+          columnStyles: {
+                0: { cellWidth: 15 }, // Ancho fijo para la columna '#Recibo'
+                1: { cellWidth: 40 }, // Ancho fijo para la columna 'Banco'
+                2: { cellWidth: 35 }, // Ancho fijo para la columna 'Número de cuenta'
+                3: { cellWidth: 50 }, // Ancho fijo para la columna 'Referencia'
+                4: { cellWidth: 30 }, // Ancho fijo para la columna '# Monto'
+                5: { cellWidth: 18 }, // Ancho fijo para la columna '# Fecha'
+            },
         });
+
+
+
         startY += 10 + this.cajasTotalesTransferencia[caja].recaudos.length * 7;
         pdf.text(`Total de la Caja ${caja}:`, 15, startY);
         pdf.text(200, startY, this.cajasTotalesTransferencia[caja].total.toFixed(2), null, null, 'right');
@@ -561,7 +603,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha']],
           body: this.cajasTotalesTransferenciaNO[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -594,7 +636,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha']],
           body: this.cajasTotalesTransferenciaSI[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -662,7 +704,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha']],
           body: this.cajasTotalesInteres[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -697,7 +739,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha del Documento']],
+          head: [['#Recibo','Banco','Número de cuenta', '# Referencia', 'Monto', 'Fecha']],
           body: this.cajasTotalesDeposito[caja].recaudos.map(item => [
             item.numero_recibo,
             item.banco_nombre,
@@ -731,7 +773,7 @@ export default {
         }
         //pdf.text(`Caja: ${caja}`, 15, startY);
         pdf.autoTable({
-          head: [['#Recibo', 'Monto', 'Fecha del Documento']],
+          head: [['#Recibo', 'Monto', 'Fecha']],
           body: this.cajasTotalesNotaCredito[caja].recaudos.map(item => [
             item.numero_recibo,
             item.monto,

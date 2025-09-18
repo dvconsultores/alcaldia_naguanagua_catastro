@@ -136,7 +136,7 @@ export default {
         const response = await this.$axios.$post('DatosInmueblesPublic/',data)
         this.error = response.error
         this.mensaje = response.mensaje
-        if (this.error != 0) {
+        if (this.error > 0) {
           this.$alert("cancel", {desc: this.mensaje, hash: 'knsddcssdc', title:'Se debe corregir los datos. Error Id:'+this.error})
           this.$router.push('consulta-inmueble')
         }

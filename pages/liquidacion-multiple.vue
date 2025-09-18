@@ -29,11 +29,11 @@
               <template v-slot:[`item.monto_total`]="{ item }">
                 {{ numeroFormateado(item.monto_total) }}
               </template>
-              <!--template #[`item.actions`]="{ item }">
+              <template #[`item.actions`]="{ item }">
                 <v-btn :disabled="botonDeshabilitado" class="btn-liquidar" @click="getEstadoDetalles(item)">
                   <v-icon>mdi-eye</v-icon>
                 </v-btn>
-              </template-->
+              </template>
               <template #[`item.actions2`]="{ item }">
                 <v-btn  :disabled="botonDeshabilitado" class="btn-liquidar" @click="getEstadoDetallesFast(item)">
                   <v-icon>mdi-gavel</v-icon>
@@ -151,7 +151,7 @@
                 readonly></v-text-field>
 
               <v-btn class="btns-add-remove" @click="removeDiv(index)">
-                <v-icon>mdi-delete</v-icon>
+                <v-icon color="var(--error)">mdi-delete</v-icon>
               </v-btn>
             </div>
 
@@ -159,11 +159,11 @@
 
             <div class="divrow center div-btns" style="gap:30px;">
 
-              <v-btn class="btn size-btn" @click="createLiquidacion()">
+              <v-btn class="btn size-btn" @click="createLiquidacion()" style="background-color:var(--primary)!important;">
                 Guardar
               </v-btn>
 
-              <v-btn class="btn size-btn" style="background-color:#ED057E!important;" @click="openDialog = false">
+              <v-btn class="btn size-btn" style="background-color:var(--error)!important;" @click="openDialog = false">
                 Cancelar
               </v-btn>
             </div>
@@ -199,6 +199,8 @@ import computeds from '~/mixins/computeds'
 import moment from 'moment'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import logoIzquierdo from '~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png';
+import logoDerecho from '~/assets/sources/logos/logo.png';
 
 export default {
   name: "liquidacion-multiplePage",
@@ -354,17 +356,15 @@ export default {
         this.Id = res.id
         console.log('this.divs', this.divs)
         await this.generarPDF()
+        console.log('1')
         this.$store.getters.getPrefactura == undefined ? console.log('vacio') : console.log('lleno', this.$store.getters.getPrefactura.id)
         this.$router.push(`recaudacion-multiple`)
         //-----------------
-
-
         //await this.getEstadosCuentas()
         //this.$router.push('liquidacion-multiple')
-        
-
         //this.$alert("success", { desc: "Se ha creado una pre-factura con éxito", hash: 'knsddcssdc', title: 'Creado' })
         this.dialogWait = false
+        this.openDialog = false
       } catch (err) {
         console.log(err);
       }
@@ -449,20 +449,7 @@ export default {
 
       const fechaConHora = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
 
-      const img1 = new Image();
-      const img2 = new Image();
-      var ruta1=this.CorrelativoData[0].Logo1;
-      if (ruta1.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      var ruta2=this.CorrelativoData[0].Logo2;
-      if (ruta2.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      img1.src = ruta1;
-      img2.src = ruta2;
+    
       let startY = 60;
 
       // Establecer el tamaño de fuente para el encabezado de la tabla
@@ -472,8 +459,8 @@ export default {
       //let pageHeight = pdf.internal.pageSize.height;
 
 
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(logoDerecho, 'PNG', 160, 13, 40, 30); // Logotipo derecho
       pdf.setFontSize(fontSizeHead);
       pdf.setFont("helvetica", "bold");
       pdf.text(200, 10, `No DE CONTROL. ${this.Correlativo}`, null, null, 'right');
@@ -638,16 +625,16 @@ export default {
       try {
         const response = await this.$axios.$get(`estadocuenta/${item.id}`)
         this.idEstadoCuenta = response
-        console.log('this.idEstadoCuenta', this.idEstadoCuenta)
-        console.log('this.idEstadoCuenta.tipoflujo_vencimiento', this.idEstadoCuenta.tipoflujo_vencimiento)
-        console.log('this.idEstadoCuenta.fecha', this.idEstadoCuenta.fecha)
-        console.log((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)) >= (fechaActual),
-          (this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)), (fechaActual))
+        //console.log('this.idEstadoCuenta', this.idEstadoCuenta)
+        //console.log('this.idEstadoCuenta.tipoflujo_vencimiento', this.idEstadoCuenta.tipoflujo_vencimiento)
+        //console.log('this.idEstadoCuenta.fecha', this.idEstadoCuenta.fecha)
+        //console.log((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)) >= (fechaActual),
+        //  (this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)), (fechaActual))
         if ((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)) >= (fechaActual)) {
           try {
             const response2 = await this.$axios.$get(`estadocuentadetalle/?estadocuenta_id=${item.id}`)
             this.divs = response2
-            console.log(this.divs, 'jolaaa')
+            //console.log(this.divs, 'jolaaa')
             this.openDialog = true
           } catch (err) {
             console.log(err);
@@ -671,7 +658,6 @@ export default {
       const fechaActual = new Date();
       fechaActual.setHours(0, 0, 0, 0); // Establece la hora en 00:00:00
       try {
-        
         const response = await this.$axios.$get(`estadocuenta/${item.id}`)
         this.idEstadoCuenta = response
         if ((this.sumarDiasHabiles(this.idEstadoCuenta.fecha, this.idEstadoCuenta.tipoflujo_vencimiento)) >= (fechaActual)) {

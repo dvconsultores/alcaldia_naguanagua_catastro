@@ -119,7 +119,7 @@
                 v-model="fecha_compra_estado"
                 label="Fecha de Compra"
                 color="blue"
-                header-color="#810880"
+                header-color="var(--primary)"
                 class="custom-date-picker"
               ></v-date-picker>
             </v-menu>
@@ -223,7 +223,7 @@
           ></v-text-field>
 
           <v-btn class="btns-add-remove"  @click="removeDiv(index)">
-            <v-icon>mdi-delete</v-icon>
+            <v-icon color="var(--error)">mdi-delete</v-icon>
           </v-btn>
         </div>
 

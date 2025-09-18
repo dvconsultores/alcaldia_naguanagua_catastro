@@ -7,9 +7,7 @@
         </v-card-text>
       </v-card>
     </v-dialog> -->
-
     <img src="~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png" alt="Escudo-Naguanagua">
-    <img src="~/assets/sources/images/morado.png" alt="morado">
     <div class="divcol center container-login">
       <img src="~/assets/sources/logos/logo.png" alt="AlcaldiaLogo">
       <h2>Sistema de trámites y servicios</h2>

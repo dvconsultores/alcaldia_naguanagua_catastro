@@ -53,10 +53,10 @@
 
                 <div class="div-btns">
 
-                  <v-btn :disabled="disableBoton" style="background-color:#ED057E!important;" @click="dialog_editar = false">
+                  <v-btn :disabled="disableBoton" style="background-color:var(--error)!important;" @click="dialog_editar = false">
                     Cancelar
                   </v-btn>
-                  <v-btn :disabled="disableBoton" @click="saveEstado()">
+                  <v-btn :disabled="disableBoton" @click="saveEstado()" style="background-color:var(--primary)!important;">
                     Guardar
                   </v-btn> 
                   <v-btn :disabled="disableBoton"  @click="openFIN(defaultItem)" v-if="(JSON.parse(JSON.stringify(this.$store.getters.getUser.finaliza_flujo)))">
@@ -83,9 +83,9 @@
                       <span class="alerta-text" style="text-align:center;">Esta seguro de FINALIZAR la solicitu y Archivar definitivamente el Expediente?</span>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn :disabled="disableBoton"  class="btn dialog-btn" text @click="saveFIN()">Si</v-btn>
+                      <v-btn :disabled="disableBoton"  class="btn dialog-btn" text @click="saveFIN()" style="background-color:var(--primary)!important;">Si</v-btn>
                       <v-btn :disabled="disableBoton"  class="btn dialog-btn" text @click="dialogDevuelve = false"
-                        style="background-color:#ED057E!important;">No</v-btn>
+                        style="background-color:var(--error)!important;">No</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -116,6 +116,8 @@
 import computeds from '~/mixins/computeds'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import logoIzquierdo from '~/assets/sources/logos/Escudo_Naguanagua_Carabobo.png';
+import logoDerecho from '~/assets/sources/logos/logo.png';
 
 export default {
   name: "flow-por-procesarPage",
@@ -296,26 +298,7 @@ export default {
       
 
 
-      const img1 = new Image();
-      const img2 = new Image();
-      var ruta1 = this.CorrelativoData[0].Logo1;
-      if (ruta1.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta1 = ruta1.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      var ruta2 = this.CorrelativoData[0].Logo2;
-      if (ruta2.includes("catastro_back")) {
-        // Concatenar "/catastro_back"
-        ruta2 = ruta2.replace("catastro_back", "catastro_back/catastro_back");
-      }
-      img1.src = ruta1;
-      img2.src = ruta2;
-      img1.onload = function () {
-        pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      };
-      img2.onload = function () {
-        pdf.addImage(img2, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      };
+
 
       //-------------------------------------------------fin mesura
 
@@ -324,8 +307,8 @@ export default {
       const fontSizeHead = 8; // Tamaño de fuente para el encabezado
       //const fontSizeBody = 8; // Tamaño de fuente para el cuerpo de la tabla
       //let pageHeight = pdf.internal.pageSize.height;
-      pdf.addImage(img1, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
-      pdf.addImage(img2, 'PNG', 160, 13, 40, 30); // Logotipo derecho
+      pdf.addImage(logoIzquierdo, 'PNG', 10, 15, 30, 30); // Logotipo izquierdo
+      pdf.addImage(logoDerecho, 'PNG', 160, 13, 40, 30); // Logotipo derecho
 
 
       pdf.setFontSize(fontSizeHead + 2);

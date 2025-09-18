@@ -69,7 +69,7 @@
             readonly
             ></v-text-field>
             <v-btn @click="openDeleteSoporte(item)" class="btn-delete">
-              <v-icon>
+              <v-icon color="var(--error)">
                 mdi-delete
               </v-icon>
             </v-btn>
@@ -100,7 +100,7 @@
             readonly
             ></v-text-field>
             <v-btn @click="openDeleteTecho(item)" class="btn-delete">
-              <v-icon>
+              <v-icon color="var(--error)">
                 mdi-delete
               </v-icon>
             </v-btn>
@@ -131,7 +131,7 @@
             readonly
             ></v-text-field>
             <v-btn @click="openDeleteCubierta(item)" class="btn-delete">
-              <v-icon>
+              <v-icon color="var(--error)">
                 mdi-delete
               </v-icon>
             </v-btn>
@@ -269,8 +269,8 @@
         <v-card-title class="center title">¿Desea guardar este registro?</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble">Si</v-btn>
-          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-btn class="btn dialog-btn" text @click="saveData()" :loading="btnGuardarInmuble" style="background-color:var(--primary)!important;">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialog_confirmar = false" style="background-color:var(--error)!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -282,8 +282,8 @@
         <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="confirmDeletesSoporte()">Si</v-btn>
-          <v-btn class="btn dialog-btn" text @click="dialogDeleteSoporte = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-btn class="btn dialog-btn" text @click="confirmDeletesSoporte()" style="background-color:var(--primary)!important;">Si </v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialogDeleteSoporte = false" style="background-color:var(--error)!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -295,8 +295,8 @@
         <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="confirmDeleteTecho()">Si</v-btn>
-          <v-btn class="btn dialog-btn" text @click="dialogDeleteTecho = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-btn class="btn dialog-btn" text @click="confirmDeleteTecho()" style="background-color:var(--primary)!important;">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialogDeleteTecho = false" style="background-color:var(--error)!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -308,8 +308,8 @@
         <span class="alerta-text">Esta acción no se puede revertir</span>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="btn dialog-btn" text @click="confirmDeletesCubierta()">Si</v-btn>
-          <v-btn class="btn dialog-btn" text @click="dialogDeleteCubierta = false" style="background-color:#ED057E!important;">No</v-btn>
+          <v-btn class="btn dialog-btn" text @click="confirmDeletesCubierta()" style="background-color:var(--primary)!important;">Si</v-btn>
+          <v-btn class="btn dialog-btn" text @click="dialogDeleteCubierta = false" style="background-color:var(--error)!important;">No</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>

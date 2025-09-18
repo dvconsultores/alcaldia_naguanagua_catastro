@@ -25,10 +25,10 @@
                   </div>
                 </div>
                 <div class=" div-btns">
-                  <v-btn :disabled="disableBoton" @click="saveEstado()">
+                  <v-btn :disabled="disableBoton" @click="saveEstado()" style="background-color:var(--primary)!important;">
                     Guardar
                   </v-btn>
-                  <v-btn :disabled="disableBoton" style="background-color:#ED057E!important;"
+                  <v-btn :disabled="disableBoton" style="background-color:var(--error)!important;"
                     @click="dialog_editar = false">
                     Cancelar
                   </v-btn>
